@@ -12,12 +12,16 @@ interface Props {
   href: string
   image?: string
   alt: string
+  // Optional terser accessible name; falls back to `title` when absent.
+  // Matches the prototype where BATCH SQUOOSH spoke as "Squoosh".
+  ariaLabel?: string
 }
 
 const props = defineProps<Props>()
 
 // Idx label is presentation; data layer stores plain numbers (plan K3).
 const idxLabel = computed(() => String(props.idx).padStart(2, '0'))
+const accessibleName = computed(() => props.ariaLabel ?? props.title)
 </script>
 
 <template>
@@ -27,7 +31,7 @@ const idxLabel = computed(() => String(props.idx).padStart(2, '0'))
     role="listitem"
     target="_blank"
     rel="noopener"
-    :aria-label="title"
+    :aria-label="accessibleName"
   >
     <div class="shot">
       <div class="stripes" aria-hidden="true" />

@@ -48,6 +48,7 @@ import { experiments } from '~/data/experiments'
             :href="item.url"
             :image="item.image"
             :alt="item.alt"
+            :aria-label="item.ariaLabel"
           />
         </div>
       </div>
