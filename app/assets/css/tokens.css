@@ -1,0 +1,48 @@
+/* Motto® design tokens — from 02-design-system-motto.md */
+:root {
+  /* Colors */
+  --color-pitch-black: #000000;
+  --color-canvas-white: #ffffff;
+  --color-charcoal-surface: #1b1b1c;
+  --color-cloud-gray: #f2f2f2;
+  --color-stone-accent: #d8d8d8;
+  --color-ash-text: #4d5153;
+  --color-silver-text: #848484;
+  --color-input-border: #c8cacd;
+  --color-faint-gray: #717476;
+  --color-vivid-purple: #9c98ef;
+  --color-electric-violet: #6980ff;
+  --color-grass-green: #beee98;
+
+  /* Fonts */
+  --font-sans: 'Inter', Arial, Helvetica, sans-serif;
+  --font-disp: 'Oswald', Impact, sans-serif;
+  --font-weight-medium: 500;
+
+  /* Type scale */
+  --text-caption: 14px;     --leading-caption: 1.4;
+  --text-body: 17px;        --leading-body: 1.38;
+  --text-subheading: 25px;  --leading-subheading: 1.14;
+  --text-heading-sm: 34px;  --leading-heading-sm: 1.14;
+  --text-heading: 48px;     --leading-heading: 1.14;
+  --text-heading-lg: 61px;  --leading-heading-lg: 1.1;
+  --text-display-sm: 99px;  --leading-display-sm: 1;
+  --text-display: 154px;    --leading-display: 1;
+
+  /* Spacing */
+  --spacing-8: 8px;     --spacing-15: 15px;   --spacing-19: 19px;
+  --spacing-21: 21px;   --spacing-23: 23px;   --spacing-24: 24px;
+  --spacing-29: 29px;   --spacing-38: 38px;   --spacing-48: 48px;
+  --spacing-58: 58px;   --spacing-67: 67px;   --spacing-70: 70px;
+  --spacing-77: 77px;   --spacing-96: 96px;   --spacing-158: 158px;
+
+  /* Layout & radius */
+  --section-gap: 48px;
+  --card-padding: 0px;
+  --radius-cards: 0px;
+  --radius-buttons: 9999px;
+
+  /* Page */
+  --page-max: 1280px;
+  --page-pad-x: clamp(20px, 5vw, 96px);
+}
