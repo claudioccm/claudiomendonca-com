@@ -9,7 +9,7 @@
       <div class="footer-grid">
         <!-- Brand column -->
         <div>
-          <NuxtLink to="/" class="wordmark" style="font-size: var(--text-subheading);" ariaCurrentValue="false">
+          <NuxtLink to="/" class="wordmark" style="font-size: var(--text-subheading);" :aria-current-value="false">
             <span class="ast" aria-hidden="true" style="font-size: 28px;">✱</span>
             <span>Claudio Mendonça</span>
           </NuxtLink>
