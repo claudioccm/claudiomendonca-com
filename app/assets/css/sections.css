@@ -11,8 +11,25 @@
      - Experiment caption (.experiment-caption*, .idx, .title-block, h3, .tag, .arrow) — lines 416–471
      - About / bio (.bio-grid*, .bio-body*) — lines 541–565
    Plus a reduced-motion override appended at the bottom (R14).
-   .btn-text (prototype lines 215–225) and .entry* (lines 474–539, 669–676)
-   intentionally skipped — deferred to PRO-78. */
+   .btn-text (prototype lines 215–225) intentionally skipped.
+
+   PRO-78 appended (consulting page section primitives):
+     - Entry list wrapper (.entry-list) — prototype lines 360–363
+     - Entry base (.entry, .entry .idx, .entry-body, .entry h3, .entry .tagline,
+       .entry .blurb, .entry .meta, .entry-actions, mobile collapse) — lines 474–539
+     - Entry-rich variant (.entry.entry-rich, mobile collapse) — lines 669–676
+     - Entry outcomes column (.entry-rich .entry-body--outcomes) — new (K2),
+       replaces the prototype's inline-styled border-left; adds mobile rule.
+     - Outcomes list (.outcomes, .outcomes li, .outcomes li::before) — lines 647–667
+     - Steps grid (.steps, .step, .step .num, .step h4, .step p) — lines 583–616
+     - CTA banner (.cta-banner, .cta-banner h2, .cta-banner p) — lines 619–644
+     - Global .label rule (.label, .label::before) — new (K2), extracted from
+       the prototype's repeated inline-style payload (consulting.html lines 65,
+       114, 141, 168). Co-exists with .section-head .label (identical body).
+     - Section-trail caption spacer (.section-trail) — new, promoted from the
+       repeated inline `style="margin-top: 48px;"` once a second consumer
+       appeared (consulting.vue + HowItWorks.vue). Responsive clamp is a small
+       improvement over the prototype's fixed 48px. */
 
 /* ---------- Buttons (pill atoms) ---------- */
 .btn {
@@ -285,6 +302,226 @@
   max-width: 60ch;
 }
 .bio-body p.secondary { color: var(--color-ash-text); font-size: var(--text-body); line-height: var(--leading-body); }
+
+/* ---------- Global label eyebrow (PRO-78 K2) ----------
+   Extracted from the prototype's repeated inline-style block so consulting
+   markup stays clean. Identical body to .section-head .label, which remains
+   in place as the more-specific selector for section-head consumers. */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ash-text);
+}
+.label::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-pitch-black);
+}
+
+/* ---------- Entry list (PRO-78) — prototype lines 360–363 ---------- */
+.entry-list {
+  display: grid;
+  gap: 0;
+}
+
+/* ---------- Entry base (PRO-78) — prototype lines 474–539 ---------- */
+.entry {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: clamp(24px, 4vw, 70px);
+  padding: clamp(48px, 6vw, 77px) 0;
+  border-top: 1px solid var(--color-pitch-black);
+  align-items: start;
+}
+.entry:last-child { border-bottom: 1px solid var(--color-pitch-black); }
+.entry .idx {
+  font-family: var(--font-disp);
+  font-weight: var(--font-weight-medium);
+  font-size: clamp(34px, 4.5vw, 61px);
+  line-height: 1;
+  color: var(--color-pitch-black);
+  letter-spacing: -0.01em;
+}
+.entry-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.entry h3 {
+  font-family: var(--font-disp);
+  font-weight: var(--font-weight-medium);
+  font-size: clamp(54px, 9.5vw, 138px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.entry .tagline {
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.18;
+  color: var(--color-pitch-black);
+  margin: 0;
+  max-width: 28ch;
+  letter-spacing: -0.005em;
+}
+.entry .blurb {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ash-text);
+  margin: 0;
+  max-width: 60ch;
+}
+.entry .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: var(--text-caption);
+  color: var(--color-faint-gray);
+  margin: 0;
+}
+.entry .meta .dot { color: var(--color-stone-accent); }
+.entry-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .entry { grid-template-columns: 1fr; gap: 16px; }
+  .entry .idx { font-size: var(--text-subheading); }
+}
+
+/* ---------- Entry-rich variant (PRO-78) — prototype lines 669–676 ----------
+   Three-column layout for the consulting offerings list (idx | body | outcomes). */
+.entry.entry-rich {
+  grid-template-columns: 96px 1.1fr 1fr;
+  gap: clamp(24px, 4vw, 70px);
+}
+@media (max-width: 900px) {
+  .entry.entry-rich { grid-template-columns: 1fr; }
+}
+
+/* ---------- Entry outcomes column (PRO-78 K2 — new) ----------
+   Replaces the prototype's inline-styled `style="border-left:…; padding-left:…"`
+   block from consulting.html lines 113 / 140 / 167. The mobile rule (border
+   flips from left to top below 900px) is a deliberate small improvement
+   over the prototype, which leaves a vertical border on a stacked column. */
+.entry-rich .entry-body--outcomes {
+  border-left: 1px solid var(--color-stone-accent);
+  padding-left: clamp(20px, 3vw, 48px);
+}
+@media (max-width: 900px) {
+  .entry-rich .entry-body--outcomes {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--color-stone-accent);
+    padding-top: clamp(20px, 3vw, 32px);
+  }
+}
+
+/* ---------- Outcomes list (PRO-78) — prototype lines 647–667 ----------
+   Arrow-prefixed bullets used inside .entry-body--outcomes. */
+.outcomes {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: grid;
+  gap: 8px;
+  max-width: 56ch;
+}
+.outcomes li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 12px;
+  font-size: var(--text-body);
+  color: var(--color-ash-text);
+  line-height: var(--leading-body);
+}
+.outcomes li::before {
+  content: "→";
+  font-family: var(--font-disp);
+  color: var(--color-pitch-black);
+}
+
+/* ---------- How it works steps (PRO-78) — prototype lines 583–616 ---------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 70px);
+  margin-top: 24px;
+}
+@media (max-width: 800px) { .steps { grid-template-columns: 1fr; } }
+.step {
+  border-top: 1px solid var(--color-pitch-black);
+  padding-top: 24px;
+  display: grid;
+  gap: 12px;
+}
+.step .num {
+  font-family: var(--font-disp);
+  font-size: var(--text-heading-sm);
+  line-height: 1;
+}
+.step h4 {
+  margin: 0;
+  font-family: var(--font-disp);
+  font-weight: var(--font-weight-medium);
+  font-size: clamp(34px, 4vw, 61px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.step p {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ash-text);
+  max-width: 40ch;
+}
+
+/* ---------- CTA banner (PRO-78) — prototype lines 619–644 ---------- */
+.cta-banner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: clamp(32px, 5vw, 96px);
+  padding: clamp(48px, 6vw, 96px) 0;
+  border-top: 1px solid var(--color-pitch-black);
+  border-bottom: 1px solid var(--color-pitch-black);
+}
+@media (max-width: 800px) { .cta-banner { grid-template-columns: 1fr; align-items: start; } }
+.cta-banner h2 {
+  font-family: var(--font-disp);
+  font-weight: var(--font-weight-medium);
+  font-size: clamp(56px, 9.5vw, 138px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 14ch;
+  text-transform: uppercase;
+}
+.cta-banner p {
+  margin: 24px 0 0;
+  font-size: var(--text-body);
+  color: var(--color-ash-text);
+  max-width: 40ch;
+}
+
+/* ---------- Section trail caption (PRO-78) ----------
+   Spacing rule for a trailing `.t-caption faint` paragraph that sits at the
+   bottom of a section (e.g. trailing TODO captions in consulting.vue and
+   HowItWorks.vue). Promoted from the repeated inline
+   `style="margin-top: 48px;"` once a second consumer appeared; the clamp is a
+   small responsive improvement over the prototype's fixed 48px. */
+.section-trail { margin-top: clamp(32px, 4vw, 48px); }
 
 /* ---------- Reduced motion override (R14) ---------- */
 @media (prefers-reduced-motion: reduce) {
