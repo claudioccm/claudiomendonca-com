@@ -58,7 +58,7 @@ import { experiments } from '~/data/experiments'
       <div class="shell">
         <div class="bio-grid">
           <div>
-            <span class="label">— About</span>
+            <span class="label">About</span>
             <h2>About.</h2>
           </div>
           <div class="bio-body">
