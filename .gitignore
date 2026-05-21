@@ -1,0 +1,25 @@
+# Nuxt / Node
+node_modules
+.nuxt
+.output
+.data
+.cache
+.env
+.env.*
+!.env.example
+dist
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE
+.vscode
+.idea
+
+# Local doc artifacts (lfg-tracked output)
+todos/_resolved/

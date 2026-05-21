@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Consulting — Claudio Mendonça</title>
+  <meta name="description" content="Consulting from Claudio Mendonça: agent architecture, AI automation, and AI training for teams." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Oswald:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav" id="top">
+    <div class="shell nav-inner">
+      <a href="index.html" class="wordmark" aria-label="Claudio Mendonça — home">
+        <span class="ast" aria-hidden="true">✱</span>
+        Claudio Mendonça
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="index.html#work">Experiments</a></li>
+          <li><a href="consulting.html" aria-current="page">Consulting</a></li>
+          <li><a href="index.html#about" class="hide-sm">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" data-screen-label="Consulting — Hero">
+      <div class="shell">
+        <div class="hero-eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Consulting — Independent practice</span>
+        </div>
+        <h1>
+          Ship AI that<br />
+          actually works.
+        </h1>
+        <p class="hero-sub">
+          For builders and teams who want real agentic systems — not AI
+          theatre. Architecture, automation, and training, run hands-on.
+          <span class="todo">TODO(claudio): confirm hero line</span>
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn btn-filled" href="mailto:claudioccm@gmail.com">
+            Start a conversation
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn-ghost" href="#consulting">See offerings</a>
+        </div>
+        <a href="#consulting" class="down-arrow" aria-label="Scroll to offerings">↓</a>
+      </div>
+    </section>
+
+    <!-- ============ POSITIONING ============ -->
+    <section data-screen-label="Consulting — Positioning">
+      <div class="shell">
+        <div class="bio-grid">
+          <div>
+            <span class="label" style="display:flex;align-items:center;gap:12px;font-size:var(--text-caption);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-ash-text);margin-bottom:24px;">
+              <span style="display:inline-block;width:24px;height:1px;background:var(--color-pitch-black);"></span>
+              Who this is for
+            </span>
+            <h2>The brief.</h2>
+          </div>
+          <div class="bio-body">
+            <p>
+              Most "AI strategy" is a slide deck. This is the opposite:
+              architecture, automation, and training delivered as working
+              systems your team can run after I leave.
+              <span class="todo">TODO(claudio): confirm positioning</span>
+            </p>
+            <p class="secondary">
+              I work with small teams of builders — founders, product leads, and
+              engineers — who already know what they want, but want a faster,
+              cleaner path to a real agentic system in production.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONSULTING LIST ============ -->
+    <section id="consulting" data-screen-label="Consulting — List">
+      <div class="shell">
+        <div class="section-head">
+          <span class="label">Offerings — 03</span>
+          <h2>What I do.</h2>
+        </div>
+
+        <ol class="entry-list" aria-label="Consulting offerings">
+          <!-- 01 — Agent Architecture -->
+          <li class="entry entry-rich">
+            <span class="idx">01</span>
+            <div class="entry-body">
+              <h3>Agent<br />Architecture.</h3>
+              <p class="tagline">
+                Multi-agent systems that aren't held together with hope and
+                duct tape.
+              </p>
+              <p class="blurb">
+                Design and build agentic systems end-to-end: agent roles and
+                boundaries, tool design, orchestration patterns, hand-offs, and
+                the evaluation loops that keep them honest. From architecture
+                diagram to working, testable system.
+              </p>
+            </div>
+            <div class="entry-body" style="border-left:1px solid var(--color-stone-accent);padding-left:clamp(20px,3vw,48px);">
+              <span class="label" style="display:flex;align-items:center;gap:12px;font-size:var(--text-caption);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-ash-text);">
+                What you walk away with
+              </span>
+              <ul class="outcomes">
+                <li><span>Working agent system, in your repo, on your stack.</span></li>
+                <li><span>Architecture doc + tool catalogue your team owns.</span></li>
+                <li><span>Eval loop wired to CI so quality doesn't drift.</span></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- 02 — AI Automation -->
+          <li class="entry entry-rich">
+            <span class="idx">02</span>
+            <div class="entry-body">
+              <h3>AI<br />Automation.</h3>
+              <p class="tagline">
+                Remove the repetitive work without losing control or quality.
+              </p>
+              <p class="blurb">
+                Identify the high-leverage workflows hiding in your team's
+                week, then automate them with LLMs and agents — pipelines,
+                internal tools, and human-in-the-loop processes that fit how
+                you already work.
+              </p>
+            </div>
+            <div class="entry-body" style="border-left:1px solid var(--color-stone-accent);padding-left:clamp(20px,3vw,48px);">
+              <span class="label" style="display:flex;align-items:center;gap:12px;font-size:var(--text-caption);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-ash-text);">
+                What you walk away with
+              </span>
+              <ul class="outcomes">
+                <li><span>Audit of where AI moves the needle for your team.</span></li>
+                <li><span>One or more deployed automations — not prototypes.</span></li>
+                <li><span>Playbook your team can extend without me.</span></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- 03 — AI Training -->
+          <li class="entry entry-rich">
+            <span class="idx">03</span>
+            <div class="entry-body">
+              <h3>AI<br />Training.</h3>
+              <p class="tagline">
+                Practical AI for the people who actually have to use it.
+              </p>
+              <p class="blurb">
+                Upskill teams on the things that matter: agentic workflows,
+                prompt and context engineering, tool and agent design, and the
+                day-to-day craft of modern AI dev tooling. Hands-on,
+                role-specific — not a generic slide deck.
+              </p>
+            </div>
+            <div class="entry-body" style="border-left:1px solid var(--color-stone-accent);padding-left:clamp(20px,3vw,48px);">
+              <span class="label" style="display:flex;align-items:center;gap:12px;font-size:var(--text-caption);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-ash-text);">
+                What you walk away with
+              </span>
+              <ul class="outcomes">
+                <li><span>Tailored curriculum for your roles and stack.</span></li>
+                <li><span>Workshop materials your team keeps.</span></li>
+                <li><span>Measurable lift on the workflows that matter.</span></li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+
+        <p class="t-caption faint" style="margin-top:48px;">
+          <span class="todo">TODO(claudio):</span>
+          Decide whether to add <em>AI Strategy &amp; Advisory</em>,
+          <em>Custom AI Product Development</em>, and
+          <em>Exploration / Prototype Sprints</em> — kept off the page for v1.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section data-screen-label="Consulting — How it works">
+      <div class="shell">
+        <div class="section-head">
+          <span class="label">Engagement</span>
+          <h2>How it works.</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <span class="num">01</span>
+            <h4>Scope.</h4>
+            <p>
+              A short, paid scoping engagement. We agree on the problem, the
+              shape of the solution, and what "done" looks like before any
+              build starts.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <h4>Build.</h4>
+            <p>
+              Hands-on delivery, working in your repo and tools. Short
+              feedback cycles, weekly checkpoints, no surprises in the final
+              review.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <h4>Handover.</h4>
+            <p>
+              The system, the docs, and the eval loop are yours. Optional
+              ongoing support is available, but the goal is your team operating
+              it without me.
+            </p>
+          </div>
+        </div>
+        <p class="t-caption faint" style="margin-top:48px;">
+          <span class="todo">TODO(claudio):</span>
+          Confirm engagement model. Pricing intentionally not shown on the page.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section data-screen-label="Consulting — CTA">
+      <div class="shell">
+        <div class="cta-banner">
+          <div>
+            <h2>Got something to build?</h2>
+            <p>
+              A short note about what you're working on is enough to start.
+              No deck required.
+            </p>
+          </div>
+          <div>
+            <a class="btn btn-filled" href="mailto:claudioccm@gmail.com">
+              Start a conversation
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="contact" data-screen-label="Consulting — Footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="wordmark" style="font-size:var(--text-subheading);">
+            <span class="ast" style="font-size:28px;" aria-hidden="true">✱</span>
+            Claudio Mendonça
+          </a>
+          <p class="t-body ash" style="max-width:34ch;margin-top:24px;">
+            AI experiments, and a small consulting practice.
+          </p>
+        </div>
+
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="index.html#work">Experiments</a></li>
+            <li><a href="consulting.html" aria-current="page">Consulting</a></li>
+            <li><a href="index.html#about">About</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:claudioccm@gmail.com">claudioccm@gmail.com</a></li>
+            <li><a href="#" rel="noopener">GitHub <span class="todo">TODO</span></a></li>
+            <li><a href="#" rel="noopener">X / Twitter <span class="todo">TODO</span></a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Elsewhere</h4>
+          <ul>
+            <li><a href="https://ccmdesign.com" target="_blank" rel="noopener">ccmdesign ↗</a></li>
+            <li><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener">squoosh ↗</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        <div>© 2026 Claudio Mendonça. All rights reserved.</div>
+        <div class="glyph" aria-hidden="true">✱</div>
+        <div>Built with Motto®.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.querySelector('.nav');
+      if (!nav) return;
+      var onScroll = function () {
+        if (window.scrollY > 8) nav.classList.add('is-scrolled');
+        else nav.classList.remove('is-scrolled');
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+</body>
+</html>

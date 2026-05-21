@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Claudio Mendonça — AI Experiments</title>
+  <meta name="description" content="Personal site of Claudio Mendonça. AI experiments and client services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Oswald:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="image-slot.js" defer></script>
+</head>
+<body>
+  <header class="nav" id="top">
+    <div class="shell nav-inner">
+      <a href="#top" class="wordmark" aria-label="Claudio Mendonça — home">
+        <span class="ast" aria-hidden="true">✱</span>
+        Claudio Mendonça
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#work">Experiments</a></li>
+          <li><a href="consulting.html">Consulting</a></li>
+          <li><a href="#about" class="hide-sm">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" data-screen-label="Home — Hero">
+      <div class="shell">
+        <div class="hero-eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          <span>CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER</span>
+        </div>
+        <h1 style="font-size: 150px">AI EXPERIMENTS</h1>
+        <p class="hero-sub">I build opinionated AI experimental tools.
+Use with moderation. This page is the index.</p>
+        <div class="hero-cta-row">
+          <a class="btn btn-filled" href="#work">
+            See the work
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn-ghost" href="consulting.html">Consulting</a>
+        </div>
+        <a href="#work" class="down-arrow" aria-label="Scroll to work">↓</a>
+      </div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section id="work" data-screen-label="Home — Work">
+      <div class="shell">
+        <div class="section-head">
+          <span class="label">EXPERIMENTS —</span>
+          <h2></h2>
+        </div>
+
+        <div class="experiments-grid" role="list" aria-label="Experiments">
+          <!-- 01 — Cut The Crap -->
+          <a class="experiment" role="listitem" href="#" target="_blank" rel="noopener" aria-label="Cut The Crap">
+            <div class="shot">
+              <div class="stripes" aria-hidden="true"></div>
+              <image-slot id="shot-cutthecrap" shape="rect" placeholder="Drop Cut The Crap image"></image-slot>
+            </div>
+            <div class="experiment-caption">
+              <span class="idx">01</span>
+              <div class="title-block">
+                <h3>Cut The Crap</h3>
+                <span class="tag">YOUTUBE VIDEOS AS TWEETS</span>
+              </div>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </div>
+          </a>
+
+          <!-- 02 — Edge -->
+          <a class="experiment" role="listitem" href="#" target="_blank" rel="noopener" aria-label="Edge">
+            <div class="shot">
+              <div class="stripes" aria-hidden="true"></div>
+              <image-slot id="shot-edge" shape="rect" placeholder="Drop Edge image"></image-slot>
+            </div>
+            <div class="experiment-caption">
+              <span class="idx">02</span>
+              <div class="title-block">
+                <h3>Edge</h3>
+                <span class="tag">AUTO GENERATED BLOG ABOUT AI NEWS &amp; RESEARCH</span>
+              </div>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </div>
+          </a>
+
+          <!-- 03 — Squoosh -->
+          <a class="experiment" role="listitem" href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener" aria-label="Squoosh">
+            <div class="shot">
+              <div class="stripes" aria-hidden="true"></div>
+              <image-slot id="shot-squoosh" shape="rect" placeholder="Drop Squoosh image"></image-slot>
+            </div>
+            <div class="experiment-caption">
+              <span class="idx">03</span>
+              <div class="title-block">
+                <h3>BATCH SQUOOSH</h3>
+                <span class="tag">Tool · Self-hosted</span>
+              </div>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </div>
+          </a>
+
+          <!-- 04 — Varro -->
+          <a class="experiment" role="listitem" href="#" target="_blank" rel="noopener" aria-label="Varro">
+            <div class="shot">
+              <div class="stripes" aria-hidden="true"></div>
+              <image-slot id="shot-varro" shape="rect" placeholder="Drop Varro image"></image-slot>
+            </div>
+            <div class="experiment-caption">
+              <span class="idx">04</span>
+              <div class="title-block">
+                <h3>Varro</h3>
+                <span class="tag">FULLY AI GENERATED BLOG &amp; SOCIAL MEDIA CONTENT</span>
+              </div>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" data-screen-label="Home — About">
+      <div class="shell">
+        <div class="bio-grid">
+          <div>
+            <span class="label" style="display:flex;align-items:center;gap:12px;font-size:var(--text-caption);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-ash-text);margin-bottom:24px;">
+              <span style="display:inline-block;width:24px;height:1px;background:var(--color-pitch-black);"></span>
+              About
+            </span>
+            <h2>About.</h2>
+          </div>
+          <div class="bio-body">
+            <p>
+              I'm Claudio Mendonça, design engineer, working at the intersection
+              of design, code, and AI.
+            </p>
+            <p class="secondary">
+              The products on this page are the experiments I'm shipping under
+              my own name. The <a class="link-underline" href="consulting.html">consulting page</a>
+              is what I do for clients: agent architecture, AI automation, and
+              hands-on training for teams.
+            </p>
+            <p class="secondary">Based in beautiful British Columbia. Available for a small number of engagements at a time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="contact" data-screen-label="Home — Footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <div>
+          <a href="#top" class="wordmark" style="font-size:var(--text-subheading);">
+            <span class="ast" style="font-size:28px;" aria-hidden="true">✱</span>
+            Claudio Mendonça
+          </a>
+          <p class="t-body ash" style="max-width:34ch;margin-top:24px;">
+            AI experiments, and a small consulting practice.
+          </p>
+        </div>
+
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="#work">Experiments</a></li>
+            <li><a href="consulting.html">Consulting</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:claudioccm@gmail.com"></a></li>
+            <li><a href="#" rel="noopener">GitHub <span class="todo">TODO</span></a></li>
+            <li><a href="#" rel="noopener">X / Twitter <span class="todo">TODO</span></a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Elsewhere</h4>
+          <ul>
+            <li><a href="https://ccmdesign.com" target="_blank" rel="noopener">ccmdesign ↗</a></li>
+            <li><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener"></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        <div>© 2026 Claudio Mendonça. All rights reserved.</div>
+        <div class="glyph" aria-hidden="true">✱</div>
+        <div>Built with Claude</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Add subtle bottom border on nav once scrolled
+    (function () {
+      var nav = document.querySelector('.nav');
+      if (!nav) return;
+      var onScroll = function () {
+        if (window.scrollY > 8) nav.classList.add('is-scrolled');
+        else nav.classList.remove('is-scrolled');
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+</body>
+</html>
