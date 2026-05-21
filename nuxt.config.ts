@@ -10,10 +10,12 @@ export default defineNuxtConfig({
   ],
 
   // Order matters: tokens.css must load before base.css so :root vars are
-  // defined when base styles reference them via var().
+  // defined when base styles reference them via var(). chrome.css follows
+  // base.css because it consumes the .shell, section, and .todo primitives.
   css: [
     '~/assets/css/tokens.css',
     '~/assets/css/base.css',
+    '~/assets/css/chrome.css',
   ],
 
   // Motto® typography: Inter 500 for body, Oswald 500 for display.
