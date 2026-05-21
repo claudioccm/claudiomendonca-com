@@ -10,7 +10,7 @@ autofixer left for human / next-step resolution.
 
 ---
 
-## 1. [P2 — gated_auto] Inline `style="margin-top: 48px;"` on two `.t-caption faint` paragraphs
+## 1. [P2 — gated_auto] [RESOLVED] Inline `style="margin-top: 48px;"` on two `.t-caption faint` paragraphs
 
 **Files / lines.**
 - `app/components/HowItWorks.vue:48`
@@ -35,9 +35,15 @@ sites. One CSS rule, two markup edits, zero behavior change at desktop.
 the autofixer doesn't pick class names. Wants a human to confirm the
 name and decide whether to promote the value to a clamp.
 
+**Resolution.** Added `.section-trail { margin-top: clamp(32px, 4vw, 48px); }`
+to `app/assets/css/sections.css` (with a header-docblock note), and replaced
+the inline `style="margin-top: 48px;"` on both consumers
+(`app/components/HowItWorks.vue:48`, `app/pages/consulting.vue:83`) with the
+new `section-trail` class. Lint and typecheck green.
+
 ---
 
-## 2. [P3 — advisory] Hero down-arrow `aria-label="Scroll to work"` is wrong on /consulting
+## 2. [P3 — advisory] [DEFERRED] Hero down-arrow `aria-label="Scroll to work"` is wrong on /consulting
 
 **File / line.** `app/components/HeroSection.vue:36` (consumed by
 `app/pages/consulting.vue:20`).
@@ -61,7 +67,7 @@ in PRO-77's `HeroSection.vue`.
 
 ---
 
-## 3. [P3 — advisory] Hero `<h1>` uses `<br>` markup mid-sentence
+## 3. [P3 — advisory] [DEFERRED] Hero `<h1>` uses `<br>` markup mid-sentence
 
 **File / line.** `app/pages/consulting.vue:26`.
 
@@ -95,3 +101,17 @@ choice, not a bug.
 Verdict: **Ready with fixes** — the one P2 (promote inline margin to a
 class) should land before merge to stay aligned with the Motto® "no
 inline styles" convention; the two P3 advisories are deferred per plan.
+
+---
+
+## Resolution status (post todo-resolve)
+
+- [x] **#1 P2** — Promote inline `margin-top: 48px;` to `.section-trail`
+      class in `sections.css`; consumers updated.
+- [ ] **#2 P3 (deferred)** — Hero down-arrow `aria-label` on /consulting.
+      Deferred per the plan's Scope Boundaries (Risk #6, K6); requires
+      a new prop on `HeroSection.vue` which crosses PRO-78's scope.
+- [ ] **#3 P3 (deferred)** — `<br>` in hero `<h1>`. Advisory, mirrors
+      the prototype; not a regression — document choice, kept as-is.
+
+Lint and typecheck: **green** after the fix.

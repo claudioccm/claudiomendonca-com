@@ -45,7 +45,7 @@
           </p>
         </div>
       </div>
-      <p class="t-caption faint" style="margin-top: 48px;">
+      <p class="t-caption faint section-trail">
         <span class="todo">TODO(claudio):</span>
         Confirm engagement model. Pricing intentionally not shown on the page.
       </p>

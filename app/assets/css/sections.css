@@ -25,7 +25,11 @@
      - CTA banner (.cta-banner, .cta-banner h2, .cta-banner p) — lines 619–644
      - Global .label rule (.label, .label::before) — new (K2), extracted from
        the prototype's repeated inline-style payload (consulting.html lines 65,
-       114, 141, 168). Co-exists with .section-head .label (identical body). */
+       114, 141, 168). Co-exists with .section-head .label (identical body).
+     - Section-trail caption spacer (.section-trail) — new, promoted from the
+       repeated inline `style="margin-top: 48px;"` once a second consumer
+       appeared (consulting.vue + HowItWorks.vue). Responsive clamp is a small
+       improvement over the prototype's fixed 48px. */
 
 /* ---------- Buttons (pill atoms) ---------- */
 .btn {
@@ -510,6 +514,14 @@
   color: var(--color-ash-text);
   max-width: 40ch;
 }
+
+/* ---------- Section trail caption (PRO-78) ----------
+   Spacing rule for a trailing `.t-caption faint` paragraph that sits at the
+   bottom of a section (e.g. trailing TODO captions in consulting.vue and
+   HowItWorks.vue). Promoted from the repeated inline
+   `style="margin-top: 48px;"` once a second consumer appeared; the clamp is a
+   small responsive improvement over the prototype's fixed 48px. */
+.section-trail { margin-top: clamp(32px, 4vw, 48px); }
 
 /* ---------- Reduced motion override (R14) ---------- */
 @media (prefers-reduced-motion: reduce) {

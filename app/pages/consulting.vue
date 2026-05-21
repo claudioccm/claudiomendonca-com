@@ -80,7 +80,7 @@ import { consultingOfferings } from '~/data/consulting'
             :outcomes="offering.outcomes"
           />
         </ol>
-        <p class="t-caption faint" style="margin-top: 48px;">
+        <p class="t-caption faint section-trail">
           <span class="todo">TODO(claudio):</span>
           Decide whether to add <em>AI Strategy &amp; Advisory</em>,
           <em>Custom AI Product Development</em>, and
