@@ -45,7 +45,7 @@ const idxLabel = computed(() => String(props.idx).padStart(2, '0'))
     <div class="entry-body entry-body--outcomes">
       <span class="label">What you walk away with</span>
       <ul class="outcomes">
-        <li v-for="o in outcomes" :key="o">
+        <li v-for="(o, i) in outcomes" :key="i">
           <span>{{ o }}</span>
         </li>
       </ul>
