@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
 <template>
   <header id="top" class="nav" :class="{ 'is-scrolled': isScrolled }">
     <div class="shell nav-inner">
-      <NuxtLink to="/" class="wordmark" aria-label="Claudio Mendonça — home">
+      <NuxtLink to="/" class="wordmark" aria-label="Claudio Mendonça — home" ariaCurrentValue="false">
         <span class="ast" aria-hidden="true">✱</span>
         <span>Claudio Mendonça</span>
       </NuxtLink>
