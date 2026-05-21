@@ -30,3 +30,4 @@ pnpm-debug.log*
 
 # Local doc artifacts (lfg-tracked output)
 todos/_resolved/
+.gstack/
