@@ -33,8 +33,8 @@
           <h4>Contact</h4>
           <ul>
             <li><a href="mailto:claudioccm@gmail.com">claudioccm@gmail.com</a></li>
-            <li><a href="#" rel="noopener">GitHub <span class="todo">TODO(claudio)</span></a></li>
-            <li><a href="#" rel="noopener">X / Twitter <span class="todo">TODO(claudio)</span></a></li>
+            <li><a href="#" rel="noopener">GitHub</a></li>
+            <li><a href="#" rel="noopener">X / Twitter</a></li>
           </ul>
         </div>
 

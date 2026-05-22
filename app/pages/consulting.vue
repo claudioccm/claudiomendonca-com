@@ -13,6 +13,11 @@
 -->
 <script setup lang="ts">
 import { consultingOfferings } from '~/data/consulting'
+
+// Canonical / og:url for /consulting. Site base = https://claudiomendonca.com.
+const canonical = 'https://claudiomendonca.com/consulting'
+useHead({ link: [{ rel: 'canonical', href: canonical }] })
+useSeoMeta({ ogUrl: canonical })
 </script>
 
 <template>
@@ -28,7 +33,6 @@ import { consultingOfferings } from '~/data/consulting'
       <template #sub>
         For builders and teams who want real agentic systems — not AI
         theatre. Architecture, automation, and training, run hands-on.
-        <span class="todo">TODO(claudio): confirm hero line</span>
       </template>
       <template #ctas>
         <a class="btn btn-filled" href="mailto:claudioccm@gmail.com">
@@ -51,7 +55,6 @@ import { consultingOfferings } from '~/data/consulting'
               Most "AI strategy" is a slide deck. This is the opposite:
               architecture, automation, and training delivered as working
               systems your team can run after I leave.
-              <span class="todo">TODO(claudio): confirm positioning</span>
             </p>
             <p class="secondary">
               I work with small teams of builders — founders, product leads, and
@@ -80,12 +83,6 @@ import { consultingOfferings } from '~/data/consulting'
             :outcomes="offering.outcomes"
           />
         </ol>
-        <p class="t-caption faint section-trail">
-          <span class="todo">TODO(claudio):</span>
-          Decide whether to add <em>AI Strategy &amp; Advisory</em>,
-          <em>Custom AI Product Development</em>, and
-          <em>Exploration / Prototype Sprints</em> — kept off the page for v1.
-        </p>
       </div>
     </section>
 
