@@ -43,7 +43,7 @@
           <h4>Elsewhere</h4>
           <ul>
             <li><a href="https://ccmdesign.com" target="_blank" rel="noopener">ccmdesign ↗</a></li>
-            <li><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener">Squoosh ↗</a></li>
+            <li><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener">Batch Squoosh ↗</a></li>
           </ul>
         </div>
       </div>
@@ -51,7 +51,7 @@
       <div class="footer-meta">
         <div>© 2026 Claudio Mendonça. All rights reserved.</div>
         <div class="glyph" aria-hidden="true">✱</div>
-        <div>Built with Motto®.</div>
+        <div>Built with Claude</div>
       </div>
     </div>
   </footer>
