@@ -61,6 +61,18 @@ body::before {
   html { scroll-behavior: auto; }
 }
 
+/* Anchor-jump offset under the sticky nav (PRO-79 U1 follow-up).
+   In-page anchors (#work, #about, #contact, #consulting, #top) scroll their
+   target to the viewport top, where the sticky 72px .nav would otherwise
+   overlay it. scroll-margin-top reserves clearance so the target lands below
+   the bar. It only shifts the scroll landing position — no layout impact. */
+[id] { scroll-margin-top: 88px; }
+@media (max-width: 480px) {
+  /* The nav row wraps and grows past 72px at this width (chrome.css), so the
+     anchor target needs more headroom to clear the taller bar. */
+  [id] { scroll-margin-top: 120px; }
+}
+
 img, svg { display: block; max-width: 100%; }
 
 a {

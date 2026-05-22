@@ -1,0 +1,30 @@
+# Netlify build + publish config (PRO-79 U8).
+#
+# This file tells Netlify HOW to build and WHERE to publish. The dev=preview /
+# main=prod branch model, the custom-domain (claudiomendonca.com) wiring, and
+# the DNS/registrar steps are MANUAL dashboard actions — they are NOT, and
+# cannot be, performed from this file. See the "Deploy Runbook" section of
+# docs/plans/PRO-79-responsive-a11y-deploy.md for those steps.
+#
+# Scope guard: nothing here pushes or promotes to `main`. Production promotion
+# is a deliberate, explicitly-confirmed step the repo owner performs by hand.
+
+[build]
+  # Matches package.json `generate` (nuxt generate) and the static output dir
+  # confirmed locally: `.output/public` holds the pre-rendered HTML, hashed
+  # _nuxt assets, self-hosted _fonts, and _ipx images.
+  command = "pnpm generate"
+  publish = ".output/public"
+
+[build.environment]
+  # Pin the toolchain so CI builds are reproducible. Node 22 is current LTS and
+  # satisfies Nuxt 4; pnpm 10 matches the local toolchain and the v9.0 lockfile.
+  # Netlify auto-detects pnpm from pnpm-lock.yaml; PNPM_VERSION makes it explicit.
+  NODE_VERSION = "22"
+  PNPM_VERSION = "10"
+
+# No SPA catch-all redirect: this is a pre-rendered multi-page static site, so a
+# `/* -> /index.html 200` rule would mask real 404s. Netlify serves the emitted
+# /404.html for unknown paths by default. Add context-specific build overrides
+# ([context.production] / [context.deploy-preview]) only if a need ever arises —
+# the build is identical across contexts today.

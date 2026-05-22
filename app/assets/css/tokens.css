@@ -6,10 +6,10 @@
   --color-charcoal-surface: #1b1b1c;
   --color-cloud-gray: #f2f2f2;
   --color-stone-accent: #d8d8d8;
-  --color-ash-text: #4d5153;
-  --color-silver-text: #848484;
+  --color-ash-text: #4d5153;       /* 8.02:1 on white — AAA, the workhorse secondary text */
+  --color-silver-text: #848484;    /* 3.74:1 on white — fails AA/AAA; do NOT use on functional text (PRO-79 U3) */
   --color-input-border: #c8cacd;
-  --color-faint-gray: #717476;
+  --color-faint-gray: #717476;     /* 4.71:1 on white — AA only; reserve for dev-scaffold TODO markers, not functional text (PRO-79 U3) */
   --color-vivid-purple: #9c98ef;
   --color-electric-violet: #6980ff;
   --color-grass-green: #beee98;

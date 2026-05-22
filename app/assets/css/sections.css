@@ -98,11 +98,18 @@
 .hero h1 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
-  font-size: clamp(72px, 16.5vw, 200px);
+  /* Floor lowered 72px → 48px (PRO-79 U1): at ≤436px the old 72px floor made
+     the longest single word ("EXPERIMENTS") overflow the viewport horizontally
+     (~366px glyph run vs ~335px container at 375px). Letting the 16.5vw term
+     govern down to ~290px keeps the headline as large as it can be while still
+     fitting — the preferred/max terms (16.5vw / 200px) are unchanged, so the
+     desktop hero is identical. overflow-wrap guards any future longer word. */
+  font-size: clamp(48px, 16.5vw, 200px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
   text-transform: uppercase;
+  overflow-wrap: break-word;
 }
 .hero h1 .amp { font-style: normal; font-feature-settings: "ss01"; }
 .hero-sub {
@@ -120,8 +127,17 @@
   flex-wrap: wrap;
 }
 .down-arrow {
-  display: inline-block;
+  /* Tap target ≥44px (PRO-79 U6): pad the hit area to 44×44 around the bare
+     glyph via flex centering — no visible box, radius, or border (Motto). The
+     negative left margin keeps the glyph optically flush with the page edge
+     despite the wider hit box. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   margin-top: clamp(48px, 6vw, 96px);
+  margin-left: -10px;
   font-family: var(--font-disp);
   font-size: 34px;
   line-height: 1;
@@ -383,7 +399,9 @@
   flex-wrap: wrap;
   gap: 8px 24px;
   font-size: var(--text-caption);
-  color: var(--color-faint-gray);
+  /* AAA contrast (PRO-79 U3): re-pointed from faint-gray (4.71:1, fails AAA)
+     to ash-text (8.02:1, passes). See chrome.css .footer h4 for rationale. */
+  color: var(--color-ash-text);
   margin: 0;
 }
 .entry .meta .dot { color: var(--color-stone-accent); }
@@ -523,15 +541,26 @@
    small responsive improvement over the prototype's fixed 48px. */
 .section-trail { margin-top: clamp(32px, 4vw, 48px); }
 
-/* ---------- Reduced motion override (R14) ---------- */
+/* ---------- Reduced motion override (R14; extended PRO-79 U4) ----------
+   Neutralizes every transition/animation that produces motion. The card image
+   scale, caption arrow slide, and button arrow slide have only transform
+   transitions, so dropping the transition entirely is correct. The .btn
+   transition also carries background-color/color fades (non-motion, kept),
+   so it is narrowed to color-only rather than removed. The hover/active
+   transforms are zeroed so no motion plays even on the property change. */
 @media (prefers-reduced-motion: reduce) {
   .experiment .shot img,
   .experiment .experiment-caption .arrow,
   .btn .btn-arrow {
     transition: none !important;
   }
+  .btn {
+    transition-property: background-color, color !important;
+  }
   .experiment:hover .shot img,
-  .experiment:hover .experiment-caption .arrow {
+  .experiment:hover .experiment-caption .arrow,
+  .btn:hover .btn-arrow,
+  .btn:active {
     transform: none !important;
   }
 }

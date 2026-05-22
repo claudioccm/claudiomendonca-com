@@ -4,6 +4,30 @@
    (.btn, .btn-filled, .btn-ghost, .btn-arrow, .btn-text) are intentionally
    omitted from PRO-76 — they land with hero CTAs in PRO-77. */
 
+/* ---------- Skip link (PRO-79 U2) ----------
+   Visually hidden until it receives keyboard focus, then it surfaces as the
+   first item in the tab order. Motto-consistent: black surface, white text,
+   sharp corners, sans 500. Sits above the sticky nav (z-index > .nav's 50). */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  transform: translateY(calc(-100% - 16px));
+  background: var(--color-pitch-black);
+  color: var(--color-canvas-white);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body);
+  padding: 12px 20px;
+  border-radius: 0;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--color-pitch-black);
+  outline-offset: 2px;
+}
+
 /* ---------- Nav ---------- */
 .nav {
   position: sticky;
@@ -28,8 +52,12 @@
   font-size: 20px;
   color: var(--color-pitch-black);
   letter-spacing: 0.005em;
+  /* Already inline-flex; add a 44px min hit height (PRO-79 U6). The footer
+     wordmark overrides font-size inline but inherits this min-height, which
+     is still ≤ its rendered height there, so it is a no-op in the footer. */
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 8px;
   text-transform: uppercase;
 }
@@ -50,6 +78,12 @@
   font-size: var(--text-body);
   font-weight: var(--font-weight-medium);
   color: var(--color-pitch-black);
+  /* Tap target ≥44px (PRO-79 U6): grow the hit area to 44px tall via flex
+     centering inside the 72px bar — no layout shift, no visible box. The
+     underline is re-anchored below (it tracks the link box, not the text). */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0;
   position: relative;
 }
@@ -57,7 +91,11 @@
 .nav-links a:hover::after {
   content: "";
   position: absolute;
-  left: 0; right: 0; bottom: -6px;
+  /* Sit ~6px below the centered text. With the link grown to a 44px box and
+     the text centered, the glyph bottom sits ~13px above box-bottom; placing
+     the rule 7px from box-bottom lands it ~6px under the glyphs (verified in
+     browser: glyph bottom 45px, box bottom 58px → rule at 51px). */
+  left: 0; right: 0; bottom: 7px;
   height: 1px;
   background: var(--color-pitch-black);
 }
@@ -65,6 +103,22 @@
 @media (max-width: 640px) {
   .nav-links { gap: 18px; }
   .nav-links .hide-sm { display: none; }
+}
+
+/* At the smallest widths the wordmark + three nav links can't share one 72px
+   row (≈366px of content vs ≈335px usable at 375px), which overflowed the
+   viewport horizontally. Let the row wrap so the links drop beneath the
+   wordmark at full size — the bar grows past 72px on mobile only, no labels
+   are hidden, and desktop is untouched. (PRO-79 U1 — pre-existing overflow
+   surfaced by the cross-viewport sweep.) */
+@media (max-width: 480px) {
+  .nav-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding-block: 12px;
+    row-gap: 0;
+  }
+  .nav-links { gap: clamp(14px, 5vw, 24px); }
 }
 
 /* ---------- Footer ---------- */
@@ -92,10 +146,22 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 20px;
-  color: var(--color-faint-gray);
+  /* AAA contrast (PRO-79 U3): faint-gray (#717476, 4.71:1) fails AAA on white.
+     Ash-text (#4d5153, 8.02:1) passes; the small uppercase label keeps reading
+     as a tertiary heading via size + case, not via lower contrast. */
+  color: var(--color-ash-text);
 }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-.footer a { color: var(--color-pitch-black); font-size: var(--text-body); }
+.footer a {
+  color: var(--color-pitch-black);
+  font-size: var(--text-body);
+  /* Tap target ≥44px (PRO-79 U6): each footer link is its own ≥44px row.
+     inline-flex keeps the target hugging the text width (not full column),
+     so the tappable area is the link, not dead space beside it. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 .footer a:hover { color: var(--color-ash-text); }
 .footer-meta {
   display: flex;
