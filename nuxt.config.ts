@@ -26,7 +26,7 @@ export default defineNuxtConfig({
 
   // Order matters: tokens.css must load before base.css so :root vars are
   // defined when base styles reference them via var(). chrome.css follows
-  // base.css because it consumes the .shell, section, and .todo primitives.
+  // base.css because it consumes the .shell and section primitives.
   // sections.css comes last because it layers page-section + button atoms
   // on top of the chrome (precedent set in PRO-76 K1, continued in PRO-77 K1).
   css: [
@@ -54,6 +54,16 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
+          content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
+        },
+        // Canonical / Open Graph base for https://claudiomendonca.com.
+        // Per-route canonical + og:url are set in each page via useSeoMeta;
+        // these site-wide og defaults reuse the title/description above.
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Claudio Mendonça' },
+        { property: 'og:title', content: 'Claudio Mendonça — AI Experiments' },
+        {
+          property: 'og:description',
           content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
         },
       ],

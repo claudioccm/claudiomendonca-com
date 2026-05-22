@@ -6,12 +6,11 @@
 // `idx` is intentionally not stored — the page renders it from the array
 // position (index + 1), zero-padded inside ExperimentCard.vue.
 //
-// `TODO(claudio)`: replace `#` URLs with real product URLs when available.
-// `TODO(claudio)`: replace placeholder `image` paths with real product
-// screenshots. Until then, several entries point at the same prototype
-// placeholder bitmap (e.g. squoosh.jpg and varro.jpg are byte-identical) —
-// this is intentional for PRO-77 and is tracked for a future content pass
-// (PRO-78 or a dedicated screenshots ticket).
+// Real product URLs and real screenshots for Cut The Crap, Edge, and Varro
+// are owner-deferred and tracked in todos/PRO-80-residual.md. Until they
+// land, those three entries use `#` URL stubs and several point at the same
+// prototype placeholder bitmap (squoosh.jpg and varro.jpg are currently
+// byte-identical). Squoosh already links to its live URL.
 
 export interface Experiment {
   id: string
@@ -32,7 +31,7 @@ export const experiments: Experiment[] = [
     id: 'cutthecrap',
     title: 'Cut The Crap',
     tag: 'YOUTUBE VIDEOS AS TWEETS',
-    // TODO(claudio): real URL
+    // stub — real URL pending (see todos/PRO-80-residual.md)
     url: '#',
     image: '/screenshots/cutthecrap.jpg',
     alt: 'Cut The Crap — YouTube videos as tweets',
@@ -41,7 +40,7 @@ export const experiments: Experiment[] = [
     id: 'edge',
     title: 'Edge',
     tag: 'AUTO GENERATED BLOG ABOUT AI NEWS & RESEARCH',
-    // TODO(claudio): real URL
+    // stub — real URL pending (see todos/PRO-80-residual.md)
     url: '#',
     image: '/screenshots/edge.jpg',
     alt: 'Edge — auto-generated AI news blog',
@@ -60,7 +59,7 @@ export const experiments: Experiment[] = [
     id: 'varro',
     title: 'Varro',
     tag: 'FULLY AI GENERATED BLOG & SOCIAL MEDIA CONTENT',
-    // TODO(claudio): real URL
+    // stub — real URL pending (see todos/PRO-80-residual.md)
     url: '#',
     image: '/screenshots/varro.jpg',
     alt: 'Varro — fully AI generated blog and social content',

@@ -9,6 +9,11 @@
 -->
 <script setup lang="ts">
 import { experiments } from '~/data/experiments'
+
+// Canonical / og:url for the homepage. Site base = https://claudiomendonca.com.
+const canonical = 'https://claudiomendonca.com/'
+useHead({ link: [{ rel: 'canonical', href: canonical }] })
+useSeoMeta({ ogUrl: canonical })
 </script>
 
 <template>
