@@ -6,9 +6,13 @@ Date: 2026-05-22
 
 PRO-80 promoted the Claude Design prototype copy to confirmed final wording and
 stripped every visitor-facing `TODO(claudio)` marker from the rendered site. The
-three categories below are genuinely-pending content the owner has explicitly
+categories below are genuinely-pending content the owner has explicitly
 deferred — they are NOT to be invented. They are tracked here so the codebase
 carries zero visitor-facing TODO text while the open items stay visible.
+
+Update 2026-05-22: experiment URLs (#2) RESOLVED — owner supplied real URLs and a
+new 5th experiment (Feedback). Remaining open: social handles (#1) and product
+screenshots (#3).
 
 The site now renders no `TODO(claudio)` text in any route. The stubs below are
 clean (no "coming soon" / pending labels) and swap to real values when the owner
@@ -35,37 +39,38 @@ preserved so swapping in real URLs is a one-line edit per row.
 
 ---
 
-## 2. [DEFERRED] Experiment URLs (Cut The Crap, Edge, Varro)
+## 2. [RESOLVED 2026-05-22] Experiment URLs (all entries)
 
 **Files / lines.**
-- `app/data/experiments.ts` — three `url: '#'` stubs for `cutthecrap`,
-  `edge`, and `varro`.
+- `app/data/experiments.ts` — `url` field on every entry.
 
-**Status.** Real product URLs not yet available — even the Claude Design
-prototype only carried a real URL for Squoosh. Squoosh already links to its
-live URL (`https://squoosh.ccmdesign.com`). The other three stay as `#` stubs
-with a neutral inline comment pointing here.
+**Resolution.** Owner supplied the real product URLs; all entries now link live:
+- Cut The Crap → `https://cutthecrap.claudiomendonca.com`
+- Edge → `https://edge.ccmdesign.ca`
+- Squoosh → `https://squoosh.ccmdesign.com` (already live)
+- Varro → `https://varro.me`
+- Feedback (new 5th entry) → `https://feedback.ccmdesign.ca`
 
-**Owner.** Claudio — supplies real product URLs for Cut The Crap, Edge, Varro.
-
-**Resolution.** Replace each `url: '#'` with the real product URL.
+No `url: '#'` stubs remain.
 
 ---
 
 ## 3. [DEFERRED] Product screenshots
 
 **Files / lines.**
-- `public/screenshots/*.jpg` — notably `squoosh.jpg` and `varro.jpg`, which are
-  currently byte-identical placeholder bitmaps. The prototype itself uses empty
-  `<image-slot>` placeholders, so there is no real imagery to adopt.
+- `public/screenshots/*.jpg` — `squoosh.jpg`, `varro.jpg`, and `feedback.jpg`
+  are currently byte-identical placeholder bitmaps (`feedback.jpg` was copied
+  from `varro.jpg` when the 5th entry was added). `cutthecrap.jpg` / `edge.jpg`
+  are also placeholders. The prototype itself uses empty `<image-slot>`
+  placeholders, so there is no real imagery to adopt.
 
-**Status.** Real product screenshots not yet available. The duplicate
-`squoosh.jpg` / `varro.jpg` placeholder is intentional-but-temporary. This
-supersedes the duplicate-bitmap note in `todos/PRO-77-review-residual.md`
-(P2, "won't fix in this ticket") as the single tracked home for the issue.
+**Status.** Real product screenshots not yet available for ANY of the five
+entries (Cut The Crap, Edge, Squoosh, Varro, Feedback). This supersedes the
+duplicate-bitmap note in `todos/PRO-77-review-residual.md` (P2, "won't fix in
+this ticket") as the single tracked home for the issue.
 
-**Owner.** Claudio — supplies real product screenshots (and, if desired, a
-distinct placeholder for Varro until then; must not fabricate product UI).
+**Owner.** Claudio — supplies real product screenshots for all five experiments
+(must not fabricate product UI).
 
 **Resolution.** Replace the placeholder bitmaps under `public/screenshots/`
 with real product screenshots. No `experiments.ts` edit needed unless filenames

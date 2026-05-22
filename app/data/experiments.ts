@@ -6,11 +6,10 @@
 // `idx` is intentionally not stored — the page renders it from the array
 // position (index + 1), zero-padded inside ExperimentCard.vue.
 //
-// Real product URLs and real screenshots for Cut The Crap, Edge, and Varro
-// are owner-deferred and tracked in todos/PRO-80-residual.md. Until they
-// land, those three entries use `#` URL stubs and several point at the same
-// prototype placeholder bitmap (squoosh.jpg and varro.jpg are currently
-// byte-identical). Squoosh already links to its live URL.
+// Real product URLs are now wired for all entries. Real product screenshots
+// remain owner-deferred and tracked in todos/PRO-80-residual.md — every entry
+// still points at a placeholder bitmap (squoosh.jpg / varro.jpg / feedback.jpg
+// are byte-identical placeholders) until real captures land.
 
 export interface Experiment {
   id: string
@@ -31,8 +30,7 @@ export const experiments: Experiment[] = [
     id: 'cutthecrap',
     title: 'Cut The Crap',
     tag: 'YOUTUBE VIDEOS AS TWEETS',
-    // stub — real URL pending (see todos/PRO-80-residual.md)
-    url: '#',
+    url: 'https://cutthecrap.claudiomendonca.com',
     image: '/screenshots/cutthecrap.jpg',
     alt: 'Cut The Crap — YouTube videos as tweets',
   },
@@ -40,8 +38,7 @@ export const experiments: Experiment[] = [
     id: 'edge',
     title: 'Edge',
     tag: 'AUTO GENERATED BLOG ABOUT AI NEWS & RESEARCH',
-    // stub — real URL pending (see todos/PRO-80-residual.md)
-    url: '#',
+    url: 'https://edge.ccmdesign.ca',
     image: '/screenshots/edge.jpg',
     alt: 'Edge — auto-generated AI news blog',
   },
@@ -59,9 +56,16 @@ export const experiments: Experiment[] = [
     id: 'varro',
     title: 'Varro',
     tag: 'FULLY AI GENERATED BLOG & SOCIAL MEDIA CONTENT',
-    // stub — real URL pending (see todos/PRO-80-residual.md)
-    url: '#',
+    url: 'https://varro.me',
     image: '/screenshots/varro.jpg',
     alt: 'Varro — fully AI generated blog and social content',
+  },
+  {
+    id: 'feedback',
+    title: 'Feedback',
+    tag: 'AI-POWERED FEEDBACK COLLECTION',
+    url: 'https://feedback.ccmdesign.ca',
+    image: '/screenshots/feedback.jpg',
+    alt: 'Feedback — AI-powered feedback collection',
   },
 ]
