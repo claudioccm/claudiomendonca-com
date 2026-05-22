@@ -12,7 +12,7 @@ human judgment or are intentionally out of this ticket's surgical scope.
 
 ---
 
-## 1. [P3 — advisory] [DEFERRED] Anchor targets lack `scroll-margin-top` under the sticky nav
+## 1. [P3 — advisory] [RESOLVED] Anchor targets lack `scroll-margin-top` under the sticky nav
 
 **File / line.** `app/assets/css/chrome.css:114` (the new `@media (max-width: 480px)` nav-wrap block); behavior originates from `.nav { position: sticky; top: 0 }` at `chrome.css:33`.
 
@@ -22,7 +22,7 @@ human judgment or are intentionally out of this ticket's surgical scope.
 
 **Suggested fix.** Optional follow-up: add `scroll-margin-top` to anchored sections/`[id]` targets (e.g. `section[id], [id] { scroll-margin-top: 88px; }`, tuned to the wrapped mobile bar height). One CSS rule, no behavior change to the visible layout.
 
-**Why not auto-applied.** Pre-existing, out of PRO-79's surgical scope, and the offset value needs a human to confirm against the wrapped-nav height across breakpoints. Document choice, not a defect.
+**RESOLUTION (RESOLVED).** Applied a scoped two-line rule in `app/assets/css/base.css` (right after the reduced-motion `scroll-behavior` block): `[id] { scroll-margin-top: 88px; }` for the 72px desktop bar plus breathing room, and `@media (max-width: 480px) { [id] { scroll-margin-top: 120px; } }` for the wrapped/taller mobile bar. `scroll-margin-top` only shifts the scroll landing position — zero layout impact. This is squarely in the responsive + a11y QA remit, low-risk, and directly addresses the wrapped-mobile-nav change this PR introduced. Verified: lint / typecheck / generate all green; both rules present in the generated `.output/public/_nuxt` CSS bundle; both routes still pre-render.
 
 ---
 
@@ -38,6 +38,8 @@ human judgment or are intentionally out of this ticket's surgical scope.
 
 **Why not auto-applied.** Advisory — anticipated by the plan; removing a forward-looking AAA rule is a judgment call, not a safe automatic edit.
 
+**RESOLUTION (DEFERRED).** Kept the rule as-is — it is harmless, AAA-correct insurance the plan (U3) explicitly anticipated; deleting it is dead-selector hygiene unrelated to the QA/deploy remit. No code change.
+
 ---
 
 ## 3. [P3 — advisory] [DEFERRED] Node/pnpm pins in `netlify.toml` have no single source of truth
@@ -51,6 +53,8 @@ human judgment or are intentionally out of this ticket's surgical scope.
 **Suggested fix.** Optional hardening: add a `"packageManager": "pnpm@10.x"` field to `package.json` (helps Corepack-based local/CI parity) and/or an `.nvmrc` / `engines.node` to anchor the Node major. Confirm the desired Node major (22 LTS vs 24 to match local) before pinning more widely.
 
 **Why not auto-applied.** Touches toolchain policy (`package.json` / repo-root version files) — needs a human to decide the canonical Node/pnpm versions and whether to introduce `packageManager`/`.nvmrc`. Out of PRO-79's surgical scope.
+
+**RESOLUTION (DEFERRED).** Toolchain-policy decision: the plan's Open Question #4 explicitly leaves the canonical Node major to Claudio, and there is a real local↔CI divergence (local Node v24.15.0 vs the deliberate Node 22 LTS pin). Introducing `packageManager`/`.nvmrc`/`engines` expands the deploy-config remit into version-policy enforcement and should follow that human decision. The current `netlify.toml` pins (Node 22 LTS, pnpm 10 — matching local pnpm 10.33.2) already make CI reproducible. No code change.
 
 ---
 
@@ -81,9 +85,12 @@ items needing human judgment; none block the PR.
 
 ## Resolution status (post todo-resolve)
 
-- [ ] **#1 P3 (deferred)** — `scroll-margin-top` for anchor targets under the
-      sticky nav. Optional polish; pre-existing; out of scope.
-- [ ] **#2 P3 (deferred)** — `.entry .meta` re-point matches no rendered
-      consumer. Harmless/forward-looking; keep or drop at discretion.
-- [ ] **#3 P3 (deferred)** — anchor a single Node/pnpm version source
-      (`packageManager` / `.nvmrc` / `engines`). Toolchain policy decision.
+- [x] **#1 P3 (RESOLVED)** — added scoped `scroll-margin-top` on `[id]` targets
+      (88px desktop / 120px ≤480px) in `base.css` so anchor jumps clear the
+      sticky nav. In-scope a11y polish, low-risk, no layout impact. Gates green.
+- [x] **#2 P3 (DEFERRED)** — `.entry .meta` re-point matches no rendered
+      consumer. Kept as harmless/forward-looking AAA insurance (plan U3
+      anticipated it); dead-selector removal is out of the QA/deploy remit.
+- [x] **#3 P3 (DEFERRED)** — anchor a single Node/pnpm version source
+      (`packageManager` / `.nvmrc` / `engines`). Toolchain-policy decision left
+      to Claudio (plan Open Q#4); local↔CI Node major diverges. Out of scope.
