@@ -9,6 +9,21 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
   ],
 
+  // Static generation (PRO-79 U7). `nuxt generate` pre-renders the site to
+  // static HTML under `.output/public` — the dir netlify.toml publishes.
+  // `ssr` is left at its default (true) so generate emits real pre-rendered
+  // markup, not an empty SPA shell (an `ssr: false` SPA would fail a11y/SEO
+  // and serve blank HTML to crawlers). The crawler already discovers both
+  // routes via in-app links; the explicit `routes` list + `crawlLinks` make
+  // that deterministic and self-documenting, so a future unlinked route still
+  // needs to be added here on purpose rather than silently dropped.
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/consulting'],
+    },
+  },
+
   // Order matters: tokens.css must load before base.css so :root vars are
   // defined when base styles reference them via var(). chrome.css follows
   // base.css because it consumes the .shell, section, and .todo primitives.
