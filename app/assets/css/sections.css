@@ -541,6 +541,106 @@
    small responsive improvement over the prototype's fixed 48px. */
 .section-trail { margin-top: clamp(32px, 4vw, 48px); }
 
+/* ---------- DIY-counter stat callout (PRO-91) ----------
+   Emphasis block for the MIT stat in the "Not just a chatbot" section. Reuses
+   the bio-body column; the left hairline + indent echoes the .entry-rich
+   outcomes column so it reads as a quoted credibility note, not a new system. */
+.stat-callout {
+  margin: 8px 0 0;
+  padding-left: clamp(20px, 3vw, 32px);
+  border-left: 2px solid var(--color-pitch-black);
+}
+.stat-callout p {
+  font-size: clamp(20px, 1.6vw, 25px);
+  line-height: 1.4;
+  color: var(--color-pitch-black);
+  margin: 0;
+  max-width: 60ch;
+}
+.stat-callout cite {
+  display: block;
+  margin-top: 12px;
+  font-style: normal;
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  color: var(--color-ash-text);
+}
+
+/* ---------- Pricing card (PRO-91) ----------
+   Published price rows for /consulting: offer label left, price + qualifier
+   right, a 1px hairline rule above each row (matching .step / .cta-banner
+   borders), and a single-column stack at the shared 800px breakpoint. The
+   only new layout primitive in this ticket (KTD-5); all type reuses existing
+   tokens. Prices are placeholder `9999,00` until real numbers are confirmed. */
+.price-lead {
+  margin: 24px 0 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ash-text);
+  max-width: 50ch;
+}
+.price-list {
+  margin: clamp(24px, 4vw, 40px) 0 0;
+}
+.price-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: clamp(16px, 3vw, 48px);
+  padding: clamp(20px, 2.5vw, 32px) 0;
+  border-top: 1px solid var(--color-pitch-black);
+}
+.price-row:last-child { border-bottom: 1px solid var(--color-pitch-black); }
+.price-row dt {
+  font-family: var(--font-disp);
+  font-weight: var(--font-weight-medium);
+  font-size: clamp(28px, 3.2vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-pitch-black);
+}
+.price-row .price-tag {
+  display: inline-block;
+  margin-left: 12px;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ash-text);
+}
+.price-row dd {
+  margin: 0;
+  text-align: right;
+}
+.price-row .price {
+  display: block;
+  font-family: var(--font-disp);
+  font-weight: var(--font-weight-medium);
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-pitch-black);
+}
+.price-row .price-note {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.02em;
+  color: var(--color-ash-text);
+  max-width: 32ch;
+  margin-left: auto;
+}
+@media (max-width: 800px) {
+  .price-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .price-row dd { text-align: left; }
+  .price-row .price-note { margin-left: 0; }
+}
+
 /* ---------- Reduced motion override (R14; extended PRO-79 U4) ----------
    Neutralizes every transition/animation that produces motion. The card image
    scale, caption arrow slide, and button arrow slide have only transform

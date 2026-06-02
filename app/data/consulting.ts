@@ -9,8 +9,11 @@
 // ConsultingEntry.vue — safe because the source is this static module, not
 // user input.
 //
-// Copy lifted verbatim from _process/prototype/consulting.html lines 96–177
-// (titles, taglines, blurbs, outcomes). Casing/punctuation preserved.
+// Copy realigned to the AI Services Studio strategy (PRO-91, Draft 2):
+// Opportunity Audit → Automate → Empower. Care & R&D is the ongoing product
+// and is folded into HowItWorks step 03 ("Run it"), not run as a peer card
+// (PRO-91 KTD-1), so the "Offerings — 03" label stays in sync with three
+// entries here.
 
 export interface ConsultingOffering {
   id: string
@@ -22,39 +25,39 @@ export interface ConsultingOffering {
 
 export const consultingOfferings: ConsultingOffering[] = [
   {
-    id: 'agent-architecture',
-    title: 'Agent<br />Architecture.',
-    tagline: 'Multi-agent systems that aren\'t held together with hope and duct tape.',
+    id: 'opportunity-audit',
+    title: 'Opportunity<br />Audit.',
+    tagline: 'Two to three weeks. A plain plan and a fixed price before you commit to a build.',
     blurb:
-      'Design and build agentic systems end-to-end: agent roles and boundaries, tool design, orchestration patterns, hand-offs, and the evaluation loops that keep them honest. From architecture diagram to working, testable system.',
+      'I sort your team\'s recurring work into three buckets: what to automate, what to upskill your people on, and what to leave to humans. You walk away with one measurable target and a fixed quote for the build. No obligation to go further.',
     outcomes: [
-      'Working agent system, in your repo, on your stack.',
-      'Architecture doc + tool catalogue your team owns.',
-      'Eval loop wired to CI so quality doesn\'t drift.',
+      'Your work mapped: automate, empower, or leave alone.',
+      'One measurable outcome the build will be held to.',
+      'A fixed build price, credited back if you proceed.',
     ],
   },
   {
-    id: 'ai-automation',
-    title: 'AI<br />Automation.',
-    tagline: 'Remove the repetitive work without losing control or quality.',
+    id: 'automate',
+    title: 'Automate the<br />repetitive.',
+    tagline: 'The reports and newsletters you rebuild every cycle, produced by a system instead.',
     blurb:
-      'Identify the high-leverage workflows hiding in your team\'s week, then automate them with LLMs and agents — pipelines, internal tools, and human-in-the-loop processes that fit how you already work.',
+      'I build the system that produces your recurring documents on schedule and on-brand, in your tools, yours to keep. A human stays in the loop and signs off before anything ships.',
     outcomes: [
-      'Audit of where AI moves the needle for your team.',
-      'One or more deployed automations — not prototypes.',
-      'Playbook your team can extend without me.',
+      'A working system that produces the work, every cycle.',
+      'Hours back for the people who were doing it by hand.',
+      'Output that looks like you, not a template.',
     ],
   },
   {
-    id: 'ai-training',
-    title: 'AI<br />Training.',
-    tagline: 'Practical AI for the people who actually have to use it.',
+    id: 'empower',
+    title: 'Empower<br />your team.',
+    tagline: 'For the judgment calls and one-offs: your team working with AI, not depending on me.',
     blurb:
-      'Upskill teams on the things that matter: agentic workflows, prompt and context engineering, tool and agent design, and the day-to-day craft of modern AI dev tooling. Hands-on, role-specific — not a generic slide deck.',
+      'Hands-on training and setup for the work that doesn\'t repeat — how to think with AI, where it helps, where it doesn\'t, and how to keep quality and brand intact. Role-specific, on your actual workflows, not a generic deck.',
     outcomes: [
-      'Tailored curriculum for your roles and stack.',
-      'Workshop materials your team keeps.',
-      'Measurable lift on the workflows that matter.',
+      'A team that works with AI on the messy middle.',
+      'A playbook and setup your team keeps.',
+      'Less dependence on any one specialist, me included.',
     ],
   },
 ]

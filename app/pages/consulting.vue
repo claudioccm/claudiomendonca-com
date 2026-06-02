@@ -25,21 +25,23 @@ useSeoMeta({ ogUrl: canonical })
     <HeroSection down-arrow-href="#consulting">
       <template #eyebrow>
         <span class="dot" aria-hidden="true" />
-        <span>Consulting — Independent practice</span>
+        <span>Consulting — automated, on-brand, accountable</span>
       </template>
       <template #headline>
-        <h1>Ship AI that<br>actually works.</h1>
+        <h1>Your recurring work,<br>done by a system.</h1>
       </template>
       <template #sub>
-        For builders and teams who want real agentic systems — not AI
-        theatre. Architecture, automation, and training, run hands-on.
+        Every week your team rebuilds the same reports, briefs, and newsletters
+        by hand. I build systems that produce that work for you, on schedule and
+        on-brand. For the parts that don't repeat, I teach your team to work with
+        AI so they move faster there too.
       </template>
       <template #ctas>
         <a class="btn btn-filled" href="mailto:claudioccm@gmail.com">
           Start a conversation
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
-        <a class="btn btn-ghost" href="#consulting">See offerings</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
       </template>
     </HeroSection>
 
@@ -52,15 +54,44 @@ useSeoMeta({ ogUrl: canonical })
           </div>
           <div class="bio-body">
             <p>
-              Most "AI strategy" is a slide deck. This is the opposite:
-              architecture, automation, and training delivered as working
-              systems your team can run after I leave.
+              Most "AI strategy" is a slide deck. This is the opposite: working
+              systems that produce your recurring documents and reports, built to
+              your brand, with a person accountable for what goes out the door.
             </p>
             <p class="secondary">
-              I work with small teams of builders — founders, product leads, and
-              engineers — who already know what they want, but want a faster,
-              cleaner path to a real agentic system in production.
+              I work with research nonprofits, foundations, think tanks, and
+              small expert teams — the ones who publish to make their case and
+              rebuild the same reports, briefs, and newsletters from scratch
+              every cycle. The work is valuable. Doing it by hand, over and over,
+              is not.
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="Consulting — DIY counter">
+      <div class="shell">
+        <div class="bio-grid">
+          <div>
+            <span class="label">The honest version</span>
+            <h2>Not just a chatbot.</h2>
+          </div>
+          <div class="bio-body">
+            <p>
+              Anyone can get a draft out of a chatbot. The hard part is the
+              system that runs every cycle, stays on-brand, and has someone
+              accountable when it matters. That is the part you are paying for,
+              and it is the part a generic chatbot won't do.
+            </p>
+            <blockquote class="stat-callout">
+              <p>
+                95% of company AI pilots never deliver a measurable return. The
+                ones run with an outside specialist succeed about twice as often
+                as in-house builds.
+              </p>
+              <cite>— MIT, <em>State of AI in Business 2025</em></cite>
+            </blockquote>
           </div>
         </div>
       </div>
@@ -87,6 +118,46 @@ useSeoMeta({ ogUrl: canonical })
     </section>
 
     <HowItWorks />
+
+    <section data-screen-label="Consulting — Pricing">
+      <div class="shell">
+        <div class="section-head">
+          <span class="label">What it costs</span>
+          <h2>No mystery pricing.</h2>
+        </div>
+        <p class="price-lead">
+          Transparent and fixed. You know the number before we start.
+        </p>
+        <dl class="price-list">
+          <div class="price-row">
+            <dt>Opportunity Audit</dt>
+            <dd>
+              <span class="price">9999,00</span>
+              <span class="price-note">2–3 weeks · credited toward your build</span>
+            </dd>
+          </div>
+          <div class="price-row">
+            <dt>Build <span class="price-tag">automate</span></dt>
+            <dd>
+              <span class="price">from 9999,00</span>
+              <span class="price-note">fixed, set against the value it creates</span>
+            </dd>
+          </div>
+          <div class="price-row">
+            <dt>Empower <span class="price-tag">training + setup</span></dt>
+            <dd>
+              <span class="price">9999,00</span>
+            </dd>
+          </div>
+          <div class="price-row">
+            <dt>Care &amp; R&amp;D</dt>
+            <dd>
+              <span class="price">9999,00 / month</span>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
 
     <CtaBanner
       heading="Got something to build?"

@@ -1,16 +1,16 @@
 <!--
   Static three-step engagement section for /consulting (PRO-78 U4, K4).
   Markup-driven — no props, no state. The engagement model is a single
-  fixed Scope → Build → Handover shape that is identical across offerings,
+  fixed Audit → Build → Run it shape that is identical across offerings,
   so a data-driven API is unjustified surface (see plan K4).
 
-  Markup lifted from _process/prototype/consulting.html lines 189–230,
-  with the prototype's inline-styled <span class="label"> replaced by the
-  bare class (the new global .label rule in sections.css supplies the
-  prototype's eyebrow look — PRO-78 K2).
+  Reframed to the AI Services Studio strategy (PRO-91, Draft 3): Care & R&D
+  is the ongoing product and lives inside step 03 ("Run it") rather than as
+  a peer offering. The section carries `id="how"` so the hero ghost CTA can
+  deep-link to it.
 -->
 <template>
-  <section data-screen-label="Consulting — How it works">
+  <section id="how" data-screen-label="Consulting — How it works">
     <div class="shell">
       <div class="section-head">
         <span class="label">Engagement</span>
@@ -19,35 +19,31 @@
       <div class="steps">
         <div class="step">
           <span class="num">01</span>
-          <h4>Scope.</h4>
+          <h4>Audit.</h4>
           <p>
-            A short, paid scoping engagement. We agree on the problem, the
-            shape of the solution, and what "done" looks like before any
-            build starts.
+            A short, paid audit. We agree on the problem, the one outcome
+            that matters, and a fixed price, before any build starts.
           </p>
         </div>
         <div class="step">
           <span class="num">02</span>
           <h4>Build.</h4>
           <p>
-            Hands-on delivery, working in your repo and tools. Short
-            feedback cycles, weekly checkpoints, no surprises in the final
-            review.
+            Hands-on delivery in your repo and tools. Short cycles, weekly
+            checkpoints, no surprises at the final review. A human signs off
+            on what ships.
           </p>
         </div>
         <div class="step">
           <span class="num">03</span>
-          <h4>Handover.</h4>
+          <h4>Run it.</h4>
           <p>
-            The system, the docs, and the eval loop are yours. Optional
-            ongoing support is available, but the goal is your team operating
-            it without me.
+            Your team owns the system and the docs. Most keep me on a Care &amp;
+            R&amp;D retainer to maintain it, handle the edge cases, and automate
+            the next thing. The build is the start, not the finish.
           </p>
         </div>
       </div>
-      <p class="t-caption faint section-trail">
-        Pricing intentionally not shown on the page.
-      </p>
     </div>
   </section>
 </template>

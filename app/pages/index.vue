@@ -74,8 +74,9 @@ useSeoMeta({ ogUrl: canonical })
             <p class="secondary">
               The products on this page are the experiments I'm shipping under
               my own name. The <NuxtLink class="link-underline" to="/consulting">consulting page</NuxtLink>
-              is what I do for clients: agent architecture, AI automation, and
-              hands-on training for teams.
+              is what I do for clients: systems that produce their recurring
+              documents and reports, plus training so their team works with AI
+              on everything else.
             </p>
             <p class="secondary">
               Based in beautiful British Columbia. Available for a small number of engagements at a time.
