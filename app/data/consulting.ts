@@ -4,10 +4,11 @@
 // required. (Open question deferred to U6: derive "Offerings — 03" from
 // array length.)
 //
-// Title strings carry an embedded `<br />` to control the display-font line
-// break (PRO-78 K3). The string is rendered via `v-html` inside
-// ConsultingEntry.vue — safe because the source is this static module, not
-// user input.
+// Title strings may carry an embedded `<br />` to control the display-font
+// line break where the brief specifies one (PRO-78 K3; brief §02/§03 break,
+// §01 "Opportunity Audit." does not — PRO-91). The string is rendered via
+// `v-html` inside ConsultingEntry.vue — safe because the source is this
+// static module, not user input.
 //
 // Copy realigned to the AI Services Studio strategy (PRO-91, Draft 2):
 // Opportunity Audit → Automate → Empower. Care & R&D is the ongoing product
@@ -26,7 +27,7 @@ export interface ConsultingOffering {
 export const consultingOfferings: ConsultingOffering[] = [
   {
     id: 'opportunity-audit',
-    title: 'Opportunity<br />Audit.',
+    title: 'Opportunity Audit.',
     tagline: 'Two to three weeks. A plain plan and a fixed price before you commit to a build.',
     blurb:
       'I sort your team\'s recurring work into three buckets: what to automate, what to upskill your people on, and what to leave to humans. You walk away with one measurable target and a fixed quote for the build. No obligation to go further.',

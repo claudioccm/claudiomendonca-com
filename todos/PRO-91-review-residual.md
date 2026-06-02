@@ -20,7 +20,15 @@ they need owner / design sign-off, not a mechanical fix.
 
 ---
 
-## 1. [P3] Audit card title carries a `<br>` the brief did not specify
+## 1. [P3] Audit card title carries a `<br>` the brief did not specify — RESOLVED (fixed)
+
+**Decision (2026-06-02).** Removed the `<br />`. `consulting.ts` line 29 now reads
+`title: 'Opportunity Audit.'`. Rationale: the brief deliberately distinguishes §01 (no
+break) from §02/§03 (with break), and Plan U1 says "match the brief's exact break
+points." The explicit brief spec outranks the visual-parallelism argument; "Opportunity
+Audit." is short enough to sit on one logical line and still wraps naturally in display
+type. Data-layer header comment softened to note titles break only where the brief
+specifies. Verified via `pnpm build` + `pnpm lint` (both green).
 
 **File / line.** `app/data/consulting.ts:29` — `title: 'Opportunity<br />Audit.'`
 
@@ -42,7 +50,15 @@ mobile widths.
 
 ---
 
-## 2. [P3] DIY-counter H2 "Not just a chatbot." is author-added (not in brief)
+## 2. [P3] DIY-counter H2 "Not just a chatbot." is author-added (not in brief) — RESOLVED (accept as-is)
+
+**Decision (2026-06-02).** Kept "Not just a chatbot." No change. Rationale: the reused
+`.bio-grid` primitive structurally requires an h2 (same as the "The brief." block above),
+so the block needs *a* heading and the brief supplied none — this isn't a deviation from a
+spec, it's filling a gap the brief left. The wording is short, on-message, and directly
+echoes the strategy's #1 objection ("we'll just use ChatGPT ourselves"). The brief's
+alternative phrasing "This isn't 'just use ChatGPT'" is wordier and puts a brand name in a
+display heading; the current line is the lighter, cleaner touch. No structural change.
 
 **File / line.** `app/pages/consulting.vue:78` — `<h2>Not just a chatbot.</h2>`
 
@@ -61,7 +77,14 @@ owner can confirm the exact heading wording during the voice gut-check.
 
 ---
 
-## 3. [P3] Pre-existing heading-level skip in HowItWorks (h2 → h4), unchanged
+## 3. [P3] Pre-existing heading-level skip in HowItWorks (h2 → h4), unchanged — DEFERRED (out of PRO-91 scope)
+
+**Decision (2026-06-02).** Deferred to a separate ticket. Not touched. Rationale: the
+`<h4>` step markup predates PRO-91 and is outside this ticket's copy/data scope. PRO-91
+changed only the step *text*, not heading levels, so this is not a regression introduced by
+this PR. Fixing it would require updating the three step `<h4>` → `<h3>` plus the matching
+`.step h4` CSS selectors across every page that uses the component — broader than this
+ticket. Recorded here for follow-up.
 
 **File / line.** `app/components/HowItWorks.vue:22,30,39` — step titles are `<h4>`
 under the section's `<h2>How it works.</h2>` (skips h3).
