@@ -67,6 +67,23 @@ export default defineNuxtConfig({
           content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
         },
       ],
+
+      // Google Analytics 4 (gtag.js) — property G-N2W2CXJ5JE.
+      // Site-wide; rendered into every prerendered page's <head> by `nuxt generate`.
+      script: [
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-N2W2CXJ5JE',
+          async: true,
+        },
+        {
+          innerHTML: [
+            'window.dataLayer = window.dataLayer || [];',
+            'function gtag(){dataLayer.push(arguments);}',
+            "gtag('js', new Date());",
+            "gtag('config', 'G-N2W2CXJ5JE');",
+          ].join(''),
+        },
+      ],
     },
   },
 })
