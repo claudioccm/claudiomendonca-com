@@ -236,6 +236,18 @@
   pointer-events: none;
 }
 
+/* Mockup clarity: render image slots as a plain solid gray rectangle until
+   real screenshots land. Hides the placeholder bitmaps (byte-identical
+   squoosh/varro/feedback) and the diagonal stripe texture, which read as
+   garbled/confusing content. Revert by deleting this block. */
+.experiment .shot {
+  background: var(--color-stone-accent);
+}
+.experiment .shot img,
+.experiment .shot .stripes {
+  display: none;
+}
+
 /* ---------- Caption row: index | title + tag stack | arrow ---------- */
 .experiment-caption {
   display: grid;
