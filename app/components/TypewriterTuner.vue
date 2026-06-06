@@ -16,7 +16,6 @@ interface TuneConfig {
   holdMs: number
   betweenMs: number
   cursorBlinkMs: number
-  cursorWidthEm: number
 }
 
 const config = defineModel<TuneConfig>('config', { required: true })
@@ -27,7 +26,6 @@ const DEFAULTS: TuneConfig = {
   holdMs: 1600,
   betweenMs: 400,
   cursorBlinkMs: 1050,
-  cursorWidthEm: 0.28,
 }
 
 const sliders = [
@@ -36,13 +34,12 @@ const sliders = [
   { key: 'holdMs', label: 'Hold full word (ms)', min: 200, max: 4000, step: 50 },
   { key: 'betweenMs', label: 'Pause between (ms)', min: 0, max: 1500, step: 50 },
   { key: 'cursorBlinkMs', label: 'Cursor blink (ms)', min: 300, max: 2000, step: 50 },
-  { key: 'cursorWidthEm', label: 'Cursor width (em)', min: 0.05, max: 0.7, step: 0.01 },
 ] as const
 
 const copied = ref(false)
 function copy() {
   const c = config.value
-  const text = `typeMs: ${c.typeMs},\ndeleteMs: ${c.deleteMs},\nholdMs: ${c.holdMs},\nbetweenMs: ${c.betweenMs},\ncursorBlinkMs: ${c.cursorBlinkMs},\ncursorWidthEm: ${c.cursorWidthEm},`
+  const text = `typeMs: ${c.typeMs},\ndeleteMs: ${c.deleteMs},\nholdMs: ${c.holdMs},\nbetweenMs: ${c.betweenMs},\ncursorBlinkMs: ${c.cursorBlinkMs},`
   navigator.clipboard?.writeText(text)
   copied.value = true
   setTimeout(() => (copied.value = false), 1200)

@@ -24,7 +24,6 @@ const typer = reactive({
   holdMs: 1600,
   betweenMs: 400,
   cursorBlinkMs: 1050,
-  cursorWidthEm: 0.28,
 })
 
 // Show the tuner only when `?tune` is present. Set client-side in onMounted so
@@ -50,7 +49,6 @@ onMounted(() => {
           :hold-ms="typer.holdMs"
           :between-ms="typer.betweenMs"
           :cursor-blink-ms="typer.cursorBlinkMs"
-          :cursor-width-em="typer.cursorWidthEm"
         />
       </template>
       <template #sub>
