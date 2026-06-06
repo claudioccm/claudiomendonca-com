@@ -1,42 +1,45 @@
 <!--
-  Dev-only tuning panel for the hero ScrambleHeadline effect. Rendered by
+  Dev-only tuning panel for the hero TypewriterHeadline effect. Rendered by
   index.vue ONLY when the URL has a `?tune` query param, so normal visitors
   never see it (works on local dev AND the deployed Netlify dev preview).
 
   It mutates the shared reactive `config` object passed in, which is also bound
-  to <ScrambleHeadline>'s props — so dragging a slider retunes the live effect
-  (holdMs/scrambleFrames apply on the next cycle; rerollChance and caret blink
-  apply immediately). "Copy values" puts the current config on the clipboard so
-  the chosen numbers can be baked in as defaults.
+  to <TypewriterHeadline>'s props — so dragging a slider retunes the live effect
+  (type/delete speed and cursor blink apply immediately; hold/between apply on the
+  next cycle). "Copy values" puts the current config on the clipboard so the
+  chosen numbers can be baked in as defaults.
 -->
 <script setup lang="ts">
 interface TuneConfig {
+  typeMs: number
+  deleteMs: number
   holdMs: number
-  scrambleFrames: number
-  rerollChance: number
-  caretBlinkMs: number
+  betweenMs: number
+  cursorBlinkMs: number
 }
 
 const config = defineModel<TuneConfig>('config', { required: true })
 
 const DEFAULTS: TuneConfig = {
-  holdMs: 1500,
-  scrambleFrames: 14,
-  rerollChance: 0.28,
-  caretBlinkMs: 1050,
+  typeMs: 90,
+  deleteMs: 45,
+  holdMs: 1600,
+  betweenMs: 400,
+  cursorBlinkMs: 1050,
 }
 
 const sliders = [
-  { key: 'holdMs', label: 'Hold (ms)', min: 200, max: 4000, step: 50 },
-  { key: 'scrambleFrames', label: 'Scramble length (frames)', min: 4, max: 40, step: 1 },
-  { key: 'rerollChance', label: 'Flicker (re-roll chance)', min: 0, max: 1, step: 0.01 },
-  { key: 'caretBlinkMs', label: 'Caret blink (ms)', min: 300, max: 2000, step: 50 },
+  { key: 'typeMs', label: 'Type speed (ms/char)', min: 10, max: 300, step: 5 },
+  { key: 'deleteMs', label: 'Delete speed (ms/char)', min: 10, max: 300, step: 5 },
+  { key: 'holdMs', label: 'Hold full word (ms)', min: 200, max: 4000, step: 50 },
+  { key: 'betweenMs', label: 'Pause between (ms)', min: 0, max: 1500, step: 50 },
+  { key: 'cursorBlinkMs', label: 'Cursor blink (ms)', min: 300, max: 2000, step: 50 },
 ] as const
 
 const copied = ref(false)
 function copy() {
   const c = config.value
-  const text = `scrambleFrames: ${c.scrambleFrames},\nholdMs: ${c.holdMs},\nrerollChance: ${c.rerollChance},\ncaretBlinkMs: ${c.caretBlinkMs},`
+  const text = `typeMs: ${c.typeMs},\ndeleteMs: ${c.deleteMs},\nholdMs: ${c.holdMs},\nbetweenMs: ${c.betweenMs},\ncursorBlinkMs: ${c.cursorBlinkMs},`
   navigator.clipboard?.writeText(text)
   copied.value = true
   setTimeout(() => (copied.value = false), 1200)
@@ -48,9 +51,9 @@ function reset() {
 </script>
 
 <template>
-  <aside class="tuner" aria-label="Scramble effect tuner">
+  <aside class="tuner" aria-label="Typewriter effect tuner">
     <div class="tuner-head">
-      <strong>Scramble tuner</strong>
+      <strong>Typewriter tuner</strong>
       <span class="tuner-hint">?tune</span>
     </div>
     <label v-for="s in sliders" :key="s.key" class="tuner-row">

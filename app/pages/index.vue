@@ -15,14 +15,15 @@ const canonical = 'https://claudiomendonca.com/'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({ ogUrl: canonical })
 
-// Live-tunable scramble effect config. Bound to <ScrambleHeadline> and, when the
-// URL carries `?tune`, to a <ScrambleTuner> dev panel. Defaults are the baked-in
-// values; tweak via the panel, then tell me the numbers to make permanent.
-const scramble = reactive({
-  holdMs: 1500,
-  scrambleFrames: 14,
-  rerollChance: 0.28,
-  caretBlinkMs: 1050,
+// Live-tunable typewriter effect config. Bound to <TypewriterHeadline> and, when
+// the URL carries `?tune`, to a <TypewriterTuner> dev panel. Defaults are the
+// baked-in values; tweak via the panel, then tell me the numbers to make permanent.
+const typer = reactive({
+  typeMs: 90,
+  deleteMs: 45,
+  holdMs: 1600,
+  betweenMs: 400,
+  cursorBlinkMs: 1050,
 })
 
 // Show the tuner only when `?tune` is present. Set client-side in onMounted so
@@ -42,11 +43,12 @@ onMounted(() => {
         <span>CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER</span>
       </template>
       <template #headline>
-        <ScrambleHeadline
-          :hold-ms="scramble.holdMs"
-          :scramble-frames="scramble.scrambleFrames"
-          :reroll-chance="scramble.rerollChance"
-          :caret-blink-ms="scramble.caretBlinkMs"
+        <TypewriterHeadline
+          :type-ms="typer.typeMs"
+          :delete-ms="typer.deleteMs"
+          :hold-ms="typer.holdMs"
+          :between-ms="typer.betweenMs"
+          :cursor-blink-ms="typer.cursorBlinkMs"
         />
       </template>
       <template #sub>
@@ -110,7 +112,7 @@ onMounted(() => {
     </section>
 
     <ClientOnly>
-      <ScrambleTuner v-if="showTuner" v-model:config="scramble" />
+      <TypewriterTuner v-if="showTuner" v-model:config="typer" />
     </ClientOnly>
   </div>
 </template>
