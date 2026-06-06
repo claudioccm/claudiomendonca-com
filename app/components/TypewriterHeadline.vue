@@ -125,10 +125,15 @@ onBeforeUnmount(() => {
 .tw-cursor {
   display: inline-block;
   width: var(--cursor-w, 0.28em);
-  height: 0.74em;
+  /* Match the capital letters exactly: `1cap` is the font's cap height, so the
+     block tracks the headline glyphs at any font-size. Em fallback for the rare
+     engine without `cap` support. */
+  height: 0.72em;
+  height: 1cap;
   margin-left: 0.06em;
   background: currentColor;
-  /* Sit the block on the text baseline, roughly cap-height tall. */
+  /* Block bottom sits on the baseline → its top lands at cap height, flush with
+     the uppercase letters. */
   vertical-align: baseline;
   animation: tw-cursor-blink var(--cursor-blink, 1.05s) steps(1) infinite;
 }
