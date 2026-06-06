@@ -98,13 +98,11 @@
 .hero h1 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
-  /* Floor lowered 72px → 48px (PRO-79 U1): at ≤436px the old 72px floor made
-     the longest single word ("EXPERIMENTS") overflow the viewport horizontally
-     (~366px glyph run vs ~335px container at 375px). Letting the 16.5vw term
-     govern down to ~290px keeps the headline as large as it can be while still
-     fitting — the preferred/max terms (16.5vw / 200px) are unchanged, so the
-     desktop hero is identical. overflow-wrap guards any future longer word. */
-  font-size: clamp(48px, 16.5vw, 200px);
+  /* Headline scale unified with .section-head h2 / .entry h3 at clamp(56px,
+     9vw, 80px). The 56px floor stays clear of the 375px overflow that PRO-79 U1
+     fixed (the longest word "EXPERIMENTS" runs ~285px at 56px vs a ~335px
+     container); overflow-wrap guards any future longer word. */
+  font-size: clamp(56px, 9vw, 80px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
@@ -168,7 +166,7 @@
 .section-head h2 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
-  font-size: clamp(56px, 9vw, 138px);
+  font-size: clamp(56px, 9vw, 80px);
   line-height: 0.94;
   letter-spacing: -0.02em;
   margin: 0;
@@ -316,7 +314,7 @@
 .bio-grid h2 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
-  font-size: clamp(56px, 9vw, 138px);
+  font-size: clamp(56px, 9vw, 80px);
   line-height: 0.94;
   letter-spacing: -0.02em;
   margin: 0;
@@ -385,7 +383,7 @@
 .entry h3 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
-  font-size: clamp(54px, 9.5vw, 138px);
+  font-size: clamp(56px, 9vw, 80px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
