@@ -30,6 +30,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const wordEl = ref<HTMLElement | null>(null)
+// Caret is solid while typing/scrambling, blinks (via CSS) while a word rests.
+const isTyping = ref(false)
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!<>-_\\/[]{}=+*^?#'
 
@@ -85,7 +87,9 @@ onMounted(() => {
   const loop = async () => {
     const current = props.words[index] ?? ''
     const next = props.words[(index + 1) % props.words.length] ?? ''
+    isTyping.value = true
     await transition(current, next)
+    isTyping.value = false
     index = (index + 1) % props.words.length
     holdTimer = setTimeout(loop, props.holdMs)
   }
@@ -102,16 +106,34 @@ onBeforeUnmount(() => {
 
 <template>
   <h1 aria-label="AI Experiments">
-    <span aria-hidden="true">{{ prefix }}<span ref="wordEl" class="scramble-word">{{ words[0] }}</span></span>
+    <span aria-hidden="true">{{ prefix }}<span ref="wordEl" class="scramble-word">{{ words[0] }}</span><span class="caret" :class="{ 'caret--solid': isTyping }">|</span></span>
   </h1>
 </template>
 
 <style scoped>
 .scramble-word {
+  /* No reserved width: the caret hugs the visible text and walks right as the
+     word types in (true typewriter feel). Only the trailing edge moves, which
+     sits below nothing — the sub/CTA rows are unaffected. */
+  white-space: pre;
+}
+
+/* Typewriter caret. Solid while typing/scrambling, blinks while a word rests. */
+.caret {
   display: inline-block;
-  /* Reserve the longest word's width so the trailing edge doesn't jump as the
-     word shrinks (EXPERIMENTS → TRAINING). Sized for "EXPERIMENTS". */
-  min-width: 11ch;
-  text-align: left;
+  margin-left: 0.04em;
+  font-weight: var(--font-weight-medium);
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+.caret--solid {
+  animation: none;
+  opacity: 1;
+}
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; }
 }
 </style>
