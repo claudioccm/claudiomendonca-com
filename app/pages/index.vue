@@ -24,7 +24,7 @@ useSeoMeta({ ogUrl: canonical })
         <span>CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER</span>
       </template>
       <template #headline>
-        <h1>AI EXPERIMENTS</h1>
+        <ScrambleHeadline />
       </template>
       <template #sub>
         I build opinionated AI experimental tools. Use with moderation. This page is the index.
