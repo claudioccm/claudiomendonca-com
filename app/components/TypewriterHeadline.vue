@@ -30,6 +30,8 @@ interface Props {
   betweenMs?: number
   /** Cursor blink period while resting, ms. */
   cursorBlinkMs?: number
+  /** Block cursor width, in em (relative to the headline font size). */
+  cursorWidthEm?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -40,6 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
   holdMs: 1600,
   betweenMs: 400,
   cursorBlinkMs: 1050,
+  cursorWidthEm: 0.28,
 })
 
 const wordEl = ref<HTMLElement | null>(null)
@@ -108,7 +111,7 @@ onBeforeUnmount(() => {
 
 <template>
   <h1 aria-label="AI Experiments">
-    <span aria-hidden="true">{{ prefix }}<span ref="wordEl" class="tw-word">{{ words[0] }}</span><span class="tw-cursor" :class="{ 'tw-cursor--solid': isActive }" :style="{ '--cursor-blink': cursorBlinkMs + 'ms' }" /></span>
+    <span aria-hidden="true">{{ prefix }}<span ref="wordEl" class="tw-word">{{ words[0] }}</span><span class="tw-cursor" :class="{ 'tw-cursor--solid': isActive }" :style="{ '--cursor-blink': cursorBlinkMs + 'ms', '--cursor-w': cursorWidthEm + 'em' }" /></span>
   </h1>
 </template>
 
@@ -121,7 +124,7 @@ onBeforeUnmount(() => {
    typing/deleting, blinks while a word rests. */
 .tw-cursor {
   display: inline-block;
-  width: 0.56em;
+  width: var(--cursor-w, 0.28em);
   height: 0.74em;
   margin-left: 0.06em;
   background: currentColor;
