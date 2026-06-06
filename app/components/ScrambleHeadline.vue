@@ -20,6 +20,10 @@ interface Props {
   scrambleFrames?: number
   /** Pause on a fully-resolved word before scrambling to the next (ms). */
   holdMs?: number
+  /** Per-frame chance (0–1) a scrambling glyph re-rolls — flicker intensity. */
+  rerollChance?: number
+  /** Caret blink period in ms (while a word rests). */
+  caretBlinkMs?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -27,6 +31,8 @@ const props = withDefaults(defineProps<Props>(), {
   prefix: 'AI ',
   scrambleFrames: 14,
   holdMs: 1500,
+  rerollChance: 0.28,
+  caretBlinkMs: 1050,
 })
 
 const wordEl = ref<HTMLElement | null>(null)
@@ -67,7 +73,7 @@ onMounted(() => {
             output += item.target
           } else if (frame >= item.start) {
             // Re-roll the scramble glyph occasionally for a flickering feel.
-            if (!item.char || Math.random() < 0.28) {
+            if (!item.char || Math.random() < props.rerollChance) {
               item.char = CHARS[Math.floor(Math.random() * CHARS.length)]!
             }
             output += item.char
@@ -106,7 +112,7 @@ onBeforeUnmount(() => {
 
 <template>
   <h1 aria-label="AI Experiments">
-    <span aria-hidden="true">{{ prefix }}<span ref="wordEl" class="scramble-word">{{ words[0] }}</span><span class="caret" :class="{ 'caret--solid': isTyping }">|</span></span>
+    <span aria-hidden="true">{{ prefix }}<span ref="wordEl" class="scramble-word">{{ words[0] }}</span><span class="caret" :class="{ 'caret--solid': isTyping }" :style="{ '--caret-blink': caretBlinkMs + 'ms' }">|</span></span>
   </h1>
 </template>
 
@@ -123,7 +129,7 @@ onBeforeUnmount(() => {
   display: inline-block;
   margin-left: 0.04em;
   font-weight: var(--font-weight-medium);
-  animation: caret-blink 1.05s steps(1) infinite;
+  animation: caret-blink var(--caret-blink, 1.05s) steps(1) infinite;
 }
 .caret--solid {
   animation: none;

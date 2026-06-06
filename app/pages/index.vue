@@ -14,6 +14,24 @@ import { experiments } from '~/data/experiments'
 const canonical = 'https://claudiomendonca.com/'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({ ogUrl: canonical })
+
+// Live-tunable scramble effect config. Bound to <ScrambleHeadline> and, when the
+// URL carries `?tune`, to a <ScrambleTuner> dev panel. Defaults are the baked-in
+// values; tweak via the panel, then tell me the numbers to make permanent.
+const scramble = reactive({
+  holdMs: 1500,
+  scrambleFrames: 14,
+  rerollChance: 0.28,
+  caretBlinkMs: 1050,
+})
+
+// Show the tuner only when `?tune` is present. Set client-side in onMounted so
+// SSR/hydration render identically (server has no URL query); the panel patches
+// in after mount for that one visitor.
+const showTuner = ref(false)
+onMounted(() => {
+  showTuner.value = new URLSearchParams(window.location.search).has('tune')
+})
 </script>
 
 <template>
@@ -24,7 +42,12 @@ useSeoMeta({ ogUrl: canonical })
         <span>CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER</span>
       </template>
       <template #headline>
-        <ScrambleHeadline />
+        <ScrambleHeadline
+          :hold-ms="scramble.holdMs"
+          :scramble-frames="scramble.scrambleFrames"
+          :reroll-chance="scramble.rerollChance"
+          :caret-blink-ms="scramble.caretBlinkMs"
+        />
       </template>
       <template #sub>
         I build opinionated AI experimental tools. Use with moderation. This page is the index.
@@ -85,5 +108,9 @@ useSeoMeta({ ogUrl: canonical })
         </div>
       </div>
     </section>
+
+    <ClientOnly>
+      <ScrambleTuner v-if="showTuner" v-model:config="scramble" />
+    </ClientOnly>
   </div>
 </template>

@@ -98,11 +98,12 @@
 .hero h1 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
-  /* Headline scale unified with .section-head h2 / .entry h3 at clamp(56px,
-     9vw, 80px). The 56px floor stays clear of the 375px overflow that PRO-79 U1
-     fixed (the longest word "EXPERIMENTS" runs ~285px at 56px vs a ~335px
-     container); overflow-wrap guards any future longer word. */
-  font-size: clamp(56px, 9vw, 80px);
+  /* Hero headline runs larger than the section heads (.section-head h2 /
+     .entry h3 at 80px max) for top-of-page impact. The 56px floor stays clear
+     of the 375px overflow that PRO-79 U1 fixed (the longest word "EXPERIMENTS"
+     runs ~285px at 56px vs a ~335px container); overflow-wrap guards any future
+     longer word. */
+  font-size: clamp(56px, 9vw, 130px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
@@ -529,7 +530,7 @@
 .cta-banner h2 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
-  font-size: clamp(56px, 9.5vw, 138px);
+  font-size: clamp(56px, 9vw, 80px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
