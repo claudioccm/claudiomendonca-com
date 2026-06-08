@@ -67,6 +67,13 @@
   line-height: 1;
 }
 
+/* Footer brand column — promotes the inline styles that used to live on the
+   footer wordmark and tagline up into class rules (PRO-95 · Dim 6). Selectors
+   are scoped to .footer-brand so the nav wordmark stays unchanged. */
+.footer-brand .wordmark { font-size: var(--text-subheading); }
+.footer-brand .wordmark .ast { font-size: 28px; }
+.footer-brand .tagline { max-width: 34ch; margin-top: 24px; }
+
 .nav-links {
   display: flex;
   align-items: center;

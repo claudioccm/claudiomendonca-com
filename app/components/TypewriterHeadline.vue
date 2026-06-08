@@ -15,21 +15,13 @@
   `.hero h1` rule in sections.css styles it — no headline CSS is duplicated here.
 -->
 <script setup lang="ts">
-interface Props {
+import type { TyperConfig } from '~/types/typer'
+
+interface Props extends Partial<TyperConfig> {
   /** Trailing words cycled after the fixed prefix. */
   words?: string[]
   /** Fixed leading text (kept static, never typed/deleted). */
   prefix?: string
-  /** Delay between typed characters, ms. */
-  typeMs?: number
-  /** Delay between deleted characters, ms. */
-  deleteMs?: number
-  /** Pause on a fully-typed word before deleting, ms. */
-  holdMs?: number
-  /** Pause on the empty line between words, ms. */
-  betweenMs?: number
-  /** Cursor blink period while resting, ms. */
-  cursorBlinkMs?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {

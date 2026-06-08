@@ -25,8 +25,9 @@ interface Props {
 const props = defineProps<Props>()
 
 // Idx label is presentation; the data layer stores plain numbers. Same
-// pattern as ExperimentCard.vue from PRO-77.
-const idxLabel = computed(() => String(props.idx).padStart(2, '0'))
+// pattern as ExperimentCard.vue from PRO-77. `padIndex` is auto-imported
+// from `app/utils/format.ts` (PRO-95).
+const idxLabel = computed(() => padIndex(props.idx))
 </script>
 
 <template>

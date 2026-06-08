@@ -20,7 +20,8 @@ interface Props {
 const props = defineProps<Props>()
 
 // Idx label is presentation; data layer stores plain numbers (plan K3).
-const idxLabel = computed(() => String(props.idx).padStart(2, '0'))
+// `padIndex` is auto-imported from `app/utils/format.ts` (PRO-95).
+const idxLabel = computed(() => padIndex(props.idx))
 const accessibleName = computed(() => props.ariaLabel ?? props.title)
 </script>
 
@@ -28,7 +29,6 @@ const accessibleName = computed(() => props.ariaLabel ?? props.title)
   <a
     class="experiment"
     :href="href"
-    role="listitem"
     target="_blank"
     rel="noopener"
     :aria-label="accessibleName"

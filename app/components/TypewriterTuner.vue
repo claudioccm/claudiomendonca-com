@@ -10,17 +10,11 @@
   chosen numbers can be baked in as defaults.
 -->
 <script setup lang="ts">
-interface TuneConfig {
-  typeMs: number
-  deleteMs: number
-  holdMs: number
-  betweenMs: number
-  cursorBlinkMs: number
-}
+import type { TyperConfig } from '~/types/typer'
 
-const config = defineModel<TuneConfig>('config', { required: true })
+const config = defineModel<TyperConfig>('config', { required: true })
 
-const DEFAULTS: TuneConfig = {
+const DEFAULTS: TyperConfig = {
   typeMs: 90,
   deleteMs: 45,
   holdMs: 1600,

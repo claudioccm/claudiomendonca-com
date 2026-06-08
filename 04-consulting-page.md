@@ -1,4 +1,8 @@
-# 04 — Services Page (`/services`)
+# 04 — Consulting Page (`/consulting`)
+
+> **Note (PRO-95):** This brief was originally drafted as the "Services" page. The
+> shipped route is `/consulting` (see PRO-78). Body text below still uses the
+> "services" terminology in places — read it as a draft of the consulting page.
 
 > Status: **initial draft for discussion.** Offerings + copy below are a
 > starting point. Claudio will refine after seeing the first build.
@@ -12,8 +16,8 @@ whether to engage him.
 
 ## Route & shared chrome
 
-- Route: `/services`. Shares the global layout — same sticky nav, same footer.
-- Nav highlights `Services` as active. `Work`/`About`/`Contact` point back to
+- Route: `/consulting`. Shares the global layout — same sticky nav, same footer.
+- Nav highlights `Consulting` as active. `Experiments`/`About`/`Contact` point back to
   home anchors (`/#work`, `/#about`, etc.).
 
 ## Offerings (draft)
