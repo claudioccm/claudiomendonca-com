@@ -8,12 +8,12 @@
     <div class="shell">
       <div class="footer-grid">
         <!-- Brand column -->
-        <div>
-          <NuxtLink to="/" class="wordmark" style="font-size: var(--text-subheading);" aria-current-value="false">
-            <span class="ast" aria-hidden="true" style="font-size: 28px;">✱</span>
+        <div class="footer-brand">
+          <NuxtLink to="/" class="wordmark" aria-current-value="false">
+            <span class="ast" aria-hidden="true">✱</span>
             <span>Claudio Mendonça</span>
           </NuxtLink>
-          <p class="t-body ash" style="max-width: 34ch; margin-top: 24px;">
+          <p class="t-body ash tagline">
             AI experiments, and a small consulting practice.
           </p>
         </div>
