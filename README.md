@@ -11,13 +11,13 @@ Read in order:
    This is non-negotiable: the site must look like this.
 3. **`03-directions.md`** — How to execute. Section-by-section structure, tech
    stack, copy approach, responsive rules, verification checklist.
-4. **`04-services-page.md`** — The Services page (`/services`). Offerings,
+4. **`04-consulting-page.md`** — The Consulting page (`/consulting`). Offerings,
    structure, draft copy. Same Motto® design system applies.
 
 ## TL;DR
 
 Personal website for **Claudio Mendonça**: a home one-pager that showcases his
-AI products and explorations, **plus a dedicated Services page** (`/services`)
+AI products and explorations, **plus a dedicated Consulting page** (`/consulting`)
 for client-facing offerings. Built in **Nuxt 4**. Visual style is **Motto®** —
 an architectural black-on-white aesthetic: stark contrast, oversized display
 type, sharp-cornered content blocks, pill buttons, lots of whitespace, zero
@@ -28,3 +28,8 @@ Products to feature (launch set): `cutthecrap`, `edge`, `squoosh.ccmdesign`,
 
 Style reference source:
 https://styles.refero.design/style/6eb5fc89-d0db-4293-8bff-13c5aa530a28
+
+## Formatting
+
+Formatting is enforced by `@nuxt/eslint`'s stylistic ruleset via `npm run lint`;
+run `npm run lint:fix` before committing.
