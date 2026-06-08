@@ -9,6 +9,7 @@
 -->
 <script setup lang="ts">
 import { experiments } from '~/data/experiments'
+import type { TyperConfig } from '~/types/typer'
 
 // Canonical / og:url for the homepage. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/'
@@ -18,7 +19,7 @@ useSeoMeta({ ogUrl: canonical })
 // Live-tunable typewriter effect config. Bound to <TypewriterHeadline> and, when
 // the URL carries `?tune`, to a <TypewriterTuner> dev panel. Defaults are the
 // baked-in values; tweak via the panel, then tell me the numbers to make permanent.
-const typer = reactive({
+const typer = reactive<TyperConfig>({
   typeMs: 90,
   deleteMs: 45,
   holdMs: 1600,
@@ -68,19 +69,22 @@ onMounted(() => {
         <div class="section-head">
           <span class="label">EXPERIMENTS —</span>
         </div>
-        <div class="experiments-grid" role="list" aria-label="Experiments">
-          <ExperimentCard
+        <ul class="experiments-grid" aria-label="Experiments">
+          <li
             v-for="(item, i) in experiments"
             :key="item.id"
-            :idx="i + 1"
-            :title="item.title"
-            :tag="item.tag"
-            :href="item.url"
-            :image="item.image"
-            :alt="item.alt"
-            :aria-label="item.ariaLabel"
-          />
-        </div>
+          >
+            <ExperimentCard
+              :idx="i + 1"
+              :title="item.title"
+              :tag="item.tag"
+              :href="item.url"
+              :image="item.image"
+              :alt="item.alt"
+              :aria-label="item.ariaLabel"
+            />
+          </li>
+        </ul>
       </div>
     </section>
 
