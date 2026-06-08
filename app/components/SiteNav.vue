@@ -1,16 +1,22 @@
-<script setup>
+<script setup lang="ts">
 // Sticky primary navigation. Owns the scroll listener that toggles the
 // .is-scrolled class on the root <header> when window.scrollY > 0.
 // Route-aware hrefs flip in-page anchors to cross-route anchors when the
 // user is on /consulting — see plan K4.
+interface NavLink {
+  label: string
+  href: string
+  /** Path that should paint aria-current="page" on this link; null = never active. */
+  routeMatch: string | null
+  hideSm?: boolean
+}
+
 const route = useRoute()
 const isScrolled = ref(false)
 
 const isConsulting = computed(() => route.path === '/consulting')
 
-// Each link: { label, href, routeMatch, hideSm? }. routeMatch is the path
-// that should paint aria-current="page" on this link; null = never active.
-const links = computed(() => [
+const links = computed<NavLink[]>(() => [
   { label: 'Experiments', href: isConsulting.value ? '/#work' : '#work', routeMatch: '/' },
   { label: 'Consulting', href: '/consulting', routeMatch: '/consulting' },
   // About points to an in-page anchor on home, not its own route, so it
@@ -22,7 +28,7 @@ const links = computed(() => [
 // Scroll listener — SSR-safe: registered in onMounted (client-only), torn
 // down in onBeforeUnmount. Mirrors the prototype IIFE at
 // _process/prototype/index.html lines 209–221, Vue-ified.
-let handleScroll = null
+let handleScroll: (() => void) | null = null
 
 onMounted(() => {
   handleScroll = () => {
