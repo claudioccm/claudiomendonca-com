@@ -8,6 +8,11 @@
          non-interactive, SSR-safe. -->
     <GrainOverlay />
 
+    <!-- Global custom cursor (PRO-110). Capability-gated: only renders on fine
+         pointers with motion allowed; inert (and native cursor intact) on touch
+         / reduced-motion. SSR-safe — no element on the server. -->
+    <CustomCursor />
+
     <!-- SmoothScroll provider seam (PRO-109). Renders its slot directly so
          content is present in SSR / no-JS; the Lenis instance is created in
          the client-only lenis plugin and gated off on reduced-motion/touch. -->

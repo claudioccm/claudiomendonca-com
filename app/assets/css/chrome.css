@@ -4,18 +4,18 @@
    (.btn, .btn-filled, .btn-ghost, .btn-arrow, .btn-text) are intentionally
    omitted from PRO-76 — they land with hero CTAs in PRO-77. */
 
-/* ---------- Skip link (PRO-79 U2) ----------
+/* ---------- Skip link (PRO-79 U2 → PRO-110 dark) ----------
    Visually hidden until it receives keyboard focus, then it surfaces as the
-   first item in the tab order. Motto-consistent: black surface, white text,
-   sharp corners, sans 500. Sits above the sticky nav (z-index > .nav's 50). */
+   first item in the tab order. Dark redesign: paper surface, ink text, sharp
+   corners, sans 500. Sits above everything (z-index > .nav-overlay's 60). */
 .skip-link {
   position: fixed;
   top: 8px;
   left: 8px;
-  z-index: 100;
+  z-index: 110;
   transform: translateY(calc(-100% - 16px));
-  background: var(--color-pitch-black);
-  color: var(--color-canvas-white);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-body);
@@ -24,20 +24,22 @@
 }
 .skip-link:focus {
   transform: translateY(0);
-  outline: 2px solid var(--color-pitch-black);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* ---------- Nav ---------- */
+/* ---------- Nav (PRO-110 dark) ----------
+   Resting nav reads as part of the ink canvas. The is-scrolled state adds a
+   hairline bottom border (carried from the PRO-76 behavior, dark-appropriate). */
 .nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--color-canvas-white);
+  background: var(--ink);
   border-bottom: 1px solid transparent;
   transition: border-color 200ms ease;
 }
-.nav.is-scrolled { border-bottom-color: var(--color-stone-accent); }
+.nav.is-scrolled { border-bottom-color: var(--hairline-solid); }
 
 .nav-inner {
   display: flex;
@@ -50,7 +52,7 @@
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
   font-size: 20px;
-  color: var(--color-pitch-black);
+  color: var(--paper);
   letter-spacing: 0.005em;
   /* Already inline-flex; add a 44px min hit height (PRO-79 U6). The footer
      wordmark overrides font-size inline but inherits this min-height, which
@@ -65,6 +67,7 @@
   font-family: var(--font-disp);
   font-size: 22px;
   line-height: 1;
+  color: var(--accent);
 }
 
 /* Footer brand column — promotes the inline styles that used to live on the
@@ -84,7 +87,7 @@
 .nav-links a {
   font-size: var(--text-body);
   font-weight: var(--font-weight-medium);
-  color: var(--color-pitch-black);
+  color: var(--paper);
   /* Tap target ≥44px (PRO-79 U6): grow the hit area to 44px tall via flex
      centering inside the 72px bar — no layout shift, no visible box. The
      underline is re-anchored below (it tracks the link box, not the text). */
@@ -93,45 +96,133 @@
   min-height: 44px;
   padding: 0;
   position: relative;
+  transition: color 160ms ease;
 }
+.nav-links a:hover { color: var(--accent); }
 .nav-links a[aria-current="page"]::after,
 .nav-links a:hover::after {
   content: "";
   position: absolute;
   /* Sit ~6px below the centered text. With the link grown to a 44px box and
      the text centered, the glyph bottom sits ~13px above box-bottom; placing
-     the rule 7px from box-bottom lands it ~6px under the glyphs (verified in
-     browser: glyph bottom 45px, box bottom 58px → rule at 51px). */
+     the rule 7px from box-bottom lands it ~6px under the glyphs. */
   left: 0; right: 0; bottom: 7px;
   height: 1px;
-  background: var(--color-pitch-black);
+  background: var(--accent);
 }
 
-@media (max-width: 640px) {
-  .nav-links { gap: 18px; }
-  .nav-links .hide-sm { display: none; }
+/* ---------- Mobile overlay menu (PRO-110) ----------
+   Below --overlay-bp the inline desktop links are replaced by a hamburger that
+   opens a full-screen overlay. At/above the breakpoint the hamburger + overlay
+   are hidden and the desktop nav behaves exactly as before. */
+.nav-toggle { display: none; }
+.nav-overlay { display: none; }
+
+/* Hamburger button — two bars that morph to an X when open. ≥44px target. */
+.nav-toggle {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+}
+.nav-toggle__bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--paper);
+  transition: transform 220ms ease, opacity 160ms ease;
+}
+.nav-toggle.is-open .nav-toggle__bar:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.nav-toggle.is-open .nav-toggle__bar:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+.nav-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--ink);
+  /* Closed: present in the DOM (stable GSAP/focus target) but invisible and
+     non-interactive. Opened: visible + interactive. visibility avoids the
+     "tab to an off-screen link" trap and complements the [inert] attribute. */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 240ms ease, visibility 0s linear 240ms;
+}
+.nav-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 240ms ease;
+}
+.nav-overlay__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+.nav-overlay__item a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 16px;
+  font-family: var(--font-disp);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-heading-sm);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  transition: color 160ms ease;
+}
+.nav-overlay__item a:hover,
+.nav-overlay__item a[aria-current="page"] { color: var(--accent); }
+
+/* Reduced motion: no fade transition on the overlay (the component already
+   skips the GSAP timeline; this covers the CSS transition path too). */
+@media (prefers-reduced-motion: reduce) {
+  .nav-overlay { transition: none; }
+  .nav-overlay.is-open { transition: none; }
+  .nav-toggle__bar { transition: none; }
 }
 
-/* At the smallest widths the wordmark + three nav links can't share one 72px
-   row (≈366px of content vs ≈335px usable at 375px), which overflowed the
-   viewport horizontally. Let the row wrap so the links drop beneath the
-   wordmark at full size — the bar grows past 72px on mobile only, no labels
-   are hidden, and desktop is untouched. (PRO-79 U1 — pre-existing overflow
-   surfaced by the cross-viewport sweep.) */
-@media (max-width: 480px) {
-  .nav-inner {
-    flex-wrap: wrap;
-    height: auto;
-    padding-block: 12px;
-    row-gap: 0;
-  }
-  .nav-links { gap: clamp(14px, 5vw, 24px); }
+/* Body scroll lock while the overlay is open (PRO-110). Lenis is also paused
+   in the component when it's running; this is the load-bearing lock on touch /
+   reduced-motion where Lenis is null. */
+body.is-menu-open { overflow: hidden; }
+
+/* ---------- Custom cursor (PRO-110) ----------
+   The native cursor is hidden only while CustomCursor is active (fine pointer +
+   motion allowed); the class is added/removed by the component, so on touch /
+   reduced-motion the native cursor is never touched. Interactive elements keep
+   their semantics; we only swap the visual cursor. */
+body.cursor-active,
+body.cursor-active a,
+body.cursor-active button,
+body.cursor-active [data-cursor] { cursor: none; }
+
+/* ---------- Nav responsive: overlay breakpoint ---------- */
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .nav-overlay { display: flex; }
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer (PRO-110 dark) ---------- */
 .footer {
-  background: var(--color-canvas-white);
-  border-top: 1px solid var(--color-stone-accent);
+  background: var(--ink);
+  border-top: 1px solid var(--hairline-solid);
   padding-top: clamp(64px, 8vw, 96px);
   padding-bottom: clamp(48px, 6vw, 70px);
 }
@@ -153,14 +244,14 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 20px;
-  /* AAA contrast (PRO-79 U3): faint-gray (#717476, 4.71:1) fails AAA on white.
-     Ash-text (#4d5153, 8.02:1) passes; the small uppercase label keeps reading
-     as a tertiary heading via size + case, not via lower contrast. */
-  color: var(--color-ash-text);
+  /* Dim (#9a9aa2) on ink (#08080a) is ~8.3:1 — passes AAA for this small
+     uppercase label. The label still reads as a tertiary heading via size +
+     case, not via a washed-out contrast. */
+  color: var(--dim);
 }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 .footer a {
-  color: var(--color-pitch-black);
+  color: var(--paper);
   font-size: var(--text-body);
   /* Tap target ≥44px (PRO-79 U6): each footer link is its own ≥44px row.
      inline-flex keeps the target hugging the text width (not full column),
@@ -168,16 +259,17 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  transition: color 160ms ease;
 }
-.footer a:hover { color: var(--color-ash-text); }
+.footer a:hover { color: var(--accent); }
 .footer-meta {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-top: 70px;
   padding-top: 24px;
-  border-top: 1px solid var(--color-stone-accent);
-  color: var(--color-ash-text);
+  border-top: 1px solid var(--hairline-solid);
+  color: var(--dim);
   font-size: var(--text-caption);
   gap: 24px;
   flex-wrap: wrap;
@@ -185,5 +277,5 @@
 .footer-meta .glyph {
   font-family: var(--font-disp);
   font-size: 24px;
-  color: var(--color-pitch-black);
+  color: var(--accent);
 }
