@@ -34,13 +34,18 @@ const sceneFailed = ref(false)
 <template>
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
+      <!-- SSR / no-JS / pre-hydration: the animated CSS gradient (the #fallback
+           slot). After mount the client swaps to the WebGL scene when capable,
+           else keeps the gradient. Keeping the gradient inside the default slot
+           too means there's a single consistent render path (no hydration
+           mismatch from gating on a client-only capability check). -->
       <ClientOnly>
         <HeroScene v-if="webglCapable && !sceneFailed" @fail="sceneFailed = true" />
+        <div v-else class="hero-bg-fallback" />
         <template #fallback>
           <div class="hero-bg-fallback" />
         </template>
       </ClientOnly>
-      <div v-if="!webglCapable || sceneFailed" class="hero-bg-fallback" />
     </div>
 
     <div class="shell">

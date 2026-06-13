@@ -49,12 +49,23 @@ const reduced = useReducedMotion()
 // Polymorphic element: NuxtLink (route) > a (href) > button.
 const tag = computed(() => (props.to ? resolveComponent('NuxtLink') : props.href ? 'a' : 'button'))
 
-const rootEl = ref<HTMLElement | null>(null)
+// `:is` may resolve to NuxtLink (a component), in which case the template ref
+// is the component's public instance, not the <a> DOM node. Normalize to the
+// real HTMLElement (a component instance exposes its root via `$el`) so
+// addEventListener / style writes never land on a non-Element.
+const rootRef = ref<HTMLElement | { $el?: HTMLElement } | null>(null)
+function rootEl(): HTMLElement | null {
+  const r = rootRef.value
+  if (!r) return null
+  const el = (r as { $el?: HTMLElement }).$el ?? (r as HTMLElement)
+  return el instanceof HTMLElement ? el : null
+}
+
 let active = false
 let fineMql: MediaQueryList | null = null
 
 function onPointerMove(event: PointerEvent) {
-  const el = rootEl.value
+  const el = rootEl()
   if (!el) return
   const rect = el.getBoundingClientRect()
   const dx = event.clientX - (rect.left + rect.width / 2)
@@ -66,11 +77,12 @@ function onPointerMove(event: PointerEvent) {
 }
 
 function onPointerLeave() {
-  if (rootEl.value) rootEl.value.style.transform = ''
+  const el = rootEl()
+  if (el) el.style.transform = ''
 }
 
 function activate() {
-  const el = rootEl.value
+  const el = rootEl()
   if (active || !el) return
   active = true
   el.addEventListener('pointermove', onPointerMove)
@@ -78,9 +90,9 @@ function activate() {
 }
 
 function deactivate() {
-  const el = rootEl.value
   if (!active) return
   active = false
+  const el = rootEl()
   el?.removeEventListener('pointermove', onPointerMove)
   el?.removeEventListener('pointerleave', onPointerLeave)
   if (el) el.style.transform = ''
@@ -111,7 +123,7 @@ onBeforeUnmount(() => {
 <template>
   <component
     :is="tag"
-    ref="rootEl"
+    ref="rootRef"
     class="magnetic-btn"
     :class="`magnetic-btn--${variant}`"
     :href="href"

@@ -2,10 +2,13 @@
   HeroScene — fullscreen WebGL shader plane behind the hero (PRO-111, U3).
 
   CLIENT ONLY by construction:
-    - the `.client.vue` suffix keeps it out of the SSR / prerender graph entirely;
-    - it is additionally wrapped in <ClientOnly> at its mount site in HeroSection;
+    - mounted exclusively inside <ClientOnly> in HeroSection, so it never renders
+      during SSR / prerender (no <canvas> in the static HTML);
     - `three` is loaded via a dynamic import() inside onMounted, so the heavy lib
       never enters the server bundle (mirrors useScrollReveal's dynamic GSAP import).
+  (A plain .vue, not .client.vue: a .client component wrapped in <ClientOnly> has
+  a deferred-hydration lifecycle whose onMounted did not fire reliably here — the
+  ClientOnly wrapper alone already provides the client-only guarantee.)
 
   Renders a single fullscreen plane with a ShaderMaterial: a slow flowing gradient
   glowing in the accent (#6980ff). Cheap fragment shader — no post-processing, no
@@ -37,6 +40,7 @@ let running = false
 let visible = true
 let tabVisible = true
 let io: IntersectionObserver | null = null
+let ro: ResizeObserver | null = null
 let onResize: (() => void) | null = null
 let onVisibility: (() => void) | null = null
 let disposers: Array<() => void> = []
@@ -157,16 +161,25 @@ onMounted(async () => {
   scene.add(mesh)
 
   const size = () => {
-    const w = canvas.clientWidth || window.innerWidth
-    const h = canvas.clientHeight || window.innerHeight
+    const rect = canvas.getBoundingClientRect()
+    const w = Math.max(1, Math.round(rect.width) || canvas.clientWidth || window.innerWidth)
+    const h = Math.max(1, Math.round(rect.height) || canvas.clientHeight || window.innerHeight)
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     renderer!.setPixelRatio(dpr)
+    // updateStyle=false: the canvas is CSS-sized to fill .hero-bg (inset:0); we
+    // only drive the drawing-buffer resolution here.
     renderer!.setSize(w, h, false)
     uRes?.value.set(w * dpr, h * dpr)
+    renderOnce()
   }
   size()
   onResize = size
   window.addEventListener('resize', size, { passive: true })
+  // The hero can resize without a window resize (font load, content reflow), and
+  // at mount the absolutely-positioned canvas may not be laid out yet — a
+  // ResizeObserver catches both so the drawing buffer always matches the element.
+  ro = new ResizeObserver(() => size())
+  ro.observe(canvas)
 
   // Pause when the hero scrolls out of view.
   io = new IntersectionObserver(
@@ -203,6 +216,8 @@ onBeforeUnmount(() => {
   cancelAnimationFrame(frame)
   io?.disconnect()
   io = null
+  ro?.disconnect()
+  ro = null
   if (onResize) window.removeEventListener('resize', onResize)
   if (onVisibility) document.removeEventListener('visibilitychange', onVisibility)
   onResize = null
