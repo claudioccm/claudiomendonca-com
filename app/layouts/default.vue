@@ -1,13 +1,22 @@
 <template>
   <div class="layout-root">
     <!-- Skip link: first focusable element, visually hidden until keyboard
-         focus, then jumps focus to <main>. Motto-consistent (black on white,
-         sharp corners). PRO-79 U2. -->
+         focus, then jumps focus to <main>. PRO-79 U2. -->
     <a href="#main" class="skip-link">Skip to content</a>
-    <SiteNav />
-    <main id="main" tabindex="-1">
-      <slot />
-    </main>
-    <SiteFooter />
+
+    <!-- Global film-grain texture over the dark canvas (PRO-109). Fixed,
+         non-interactive, SSR-safe. -->
+    <GrainOverlay />
+
+    <!-- SmoothScroll provider seam (PRO-109). Renders its slot directly so
+         content is present in SSR / no-JS; the Lenis instance is created in
+         the client-only lenis plugin and gated off on reduced-motion/touch. -->
+    <SmoothScroll>
+      <SiteNav />
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+      <SiteFooter />
+    </SmoothScroll>
   </div>
 </template>
