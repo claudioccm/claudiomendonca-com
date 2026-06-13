@@ -19,7 +19,7 @@
       <div class="steps">
         <div class="step">
           <span class="num">01</span>
-          <h4>Audit.</h4>
+          <h3>Audit.</h3>
           <p>
             A short, paid audit. We agree on the problem, the one outcome
             that matters, and a fixed price, before any build starts.
@@ -27,7 +27,7 @@
         </div>
         <div class="step">
           <span class="num">02</span>
-          <h4>Build.</h4>
+          <h3>Build.</h3>
           <p>
             Hands-on delivery in your repo and tools. Short cycles, weekly
             checkpoints, no surprises at the final review. A human signs off
@@ -36,7 +36,7 @@
         </div>
         <div class="step">
           <span class="num">03</span>
-          <h4>Run it.</h4>
+          <h3>Run it.</h3>
           <p>
             Your team owns the system and the docs. Most keep me on a Care &amp;
             R&amp;D retainer to maintain it, handle the edge cases, and automate

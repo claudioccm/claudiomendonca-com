@@ -67,7 +67,7 @@ const Harness = defineComponent({
           h('div', { class: 'experiment-caption' }, [
             h('span', { class: 'idx' }, idxLabel.value),
             h('div', { class: 'title-block' }, [
-              h('h3', props.title),
+              h('h2', props.title),
               h('span', { class: 'tag' }, props.tag),
             ]),
             h('span', { class: 'arrow', 'aria-hidden': 'true' }, '↗'),
@@ -111,7 +111,7 @@ describe('ExperimentCard index + caption', () => {
 
   it('renders the title and tag', () => {
     const w = mountCard({ title: 'Varro', tag: 'FULLY AI GENERATED BLOG' })
-    expect(w.find('h3').text()).toBe('Varro')
+    expect(w.find('h2').text()).toBe('Varro')
     expect(w.find('.tag').text()).toBe('FULLY AI GENERATED BLOG')
   })
 })

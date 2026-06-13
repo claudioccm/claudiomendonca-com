@@ -8,7 +8,7 @@
      - Experiments grid + card chrome (.experiments-grid, .experiment*, .shot, .stripes) — lines 366–414
        Note: .image-slot::part(image) selectors replaced with plain `img` since
        the editor web component is dropped in production (plan K3).
-     - Experiment caption (.experiment-caption*, .idx, .title-block, h3, .tag, .arrow) — lines 416–471
+     - Experiment caption (.experiment-caption*, .idx, .title-block, h2, .tag, .arrow) — lines 416–471
      - About / bio (.bio-grid*, .bio-body*) — lines 541–565
    Plus a reduced-motion override appended at the bottom (R14).
    .btn-text (prototype lines 215–225) intentionally skipped.
@@ -21,7 +21,7 @@
      - Entry outcomes column (.entry-rich .entry-body--outcomes) — new (K2),
        replaces the prototype's inline-styled border-left; adds mobile rule.
      - Outcomes list (.outcomes, .outcomes li, .outcomes li::before) — lines 647–667
-     - Steps grid (.steps, .step, .step .num, .step h4, .step p) — lines 583–616
+     - Steps grid (.steps, .step, .step .num, .step h3, .step p) — lines 583–616
      - CTA banner (.cta-banner, .cta-banner h2, .cta-banner p) — lines 619–644
      - Global .label rule (.label, .label::before) — new (K2), extracted from
        the prototype's repeated inline-style payload (consulting.html lines 65,
@@ -316,7 +316,7 @@
   display: grid;
   gap: 6px;
 }
-.experiment-caption h3 {
+.experiment-caption h2 {
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
   font-size: clamp(28px, 3.2vw, 48px);
@@ -553,7 +553,7 @@
   line-height: 1;
   color: var(--accent);
 }
-.step h4 {
+.step h3 {
   margin: 0;
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
