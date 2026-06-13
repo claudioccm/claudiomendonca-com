@@ -43,6 +43,11 @@ let disposers: Array<() => void> = []
 let uTime: { value: number } | null = null
 let uRes: { value: THREE_NS.Vector2 } | null = null
 let startTime = 0
+// Set in onBeforeUnmount. Guards the async onMounted body: if the component
+// unmounts while `await import('three')` is in flight, the continuation must
+// not create a renderer / observers / listeners that the (already-run) teardown
+// can't see — that would leak a GL context. We bail (and dispose) after the await.
+let cancelled = false
 
 const FRAG = /* glsl */ `
   precision highp float;
@@ -111,10 +116,20 @@ onMounted(async () => {
     return
   }
 
+  // Unmounted while the dynamic import was in flight — teardown already ran and
+  // can't see anything we'd create now, so stop before allocating GL resources.
+  if (cancelled) return
+
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'low-power' })
   } catch {
     emit('fail')
+    return
+  }
+  // Re-check: a renderer created after teardown ran would leak its GL context.
+  if (cancelled) {
+    renderer.dispose()
+    renderer = null
     return
   }
 
@@ -183,6 +198,7 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
+  cancelled = true
   running = false
   cancelAnimationFrame(frame)
   io?.disconnect()
