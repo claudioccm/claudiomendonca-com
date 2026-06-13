@@ -51,9 +51,14 @@ let keydownHandler: ((event: KeyboardEvent) => void) | null = null
 function focusableInOverlay(): HTMLElement[] {
   const root = overlayRef.value
   if (!root) return []
+  // The overlay is `inert` + visibility:hidden when closed, so this only ever
+  // runs against a visible, interactive overlay. We deliberately do NOT filter
+  // on offsetParent: the open animation briefly tweens item opacity, and an
+  // offsetParent check would race that frame and drop every link, leaving focus
+  // stranded outside the overlay.
   return Array.from(
     root.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
-  ).filter((el) => el.offsetParent !== null || el === document.activeElement)
+  )
 }
 
 function lockScroll() {
@@ -99,21 +104,19 @@ async function openMenu() {
   await nextTick()
 
   // Animate in unless reduced motion is preferred — then it's an instant toggle.
+  // The overlay container's fade is handled by the CSS .is-open transition; GSAP
+  // only staggers the link items. We tween `opacity` (NOT `autoAlpha`) so the
+  // links never pass through visibility:hidden — they must stay focusable for
+  // the focus move + Tab trap below, which fire right after this.
   if (!reduced.value && overlayRef.value) {
     const { gsap } = await import('gsap')
     overlayTimeline?.kill()
     const items = overlayRef.value.querySelectorAll('.nav-overlay__item')
     const tl = gsap.timeline()
     tl.fromTo(
-      overlayRef.value,
-      { autoAlpha: 0 },
-      { autoAlpha: 1, duration: 0.3, ease: 'power2.out' },
-    )
-    tl.fromTo(
       items,
-      { autoAlpha: 0, y: 16 },
-      { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06, ease: 'power3.out' },
-      '-=0.1',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.06, ease: 'power3.out' },
     )
     overlayTimeline = tl
   }
