@@ -20,7 +20,7 @@
 
         <!-- Site links -->
         <div>
-          <h4>Site</h4>
+          <h2>Site</h2>
           <ul>
             <li><a href="/#work">Experiments</a></li>
             <li><a href="/consulting">Consulting</a></li>
@@ -30,7 +30,7 @@
 
         <!-- Contact links -->
         <div>
-          <h4>Contact</h4>
+          <h2>Contact</h2>
           <ul>
             <li><a href="mailto:claudioccm@gmail.com">claudioccm@gmail.com</a></li>
             <li><a href="#" rel="noopener">GitHub</a></li>
@@ -40,7 +40,7 @@
 
         <!-- Elsewhere links -->
         <div>
-          <h4>Elsewhere</h4>
+          <h2>Elsewhere</h2>
           <ul>
             <li><a href="https://ccmdesign.com" target="_blank" rel="noopener">ccmdesign ↗</a></li>
             <li><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener">Batch Squoosh ↗</a></li>

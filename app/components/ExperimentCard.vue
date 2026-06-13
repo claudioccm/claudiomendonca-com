@@ -118,7 +118,7 @@ onScopeDispose(() => {
     <div class="experiment-caption">
       <span class="idx">{{ idxLabel }}</span>
       <div class="title-block">
-        <h3>{{ title }}</h3>
+        <h2>{{ title }}</h2>
         <span class="tag">{{ tag }}</span>
       </div>
       <span class="arrow" aria-hidden="true">↗</span>

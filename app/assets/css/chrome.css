@@ -237,7 +237,7 @@ body.cursor-active [data-cursor] { cursor: none; }
 @media (max-width: 480px) {
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 }
-.footer h4 {
+.footer h2 {
   font-family: var(--font-sans);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-caption);
