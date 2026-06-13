@@ -65,6 +65,12 @@ async function activate() {
     // GSAP unavailable — onPointerMove falls back to direct transform.
   }
 
+  // A pointer-type / reduced-motion change (or unmount) can deactivate the
+  // cursor while we were awaiting the GSAP import. If that happened, bail so we
+  // don't attach pointer listeners over a now-inactive cursor (deactivate()
+  // already removed whatever it could see).
+  if (!isActive.value) return
+
   window.addEventListener('pointermove', onPointerMove, { passive: true })
   window.addEventListener('pointerover', onPointerOver, { passive: true })
 }

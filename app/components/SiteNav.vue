@@ -118,8 +118,20 @@ async function openMenu() {
     overlayTimeline = tl
   }
 
+  // A fast open->close (or unmount) can flip isMenuOpen back to false while we
+  // were awaiting nextTick / the GSAP import above. Bail before installing the
+  // focus trap so we never leave a keydown handler attached over a closed,
+  // inert overlay (closeMenu already tore down whatever it could see). Kill any
+  // open timeline we just built so it doesn't play over the now-closed overlay.
+  if (!isMenuOpen.value) {
+    overlayTimeline?.kill()
+    overlayTimeline = null
+    return
+  }
+
   // Move focus into the overlay and install the trap.
   await nextTick()
+  if (!isMenuOpen.value) return
   focusableInOverlay()[0]?.focus()
   keydownHandler = trapKeydown
   document.addEventListener('keydown', keydownHandler)
