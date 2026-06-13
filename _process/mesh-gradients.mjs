@@ -28,13 +28,27 @@ const H = 1080
 // Blob order maps onto the anchors array below: slots 0-3 are corners, slot 4
 // is center — keep the dark accent in a corner slot and a bright hue at center
 // or the card reads as a dark smudge.
+//
+// PRO-112: these are now consumed on the DARK redesign (page bg --ink #08080a).
+// The original saturated palettes (authored for a light card frame on white)
+// measured a mean luminance of ~70-88 vs the page's ~8 — they glowed as bright
+// tiles. The bases are dropped to deep tones, the blob sets keep ONE bright
+// hero hue for identity but the rest are muted, and a dark overlay wash (DIM
+// below) is composited last so each card reads as a deep lit surface on ink
+// rather than a luminous rectangle. Hue identity per card is preserved.
 const projects = {
-  cutthecrap: { base: '#a82742', blobs: ['#ff4d3d', '#6b1430', '#d92662', '#ffb347', '#ff8a5c'] },
-  edge: { base: '#1d3fa8', blobs: ['#2f6bff', '#101b59', '#7b5cff', '#19e3d1', '#00c2ff'] },
-  squoosh: { base: '#7a2b9e', blobs: ['#ff3da6', '#36104f', '#5c2bff', '#ff7ad9', '#b14dff'] },
-  varro: { base: '#10704a', blobs: ['#19ba66', '#073d24', '#0f8f5f', '#b8f5d0', '#5ee6a8'] },
-  feedback: { base: '#b86a16', blobs: ['#ffb01f', '#73400d', '#e85d26', '#ffd966', '#ff7a1f'] },
+  cutthecrap: { base: '#3a0e1d', blobs: ['#d93a2e', '#2a0712', '#8f1638', '#b3461f', '#5c1320'] },
+  edge: { base: '#0a173f', blobs: ['#3360e6', '#070d2e', '#4a37b3', '#127a72', '#0a3a66'] },
+  squoosh: { base: '#2c1040', blobs: ['#c22e88', '#1b0828', '#3d1c99', '#7a2b9e', '#4d1d6b'] },
+  varro: { base: '#06301f', blobs: ['#14a35a', '#031c11', '#0a6644', '#3a8f63', '#0c4a30'] },
+  feedback: { base: '#3d2306', blobs: ['#e0961a', '#241402', '#a84a1c', '#8f6620', '#5c3a0d'] },
 }
+
+// Final dark overlay wash (PRO-112): composited above the blobs (below the
+// grain) at this opacity so the whole card drops in value toward --ink while
+// keeping its hue. Tuned so the regenerated art lands well under the original
+// ~70-88 mean luminance.
+const DIM = { color: '#08080a', opacity: 0.42 }
 
 // Fixed anchor layout shared across cards: corners-ish + center drift, blobs
 // oversized and pushed past the canvas edges so color bleeds to the borders
@@ -80,6 +94,7 @@ function meshSvg({ base, blobs }) {
   <g>
       ${circles}
   </g>
+  <rect width="${W}" height="${H}" fill="${DIM.color}" opacity="${DIM.opacity}"/>
   <rect width="${W}" height="${H}" filter="url(#grain)" opacity="0.5"/>
 </svg>`
 }
