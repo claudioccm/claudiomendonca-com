@@ -1,9 +1,10 @@
 <!--
-  Home one-pager. Composition lifted from _process/prototype/index.html
-  lines 34–157 with the editor web component (image-slot) replaced by
-  ExperimentCard + NuxtImg. Card data iterated from app/data/experiments.ts
-  so adding a fifth product is one new array entry + one image file — no
-  edit to this page, ExperimentCard, HeroSection, or sections.css. (R16)
+  Home one-pager (PRO-112 dark redesign). Hero = HeroSection + KineticHeading +
+  MagneticButton (PRO-111); #work = ExperimentCard grid; #about = bio block.
+  Card data is iterated from app/data/experiments.ts, so adding a product is one
+  new array entry + one image file — no edit to this page or ExperimentCard for
+  the data itself. Section ids #work / #about are load-bearing (nav, footer,
+  _redirects, and the /about → #about redirect depend on them).
   The outer <div> exists because Nuxt's eslint preset enforces a single
   template root on pages (the layout's <main> already provides semantics).
 -->
