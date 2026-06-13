@@ -8,12 +8,24 @@
   template root on pages (the layout's <main> already provides semantics).
 -->
 <script setup lang="ts">
+import { ref } from 'vue'
 import { experiments } from '~/data/experiments'
+import { useScrollReveal } from '~/composables/useScrollReveal'
 
 // Canonical / og:url for the homepage. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({ ogUrl: canonical })
+
+// Scroll reveals (PRO-112) — enhancement only. The ExperimentCards self-reveal
+// (each card owns its own useScrollReveal), so the page reveals just the #work
+// section head and the #about bio block. useScrollReveal is a no-op on SSR /
+// no-JS / reduced-motion, so the served HTML carries all copy with no hidden
+// start state (R7).
+const workHeadEl = ref<HTMLElement | null>(null)
+const bioEl = ref<HTMLElement | null>(null)
+useScrollReveal(workHeadEl)
+useScrollReveal(bioEl, { childSelector: ':scope > *', stagger: 0.08 })
 </script>
 
 <template>
@@ -37,7 +49,7 @@ useSeoMeta({ ogUrl: canonical })
 
     <section id="work">
       <div class="shell">
-        <div class="section-head">
+        <div ref="workHeadEl" class="section-head">
           <span class="label">EXPERIMENTS —</span>
         </div>
         <ul class="experiments-grid" aria-label="Experiments">
@@ -66,7 +78,7 @@ useSeoMeta({ ogUrl: canonical })
             <span class="label">About</span>
             <h2>About.</h2>
           </div>
-          <div class="bio-body">
+          <div ref="bioEl" class="bio-body">
             <p>
               I'm Claudio Mendonça, design engineer, working at the intersection
               of design, code, and AI.
