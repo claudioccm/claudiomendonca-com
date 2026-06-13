@@ -11,4 +11,15 @@ export default withNuxt(
       'docs/**',
     ],
   },
+  {
+    // Marquee is a deliberately single-word, generic ticker primitive
+    // (PRO-113, ticket-mandated name). The multi-word rule guards against
+    // clashing with native elements; "marquee" is a deprecated element but
+    // never used here, and the component is namespaced in templates. Scope
+    // the exemption to this one file rather than relaxing it globally.
+    files: ['app/components/Marquee.vue'],
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
 )
