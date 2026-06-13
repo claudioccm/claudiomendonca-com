@@ -68,7 +68,6 @@ const rootEl = ref<HTMLElement | null>(null)
 // transitions are out-in, so the DOM must be left clean for the next mount.
 let countTween: { kill: () => void, scrollTrigger?: { kill: () => void } } | null = null
 let arcTween: { kill: () => void, scrollTrigger?: { kill: () => void } } | null = null
-let cancelled = false
 
 onMounted(() => {
   // Reduced motion: leave the final static state (number + full arc) untouched.
@@ -114,18 +113,11 @@ onMounted(() => {
       scrollTrigger: st,
     })
   }
-
-  // Mounted-then-immediately-unmounted (fast route change): tear down now.
-  if (cancelled) {
-    countTween?.scrollTrigger?.kill()
-    countTween?.kill()
-    arcTween?.scrollTrigger?.kill()
-    arcTween?.kill()
-  }
 })
 
 onBeforeUnmount(() => {
-  cancelled = true
+  // Kill both tweens and their ScrollTriggers so unmount leaves clean DOM —
+  // page transitions are out-in, so the next mount must see fresh markup.
   countTween?.scrollTrigger?.kill()
   countTween?.kill()
   arcTween?.scrollTrigger?.kill()
