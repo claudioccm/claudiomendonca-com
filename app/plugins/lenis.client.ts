@@ -19,7 +19,7 @@ import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches
 
@@ -44,10 +44,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   gsap.ticker.add(tickerCallback)
   gsap.ticker.lagSmoothing(0)
 
-  // Clean up on full app teardown (HMR, unmount).
-  nuxtApp.hook('app:beforeMount', () => {
-    // no-op: kept for symmetry; teardown is handled below on unmount.
-  })
+  // Clean up the ticker callback + Lenis on HMR dispose so a dev reload doesn't
+  // stack RAF loops.
   if (import.meta.hot) {
     import.meta.hot.dispose(() => {
       gsap.ticker.remove(tickerCallback)

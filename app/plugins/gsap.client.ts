@@ -3,8 +3,9 @@
  *
  * The `.client.ts` suffix keeps GSAP and its plugins out of the SSR / prerender
  * bundle entirely (`nuxt generate` never imports this file). Registering the
- * plugins here, once, means components and composables can `gsap.registerPlugin`
- * is already done — they just import gsap and use ScrollTrigger / SplitText.
+ * plugins here, once, means components and composables don't need to call
+ * `gsap.registerPlugin` themselves — they just import gsap and use
+ * ScrollTrigger / SplitText.
  *
  * GSAP 3.13+ ships every plugin (incl. ScrollTrigger + SplitText) for free.
  *
