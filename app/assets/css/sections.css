@@ -77,9 +77,43 @@
 
 /* ---------- Hero ---------- */
 .hero {
+  position: relative;
   padding-top: clamp(70px, 10vw, 158px);
   padding-bottom: clamp(64px, 9vw, 96px);
+  overflow: hidden; /* clip the bleed of the absolutely-positioned bg layer */
 }
+
+/* Background layer (PRO-111): sits behind .shell. Holds either the WebGL
+   HeroScene canvas or the CSS gradient fallback. Decorative + non-interactive. */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Animated accent gradient shown when WebGL is unavailable / not capable.
+   Drifts slowly via background-position; held STATIC under reduced-motion. */
+.hero-bg-fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 60% at 28% 32%, color-mix(in srgb, var(--accent) 28%, transparent) 0%, transparent 70%),
+    radial-gradient(50% 50% at 80% 75%, color-mix(in srgb, var(--accent-alt) 18%, transparent) 0%, transparent 70%),
+    var(--ink);
+  background-size: 200% 200%, 200% 200%, 100% 100%;
+  animation: hero-bg-drift 24s ease-in-out infinite alternate;
+}
+@keyframes hero-bg-drift {
+  0%   { background-position: 0% 0%, 100% 100%, 0 0; }
+  100% { background-position: 100% 100%, 0% 0%, 0 0; }
+}
+
+/* Keep hero content above the bg layer. */
+.hero .shell {
+  position: relative;
+  z-index: 1;
+}
+
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -668,5 +702,11 @@
   .btn:hover .btn-arrow,
   .btn:active {
     transform: none !important;
+  }
+  /* Hero CSS fallback: hold the gradient static under reduced motion (PRO-111).
+     WebGL never mounts here anyway — useWebGLCapable folds in reduced-motion —
+     so the fallback is always what reduced-motion users see. */
+  .hero-bg-fallback {
+    animation: none !important;
   }
 }

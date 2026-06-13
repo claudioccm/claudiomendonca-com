@@ -9,31 +9,11 @@
 -->
 <script setup lang="ts">
 import { experiments } from '~/data/experiments'
-import type { TyperConfig } from '~/types/typer'
 
 // Canonical / og:url for the homepage. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({ ogUrl: canonical })
-
-// Live-tunable typewriter effect config. Bound to <TypewriterHeadline> and, when
-// the URL carries `?tune`, to a <TypewriterTuner> dev panel. Defaults are the
-// baked-in values; tweak via the panel, then tell me the numbers to make permanent.
-const typer = reactive<TyperConfig>({
-  typeMs: 90,
-  deleteMs: 45,
-  holdMs: 1600,
-  betweenMs: 400,
-  cursorBlinkMs: 1050,
-})
-
-// Show the tuner only when `?tune` is present. Set client-side in onMounted so
-// SSR/hydration render identically (server has no URL query); the panel patches
-// in after mount for that one visitor.
-const showTuner = ref(false)
-onMounted(() => {
-  showTuner.value = new URLSearchParams(window.location.search).has('tune')
-})
 </script>
 
 <template>
@@ -44,23 +24,14 @@ onMounted(() => {
         <span>CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER</span>
       </template>
       <template #headline>
-        <TypewriterHeadline
-          :type-ms="typer.typeMs"
-          :delete-ms="typer.deleteMs"
-          :hold-ms="typer.holdMs"
-          :between-ms="typer.betweenMs"
-          :cursor-blink-ms="typer.cursorBlinkMs"
-        />
+        <KineticHeading :words="['EXPERIMENTS', 'CONSULTING', 'TRAINING']" prefix="AI " />
       </template>
       <template #sub>
         I build opinionated AI experimental tools. Use with moderation. This page is the index.
       </template>
       <template #ctas>
-        <a class="btn btn-filled" href="#work">
-          See the work
-          <span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <NuxtLink class="btn btn-ghost" to="/consulting">Consulting</NuxtLink>
+        <MagneticButton variant="filled" href="#work" arrow>See the work</MagneticButton>
+        <MagneticButton variant="ghost" to="/consulting">Consulting</MagneticButton>
       </template>
     </HeroSection>
 
@@ -114,9 +85,5 @@ onMounted(() => {
         </div>
       </div>
     </section>
-
-    <ClientOnly>
-      <TypewriterTuner v-if="showTuner" v-model:config="typer" />
-    </ClientOnly>
   </div>
 </template>
