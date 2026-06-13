@@ -18,6 +18,19 @@ import { consultingOfferings } from '~/data/consulting'
 const canonical = 'https://claudiomendonca.com/consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({ ogUrl: canonical })
+
+// Role / tools strip shown in the marquee under the hero. Page-owned copy —
+// no data module, since it is presentational and specific to this page.
+const marqueeItems = [
+  'Recurring reports',
+  'Newsletters',
+  'Research briefs',
+  'On-brand output',
+  'Human-in-the-loop',
+  'Team training',
+  'Built in your tools',
+  'Yours to keep',
+]
 </script>
 
 <template>
@@ -43,6 +56,8 @@ useSeoMeta({ ogUrl: canonical })
         <MagneticButton variant="ghost" href="#how">See how it works</MagneticButton>
       </template>
     </HeroSection>
+
+    <Marquee :items="marqueeItems" aria-label="What I deliver" />
 
     <section data-screen-label="Consulting — Positioning">
       <div class="shell">
@@ -83,14 +98,13 @@ useSeoMeta({ ogUrl: canonical })
               accountable when it matters. That is the part you are paying for,
               and it is the part a generic chatbot won't do.
             </p>
-            <blockquote class="stat-callout">
-              <p>
-                95% of company AI pilots never deliver a measurable return. The
-                ones run with an outside specialist succeed about twice as often
-                as in-house builds.
+            <StatCounter :value="95" suffix="%" label="of company AI pilots never deliver a measurable return.">
+              <p class="stat-counter-note">
+                The ones run with an outside specialist succeed about twice as
+                often as in-house builds.
               </p>
               <cite>— MIT, <em>State of AI in Business 2025</em></cite>
-            </blockquote>
+            </StatCounter>
           </div>
         </div>
       </div>
@@ -158,11 +172,15 @@ useSeoMeta({ ogUrl: canonical })
       </div>
     </section>
 
-    <CtaBanner
-      heading="Got something to build?"
-      body="A short note about what you're working on is enough to start. No deck required."
-      cta-label="Start a conversation"
-      cta-href="mailto:claudioccm@gmail.com"
-    />
+    <!-- #contact anchor wraps the CTA banner (mailto lives here). Wrapping at
+         the page level keeps the CtaBanner prop contract untouched (PRO-113 R3). -->
+    <div id="contact">
+      <CtaBanner
+        heading="Got something to build?"
+        body="A short note about what you're working on is enough to start. No deck required."
+        cta-label="Start a conversation"
+        cta-href="mailto:claudioccm@gmail.com"
+      />
+    </div>
   </div>
 </template>
