@@ -1,25 +1,53 @@
-/* Motto® design tokens — from 02-design-system-motto.md */
+/* Redesign 1/6 — dark design tokens (PRO-109).
+   All colors are hex/rgba (NOT oklch/hsl), per project convention.
+
+   Two token sets live here:
+   1. NEW semantic dark tokens (--ink, --paper, --accent, …) — the canonical
+      going-forward API. Cycles 2–6 restyle sections against these.
+   2. LEGACY --color-* tokens (Motto® light system) — names KEPT but VALUES
+      REMAPPED to dark equivalents so the not-yet-restyled chrome.css /
+      sections.css keep building and existing pages render dark unedited.
+      "unstyled-but-present is fine" for this foundation cycle (PRO-109). */
 :root {
-  /* Colors */
-  --color-pitch-black: #000000;
-  --color-canvas-white: #ffffff;
-  --color-charcoal-surface: #1b1b1c;
-  --color-cloud-gray: #f2f2f2;
-  --color-stone-accent: #d8d8d8;
-  --color-ash-text: #4d5153;       /* 8.02:1 on white — AAA, the workhorse secondary text */
-  --color-silver-text: #848484;    /* 3.74:1 on white — fails AA/AAA; do NOT use on functional text (PRO-79 U3) */
-  --color-input-border: #c8cacd;
-  --color-faint-gray: #717476;     /* 4.71:1 on white — AA only; reserve for dev-scaffold TODO markers, not functional text (PRO-79 U3) */
-  --color-vivid-purple: #9c98ef;
-  --color-electric-violet: #6980ff;
-  --color-grass-green: #beee98;
+  /* ---------- NEW semantic dark palette ---------- */
+  --ink: #08080a;                       /* page background — near-black */
+  --raised: #101014;                    /* raised surfaces / cards */
+  --hairline: rgba(255, 255, 255, .10); /* 1px separators on dark */
+  --paper: #f3f2ee;                     /* primary text — warm off-white */
+  --dim: #9a9aa2;                        /* secondary text */
+  --faint: #6a6a72;                      /* tertiary / de-emphasized text */
+  --accent: #6980ff;                     /* electric violet — primary accent */
+  --accent-alt: #9c98ef;                 /* vivid purple — secondary accent */
+  --accent-rare: #beee98;                /* grass green — rare graphic accent */
+
+  /* Solid equivalent of --hairline for borders that can't take rgba layering. */
+  --hairline-solid: #26262c;
+
+  /* ---------- LEGACY --color-* (remapped to dark) ----------
+     Text/border tokens map to light values; surface/background tokens map to
+     dark values. The pairings in chrome.css/sections.css were verified to stay
+     legible after remap (e.g. .btn-filled bg→paper + text→ink reads dark-on-light;
+     nav/footer bg→ink + text→paper reads light-on-dark). */
+  --color-pitch-black: var(--paper);     /* was primary text/border on white → now light text on dark */
+  --color-canvas-white: var(--ink);      /* was page/surface bg → now dark surface */
+  --color-charcoal-surface: var(--paper);/* was dark CTA fill (with white text) → light fill so ink text reads */
+  --color-cloud-gray: var(--raised);     /* subtle block / image placeholder bg */
+  --color-stone-accent: var(--hairline-solid); /* divider lines / subtle borders */
+  --color-ash-text: var(--dim);          /* secondary body text */
+  --color-silver-text: var(--faint);     /* lighter / de-emphasized text */
+  --color-input-border: var(--hairline-solid); /* input underline border */
+  --color-faint-gray: var(--faint);      /* tertiary text / footnotes */
+  --color-vivid-purple: var(--accent-alt);   /* decorative accent */
+  --color-electric-violet: var(--accent);    /* decorative accent */
+  --color-grass-green: var(--accent-rare);   /* decorative accent */
 
   /* Fonts */
   --font-sans: 'Inter', Arial, Helvetica, sans-serif;
   --font-disp: 'Oswald', Impact, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-weight-medium: 500;
 
-  /* Type scale */
+  /* Type scale (unchanged) */
   --text-caption: 14px;     --leading-caption: 1.4;
   --text-body: 17px;        --leading-body: 1.38;
   --text-subheading: 25px;  --leading-subheading: 1.14;
@@ -29,20 +57,20 @@
   --text-display-sm: 99px;  --leading-display-sm: 1;
   --text-display: 154px;    --leading-display: 1;
 
-  /* Spacing */
+  /* Spacing (unchanged) */
   --spacing-8: 8px;     --spacing-15: 15px;   --spacing-19: 19px;
   --spacing-21: 21px;   --spacing-23: 23px;   --spacing-24: 24px;
   --spacing-29: 29px;   --spacing-38: 38px;   --spacing-48: 48px;
   --spacing-58: 58px;   --spacing-67: 67px;   --spacing-70: 70px;
   --spacing-77: 77px;   --spacing-96: 96px;   --spacing-158: 158px;
 
-  /* Layout & radius */
+  /* Layout & radius (unchanged) */
   --section-gap: 48px;
   --card-padding: 0px;
   --radius-cards: 0px;
   --radius-buttons: 9999px;
 
-  /* Page */
+  /* Page (unchanged) */
   --page-max: 1280px;
   --page-pad-x: clamp(20px, 5vw, 96px);
 }

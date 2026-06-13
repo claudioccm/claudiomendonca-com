@@ -1,7 +1,13 @@
-/* Motto® base styles — reset, body texture, type + layout primitives.
-   Extracted from _process/prototype/styles.css. Page-specific styles
-   (nav, hero, footer, buttons, sections, etc.) stay in the prototype
-   for later tickets. */
+/* Redesign 1/6 — dark base styles (PRO-109).
+   Dark reset, body on ink, film-grain + vignette canvas (replaces the light
+   Motto® blueprint grid). Keeps .shell + type utilities + anchor offset +
+   reduced-motion scroll-behavior, and adds the page-transition CSS that the
+   nuxt.config `app.pageTransition: { name: 'page' }` hook consumes.
+
+   The visible film grain is rendered by the global <GrainOverlay> component
+   (fixed, pointer-events:none). base.css owns only the dark page colour and a
+   soft edge vignette so the canvas reads as a deep, lit surface rather than
+   flat black. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -9,8 +15,8 @@ html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 html, body {
   margin: 0; padding: 0;
-  background: var(--color-canvas-white);
-  color: var(--color-pitch-black);
+  background: var(--ink);
+  color: var(--paper);
   font-family: var(--font-sans);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-body);
@@ -18,58 +24,53 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* ---------- Blueprint texture (page background) ----------
-   Subtle architectural grid + low-density dot field. Light enough to read as
-   paper, dense enough to register as "blueprint". */
-body {
-  background-color: var(--color-canvas-white);
-  background-image:
-    /* 64px major grid lines */
-    linear-gradient(to right,  rgba(0,0,0,0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0,0,0,0.045) 1px, transparent 1px),
-    /* 16px minor grid lines */
-    linear-gradient(to right,  rgba(0,0,0,0.018) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0,0,0,0.018) 1px, transparent 1px),
-    /* dot field on the 64px intersections */
-    radial-gradient(circle at 1px 1px, rgba(0,0,0,0.18) 1.2px, transparent 1.6px);
-  background-size:
-    64px 64px,
-    64px 64px,
-    16px 16px,
-    16px 16px,
-    64px 64px;
-  background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
-}
-
-/* Soft vignette/fade so the grid doesn't compete with type at the edges */
+/* ---------- Dark canvas vignette ----------
+   A soft radial darkening toward the edges keeps the ink page from reading as
+   flat black and frames content toward the centre. The animated film grain
+   itself is layered on top by <GrainOverlay>. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,255,255,0.55), rgba(255,255,255,0) 75%);
   z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 38%, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
 }
 
-/* Make sure content sits above the texture overlay.
-   .nav and .footer selectors are no-ops in this ticket (no nav/footer yet)
-   and become live when later tickets add those elements. */
+/* Content sits above the texture/overlay layers.
+   .nav / .footer become live once later tickets style them. */
 .nav, main, .footer { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
 
-/* Anchor-jump offset under the sticky nav (PRO-79 U1 follow-up).
+/* ---------- Page transition (KTD5) ----------
+   Consumed by nuxt.config `app.pageTransition: { name: 'page', mode: 'out-in' }`.
+   A short cross-fade + tiny lift. Fully removed under reduced-motion so the
+   route swap is instant for those users. */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+.page-enter-from { opacity: 0; transform: translateY(8px); }
+.page-leave-to { opacity: 0; transform: translateY(-8px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active { transition: none; }
+  .page-enter-from,
+  .page-leave-to { opacity: 1; transform: none; }
+}
+
+/* Anchor-jump offset under the sticky nav (carried from PRO-79 U1).
    In-page anchors (#work, #about, #contact, #consulting, #top) scroll their
-   target to the viewport top, where the sticky 72px .nav would otherwise
-   overlay it. scroll-margin-top reserves clearance so the target lands below
-   the bar. It only shifts the scroll landing position — no layout impact. */
+   target to the viewport top; scroll-margin-top reserves clearance so the
+   target lands below the sticky bar. */
 [id] { scroll-margin-top: 88px; }
 @media (max-width: 480px) {
-  /* The nav row wraps and grows past 72px at this width (chrome.css), so the
-     anchor target needs more headroom to clear the taller bar. */
   [id] { scroll-margin-top: 120px; }
 }
 
@@ -86,12 +87,13 @@ a.link-underline {
   text-decoration-thickness: 1px;
 }
 
-/* Selection */
-::selection { background: var(--color-pitch-black); color: var(--color-canvas-white); }
+/* Selection — inverts to paper-on-ink on the dark canvas. */
+::selection { background: var(--paper); color: var(--ink); }
 
 /* ---------- Type utilities ---------- */
 .disp { font-family: var(--font-disp); font-weight: var(--font-weight-medium); letter-spacing: -0.015em; text-transform: uppercase; }
 .sans { font-family: var(--font-sans); font-weight: var(--font-weight-medium); }
+.mono { font-family: var(--font-mono); font-weight: var(--font-weight-medium); }
 
 .t-caption   { font-size: var(--text-caption);    line-height: var(--leading-caption); }
 .t-body      { font-size: var(--text-body);       line-height: var(--leading-body); }
