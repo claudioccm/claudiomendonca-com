@@ -28,7 +28,7 @@ useSeoMeta({ ogUrl: canonical })
         <span>Consulting — automated, on-brand, accountable</span>
       </template>
       <template #headline>
-        <h1>Your recurring work,<br>done by a system.</h1>
+        <KineticHeading text="Your recurring work, done by a system." />
       </template>
       <template #sub>
         Every week your team rebuilds the same reports, briefs, and newsletters
@@ -37,11 +37,10 @@ useSeoMeta({ ogUrl: canonical })
         AI so they move faster there too.
       </template>
       <template #ctas>
-        <a class="btn btn-filled" href="mailto:claudioccm@gmail.com">
+        <MagneticButton variant="filled" href="mailto:claudioccm@gmail.com" arrow>
           Start a conversation
-          <span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="btn btn-ghost" href="#how">See how it works</a>
+        </MagneticButton>
+        <MagneticButton variant="ghost" href="#how">See how it works</MagneticButton>
       </template>
     </HeroSection>
 
