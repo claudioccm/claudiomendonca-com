@@ -1,0 +1,5 @@
+# Netlify redirects for the static deploy (.output/public has no Nitro
+# runtime, so the routeRules redirect in nuxt.config.ts doesn't apply there —
+# this file is the production mirror of that rule).
+# /about is not a page; About is a section on the home page.
+/about  /#about  301

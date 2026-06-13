@@ -24,6 +24,14 @@ export default defineNuxtConfig({
     },
   },
 
+  // /about is not a page — About lives as a section on the home page
+  // (#about). This redirect catches direct hits to /about in dev and any
+  // server runtime. The static Netlify deploy doesn't run Nitro, so the
+  // same rule is mirrored in public/_redirects for production.
+  routeRules: {
+    '/about': { redirect: { to: '/#about', statusCode: 301 } },
+  },
+
   // Order matters: tokens.css must load before base.css so :root vars are
   // defined when base styles reference them via var(). chrome.css follows
   // base.css because it consumes the .shell and section primitives.
