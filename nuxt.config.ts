@@ -44,17 +44,23 @@ export default defineNuxtConfig({
     '~/assets/css/sections.css',
   ],
 
-  // Motto® typography: Inter 500 for body, Oswald 500 for display.
-  // No other weights, no italic variants. Fallback stacks live in tokens.css
-  // via --font-sans / --font-disp.
+  // Typography: Inter 500 for body, Oswald 500 for display, JetBrains Mono 500
+  // for the new monospace accent (PRO-109). Single weight per family, no italics.
+  // Fallback stacks live in tokens.css via --font-sans / --font-disp / --font-mono.
   fonts: {
     families: [
       { name: 'Inter', weights: [500], styles: ['normal'] },
       { name: 'Oswald', weights: [500], styles: ['normal'] },
+      { name: 'JetBrains Mono', weights: [500], styles: ['normal'] },
     ],
   },
 
   app: {
+    // Page transition (PRO-109, KTD5). The `.page-*` CSS lives in base.css and
+    // is removed under prefers-reduced-motion, so the route swap is instant for
+    // reduced-motion users. Generate-safe — works with `nuxt generate`.
+    pageTransition: { name: 'page', mode: 'out-in' },
+
     head: {
       htmlAttrs: { lang: 'en' },
       title: 'Claudio Mendonça — AI Experiments',
