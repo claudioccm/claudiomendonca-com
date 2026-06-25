@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .serif{font-family:'Instrument Serif',serif}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+</style>
+</helmet>
+<div style="position:relative;width:100%;height:100vh;overflow:hidden;font-family:'JetBrains Mono',monospace;background:#F6F5F1;color:#131313">
+
+  <!-- ============ DIRECTION 01 — INDEX (theShift restraint) ============ -->
+  <section style="position:absolute;inset:0;display:{{ displayA }};flex-direction:column;justify-content:center;padding:clamp(28px,5vw,72px);background:#F6F5F1;color:#131313">
+    <!-- top meta bar -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:clamp(28px,5vw,48px);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#13131399">
+      <div style="max-width:50%">Claudio Mendon&ccedil;a<br>Founder. Designer. Engineer.</div>
+      <div style="text-align:right">British Columbia<br>Available &mdash; small no. of engagements</div>
+    </div>
+
+    <!-- headline -->
+    <div style="max-width:1100px">
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#13131388;margin-bottom:clamp(20px,4vh,40px)">(01) &mdash; The index</div>
+      <h1 class="serif" style="font-weight:400;font-size:clamp(64px,13vw,210px);line-height:.86;letter-spacing:-.01em;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .22em">
+        <span>AI</span>
+        <span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span id="wordA" style="display:inline-block;font-style:italic">Experiments</span></span>
+      </h1>
+      <p style="margin-top:clamp(22px,4vh,40px);max-width:540px;font-size:14px;line-height:1.6;color:#131313cc">I build opinionated AI experimental tools. Use with moderation. This page is the index.</p>
+      <div style="margin-top:clamp(26px,4vh,40px);display:flex;gap:28px;flex-wrap:wrap;font-size:13px">
+        <a href="#" style="color:#131313;text-decoration:none;border-bottom:1px solid #13131355;padding-bottom:3px">See the work &#8599;</a>
+        <a href="#" style="color:#13131399;text-decoration:none;border-bottom:1px solid #13131322;padding-bottom:3px">Consulting &#8599;</a>
+      </div>
+    </div>
+
+    <!-- bottom experiments row -->
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:clamp(28px,5vw,48px);font-size:11px;letter-spacing:.04em;color:#13131388;display:flex;flex-wrap:wrap;gap:6px 18px">
+      <span style="color:#13131355">Shipping &mdash;</span>
+      <span>Cut The Crap</span><span style="color:#13131333">/</span>
+      <span>Edge</span><span style="color:#13131333">/</span>
+      <span>Batch Squoosh</span><span style="color:#13131333">/</span>
+      <span>Varro</span><span style="color:#13131333">/</span>
+      <span>Feedback</span>
+    </div>
+  </section>
+
+  <!-- ============ DIRECTION 02 — KINETIC (Workoholics swagger) ============ -->
+  <section style="position:absolute;inset:0;display:{{ displayB }};flex-direction:column;justify-content:center;overflow:hidden;background:#0E0E0D;color:#F6F5F1">
+    <!-- top meta -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:clamp(24px,4vw,40px);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#F6F5F166;z-index:3">
+      <span>Claudio Mendon&ccedil;a</span>
+      <span>&#9737; AI Experiments &mdash; Index</span>
+    </div>
+
+    <!-- giant headline -->
+    <div style="padding:0 clamp(24px,4vw,56px);z-index:2">
+      <div class="serif" style="font-size:clamp(56px,11vw,180px);line-height:.82;letter-spacing:-.02em">
+        <span style="display:block;color:#F6F5F133;font-style:italic">AI</span>
+        <span id="wordB" class="mono" style="display:block;font-weight:500;font-size:clamp(40px,9.5vw,150px);letter-spacing:-.02em;line-height:.9;color:#F6F5F1">EXPERIMENTS</span>
+      </div>
+      <div style="display:flex;gap:30px;flex-wrap:wrap;margin-top:clamp(28px,5vh,52px);font-size:13px">
+        <a href="#" style="color:#0E0E0D;background:#F6F5F1;text-decoration:none;padding:11px 20px;font-weight:500">SEE THE WORK &#8594;</a>
+        <a href="#" style="color:#F6F5F1;text-decoration:none;padding:11px 20px;border:1px solid #F6F5F133">CONSULTING &#8594;</a>
+      </div>
+    </div>
+
+    <!-- marquee -->
+    <div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid #F6F5F11a;padding:14px 0;overflow:hidden;white-space:nowrap">
+      <div style="display:inline-block;animation:marq 26s linear infinite;font-size:13px;letter-spacing:.05em;color:#F6F5F199">
+        <span style="padding:0 24px">CUT THE CRAP &mdash; youtube videos as tweets</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">EDGE &mdash; auto-generated AI news blog</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">BATCH SQUOOSH &mdash; self-hosted compression</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">VARRO &mdash; AI-generated content</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">FEEDBACK &mdash; AI feedback collection</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">CUT THE CRAP &mdash; youtube videos as tweets</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">EDGE &mdash; auto-generated AI news blog</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">BATCH SQUOOSH &mdash; self-hosted compression</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">VARRO &mdash; AI-generated content</span><span style="color:#F6F5F133">&#9737;</span>
+        <span style="padding:0 24px">FEEDBACK &mdash; AI feedback collection</span><span style="color:#F6F5F133">&#9737;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIRECTION 03 — FIELD (anime.js dot grid) ============ -->
+  <section id="fieldSection" style="position:absolute;inset:0;display:{{ displayC }};align-items:center;justify-content:center;overflow:hidden;background:#F6F5F1;color:#131313">
+    <div id="dotfield" style="position:absolute;inset:0;display:grid;padding:clamp(40px,6vw,90px);z-index:1;pointer-events:none"></div>
+    <!-- top meta -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:clamp(24px,4vw,40px);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#13131388;z-index:3">
+      <span>Design engineer &mdash; British Columbia</span>
+      <span>Field &mdash; 03</span>
+    </div>
+    <!-- centered headline -->
+    <div style="position:relative;z-index:2;text-align:center">
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#13131388;margin-bottom:18px">claudiomendonca.com</div>
+      <h1 class="serif" style="font-weight:400;font-size:clamp(60px,12vw,190px);line-height:.9;letter-spacing:-.01em">
+        AI <span id="wordC" style="font-style:italic;display:inline-block">Experiments</span>
+      </h1>
+      <p style="margin-top:22px;max-width:440px;margin-left:auto;margin-right:auto;font-size:13px;line-height:1.6;color:#131313aa">I build opinionated AI experimental tools. Use with moderation. This page is the index.</p>
+    </div>
+  </section>
+
+  <!-- switcher -->
+  <div class="mono" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;background:rgba(246,245,241,.7);backdrop-filter:blur(10px);border:1px solid #13131320;border-radius:3px;padding:4px;box-shadow:0 6px 24px rgba(19,19,19,.1)">
+    <button id="sw0" onClick="{{ pick0 }}" style="font-family:inherit;cursor:pointer;border:none;white-space:nowrap;background:#131313;color:#F6F5F1;font-size:11px;letter-spacing:.1em;padding:8px 15px;border-radius:2px;transition:background .25s,color .25s">01&nbsp;&nbsp;INDEX</button>
+    <button id="sw1" onClick="{{ pick1 }}" style="font-family:inherit;cursor:pointer;border:none;white-space:nowrap;background:transparent;color:#13131399;font-size:11px;letter-spacing:.1em;padding:8px 15px;border-radius:2px;transition:background .25s,color .25s">02&nbsp;&nbsp;KINETIC</button>
+    <button id="sw2" onClick="{{ pick2 }}" style="font-family:inherit;cursor:pointer;border:none;white-space:nowrap;background:transparent;color:#13131399;font-size:11px;letter-spacing:.1em;padding:8px 15px;border-radius:2px;transition:background .25s,color .25s">03&nbsp;&nbsp;FIELD</button>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { variant: 0 };
+  words = ["Experiments", "Consulting", "Training"];
+  timers = [];
+  raf = null;
+  cleanups = [];
+
+  _lastVariant = 0;
+  componentDidMount() { this._lastVariant = this.state.variant; this.updateSwitcher(this.state.variant); this.waitAnime(() => this.start(this.state.variant)); }
+  componentDidUpdate() {
+    const v = this.state.variant;
+    this.updateSwitcher(v);
+    if (this._lastVariant !== v) {
+      this._lastVariant = v;
+      this.stopAll();
+      this.waitAnime(() => this.start(v));
+    }
+  }
+  updateSwitcher(v) {
+    for (let k = 0; k < 3; k++) {
+      const b = document.getElementById('sw' + k);
+      if (!b) continue;
+      const active = k === v;
+      b.style.background = active ? '#131313' : 'transparent';
+      b.style.color = active ? '#F6F5F1' : '#13131399';
+    }
+  }
+  componentWillUnmount() { this.stopAll(); }
+
+  waitAnime(cb) {
+    if (window.anime) return cb();
+    const t = setInterval(() => { if (window.anime) { clearInterval(t); cb(); } }, 30);
+    this.timers.push(t);
+  }
+  stopAll() {
+    this.timers.forEach(id => { clearInterval(id); clearTimeout(id); });
+    this.timers = [];
+    if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
+    this.cleanups.forEach(fn => fn()); this.cleanups = [];
+  }
+  start(v) { if (v === 0) this.startA(); else if (v === 1) this.startB(); else this.startC(); }
+
+  startA() {
+    const el = document.getElementById('wordA');
+    if (!el) return;
+    let i = 0;
+    const show = () => {
+      el.textContent = this.words[i];
+      window.anime.remove(el);
+      window.anime({ targets: el, translateY: [42, 0], opacity: [0, 1], duration: 850, easing: 'easeOutExpo' });
+      const out = setTimeout(() => {
+        window.anime({ targets: el, translateY: [0, -34], opacity: [1, 0], duration: 480, easing: 'easeInExpo',
+          complete: () => { i = (i + 1) % this.words.length; show(); } });
+      }, 2300);
+      this.timers.push(out);
+    };
+    show();
+  }
+
+  startB() {
+    const el = document.getElementById('wordB');
+    if (!el) return;
+    const glyphs = '#%/\\<>{}[]ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let i = 0;
+    const settle = () => {
+      const target = this.words[i].toUpperCase();
+      const len = target.length;
+      let f = 0;
+      const tick = () => {
+        let out = '';
+        const locked = Math.floor(f / 2);
+        for (let k = 0; k < len; k++) {
+          out += k < locked ? target[k] : glyphs[(Math.random() * glyphs.length) | 0];
+        }
+        el.textContent = out;
+        f++;
+        if (locked < len) { this.raf = requestAnimationFrame(tick); }
+        else {
+          el.textContent = target;
+          const hold = setTimeout(() => { i = (i + 1) % this.words.length; settle(); }, 1900);
+          this.timers.push(hold);
+        }
+      };
+      tick();
+    };
+    settle();
+  }
+
+  startC() {
+    const field = document.getElementById('dotfield');
+    const wordEl = document.getElementById('wordC');
+    const section = document.getElementById('fieldSection');
+    if (!field || !wordEl || !section) return;
+    const cols = 26, rows = 15;
+    field.style.gridTemplateColumns = 'repeat(' + cols + ',1fr)';
+    field.style.gridTemplateRows = 'repeat(' + rows + ',1fr)';
+    field.innerHTML = '';
+    for (let n = 0; n < cols * rows; n++) {
+      const d = document.createElement('span');
+      d.className = 'dot';
+      d.style.cssText = 'width:4px;height:4px;border-radius:50%;background:rgba(19,19,19,.16);justify-self:center;align-self:center;will-change:transform';
+      field.appendChild(d);
+    }
+    const dots = Array.from(field.querySelectorAll('.dot'));
+
+    // cursor reactivity
+    let positions = dots.map(d => { const r = d.getBoundingClientRect(); return { d, x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+    const recompute = () => { positions = dots.map(d => { const r = d.getBoundingClientRect(); return { d, x: r.left + r.width / 2, y: r.top + r.height / 2 }; }); };
+    let mx = -9999, my = -9999, ticking = false;
+    const render = () => {
+      ticking = false;
+      const R = 130;
+      for (const o of positions) {
+        const dist = Math.hypot(o.x - mx, o.y - my);
+        if (dist < R) {
+          const t = 1 - dist / R;
+          o.d.style.transform = 'scale(' + (1 + t * 2.6) + ')';
+          o.d.style.background = 'rgba(19,19,19,' + (0.16 + t * 0.74) + ')';
+        } else {
+          o.d.style.transform = 'scale(1)';
+          o.d.style.background = 'rgba(19,19,19,.16)';
+        }
+      }
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; if (!ticking) { ticking = true; requestAnimationFrame(render); } };
+    const onLeave = () => { mx = -9999; my = -9999; requestAnimationFrame(render); };
+    section.addEventListener('pointermove', onMove);
+    section.addEventListener('pointerleave', onLeave);
+    window.addEventListener('resize', recompute);
+    this.cleanups.push(() => {
+      section.removeEventListener('pointermove', onMove);
+      section.removeEventListener('pointerleave', onLeave);
+      window.removeEventListener('resize', recompute);
+    });
+
+    // word cycle + ripple
+    let i = 0;
+    const cycle = () => {
+      wordEl.textContent = this.words[i];
+      window.anime.remove(wordEl);
+      window.anime({ targets: wordEl, opacity: [0, 1], translateY: [24, 0], duration: 700, easing: 'easeOutQuart' });
+      window.anime({
+        targets: dots,
+        scale: [{ value: 2.6, duration: 260 }, { value: 1, duration: 760 }],
+        delay: window.anime.stagger(34, { grid: [cols, rows], from: 'center' }),
+        easing: 'easeInOutQuad',
+        complete: recompute
+      });
+      const t = setTimeout(() => { i = (i + 1) % this.words.length; cycle(); }, 2700);
+      this.timers.push(t);
+    };
+    cycle();
+  }
+
+  setVariant(i) { this.setState({ variant: i }); }
+  renderVals() {
+    const v = this.state.variant;
+    const on = '#131313', onf = '#F6F5F1', off = 'transparent', offf = '#13131399';
+    return {
+      variant: v,
+      displayA: v === 0 ? 'flex' : 'none',
+      displayB: v === 1 ? 'flex' : 'none',
+      displayC: v === 2 ? 'flex' : 'none',
+      pick0: () => this.setVariant(0),
+      pick1: () => this.setVariant(1),
+      pick2: () => this.setVariant(2),
+      btn0bg: v === 0 ? on : off, btn0fg: v === 0 ? onf : offf,
+      btn1bg: v === 1 ? on : off, btn1fg: v === 1 ? onf : offf,
+      btn2bg: v === 2 ? on : off, btn2fg: v === 2 ? onf : offf,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#0E0D0B}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .serif{font-family:'Instrument Serif',serif}
+  .xlink{color:inherit;text-decoration:none;transition:opacity .25s}
+  .xlink:hover{opacity:.55}
+  .prose p{font-size:17px;line-height:1.75;color:#EDEAE3d9;margin-bottom:26px}
+  .prose p a{color:#EDEAE3;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#EDEAE352}
+  .prose h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:-.01em;margin:clamp(40px,6vh,68px) 0 22px}
+  .prose ul{list-style:none;margin:0 0 26px;display:flex;flex-direction:column;gap:14px}
+  .prose li{display:flex;gap:14px;font-size:16px;line-height:1.65;color:#EDEAE3cc}
+  .prose li::before{content:"\2192";color:#EDEAE352;flex:none}
+  .prose strong{color:#EDEAE3;font-weight:500}
+</style>
+</helmet>
+<div style="position:relative;width:100%;background:#0E0D0B;color:#EDEAE3;font-family:'JetBrains Mono',monospace;overflow-x:hidden">
+
+  <!-- reading progress -->
+  <div id="progress" style="position:fixed;top:0;left:0;height:2px;width:0;background:#EDEAE3;z-index:60;transition:width .1s linear"></div>
+
+  <!-- NAV -->
+  <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(14,13,11,.72);border-bottom:1px solid #EDEAE314">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:15px clamp(24px,5vw,72px)">
+      <a href="Hero%20-%20Combined.dc.html" class="xlink serif" style="font-size:21px">Claudio Mendon&ccedil;a</a>
+      <nav class="mono" style="display:flex;gap:clamp(14px,2.4vw,34px);font-size:12px;letter-spacing:.04em">
+        <a href="Hero%20-%20Combined.dc.html#experiments" class="xlink">Experiments</a>
+        <a href="Blog.dc.html" class="xlink" style="border-bottom:1px solid #EDEAE3;padding-bottom:2px">Writing</a>
+        <a href="Consulting.dc.html" class="xlink">Consulting</a>
+        <a href="mailto:claudioccm@gmail.com" class="xlink">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ARTICLE HEADER -->
+  <article style="padding:clamp(50px,9vh,110px) clamp(28px,5vw,72px) clamp(60px,9vh,110px)">
+    <div style="max-width:760px;margin:0 auto">
+      <a href="Blog.dc.html" class="xlink mono" style="display:inline-block;font-size:12px;color:#EDEAE38c;margin-bottom:clamp(34px,5vh,56px)">&#8592; Back to writing</a>
+      <div class="mono" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:24px;display:flex;gap:14px;flex-wrap:wrap"><span>Essay</span><span style="color:#EDEAE333">/</span><span>March 2026</span><span style="color:#EDEAE333">/</span><span>6 min read</span></div>
+      <h1 class="serif" style="font-weight:400;font-size:clamp(44px,7.5vw,108px);line-height:.92;letter-spacing:-.02em">A chatbot is not a system.</h1>
+      <p style="margin-top:clamp(24px,4vh,38px);font-size:19px;line-height:1.6;color:#EDEAE3b3;font-style:italic" class="serif">Why the demo that wowed your team is the easy 10% &mdash; and what the other 90% actually costs.</p>
+      <div style="display:flex;align-items:center;gap:14px;margin-top:clamp(30px,5vh,46px);padding-top:24px;border-top:1px solid #EDEAE321">
+        <div style="width:38px;height:38px;border-radius:50%;background-image:repeating-linear-gradient(135deg,#EDEAE31a 0 2px,transparent 2px 8px);border:1px solid #EDEAE321;flex:none"></div>
+        <div class="mono" style="font-size:12px;line-height:1.5"><span style="color:#EDEAE3">Claudio Mendon&ccedil;a</span><br><span style="color:#EDEAE352">Design engineer &mdash; British Columbia</span></div>
+      </div>
+    </div>
+
+    <!-- cover -->
+    <div style="max-width:1080px;margin:clamp(44px,7vh,80px) auto 0">
+      <div style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 13px);border:1px solid #EDEAE321;aspect-ratio:21/9;display:flex;align-items:flex-end;padding:20px"><span class="mono" style="font-size:10px;letter-spacing:.1em;color:#EDEAE352">cover image &mdash; 2100&times;900</span></div>
+    </div>
+
+    <!-- body -->
+    <div class="prose" style="max-width:680px;margin:clamp(48px,8vh,90px) auto 0">
+      <p>Every engagement starts the same way. Someone on the team has spent a weekend with a chatbot, fed it last quarter&rsquo;s report, and watched it produce something that looks <em>almost</em> right. The demo lands. The room gets excited. And then the question: &ldquo;can we just&hellip; do this for everything?&rdquo;</p>
+      <p>The honest answer is that the demo was the easy part. Getting a good draft out of a chatbot is roughly the first ten percent of the work. The other ninety percent is everything that has to be true for that draft to go out the door, every cycle, without you watching.</p>
+
+      <h2>The demo hides the hard parts</h2>
+      <p>A one-off draft doesn&rsquo;t have to be reliable. It doesn&rsquo;t have to pull the right numbers from the right source. It doesn&rsquo;t have to match your house style, survive an editor, get approved, and land in the same place at the same time next week. A <strong>system</strong> has to do all of that &mdash; quietly, repeatably, and with someone accountable when it&rsquo;s wrong.</p>
+      <p>So when a client asks me to &ldquo;add AI,&rdquo; what they usually need is the unglamorous scaffolding around the model:</p>
+      <ul>
+        <li>A pipeline that pulls from the real sources, not a copy-pasted prompt.</li>
+        <li>Brand and format encoded so the output looks like them, not like a template.</li>
+        <li>A human checkpoint &mdash; a person who signs off before anything ships.</li>
+        <li>A way to run it on schedule, and to notice when it breaks.</li>
+      </ul>
+
+      <h2>What you&rsquo;re actually buying</h2>
+      <p>None of that shows up in a demo, which is exactly why it&rsquo;s the part worth paying for. A generic chatbot will happily hand you a draft. It will not stay on-brand across fifty cycles, it will not own the consequences of a bad number, and it will not be there at 6am when the newsletter is supposed to send.</p>
+      <p>That&rsquo;s the line I draw with every client. The model is a component. The system is the product. And the difference between the two is the difference between a fun afternoon and a thing your team can actually depend on.</p>
+
+      <!-- pullquote -->
+      <blockquote style="margin:clamp(40px,6vh,68px) 0;padding-left:24px;border-left:2px solid #EDEAE340">
+        <p class="serif" style="font-style:italic;font-size:clamp(26px,3.6vw,40px);line-height:1.2;color:#EDEAE3;margin:0">&ldquo;The model is a component. The system is the product.&rdquo;</p>
+      </blockquote>
+
+      <p>If you take one thing from this: don&rsquo;t buy the demo. Buy the part that runs without you. That&rsquo;s the work, and it&rsquo;s the only part that compounds.</p>
+    </div>
+  </article>
+
+  <!-- NEXT / NEWSLETTER -->
+  <section style="padding:0 clamp(28px,5vw,72px) clamp(40px,6vh,70px)">
+    <a href="Blog Post.dc.html" class="xlink" style="display:block;max-width:760px;margin:0 auto;border-top:1px solid #EDEAE321;border-bottom:1px solid #EDEAE321;padding:clamp(26px,4vh,40px) 0;text-decoration:none;color:inherit">
+      <div class="mono" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:12px">Next &mdash; Opinion</div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px">
+        <span class="serif" style="font-size:clamp(26px,3.4vw,42px);line-height:1">The 95% problem.</span>
+        <span class="mono" style="font-size:16px;color:#EDEAE38c">&#8594;</span>
+      </div>
+    </a>
+  </section>
+
+  <section style="padding:0 clamp(28px,5vw,72px) clamp(70px,11vh,140px)">
+    <div style="max-width:760px;margin:0 auto;border:1px solid #EDEAE321;padding:clamp(30px,4vw,52px)">
+      <h2 class="serif" style="font-weight:400;font-size:clamp(28px,4vw,46px);line-height:.98;letter-spacing:-.01em;margin-bottom:8px">Get the next one.</h2>
+      <p class="mono" style="font-size:12px;line-height:1.7;color:#EDEAE38c;margin-bottom:22px;max-width:440px">Edge &mdash; an occasional digest of AI news &amp; research, edited by a human. No spam.</p>
+      <form data-newsletter style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <input type="email" required placeholder="you@email.com" class="mono" style="flex:1;min-width:180px;background:transparent;border:none;border-bottom:1px solid #EDEAE340;color:#EDEAE3;font-size:14px;padding:12px 2px;outline:none">
+          <button type="submit" class="xlink" style="background:#EDEAE3;color:#0E0D0B;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px;padding:12px 22px;white-space:nowrap">Subscribe &#8594;</button>
+        </div>
+        <span class="mono" style="font-size:10px;color:#EDEAE352;letter-spacing:.04em">No spam. Unsubscribe anytime.</span>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:clamp(50px,8vh,90px) clamp(28px,5vw,72px) clamp(34px,5vh,56px);border-top:1px solid #EDEAE321">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:clamp(40px,6vh,70px)">
+      <div style="max-width:22ch">
+        <div class="serif" style="font-size:clamp(30px,4vw,52px);line-height:.95">Claudio Mendon&ccedil;a</div>
+        <p class="mono" style="font-size:12px;color:#EDEAE38c;line-height:1.6;margin-top:12px">Design engineer. AI experiments, and a small consulting practice.</p>
+      </div>
+      <div class="mono" style="display:flex;gap:40px;flex-wrap:wrap;font-size:13px">
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="color:#EDEAE352;font-size:10px;letter-spacing:.12em;text-transform:uppercase">Site</span><a href="Hero%20-%20Combined.dc.html#experiments" class="xlink">Experiments</a><a href="Blog.dc.html" class="xlink">Writing</a><a href="Consulting.dc.html" class="xlink">Consulting</a></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="color:#EDEAE352;font-size:10px;letter-spacing:.12em;text-transform:uppercase">Elsewhere</span><a href="https://ccmdesign.com" target="_blank" rel="noopener" class="xlink">ccmdesign &#8599;</a><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener" class="xlink">Batch Squoosh &#8599;</a><a href="mailto:claudioccm@gmail.com" class="xlink">Email &#8599;</a></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #EDEAE321;padding-top:24px;font-size:11px;letter-spacing:.05em;color:#EDEAE352">
+      <span>&copy; 2026 Claudio Mendon&ccedil;a. All rights reserved.</span>
+      <span>Built with Claude</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.onScroll = () => {
+      const bar = document.getElementById('progress');
+      if (!bar) return;
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onScroll();
+    this.setupNewsletter();
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); }
+
+  setupNewsletter() {
+    document.querySelectorAll('[data-newsletter]').forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const inp = form.querySelector('input');
+        if (inp && !inp.value.trim()) return;
+        form.innerHTML = '<div class="mono" style="font-size:14px;color:#EDEAE3;padding:12px 0">Thanks &mdash; you&rsquo;re on the list. &#8599;</div>';
+      });
+    });
+  }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

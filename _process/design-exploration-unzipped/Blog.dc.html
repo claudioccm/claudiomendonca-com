@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#0E0D0B}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .serif{font-family:'Instrument Serif',serif}
+  @keyframes revealUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  [data-reveal]{animation:revealUp .8s cubic-bezier(.2,.7,.2,1) both}
+  @supports (animation-timeline:view()){[data-reveal]{animation-timeline:view();animation-range:entry 4% entry 40%}}
+  .xlink{color:inherit;text-decoration:none;transition:opacity .25s}
+  .xlink:hover{opacity:.55}
+  .pcard{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+  .pcard:hover{transform:translateY(-4px)}
+  .pcard:hover .pcover{border-color:#EDEAE352}
+  .pcard:hover .parrow{transform:translate(4px,-4px)}
+</style>
+</helmet>
+<div style="position:relative;width:100%;background:#0E0D0B;color:#EDEAE3;font-family:'JetBrains Mono',monospace;overflow-x:hidden">
+
+  <!-- NAV -->
+  <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(14,13,11,.72);border-bottom:1px solid #EDEAE314">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:15px clamp(24px,5vw,72px)">
+      <a href="Hero%20-%20Combined.dc.html" class="xlink serif" style="font-size:21px">Claudio Mendon&ccedil;a</a>
+      <nav class="mono" style="display:flex;gap:clamp(14px,2.4vw,34px);font-size:12px;letter-spacing:.04em">
+        <a href="Hero%20-%20Combined.dc.html#experiments" class="xlink">Experiments</a>
+        <a href="Blog.dc.html" class="xlink" style="border-bottom:1px solid #EDEAE3;padding-bottom:2px">Writing</a>
+        <a href="Consulting.dc.html" class="xlink">Consulting</a>
+        <a href="mailto:claudioccm@gmail.com" class="xlink">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section style="padding:clamp(70px,12vh,150px) clamp(28px,5vw,72px) clamp(40px,6vh,70px)">
+    <div data-reveal class="mono" style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:clamp(24px,4vh,44px)">Writing &amp; experiments</div>
+    <h1 data-reveal class="serif" style="font-weight:400;font-size:clamp(56px,11vw,170px);line-height:.86;letter-spacing:-.02em">The journal.</h1>
+    <p data-reveal style="margin-top:clamp(24px,4vh,40px);max-width:560px;font-size:15px;line-height:1.7;color:#EDEAE3cc">Notes on building AI systems that ship &mdash; what works, what doesn&rsquo;t, and the experiments in between. Written by hand; the newsletter is not.</p>
+    <div data-reveal class="mono" style="margin-top:clamp(34px,5vh,56px);display:flex;flex-wrap:wrap;gap:8px;font-size:11px;letter-spacing:.06em">
+      <span style="background:#EDEAE3;color:#0E0D0B;padding:7px 14px">All</span>
+      <span style="border:1px solid #EDEAE321;color:#EDEAE38c;padding:7px 14px">Essays</span>
+      <span style="border:1px solid #EDEAE321;color:#EDEAE38c;padding:7px 14px">Field notes</span>
+      <span style="border:1px solid #EDEAE321;color:#EDEAE38c;padding:7px 14px">Training</span>
+      <span style="border:1px solid #EDEAE321;color:#EDEAE38c;padding:7px 14px">Opinion</span>
+      <span style="border:1px solid #EDEAE321;color:#EDEAE38c;padding:7px 14px">Build log</span>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section style="padding:0 clamp(28px,5vw,72px) clamp(50px,8vh,90px)">
+    <a href="Blog Post.dc.html" class="pcard" data-reveal style="display:block;text-decoration:none;color:inherit;border-top:1px solid #EDEAE321;padding-top:clamp(28px,4vh,48px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,64px);align-items:center">
+        <div class="pcover" style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 12px);border:1px solid #EDEAE321;aspect-ratio:4/3;display:flex;align-items:flex-end;padding:18px;transition:border-color .35s"><span class="mono" style="font-size:10px;letter-spacing:.1em;color:#EDEAE352">cover &mdash; featured essay</span></div>
+        <div>
+          <div class="mono" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:18px;display:flex;gap:12px"><span>Essay</span><span style="color:#EDEAE333">/</span><span>Mar 2026</span><span style="color:#EDEAE333">/</span><span>6 min</span></div>
+          <h2 class="serif" style="font-weight:400;font-size:clamp(36px,5.5vw,76px);line-height:.96;letter-spacing:-.01em;margin-bottom:20px">A chatbot is not a system.</h2>
+          <p style="font-size:15px;line-height:1.7;color:#EDEAE3b3;max-width:540px">Anyone can get a draft out of a chatbot. The work clients actually pay for is the part that runs every cycle, stays on-brand, and has a name attached when it ships. Here&rsquo;s the difference, and why it changes what you should buy.</p>
+          <span class="mono" style="display:inline-block;margin-top:24px;font-size:12px;color:#EDEAE3cc">Read the essay <span class="parrow" style="display:inline-block;transition:transform .3s">&#8599;</span></span>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- GRID -->
+  <section style="padding:0 clamp(28px,5vw,72px) clamp(60px,9vh,110px)">
+    <div data-reveal class="mono" style="border-top:1px solid #EDEAE321;padding-top:18px;margin-bottom:clamp(34px,5vh,56px);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#EDEAE36e">More posts</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:clamp(28px,3vw,48px)">
+
+      <a href="Blog Post.dc.html" class="pcard" data-reveal style="display:block;text-decoration:none;color:inherit">
+        <div class="pcover" style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 12px);border:1px solid #EDEAE321;aspect-ratio:16/10;margin-bottom:18px;transition:border-color .35s"></div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:12px;display:flex;gap:10px"><span>Opinion</span><span style="color:#EDEAE333">/</span><span>Feb 2026</span><span style="color:#EDEAE333">/</span><span>4 min</span></div>
+        <h3 class="serif" style="font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.02;margin-bottom:12px">The 95% problem.</h3>
+        <p style="font-size:13px;line-height:1.65;color:#EDEAE38c">Most company AI pilots never deliver a measurable return. The ones that do have one thing in common &mdash; and it isn&rsquo;t the model.</p>
+      </a>
+
+      <a href="Blog Post.dc.html" class="pcard" data-reveal style="display:block;text-decoration:none;color:inherit">
+        <div class="pcover" style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 12px);border:1px solid #EDEAE321;aspect-ratio:16/10;margin-bottom:18px;transition:border-color .35s"></div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:12px;display:flex;gap:10px"><span>Field notes</span><span style="color:#EDEAE333">/</span><span>Feb 2026</span><span style="color:#EDEAE333">/</span><span>5 min</span></div>
+        <h3 class="serif" style="font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.02;margin-bottom:12px">Reports that build themselves.</h3>
+        <p style="font-size:13px;line-height:1.65;color:#EDEAE38c">A walk through one client&rsquo;s weekly report &mdash; from a four-hour copy-paste ritual to a system that drafts it overnight.</p>
+      </a>
+
+      <a href="Blog Post.dc.html" class="pcard" data-reveal style="display:block;text-decoration:none;color:inherit">
+        <div class="pcover" style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 12px);border:1px solid #EDEAE321;aspect-ratio:16/10;margin-bottom:18px;transition:border-color .35s"></div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:12px;display:flex;gap:10px"><span>Training</span><span style="color:#EDEAE333">/</span><span>Jan 2026</span><span style="color:#EDEAE333">/</span><span>7 min</span></div>
+        <h3 class="serif" style="font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.02;margin-bottom:12px">Teaching a team to think with AI.</h3>
+        <p style="font-size:13px;line-height:1.65;color:#EDEAE38c">The messy middle &mdash; the one-offs and judgment calls &mdash; is where training pays off. What a good session actually looks like.</p>
+      </a>
+
+      <a href="Blog Post.dc.html" class="pcard" data-reveal style="display:block;text-decoration:none;color:inherit">
+        <div class="pcover" style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 12px);border:1px solid #EDEAE321;aspect-ratio:16/10;margin-bottom:18px;transition:border-color .35s"></div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:12px;display:flex;gap:10px"><span>Build log</span><span style="color:#EDEAE333">/</span><span>Jan 2026</span><span style="color:#EDEAE333">/</span><span>5 min</span></div>
+        <h3 class="serif" style="font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.02;margin-bottom:12px">Self-hosting Squoosh.</h3>
+        <p style="font-size:13px;line-height:1.65;color:#EDEAE38c">Why I run my own batch image compressor instead of uploading client assets to someone else&rsquo;s server. A short build log.</p>
+      </a>
+
+      <a href="Blog Post.dc.html" class="pcard" data-reveal style="display:block;text-decoration:none;color:inherit">
+        <div class="pcover" style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 12px);border:1px solid #EDEAE321;aspect-ratio:16/10;margin-bottom:18px;transition:border-color .35s"></div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:12px;display:flex;gap:10px"><span>Essay</span><span style="color:#EDEAE333">/</span><span>Dec 2025</span><span style="color:#EDEAE333">/</span><span>8 min</span></div>
+        <h3 class="serif" style="font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.02;margin-bottom:12px">What &ldquo;on-brand&rdquo; means to a machine.</h3>
+        <p style="font-size:13px;line-height:1.65;color:#EDEAE38c">Brand isn&rsquo;t a colour and a logo &mdash; it&rsquo;s a thousand small decisions. Here&rsquo;s how I encode those so a system can keep them.</p>
+      </a>
+
+      <a href="Blog Post.dc.html" class="pcard" data-reveal style="display:block;text-decoration:none;color:inherit">
+        <div class="pcover" style="background-image:repeating-linear-gradient(135deg,#EDEAE30f 0 2px,transparent 2px 12px);border:1px solid #EDEAE321;aspect-ratio:16/10;margin-bottom:18px;transition:border-color .35s"></div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:12px;display:flex;gap:10px"><span>Field notes</span><span style="color:#EDEAE333">/</span><span>Dec 2025</span><span style="color:#EDEAE333">/</span><span>6 min</span></div>
+        <h3 class="serif" style="font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.02;margin-bottom:12px">The audit that saved a build.</h3>
+        <p style="font-size:13px;line-height:1.65;color:#EDEAE38c">Sometimes the right answer is &ldquo;don&rsquo;t automate this yet.&rdquo; A two-week audit that talked a client out of the wrong project.</p>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section style="padding:0 clamp(28px,5vw,72px) clamp(70px,11vh,140px)">
+    <div data-reveal style="border:1px solid #EDEAE321;padding:clamp(34px,5vw,72px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(28px,4vw,64px);align-items:center">
+        <div>
+          <div class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#EDEAE36e;margin-bottom:16px">Edge &mdash; the newsletter</div>
+          <h2 class="serif" style="font-weight:400;font-size:clamp(34px,5vw,68px);line-height:.95;letter-spacing:-.01em;margin-bottom:16px">Never miss a post.</h2>
+          <p class="mono" style="font-size:12px;line-height:1.7;color:#EDEAE38c;max-width:440px">An auto-generated digest of AI news &amp; research.</p>
+        </div>
+        <form data-newsletter style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <input type="email" required placeholder="you@email.com" class="mono" style="flex:1;min-width:180px;background:transparent;border:none;border-bottom:1px solid #EDEAE340;color:#EDEAE3;font-size:14px;padding:12px 2px;outline:none">
+            <button type="submit" class="xlink" style="background:#EDEAE3;color:#0E0D0B;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px;padding:12px 22px;white-space:nowrap">Subscribe &#8594;</button>
+          </div>
+          <span class="mono" style="font-size:10px;color:#EDEAE352;letter-spacing:.04em">No spam. Unsubscribe anytime.</span>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:clamp(50px,8vh,90px) clamp(28px,5vw,72px) clamp(34px,5vh,56px);border-top:1px solid #EDEAE321">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:clamp(40px,6vh,70px)">
+      <div style="max-width:22ch">
+        <div class="serif" style="font-size:clamp(30px,4vw,52px);line-height:.95">Claudio Mendon&ccedil;a</div>
+        <p class="mono" style="font-size:12px;color:#EDEAE38c;line-height:1.6;margin-top:12px">Design engineer. AI experiments, and a small consulting practice.</p>
+      </div>
+      <div class="mono" style="display:flex;gap:40px;flex-wrap:wrap;font-size:13px">
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="color:#EDEAE352;font-size:10px;letter-spacing:.12em;text-transform:uppercase">Site</span><a href="Hero%20-%20Combined.dc.html#experiments" class="xlink">Experiments</a><a href="Blog.dc.html" class="xlink">Writing</a><a href="Consulting.dc.html" class="xlink">Consulting</a></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="color:#EDEAE352;font-size:10px;letter-spacing:.12em;text-transform:uppercase">Elsewhere</span><a href="https://ccmdesign.com" target="_blank" rel="noopener" class="xlink">ccmdesign &#8599;</a><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener" class="xlink">Batch Squoosh &#8599;</a><a href="mailto:claudioccm@gmail.com" class="xlink">Email &#8599;</a></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #EDEAE321;padding-top:24px;font-size:11px;letter-spacing:.05em;color:#EDEAE352">
+      <span>&copy; 2026 Claudio Mendon&ccedil;a. All rights reserved.</span>
+      <span>Built with Claude</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  cleanups = [];
+  componentDidMount() { this.setupNewsletter(); }
+  componentWillUnmount() { this.cleanups.forEach(fn => fn()); }
+
+  setupReveal() {
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    if (!els.length) return;
+    const reveal = (el) => { el.style.opacity = '1'; el.style.transform = 'none'; };
+    els.forEach((el, idx) => {
+      el.style.transition = 'opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)';
+      el.style.transitionDelay = ((idx % 3) * 0.05) + 's';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+    });
+    const inView = (el) => { const r = el.getBoundingClientRect(); return r.top < (window.innerHeight || 800) * 0.92 && r.bottom > 0; };
+    const sweep = () => { els.forEach(el => { if (el.style.opacity === '0' && inView(el)) reveal(el); }); };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((ents) => { ents.forEach(e => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      els.forEach(el => io.observe(el));
+      this.cleanups.push(() => io.disconnect());
+    }
+    window.addEventListener('scroll', sweep, { passive: true });
+    const t1 = setTimeout(sweep, 300);
+    const t2 = setTimeout(sweep, 1200);
+    this.cleanups.push(() => { window.removeEventListener('scroll', sweep); clearTimeout(t1); clearTimeout(t2); });
+  }
+
+  setupNewsletter() {
+    document.querySelectorAll('[data-newsletter]').forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const inp = form.querySelector('input');
+        if (inp && !inp.value.trim()) return;
+        form.innerHTML = '<div class="mono" style="font-size:14px;color:#EDEAE3;padding:12px 0">Thanks &mdash; you&rsquo;re on the list. &#8599;</div>';
+      });
+    });
+  }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
