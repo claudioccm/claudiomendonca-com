@@ -21,7 +21,22 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/consulting'],
+      // /writing is listed explicitly; crawlLinks then discovers each
+      // /writing/<slug> post from the index's <NuxtLink>s. The five post paths
+      // are also listed explicitly as a belt-and-suspenders guarantee (and to
+      // self-document the route set), so a post that ever stops being linked
+      // from the index still prerenders on purpose rather than silently
+      // dropping — matching the existing routes comment's intent (PRO-178).
+      routes: [
+        '/',
+        '/consulting',
+        '/writing',
+        '/writing/a-chatbot-is-not-a-system',
+        '/writing/the-95-percent-problem',
+        '/writing/reports-that-build-themselves',
+        '/writing/teaching-a-team-to-think-with-ai',
+        '/writing/self-hosting-squoosh',
+      ],
     },
   },
 
