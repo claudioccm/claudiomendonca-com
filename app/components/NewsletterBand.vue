@@ -81,12 +81,12 @@ async function submit() {
     <div class="shell">
       <div class="newsletter-stub" data-reveal>
         <div class="newsletter-stub__copy">
-          <span class="label">Edge — the newsletter</span>
           <h2 id="newsletter-heading" class="newsletter-stub__title">
-            Never miss a post.
+            Edge — the newsletter.
           </h2>
           <p class="newsletter-stub__lead mono">
-            An auto-generated digest of AI news &amp; research.
+            An auto-generated digest of AI news &amp; research, with a human edit
+            before it goes out. Occasional. No spam.
           </p>
         </div>
 

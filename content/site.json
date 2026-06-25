@@ -27,8 +27,9 @@
   },
 
   "intro": {
-    "eyebrow": "CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER",
-    "headline": "AI EXPERIMENTS",
+    "eyebrow": "(01) — The index",
+    "headline": "AI",
+    "typewriter": ["Experiments", "Consulting", "Training"],
     "subhead": "I build opinionated AI experimental tools. Use with moderation. This page is the index.",
     "ctas": [
       { "label": "See the work", "target": "#work" },
@@ -50,12 +51,13 @@
   },
 
   "experiments": {
-    "heading": "Experiments",
+    "heading": "Shipping under my own name.",
     "items": [
       {
         "id": "cutthecrap",
         "title": "Cut The Crap",
         "tag": "YOUTUBE VIDEOS AS TWEETS",
+        "description": "YouTube videos as tweets",
         "url": "https://cutthecrap.claudiomendonca.com",
         "image": "/screenshots/cutthecrap.jpg",
         "alt": "Cut The Crap — YouTube videos as tweets"
@@ -64,14 +66,16 @@
         "id": "edge",
         "title": "Edge",
         "tag": "AUTO GENERATED BLOG ABOUT AI NEWS & RESEARCH",
+        "description": "Auto-generated blog about AI news & research",
         "url": "https://edge.ccmdesign.ca",
         "image": "/screenshots/edge.jpg",
         "alt": "Edge — auto-generated AI news blog"
       },
       {
         "id": "squoosh",
-        "title": "BATCH SQUOOSH",
+        "title": "Batch Squoosh",
         "tag": "Tool · Self-hosted",
+        "description": "Self-hosted image compression tool",
         "url": "https://squoosh.ccmdesign.com",
         "image": "/screenshots/squoosh.jpg",
         "alt": "Batch Squoosh — self-hosted image compression",
@@ -81,6 +85,7 @@
         "id": "varro",
         "title": "Varro",
         "tag": "FULLY AI GENERATED BLOG & SOCIAL MEDIA CONTENT",
+        "description": "Fully AI-generated blog & social content",
         "url": "https://varro.me",
         "image": "/screenshots/varro.jpg",
         "alt": "Varro — fully AI generated blog and social content"
@@ -89,6 +94,7 @@
         "id": "feedback",
         "title": "Feedback",
         "tag": "AI-POWERED FEEDBACK COLLECTION",
+        "description": "AI-powered feedback collection",
         "url": "https://feedback.ccmdesign.ca",
         "image": "/screenshots/feedback.jpg",
         "alt": "Feedback — AI-powered feedback collection"

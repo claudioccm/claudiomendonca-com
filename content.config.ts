@@ -68,6 +68,11 @@ const site = defineCollection({
       headline: z.string(),
       subhead: z.string(),
       ctas: z.array(targetEntry),
+      // Words cycled by the home hero typewriter (HomeHero.vue). The headline
+      // reads "<headline> <typewriter[i]>" — e.g. "AI Experiments". SSR / no-JS /
+      // reduced-motion render the first word statically. Optional → if unset the
+      // hero shows the bare headline.
+      typewriter: z.array(z.string()).optional(),
     }),
 
     about: z.object({
@@ -96,8 +101,11 @@ const site = defineCollection({
           url: z.string(),
           image: z.string(),
           alt: z.string(),
-          // Optional terser accessible name for the card link; falls back to
-          // `title` in ExperimentCard when unset.
+          // Sentence-case description shown as the mono right-hand text of the
+          // home Experiments index rows (ExperimentRow.vue). Falls back to `tag`
+          // when unset.
+          description: z.string().optional(),
+          // Optional terser accessible name for the link; falls back to `title`.
           ariaLabel: z.string().optional(),
         }),
       ),
