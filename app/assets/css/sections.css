@@ -807,3 +807,487 @@
   /* The tag strip and stat figure are now fully static markup (PRO-174), so no
      reduced-motion neutralization is needed for them. */
 }
+
+/* ============================================================
+   Writing section (PRO-178)
+   Spec: _process/design-exploration-unzipped/Blog.dc.html +
+   Blog Post.dc.html + screenshots 01/02-blog2.png, 01/02-post.png.
+   Editorial cream-on-ink: Instrument Serif display, JetBrains Mono
+   meta/body, diagonal-hatch cover placeholders. Tokens reused from
+   tokens.css (--paper / --dim / --faint / --ink / --hairline-solid).
+   ============================================================ */
+
+/* Diagonal-hatch cover/avatar placeholder (no image asset). Matches the
+   reference's repeating-linear-gradient hatch. Reused by post cards, the
+   featured cover, the article cover, and the byline avatar. */
+.hatch {
+  background-color: var(--ink);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(237, 234, 227, 0.06) 0 2px,
+    transparent 2px 12px
+  );
+  border: 1px solid var(--hairline-solid);
+}
+
+/* ---------- Page header ---------- */
+.writing-header {
+  /* The page header sits directly under the sticky nav (no hero), so it owns
+     its own top padding rather than the global section clamp. */
+  padding-top: clamp(70px, 12vh, 150px);
+  padding-bottom: clamp(40px, 6vh, 70px);
+}
+.writing-header__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(56px, 11vw, 170px);
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  margin: clamp(20px, 3vh, 32px) 0 0;
+  color: var(--paper);
+}
+.writing-header__dek {
+  margin-top: clamp(24px, 4vh, 40px);
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--paper);
+  opacity: 0.8;
+}
+
+/* ---------- Filter chips ---------- */
+.filter-chips {
+  list-style: none;
+  margin: clamp(34px, 5vh, 56px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-chips__item {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  background: transparent;
+  border: 1px solid var(--hairline-solid);
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+.filter-chips__item:hover {
+  color: var(--paper);
+  border-color: var(--paper);
+}
+.filter-chips__item.is-active {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+.filter-chips__item:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+}
+
+/* ---------- Featured post ---------- */
+.writing-featured {
+  padding-top: 0;
+  padding-bottom: clamp(50px, 8vh, 90px);
+}
+/* The featured + grid sections sit under the page header with no hairline rule
+   between them (the reference uses the card's own top border instead). */
+.writing-featured,
+.writing-grid-section { border-top: none; }
+.post-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+  border-top: 1px solid var(--hairline-solid);
+  padding-top: clamp(28px, 4vh, 48px);
+  color: inherit;
+  transition: transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (max-width: 760px) {
+  .post-featured { grid-template-columns: 1fr; }
+}
+.post-featured:hover { transform: translateY(-4px); }
+.post-featured:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 4px;
+}
+.post-featured__cover {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: flex-end;
+  padding: 18px;
+  transition: border-color 350ms ease;
+}
+.post-featured:hover .post-featured__cover { border-color: var(--dim); }
+.post-featured__cover-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+}
+.post-featured__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 18px;
+}
+.post-featured__sep { color: var(--hairline-solid); }
+.post-featured__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(36px, 5.5vw, 76px);
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+  color: var(--paper);
+}
+.post-featured__dek {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--paper);
+  opacity: 0.7;
+  max-width: 540px;
+}
+.post-featured__cta {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--paper);
+}
+.post-featured__arrow {
+  display: inline-block;
+  transition: transform 300ms ease;
+}
+.post-featured:hover .post-featured__arrow { transform: translate(4px, -4px); }
+
+/* ---------- Grid ---------- */
+.writing-grid-section {
+  padding-top: 0;
+  padding-bottom: clamp(60px, 9vh, 110px);
+}
+.writing-grid-section__head {
+  border-top: 1px solid var(--hairline-solid);
+  padding-top: 18px;
+  margin-bottom: clamp(34px, 5vh, 56px);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.posts-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(28px, 3vw, 48px);
+}
+.posts-empty {
+  font-size: 13px;
+  color: var(--dim);
+}
+
+/* ---------- Post card ---------- */
+.post-card {
+  display: block;
+  color: inherit;
+  transition: transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.post-card:hover { transform: translateY(-4px); }
+.post-card:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 4px;
+}
+.post-card__cover {
+  aspect-ratio: 16 / 10;
+  margin-bottom: 18px;
+  transition: border-color 350ms ease;
+}
+.post-card:hover .post-card__cover { border-color: var(--dim); }
+.post-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 12px;
+}
+.post-card__sep { color: var(--hairline-solid); }
+.post-card__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  color: var(--paper);
+}
+.post-card__dek {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--dim);
+  margin: 0;
+}
+
+/* ---------- Newsletter stub band ---------- */
+.newsletter-stub-section {
+  padding-top: 0;
+  padding-bottom: clamp(70px, 11vh, 140px);
+  border-top: none;
+}
+.newsletter-stub {
+  border: 1px solid var(--hairline-solid);
+  padding: clamp(34px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .newsletter-stub { grid-template-columns: 1fr; }
+}
+.newsletter-stub__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(34px, 5vw, 68px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin: 16px 0;
+  color: var(--paper);
+}
+.newsletter-stub__lead {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--dim);
+  max-width: 440px;
+  margin: 0;
+}
+.newsletter-stub__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.newsletter-stub__row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.newsletter-stub__input {
+  flex: 1;
+  min-width: 180px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--hairline-solid);
+  color: var(--paper);
+  font-size: 14px;
+  padding: 12px 2px;
+}
+.newsletter-stub__input::placeholder { color: var(--faint); }
+.newsletter-stub__btn {
+  background: var(--paper);
+  color: var(--ink);
+  border: none;
+  font-size: 13px;
+  padding: 12px 22px;
+  white-space: nowrap;
+}
+/* Disabled stub controls read as honestly unavailable (PRO-179 wires the real
+   form). Dim them so the band is clearly a placeholder, not a live signup. */
+.newsletter-stub__input:disabled,
+.newsletter-stub__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.newsletter-stub__note {
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   Post page (/writing/[slug])
+   ============================================================ */
+.article {
+  padding-top: clamp(50px, 9vh, 110px);
+  padding-bottom: clamp(60px, 9vh, 110px);
+  padding-left: var(--page-pad-x);
+  padding-right: var(--page-pad-x);
+}
+.article__head {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.article__back {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: clamp(34px, 5vh, 56px);
+  transition: color 200ms ease;
+}
+.article__back:hover { color: var(--paper); }
+.article__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 24px;
+}
+.article__sep { color: var(--hairline-solid); }
+.article__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(44px, 7.5vw, 108px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--paper);
+}
+.article__dek {
+  font-family: var(--font-disp);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(19px, 2.6vw, 26px);
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: clamp(24px, 4vh, 38px);
+  color: var(--paper);
+  opacity: 0.72;
+}
+.article__byline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(30px, 5vh, 46px);
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline-solid);
+}
+.article__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex: none;
+}
+.article__byline-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.article__author { color: var(--paper); }
+.article__role { color: var(--faint); }
+.article__cover-wrap {
+  max-width: 1080px;
+  margin: clamp(44px, 7vh, 80px) auto 0;
+}
+.article__cover {
+  aspect-ratio: 21 / 9;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+.article__cover-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+}
+
+/* ---------- Prose (ContentRenderer body) ---------- */
+.article__body {
+  max-width: 680px;
+  margin: clamp(48px, 8vh, 90px) auto 0;
+}
+.prose p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--paper);
+  opacity: 0.88;
+  margin: 0 0 26px;
+}
+.prose p a {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--faint);
+}
+.prose h2 {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  margin: clamp(40px, 6vh, 68px) 0 22px;
+  color: var(--paper);
+}
+.prose ul {
+  list-style: none;
+  margin: 0 0 26px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.prose li {
+  display: flex;
+  gap: 14px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--paper);
+  opacity: 0.85;
+}
+.prose li::before {
+  content: "\2192";
+  color: var(--faint);
+  flex: none;
+}
+.prose strong {
+  color: var(--paper);
+  font-weight: 500;
+}
+.prose em { font-style: italic; }
+.prose blockquote {
+  margin: clamp(40px, 6vh, 68px) 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--hairline-solid);
+}
+.prose blockquote p {
+  font-family: var(--font-disp);
+  font-style: italic;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.2;
+  color: var(--paper);
+  opacity: 1;
+  margin: 0;
+}
+
+/* ---------- Writing reduced-motion neutralization (R14) ----------
+   The card/featured lift + cover border + cta arrow are transform/border
+   transitions only, so dropping the transition is correct. Color-carrying
+   transitions (chip, back link) are left intact (non-motion). */
+@media (prefers-reduced-motion: reduce) {
+  .post-card,
+  .post-featured,
+  .post-card__cover,
+  .post-featured__cover,
+  .post-featured__arrow {
+    transition: none !important;
+  }
+  .post-card:hover,
+  .post-featured:hover { transform: none !important; }
+  .post-featured:hover .post-featured__arrow { transform: none !important; }
+}

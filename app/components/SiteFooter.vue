@@ -23,6 +23,7 @@
           <h2>Site</h2>
           <ul>
             <li><a href="/#work">Experiments</a></li>
+            <li><a href="/writing">Writing</a></li>
             <li><a href="/consulting">Consulting</a></li>
             <li><a href="/#about">About</a></li>
           </ul>

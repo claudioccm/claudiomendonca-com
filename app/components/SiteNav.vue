@@ -32,12 +32,25 @@ const isConsulting = computed(() => route.path === '/consulting')
 
 const links = computed<NavLink[]>(() => [
   { label: 'Experiments', href: isConsulting.value ? '/#work' : '#work', routeMatch: '/' },
+  // Writing is its own route (PRO-178); paints aria-current on /writing and any
+  // /writing/[slug] post (startsWith match below).
+  { label: 'Writing', href: '/writing', routeMatch: '/writing' },
   { label: 'Consulting', href: '/consulting', routeMatch: '/consulting' },
   // About points to an in-page anchor on home, not its own route, so it
   // never carries aria-current — only Experiments lights up on /.
   { label: 'About', href: isConsulting.value ? '/#about' : '#about', routeMatch: null, hideSm: true },
   { label: 'Contact', href: '#contact', routeMatch: null },
 ])
+
+// aria-current="page" when the active path matches a link's routeMatch. The
+// home ('/') and consulting ('/consulting') matches are exact; the Writing
+// match is a prefix so individual posts (/writing/<slug>) also light the nav
+// item. A plain `===` here would leave the nav unlit while reading a post.
+function isCurrent(routeMatch: string | null): boolean {
+  if (!routeMatch) return false
+  if (routeMatch === '/writing') return route.path.startsWith('/writing')
+  return route.path === routeMatch
+}
 
 // ---- Overlay menu element refs + handles ----
 const overlayRef = ref<HTMLElement | null>(null)
@@ -174,7 +187,7 @@ onBeforeUnmount(() => {
             <a
               :href="link.href"
               :class="{ 'hide-sm': link.hideSm }"
-              :aria-current="link.routeMatch && route.path === link.routeMatch ? 'page' : undefined"
+              :aria-current="isCurrent(link.routeMatch) ? 'page' : undefined"
             >{{ link.label }}</a>
           </li>
         </ul>
@@ -212,7 +225,7 @@ onBeforeUnmount(() => {
         <li v-for="link in links" :key="link.label" class="nav-overlay__item">
           <a
             :href="link.href"
-            :aria-current="link.routeMatch && route.path === link.routeMatch ? 'page' : undefined"
+            :aria-current="isCurrent(link.routeMatch) ? 'page' : undefined"
             @click="closeMenu"
           >{{ link.label }}</a>
         </li>
