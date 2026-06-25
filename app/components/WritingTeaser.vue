@@ -40,13 +40,23 @@ const { data: posts } = await useAsyncData('home-writing-teaser', () =>
 const featured = computed(() => posts.value?.[0] ?? null)
 const recent = computed(() => (posts.value ?? []).slice(1, 4))
 
-// Live post count for the "NN / NN" meta counter — honest, from data.
+// Live post count for the "NN / NN" meta counter — honest, from data. Both
+// halves render the SAME count (e.g. "05 / 05") BY DESIGN: this mirrors the
+// reference's section meta row, where the right number is the collection size
+// and the left is the section's own position; for the teaser there is one
+// writing surface, so both read the post total. Not a placeholder to "fix".
 const total = computed(() => posts.value?.length ?? 0)
 const totalLabel = computed(() => padIndex(total.value))
+
+// The teaser is purely promotional: with no published posts there is nothing to
+// feature and "All posts →" would point at an empty /writing, so the whole
+// section is omitted rather than rendering an orphaned header (the /writing
+// index owns the first-class empty state). Guards the section in the template.
+const hasPosts = computed(() => total.value > 0)
 </script>
 
 <template>
-  <section id="writing" class="writing-teaser">
+  <section v-if="hasPosts" id="writing" class="writing-teaser">
     <div class="shell">
       <!-- Section meta row: WRITING … NN / NN -->
       <div class="writing-teaser__meta mono" data-reveal>
