@@ -48,11 +48,13 @@ function isDuplicateContactError(error: unknown): boolean {
       || message.includes('duplicate')
       || message.includes('already in audience')
 
-  // Strong signal: HTTP 409 Conflict or 422 from a validation_error.
+  // Strong signal: HTTP 409 Conflict is unambiguously "already exists".
   if (statusCode === 409) return true
-  if (statusCode === 422 && (name === 'validation_error' || messageLooksLikeDuplicate)) {
-    return true
-  }
+  // A 422 validation_error is NOT a duplicate by itself — Resend returns
+  // validation_error for many input problems (bad email, missing audience, …).
+  // Only treat it as a duplicate when the message actually says so, otherwise a
+  // genuine validation failure would be reported to the user as a false success.
+  if (statusCode === 422 && messageLooksLikeDuplicate) return true
   // Named validation error paired with a duplicate phrase.
   if (name === 'validation_error' && messageLooksLikeDuplicate) return true
   // Fallback: pure message substring match for older/unknown shapes.
