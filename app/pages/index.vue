@@ -1,13 +1,16 @@
 <!--
-  Home one-pager (PRO-112 dark redesign). Hero = HeroSection (static CSS
-  gradient backdrop, static <h1> + plain .btn CTAs — PRO-174); #work =
-  ExperimentCard grid; #about = bio block.
+  Home one-pager (PRO-112 dark redesign; expanded composition PRO-180).
+  Hero = HeroSection (static CSS gradient backdrop, static <h1> + plain .btn
+  CTAs — PRO-174); #work = ExperimentCard grid; #about = bio block; then the
+  Writing teaser (<WritingTeaser>, #writing) and the newsletter band
+  (<NewsletterBand>, #newsletter).
   Copy + card data are sourced from the `site` content collection
   (content/site.json) via useSiteContent (PRO-176), so adding a product is one
   new entry in experiments.items + one image file — no edit to this page or
-  ExperimentCard for the data itself. Section ids #work / #about are
-  load-bearing (nav, footer, _redirects, and the /about → #about redirect
-  depend on them).
+  ExperimentCard for the data itself. The Writing teaser pulls live from the
+  `writing` collection inside <WritingTeaser> (PRO-180). Section ids #work /
+  #about are load-bearing (nav, footer, _redirects, and the /about → #about
+  redirect depend on them).
   The outer <div> exists because Nuxt's eslint preset enforces a single
   template root on pages (the layout's <main> already provides semantics).
 -->
@@ -100,5 +103,13 @@ useSeoMeta({ ogUrl: canonical })
         </div>
       </div>
     </section>
+
+    <!-- Writing teaser — "Notes from the workshop." Live `writing` collection
+         (featured = newest + 3 recent rows + "All posts →"). PRO-180. -->
+    <WritingTeaser />
+
+    <!-- Newsletter band — functional Resend-backed signup (PRO-179). Adds
+         #newsletter; same band rendered on /writing. -->
+    <NewsletterBand />
   </div>
 </template>

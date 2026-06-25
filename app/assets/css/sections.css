@@ -1115,6 +1115,120 @@
 }
 
 /* ============================================================
+   Home Writing teaser (PRO-180) — "Notes from the workshop."
+   Spec: Hero - Combined.dc.html (BLOG block) + 01/02-home-blog.png.
+   Reuses the .post-featured* + .hatch vocabulary above; adds the section
+   head (meta row + headline + "All posts →") and the recent-row list.
+   ============================================================ */
+.writing-teaser__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1px solid var(--hairline-solid);
+  padding-top: 18px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.writing-teaser__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: clamp(36px, 5vh, 64px) 0 clamp(36px, 5vh, 64px);
+}
+.writing-teaser__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(36px, 6vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 16ch;
+  color: var(--paper);
+}
+.writing-teaser__all {
+  font-size: 13px;
+  color: var(--paper);
+  border-bottom: 1px solid var(--hairline-solid);
+  padding-bottom: 3px;
+  white-space: nowrap;
+  transition: border-color 200ms ease;
+}
+.writing-teaser__all:hover { border-color: var(--paper); }
+.writing-teaser__all:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 4px;
+}
+.writing-teaser__all-arrow {
+  display: inline-block;
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.writing-teaser__all:hover .writing-teaser__all-arrow { transform: translateX(4px); }
+
+/* ---------- Recent rows ---------- */
+.teaser-rows {
+  list-style: none;
+  margin: clamp(36px, 5vh, 56px) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline-solid);
+}
+.teaser-row {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: baseline;
+  gap: 20px;
+  padding: clamp(20px, 2.6vh, 30px) 0;
+  border-bottom: 1px solid var(--hairline-solid);
+  color: inherit;
+  transition: padding-left 300ms ease, background-color 300ms ease;
+}
+.teaser-row:hover { background: rgba(237, 234, 227, 0.03); padding-left: 14px; }
+.teaser-row:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+}
+.teaser-row__cat {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.teaser-row__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(20px, 2.4vw, 30px);
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  color: var(--paper);
+}
+.teaser-row__date {
+  font-size: 11px;
+  color: var(--faint);
+  justify-self: end;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .teaser-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .teaser-row__date { justify-self: start; }
+}
+
+/* Reduced motion: the row hover slide is a padding/background transition only;
+   drop it so no motion plays on hover. The "All posts" arrow slide is a
+   transform — neutralize it too. */
+@media (prefers-reduced-motion: reduce) {
+  .teaser-row { transition: background-color 300ms ease; }
+  .teaser-row:hover { padding-left: 0; }
+  .writing-teaser__all-arrow { transition: none !important; }
+  .writing-teaser__all:hover .writing-teaser__all-arrow { transform: none !important; }
+}
+
+/* ============================================================
    Post page (/writing/[slug])
    ============================================================ */
 .article {
