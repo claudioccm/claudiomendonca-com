@@ -49,11 +49,12 @@
 }
 
 .wordmark {
+  /* Editorial wordmark — Instrument Serif, mixed case (PRO-175). */
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 21px;
   color: var(--paper);
-  letter-spacing: 0.005em;
+  letter-spacing: 0;
   /* Already inline-flex; add a 44px min hit height (PRO-79 U6). The footer
      wordmark overrides font-size inline but inherits this min-height, which
      is still ≤ its rendered height there, so it is a no-op in the footer. */
@@ -61,7 +62,6 @@
   align-items: center;
   min-height: 44px;
   gap: 8px;
-  text-transform: uppercase;
 }
 .wordmark .ast {
   font-family: var(--font-disp);
@@ -85,8 +85,11 @@
   margin: 0; padding: 0;
 }
 .nav-links a {
-  font-size: var(--text-body);
-  font-weight: var(--font-weight-medium);
+  /* Editorial nav — JetBrains Mono, 12px, tracked, hover via opacity (PRO-175). */
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
   color: var(--paper);
   /* Tap target ≥44px (PRO-79 U6): grow the hit area to 44px tall via flex
      centering inside the 72px bar — no layout shift, no visible box. The
@@ -96,11 +99,12 @@
   min-height: 44px;
   padding: 0;
   position: relative;
-  transition: color 160ms ease;
+  transition: opacity 160ms ease;
 }
-.nav-links a:hover { color: var(--accent); }
-.nav-links a[aria-current="page"]::after,
-.nav-links a:hover::after {
+.nav-links a:hover { opacity: 0.55; }
+/* Active page keeps a solid cream underline (no hover underline — hover is
+   opacity-only per the reference, so only the current page is underlined). */
+.nav-links a[aria-current="page"]::after {
   content: "";
   position: absolute;
   /* Sit ~6px below the centered text. With the link grown to a 44px box and
@@ -108,7 +112,7 @@
      the rule 7px from box-bottom lands it ~6px under the glyphs. */
   left: 0; right: 0; bottom: 7px;
   height: 1px;
-  background: var(--accent);
+  background: var(--paper);
 }
 
 /* ---------- Mobile overlay menu (PRO-110) ----------
@@ -173,21 +177,26 @@
   text-align: center;
 }
 .nav-overlay__item a {
+  /* Editorial overlay — Instrument Serif, mixed case (PRO-175). */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 56px;
   padding: 0 16px;
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
+  font-weight: 400;
   font-size: var(--text-heading-sm);
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--paper);
-  transition: color 160ms ease;
+  transition: opacity 160ms ease;
 }
-.nav-overlay__item a:hover,
-.nav-overlay__item a[aria-current="page"] { color: var(--accent); }
+.nav-overlay__item a:hover { opacity: 0.55; }
+/* Current page stays underlined (monochrome — color hover is gone). */
+.nav-overlay__item a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
 
 /* Reduced motion: no fade transition on the overlay (PRO-110). The overlay
    open/close is a pure CSS class toggle (PRO-174), so this is the only path to
@@ -231,10 +240,16 @@ body.is-menu-open { overflow: hidden; }
   font-family: var(--font-sans);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-caption);
-  text-transform: uppercase;
+  /* These footer column labels (Site / Contact / Elsewhere) are an element
+     heading used as a small uppercase label, not a display headline. The
+     global `h1–h6 { text-transform: none !important }` in base.css would flip
+     them to mixed case, so re-assert uppercase with `!important` here to keep
+     the intended label treatment. Removed alongside the base.css case-flip
+     when the section pass (PRO-176/177) lands. */
+  text-transform: uppercase !important;
   letter-spacing: 0.08em;
   margin: 0 0 20px;
-  /* Dim (#9a9aa2) on ink (#08080a) is ~8.3:1 — passes AAA for this small
+  /* Dim (#A8A39A) on ink (#0E0D0B) is ~7.7:1 — passes AAA for this small
      uppercase label. The label still reads as a tertiary heading via size +
      case, not via a washed-out contrast. */
   color: var(--dim);

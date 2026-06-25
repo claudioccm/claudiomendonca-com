@@ -1,13 +1,13 @@
-/* Redesign 1/6 — dark base styles (PRO-109).
-   Dark reset, body on ink, film-grain + vignette canvas (replaces the light
-   Motto® blueprint grid). Keeps .shell + type utilities + anchor offset +
-   reduced-motion scroll-behavior, and adds the page-transition CSS that the
-   nuxt.config `app.pageTransition: { name: 'page' }` hook consumes.
+/* Redesign v2 — editorial base styles (PRO-175).
+   Editorial reset on the warm-black paper: JetBrains Mono body, Instrument
+   Serif mixed-case headings, vignette canvas. Keeps .shell + type utilities +
+   anchor offset + reduced-motion scroll-behavior, and the page-transition CSS
+   that the nuxt.config `app.pageTransition: { name: 'page' }` hook consumes.
 
    The visible film grain is rendered by the global <GrainOverlay> component
-   (fixed, pointer-events:none). base.css owns only the dark page colour and a
-   soft edge vignette so the canvas reads as a deep, lit surface rather than
-   flat black. */
+   (fixed, pointer-events:none). base.css owns only the warm-black page colour
+   and a soft edge vignette so the canvas reads as a deep, lit surface rather
+   than flat black. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -17,8 +17,8 @@ html, body {
   margin: 0; padding: 0;
   background: var(--ink);
   color: var(--paper);
-  font-family: var(--font-sans);
-  font-weight: var(--font-weight-medium);
+  font-family: var(--font-sans);          /* JetBrains Mono (editorial body) */
+  font-weight: 400;                        /* mono body reads at 400, per reference */
   font-size: var(--text-body);
   line-height: var(--leading-body);
   scroll-behavior: smooth;
@@ -126,10 +126,36 @@ a.link-underline {
 /* Selection — inverts to paper-on-ink on the dark canvas. */
 ::selection { background: var(--paper); color: var(--ink); }
 
+/* ---------- Editorial headings (PRO-175) ----------
+   The display vocabulary is Instrument Serif, weight 400, tight leading,
+   slightly negative tracking, MIXED CASE (matching the design reference —
+   headlines like "Your recurring work, done by a system.").
+
+   `text-transform: none` and `font-weight: 400` carry `!important` here as
+   deliberate foundation overrides: the not-yet-restyled sections.css (loaded
+   after base.css) still sets `text-transform: uppercase` and
+   `font-weight: var(--font-weight-medium)` (500) on heading selectors
+   (.hero h1, .section-head h2, .entry h3, …) at equal-or-higher specificity.
+   Without the overrides those serif headlines would render ALL-CAPS and
+   faux-bold (Instrument Serif ships only a 400 file), breaking the acceptance
+   target (Instrument Serif, weight 400, mixed case). These two scoped
+   `!important`s flip case + weight at the token/foundation layer for THIS
+   ticket; PRO-176/177 remove the section-level uppercase/500 rules, after which
+   they can drop. Eyebrows/labels (.hero-eyebrow, .label) are class-scoped and
+   intentionally keep their own treatment — they are not element headings, so
+   this rule does not touch them. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-disp);
+  font-weight: 400 !important;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: none !important;
+}
+
 /* ---------- Type utilities ---------- */
-.disp { font-family: var(--font-disp); font-weight: var(--font-weight-medium); letter-spacing: -0.015em; text-transform: uppercase; }
-.sans { font-family: var(--font-sans); font-weight: var(--font-weight-medium); }
-.mono { font-family: var(--font-mono); font-weight: var(--font-weight-medium); }
+.disp { font-family: var(--font-disp); font-weight: 400; line-height: 0.9; letter-spacing: -0.02em; }
+.sans { font-family: var(--font-sans); font-weight: 400; }
+.mono { font-family: var(--font-mono); font-weight: 400; }
 
 .t-caption   { font-size: var(--text-caption);    line-height: var(--leading-caption); }
 .t-body      { font-size: var(--text-body);       line-height: var(--leading-body); }
