@@ -163,7 +163,7 @@ useSeoMeta({
       </div>
     </section>
 
-    <!-- NEWSLETTER (non-functional stub — PRO-179 replaces it) -->
-    <NewsletterStub />
+    <!-- NEWSLETTER (functional Resend-backed signup — PRO-179) -->
+    <NewsletterBand />
   </div>
 </template>

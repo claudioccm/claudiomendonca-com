@@ -23,6 +23,15 @@
   NODE_VERSION = "22"
   PNPM_VERSION = "10"
 
+# Serverless functions (PRO-179). The static `nuxt generate` build can't host a
+# Nuxt server route, so the newsletter signup is a standalone Netlify Function in
+# `netlify/functions/` (deployed at /.netlify/functions/<name>). esbuild bundles
+# the TypeScript handler + its `resend` dependency. Its secrets (RESEND_API_KEY,
+# RESEND_SEGMENT_ID) are set in the Netlify dashboard, not here — see .env.example.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # No SPA catch-all redirect: this is a pre-rendered multi-page static site, so a
 # `/* -> /index.html 200` rule would mask real 404s. Netlify serves the emitted
 # /404.html for unknown paths by default. Add context-specific build overrides
