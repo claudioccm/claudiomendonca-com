@@ -131,18 +131,22 @@ a.link-underline {
    slightly negative tracking, MIXED CASE (matching the design reference —
    headlines like "Your recurring work, done by a system.").
 
-   `text-transform: none` carries `!important` here as a deliberate foundation
-   override: the not-yet-restyled sections.css (loaded after base.css) still sets
-   `text-transform: uppercase` on heading selectors (.hero h1, .section-head h2,
-   .entry h3, …) at equal-or-higher specificity. Without the override those serif
-   headlines would render ALL-CAPS, breaking the acceptance target. This single,
-   scoped `!important` flips case at the token/foundation layer for THIS ticket;
-   PRO-176/177 remove the section-level uppercase rules, after which it can drop.
-   Eyebrows/labels (.hero-eyebrow, .label) are class-scoped and intentionally
-   stay uppercase — they are not element headings, so this rule does not touch them. */
+   `text-transform: none` and `font-weight: 400` carry `!important` here as
+   deliberate foundation overrides: the not-yet-restyled sections.css (loaded
+   after base.css) still sets `text-transform: uppercase` and
+   `font-weight: var(--font-weight-medium)` (500) on heading selectors
+   (.hero h1, .section-head h2, .entry h3, …) at equal-or-higher specificity.
+   Without the overrides those serif headlines would render ALL-CAPS and
+   faux-bold (Instrument Serif ships only a 400 file), breaking the acceptance
+   target (Instrument Serif, weight 400, mixed case). These two scoped
+   `!important`s flip case + weight at the token/foundation layer for THIS
+   ticket; PRO-176/177 remove the section-level uppercase/500 rules, after which
+   they can drop. Eyebrows/labels (.hero-eyebrow, .label) are class-scoped and
+   intentionally keep their own treatment — they are not element headings, so
+   this rule does not touch them. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-disp);
-  font-weight: 400;
+  font-weight: 400 !important;
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: none !important;
