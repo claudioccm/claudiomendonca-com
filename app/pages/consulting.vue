@@ -141,7 +141,7 @@ useSeoMeta({ ogUrl: canonical })
         </p>
         <dl class="price-list">
           <div v-for="row in consulting?.pricing.rows" :key="row.item" class="price-row">
-            <dt>{{ row.item }}<template v-if="row.qualifier"> <span class="price-tag">{{ row.qualifier }}</span></template></dt>
+            <dt>{{ row.item }}<template v-if="row.qualifier">{{ ' ' }}<span class="price-tag">{{ row.qualifier }}</span></template></dt>
             <dd>
               <span class="price">{{ row.price }}</span>
               <span v-if="row.note" class="price-note">{{ row.note }}</span>
