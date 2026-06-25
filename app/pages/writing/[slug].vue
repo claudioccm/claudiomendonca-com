@@ -42,6 +42,52 @@ useSeoMeta({
   ogUrl: () => canonical.value,
   ogType: 'article',
 })
+
+// Article structured data (schema.org/Article). Emitted as an inline
+// ld+json <script> in the prerendered <head> so crawlers get rich-result
+// metadata (headline, author, dates, canonical url) without client JS.
+// `dek` is optional in the schema; the description key is omitted when absent
+// rather than shipping an empty string.
+//
+// The frontmatter authors `date` as Z-suffixed ISO-8601, but @nuxt/content's
+// SQLite layer surfaces it in the rendered payload as a space-separated
+// datetime ("2026-02-28 16:00:00") — NOT valid schema.org ISO-8601. Re-parse
+// whatever `post.value.date` holds into a strict ISO string so crawlers accept
+// datePublished/dateModified; fall back to the raw value if parsing ever fails.
+const isoDate = computed(() => {
+  const d = new Date(post.value.date)
+  return Number.isNaN(d.getTime()) ? post.value.date : d.toISOString()
+})
+const articleJsonld = computed(() => {
+  const data: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    'headline': post.value.title,
+    'datePublished': isoDate.value,
+    'dateModified': isoDate.value,
+    'author': {
+      '@type': 'Person',
+      'name': 'Claudio Mendonça',
+      'url': 'https://claudiomendonca.com/',
+    },
+    'publisher': {
+      '@type': 'Person',
+      'name': 'Claudio Mendonça',
+    },
+    'url': canonical.value,
+    'mainEntityOfPage': canonical.value,
+  }
+  if (post.value.dek) data.description = post.value.dek
+  return data
+})
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(articleJsonld.value)),
+    },
+  ],
+})
 </script>
 
 <template>

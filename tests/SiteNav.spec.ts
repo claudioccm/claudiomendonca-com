@@ -6,10 +6,9 @@ import { defineComponent, h, computed } from 'vue'
  * SiteNav.vue · `links` computed flips in-page anchors based on `route.path`.
  *
  * The component itself depends on Nuxt auto-imports (`useRoute`, `ref`,
- * `computed`, `onMounted`, `onBeforeUnmount`, `useNuxtApp`, `useReducedMotion`,
- * `nextTick`) and the `<NuxtLink>` resolver, so we don't mount SiteNav.vue
- * directly — that would pull in the full Nuxt runtime (and the client-only
- * GSAP/Lenis overlay machinery). Instead we re-implement the exact `links`
+ * `computed`, `onMounted`, `onBeforeUnmount`, `nextTick`) and the `<NuxtLink>`
+ * resolver, so we don't mount SiteNav.vue directly — that would pull in the
+ * full Nuxt runtime. Instead we re-implement the exact `links`
  * computed in a tiny harness component that takes a route path as a prop, and
  * assert the branching behavior. The computed under test is the load-bearing
  * one: a regression in the route-aware href logic would be caught here.
