@@ -131,25 +131,23 @@ a.link-underline {
    slightly negative tracking, MIXED CASE (matching the design reference —
    headlines like "Your recurring work, done by a system.").
 
-   `text-transform: none` and `font-weight: 400` carry `!important` here as
-   deliberate foundation overrides: the not-yet-restyled sections.css (loaded
-   after base.css) still sets `text-transform: uppercase` and
-   `font-weight: var(--font-weight-medium)` (500) on heading selectors
-   (.hero h1, .section-head h2, .entry h3, …) at equal-or-higher specificity.
-   Without the overrides those serif headlines would render ALL-CAPS and
-   faux-bold (Instrument Serif ships only a 400 file), breaking the acceptance
-   target (Instrument Serif, weight 400, mixed case). These two scoped
-   `!important`s flip case + weight at the token/foundation layer for THIS
-   ticket; PRO-176/177 remove the section-level uppercase/500 rules, after which
-   they can drop. Eyebrows/labels (.hero-eyebrow, .label) are class-scoped and
-   intentionally keep their own treatment — they are not element headings, so
-   this rule does not touch them. */
+   PRO-175 introduced `font-weight: 400` and `text-transform: none` here as
+   `!important` foundation overrides because sections.css (loaded after
+   base.css) still set `text-transform: uppercase` + `font-weight: medium`
+   (500) on heading selectors (.hero h1, .section-head h2, .experiment-caption
+   h2, .bio-grid h2, .entry h3, .step h3, .cta-banner h2) at higher specificity.
+   PRO-176 removed those section-level uppercase/500 declarations from every
+   heading selector, so nothing competes for these two properties anymore and
+   the `!important`s have been dropped (the plain rule wins via the cascade).
+   Eyebrows/labels (.hero-eyebrow, .label) and card tags (.experiment-caption
+   .tag, .price-tag) are class-scoped and intentionally keep their own uppercase
+   treatment — they are not element headings, so this rule does not touch them. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-disp);
-  font-weight: 400 !important;
+  font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.02em;
-  text-transform: none !important;
+  text-transform: none;
 }
 
 /* ---------- Type utilities ---------- */

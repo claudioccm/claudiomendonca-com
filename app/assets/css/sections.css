@@ -132,7 +132,6 @@
 }
 .hero h1 {
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
   /* Hero headline runs larger than the section heads (.section-head h2 /
      .entry h3 at 80px max) for top-of-page impact. The 56px floor stays clear
      of the 375px overflow that PRO-79 U1 fixed (the longest word "EXPERIMENTS"
@@ -142,7 +141,6 @@
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
-  text-transform: uppercase;
   overflow-wrap: break-word;
 }
 .hero h1 .amp { font-style: normal; font-feature-settings: "ss01"; }
@@ -201,12 +199,10 @@
 }
 .section-head h2 {
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
   font-size: clamp(56px, 9vw, 80px);
   line-height: 0.94;
   letter-spacing: -0.02em;
   margin: 0;
-  text-transform: uppercase;
   color: var(--paper);
 }
 
@@ -319,12 +315,10 @@
 }
 .experiment-caption h2 {
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
   font-size: clamp(28px, 3.2vw, 48px);
   line-height: 1;
   letter-spacing: -0.015em;
   margin: 0;
-  text-transform: uppercase;
   color: var(--paper);
 }
 .experiment-caption .tag {
@@ -366,12 +360,10 @@
 @media (max-width: 800px) { .bio-grid { grid-template-columns: 1fr; } }
 .bio-grid h2 {
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
   font-size: clamp(56px, 9vw, 80px);
   line-height: 0.94;
   letter-spacing: -0.02em;
   margin: 0;
-  text-transform: uppercase;
   color: var(--paper);
 }
 .bio-body p {
@@ -438,12 +430,10 @@
 }
 .entry h3 {
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
   font-size: clamp(56px, 9vw, 80px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
-  text-transform: uppercase;
   color: var(--paper);
 }
 .entry .tagline {
@@ -557,11 +547,9 @@
 .step h3 {
   margin: 0;
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
   font-size: clamp(34px, 4vw, 61px);
   line-height: 1;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
   color: var(--paper);
 }
 .step p {
@@ -585,13 +573,11 @@
 @media (max-width: 800px) { .cta-banner { grid-template-columns: 1fr; align-items: start; } }
 .cta-banner h2 {
   font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
   font-size: clamp(56px, 9vw, 80px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
   max-width: 14ch;
-  text-transform: uppercase;
   color: var(--paper);
 }
 .cta-banner p {
