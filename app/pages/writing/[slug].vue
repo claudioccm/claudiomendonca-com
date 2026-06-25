@@ -49,10 +49,11 @@ useSeoMeta({
 // `dek` is optional in the schema; the description key is omitted when absent
 // rather than shipping an empty string.
 //
-// The content layer normalizes `date` to a space-separated SQLite datetime
-// ("2026-02-28 16:00:00"), which is NOT valid schema.org ISO-8601. Re-parse it
-// to a strict ISO string so crawlers accept datePublished/dateModified; fall
-// back to the raw value if parsing ever fails.
+// The frontmatter authors `date` as Z-suffixed ISO-8601, but @nuxt/content's
+// SQLite layer surfaces it in the rendered payload as a space-separated
+// datetime ("2026-02-28 16:00:00") — NOT valid schema.org ISO-8601. Re-parse
+// whatever `post.value.date` holds into a strict ISO string so crawlers accept
+// datePublished/dateModified; fall back to the raw value if parsing ever fails.
 const isoDate = computed(() => {
   const d = new Date(post.value.date)
   return Number.isNaN(d.getTime()) ? post.value.date : d.toISOString()
