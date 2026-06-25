@@ -8,20 +8,13 @@
          non-interactive, SSR-safe. -->
     <GrainOverlay />
 
-    <!-- Global custom cursor (PRO-110). Capability-gated: only renders on fine
-         pointers with motion allowed; inert (and native cursor intact) on touch
-         / reduced-motion. SSR-safe — no element on the server. -->
-    <CustomCursor />
-
-    <!-- SmoothScroll provider seam (PRO-109). Renders its slot directly so
-         content is present in SSR / no-JS; the Lenis instance is created in
-         the client-only lenis plugin and gated off on reduced-motion/touch. -->
-    <SmoothScroll>
-      <SiteNav />
-      <main id="main" tabindex="-1">
-        <slot />
-      </main>
-      <SiteFooter />
-    </SmoothScroll>
+    <!-- PRO-174: SmoothScroll (Lenis) and CustomCursor were retired with the
+         motion stack. The page chrome now renders directly — native scrolling,
+         native cursor, all content present in SSR / no-JS. -->
+    <SiteNav />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
   </div>
 </template>

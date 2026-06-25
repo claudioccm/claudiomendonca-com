@@ -83,16 +83,17 @@
   overflow: hidden; /* clip the bleed of the absolutely-positioned bg layer */
 }
 
-/* Background layer (PRO-111): sits behind .shell. Holds either the WebGL
-   HeroScene canvas or the CSS gradient fallback. Decorative + non-interactive. */
+/* Background layer (PRO-111): sits behind .shell. Holds the CSS gradient
+   backdrop (the WebGL HeroScene was retired in PRO-174). Decorative +
+   non-interactive. */
 .hero-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
 }
-/* Animated accent gradient shown when WebGL is unavailable / not capable.
-   Drifts slowly via background-position; held STATIC under reduced-motion. */
+/* Animated accent gradient — the sole hero backdrop (PRO-174). Drifts slowly
+   via background-position; held STATIC under reduced-motion. */
 .hero-bg-fallback {
   position: absolute;
   inset: 0;
@@ -708,70 +709,46 @@
   .price-row .price-note { margin-left: 0; }
 }
 
-/* ---------- Stat counter (PRO-113 U4) ----------
-   Animated number + SVG arc for the MIT "95%" credibility stat. The count-up +
-   arc sweep are JS (GSAP) and bail on reduced-motion in the component; the
-   static state (full arc + final number) is what SSR/no-JS/reduced-motion show.
-   Dark vocabulary: background ring on --hairline-solid, foreground arc in the
-   page's focal --accent, number in --font-disp / --paper. */
-.stat-counter {
+/* ---------- Stat figure (PRO-113 U4; statified PRO-174) ----------
+   Static credibility stat for the MIT "95%" number. The GSAP count-up + SVG
+   arc sweep were retired with the motion stack — this renders the final number
+   + caption as plain static markup (no canvas, no count-up). Dark vocabulary:
+   number in --font-disp / --paper with the --accent suffix. */
+.stat-figure {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: clamp(20px, 3vw, 40px);
   margin: 8px 0 0;
 }
-.stat-counter-dial {
-  position: relative;
-  width: clamp(120px, 16vw, 168px);
-  aspect-ratio: 1;
-}
-.stat-counter-arc {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.stat-counter-ring {
-  stroke: var(--hairline-solid);
-  stroke-width: 6;
-}
-.stat-counter-progress {
-  stroke: var(--accent);
-  stroke-width: 6;
-  stroke-linecap: round;
-}
-.stat-counter-value {
-  position: absolute;
-  inset: 0;
+.stat-figure__value {
   display: flex;
   align-items: baseline;
-  justify-content: center;
   font-family: var(--font-disp);
   font-weight: var(--font-weight-medium);
   letter-spacing: -0.02em;
   color: var(--paper);
 }
-.stat-counter-value .stat-num { font-size: clamp(40px, 5.5vw, 61px); line-height: 1; }
-.stat-counter-value .stat-suffix { font-size: clamp(20px, 2.6vw, 31px); color: var(--accent); }
-.stat-counter-caption {
+.stat-figure__num { font-size: clamp(56px, 9vw, 104px); line-height: 1; }
+.stat-figure__suffix { font-size: clamp(28px, 4vw, 52px); color: var(--accent); }
+.stat-figure__caption {
   display: grid;
   gap: 10px;
 }
-.stat-counter-label {
+.stat-figure__label {
   font-size: clamp(20px, 1.6vw, 25px);
   line-height: 1.3;
   color: var(--paper);
   max-width: 32ch;
 }
-.stat-counter-note {
+.stat-figure__note {
   margin: 0;
   font-size: var(--text-body);
   line-height: var(--leading-body);
   color: var(--dim);
   max-width: 48ch;
 }
-.stat-counter-caption :deep(cite),
-.stat-counter-caption cite {
+.stat-figure__caption cite {
   display: block;
   font-style: normal;
   font-size: var(--text-caption);
@@ -779,56 +756,39 @@
   color: var(--dim);
 }
 @media (max-width: 600px) {
-  .stat-counter { grid-template-columns: 1fr; gap: 20px; }
-  .stat-counter-dial { justify-self: start; }
+  .stat-figure { grid-template-columns: 1fr; gap: 20px; }
 }
 
-/* ---------- Marquee ticker (PRO-113 U4) ----------
-   Seamless infinite strip: a doubled track translates -50% so the duplicate
-   group slides exactly into the first group's start (no seam). Paused under
-   reduced-motion (see the override block below). Quiet dark vocabulary:
-   mono items in --dim with an --accent bullet separator. */
-.marquee {
-  overflow: hidden;
+/* ---------- Tag strip (PRO-113 U4; statified PRO-174) ----------
+   Static role/tools strip under the consulting hero. The infinite scrolling
+   marquee was retired with the motion stack; this is now a plain wrapping
+   list — every item is real, readable text with no animation. Quiet dark
+   vocabulary: mono items in --dim with an --accent bullet separator. */
+.tag-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px) clamp(28px, 4vw, 56px);
+  margin: 0;
+  padding: clamp(14px, 2vw, 20px) var(--page-pad-x);
+  list-style: none;
   border-top: 1px solid var(--hairline-solid);
   border-bottom: 1px solid var(--hairline-solid);
-  padding: clamp(14px, 2vw, 20px) 0;
-  /* Fade the strip into the page edges so items enter/exit softly. */
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee-scroll var(--marquee-duration, 32s) linear infinite;
-}
-.marquee-group {
-  display: flex;
-  align-items: center;
-  gap: clamp(28px, 4vw, 56px);
-  margin: 0;
-  padding: 0 clamp(14px, 2vw, 28px) 0 0;
-  list-style: none;
-}
-.marquee-item {
+.tag-strip__item {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--dim);
-  white-space: nowrap;
   display: flex;
   align-items: center;
   gap: clamp(28px, 4vw, 56px);
 }
 /* Accent bullet separator before each item. */
-.marquee-item::before {
+.tag-strip__item::before {
   content: "•";
   color: var(--accent);
-}
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* ---------- Reduced motion override (R14; extended PRO-79 U4) ----------
@@ -860,17 +820,12 @@
   .btn:active {
     transform: none !important;
   }
-  /* Hero CSS fallback: hold the gradient static under reduced motion (PRO-111).
-     WebGL never mounts here anyway — useWebGLCapable folds in reduced-motion —
-     so the fallback is always what reduced-motion users see. */
+  /* Hero gradient backdrop: hold the drift animation static under reduced
+     motion (PRO-111; sole hero background since the WebGL scene was retired
+     in PRO-174). */
   .hero-bg-fallback {
     animation: none !important;
   }
-  /* Marquee ticker: pause the loop and hold the strip static (PRO-113 U4). The
-     doubled track simply sits with the content fully readable. The StatCounter
-     count-up + arc sweep are JS and already bail on reduced-motion in the
-     component, so no CSS neutralization is needed there. */
-  .marquee-track {
-    animation: none !important;
-  }
+  /* The tag strip and stat figure are now fully static markup (PRO-174), so no
+     reduced-motion neutralization is needed for them. */
 }

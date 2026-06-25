@@ -4,19 +4,18 @@ import { mount } from '@vue/test-utils'
 /**
  * ExperimentCard.vue · link contract + mono index + SSR-visible markup (PRO-112).
  *
- * Like SiteNav.spec.ts / MagneticButton.spec.ts, we don't import the SFC directly
- * — it depends on Nuxt auto-imports (NuxtImg, padIndex, useScrollReveal) and a
- * Nuxt runtime. Instead we exercise a harness that mirrors the production
- * component's load-bearing, non-GSAP logic exactly:
+ * Like SiteNav.spec.ts, we don't import the SFC directly — it depends on Nuxt
+ * auto-imports (NuxtImg, padIndex) and a Nuxt runtime. Instead we exercise a
+ * harness that mirrors the production component's load-bearing logic exactly:
  *   1. the outbound link contract: <a href target="_blank" rel="noopener">
  *   2. the zero-padded index label rendered in --font-mono
  *   3. accessible-name fallback (ariaLabel ?? title)
  *   4. image presence/absence (NuxtImg <img> vs stripes-only)
  *   5. SSR-safe render: no hidden start state in the static markup (R7)
  *
- * The GSAP reveal + parallax are client-only onMounted effects that bail on the
- * server and under reduced-motion; they are verified in the STEP 6 browser pass,
- * not here (happy-dom has no layout/scroll for ScrollTrigger to act on).
+ * The card reveal is now pure CSS (the `[data-reveal]` hook; the GSAP reveal +
+ * parallax were retired in PRO-174), so there is no client-only motion logic to
+ * assert here — the reveal is verified in the STEP 6 browser pass.
  */
 import { defineComponent, h, computed } from 'vue'
 
