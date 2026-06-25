@@ -1,27 +1,34 @@
-/* Redesign 1/6 — dark design tokens (PRO-109).
+/* Redesign v2 — editorial monochrome design tokens (PRO-175).
    All colors are hex/rgba (NOT oklch/hsl), per project convention.
 
+   The editorial language: Instrument Serif display over a JetBrains Mono body
+   on a warm-black paper, fully monochrome — no chromatic accent renders.
+   Reference: _process/design-exploration-unzipped/Consulting.dc.html +
+   screenshots/01-consulting.png.
+
    Two token sets live here:
-   1. NEW semantic dark tokens (--ink, --paper, --accent, …) — the canonical
-      going-forward API. Cycles 2–6 restyle sections against these.
+   1. NEW semantic tokens (--ink, --paper, --accent, …) — the canonical
+      going-forward API. Sections restyle against these (PRO-176/177).
    2. LEGACY --color-* tokens (Motto® light system) — names KEPT but VALUES
-      REMAPPED to dark equivalents so the not-yet-restyled chrome.css /
-      sections.css keep building and existing pages render dark unedited.
-      "unstyled-but-present is fine" for this foundation cycle (PRO-109). */
+      REMAPPED to the editorial equivalents so the not-yet-restyled chrome.css /
+      sections.css keep building and existing pages render correctly unedited.
+      The remap WIRING is unchanged from PRO-109; only the underlying semantic
+      values it points at changed, so polarity (paper-on-ink / ink-on-paper)
+      stays correct and every decorative accent now resolves monochrome. */
 :root {
-  /* ---------- NEW semantic dark palette ---------- */
-  --ink: #08080a;                       /* page background — near-black */
-  --raised: #101014;                    /* raised surfaces / cards */
-  --hairline: rgba(255, 255, 255, .10); /* 1px separators on dark */
-  --paper: #f3f2ee;                     /* primary text — warm off-white */
-  --dim: #9a9aa2;                        /* secondary text */
-  --faint: #6a6a72;                      /* tertiary / de-emphasized text */
-  --accent: #6980ff;                     /* electric violet — primary accent */
-  --accent-alt: #9c98ef;                 /* vivid purple — secondary accent */
-  --accent-rare: #beee98;                /* grass green — rare graphic accent */
+  /* ---------- NEW semantic editorial palette (warm-black / cream) ---------- */
+  --ink: #0E0D0B;                       /* page background — warm near-black */
+  --raised: #17150F;                    /* raised surfaces / cards — warm */
+  --hairline: rgba(237, 234, 227, .08); /* low-alpha cream separators (≈#EDEAE314) */
+  --paper: #EDEAE3;                     /* primary text — warm cream */
+  --dim: #A8A39A;                        /* secondary text — warm grey */
+  --faint: #6F6A60;                      /* tertiary / de-emphasized text — warm grey */
+  --accent: var(--paper);                /* neutralized — paper (no chroma) */
+  --accent-alt: var(--dim);              /* neutralized — dim (no chroma) */
+  --accent-rare: var(--dim);             /* neutralized — dim (no chroma) */
 
   /* Solid equivalent of --hairline for borders that can't take rgba layering. */
-  --hairline-solid: #26262c;
+  --hairline-solid: #2A2823;
 
   /* ---------- LEGACY --color-* (remapped to dark) ----------
      Text/border tokens map to light values; surface/background tokens map to
@@ -41,9 +48,11 @@
   --color-electric-violet: var(--accent);    /* decorative accent */
   --color-grass-green: var(--accent-rare);   /* decorative accent */
 
-  /* Fonts */
-  --font-sans: 'Inter', Arial, Helvetica, sans-serif;
-  --font-disp: 'Oswald', Impact, sans-serif;
+  /* Fonts — editorial: Instrument Serif display, JetBrains Mono body + mono.
+     --font-sans is the body base (now monospace); --font-disp is the serif
+     display face; --font-mono is unchanged (still JetBrains Mono). */
+  --font-sans: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-disp: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-weight-medium: 500;
 
