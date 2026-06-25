@@ -65,6 +65,15 @@ const showFeatured = computed(
       featured.value.category === activeCategory.value),
 )
 
+// Empty state is only correct when NOTHING is shown for the active category —
+// neither the featured block nor any grid card. Without the `showFeatured`
+// guard the "Essays" chip would render the featured Essay block AND a
+// contradictory "No posts in this category yet." below it (the sole Essay is
+// the featured post, so it's excluded from `rest` and `visibleRest` is empty).
+const noPostsVisible = computed(
+  () => !showFeatured.value && visibleRest.value.length === 0,
+)
+
 // Canonical / og:url for /writing. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/writing'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
@@ -136,11 +145,11 @@ useSeoMeta({
     <!-- GRID -->
     <section class="writing-grid-section">
       <div class="shell">
-        <div class="writing-grid-section__head mono" data-reveal>More posts</div>
+        <div v-if="visibleRest.length" class="writing-grid-section__head mono" data-reveal>More posts</div>
         <ul v-if="visibleRest.length" class="posts-grid" aria-label="Posts">
           <li v-for="post in visibleRest" :key="post.path">
             <PostCard
-              :slug="post.path.replace('/writing/', '')"
+              :to="post.path"
               :title="post.title"
               :category="post.category"
               :date="post.date"
@@ -149,7 +158,8 @@ useSeoMeta({
             />
           </li>
         </ul>
-        <p v-else class="posts-empty mono">No posts in this category yet.</p>
+        <!-- Only when neither the featured block nor any grid card is shown. -->
+        <p v-if="noPostsVisible" class="posts-empty mono">No posts in this category yet.</p>
       </div>
     </section>
 

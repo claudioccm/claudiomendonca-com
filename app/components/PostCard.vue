@@ -15,7 +15,8 @@
 import { computed } from 'vue'
 
 interface Props {
-  slug: string
+  /** Full route path for the post (e.g. '/writing/foo'), passed through as-is. */
+  to: string
   title: string
   category: string
   date: string
@@ -32,7 +33,7 @@ const readLabel = computed(() =>
 </script>
 
 <template>
-  <NuxtLink :to="`/writing/${slug}`" class="post-card" data-reveal>
+  <NuxtLink :to="to" class="post-card" data-reveal>
     <div class="post-card__cover hatch" aria-hidden="true" />
     <div class="post-card__meta mono">
       <span>{{ category }}</span>
