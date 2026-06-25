@@ -2,15 +2,22 @@
   Home one-pager (PRO-112 dark redesign). Hero = HeroSection (static CSS
   gradient backdrop, static <h1> + plain .btn CTAs — PRO-174); #work =
   ExperimentCard grid; #about = bio block.
-  Card data is iterated from app/data/experiments.ts, so adding a product is one
-  new array entry + one image file — no edit to this page or ExperimentCard for
-  the data itself. Section ids #work / #about are load-bearing (nav, footer,
-  _redirects, and the /about → #about redirect depend on them).
+  Copy + card data are sourced from the `site` content collection
+  (content/site.json) via useSiteContent (PRO-176), so adding a product is one
+  new entry in experiments.items + one image file — no edit to this page or
+  ExperimentCard for the data itself. Section ids #work / #about are
+  load-bearing (nav, footer, _redirects, and the /about → #about redirect
+  depend on them).
   The outer <div> exists because Nuxt's eslint preset enforces a single
   template root on pages (the layout's <main> already provides semantics).
 -->
 <script setup lang="ts">
-import { experiments } from '~/data/experiments'
+// All home-page copy is sourced from the `site` content collection
+// (content/site.json) — the single source of truth (PRO-176).
+const { data: site } = await useSiteContent()
+const intro = computed(() => site.value?.intro)
+const about = computed(() => site.value?.about)
+const experiments = computed(() => site.value?.experiments.items ?? [])
 
 // Canonical / og:url for the homepage. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/'
@@ -30,20 +37,20 @@ useSeoMeta({ ogUrl: canonical })
     <HeroSection>
       <template #eyebrow>
         <span class="dot" aria-hidden="true" />
-        <span>CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER</span>
+        <span>{{ intro?.eyebrow }}</span>
       </template>
       <template #headline>
-        <h1>AI EXPERIMENTS</h1>
+        <h1>{{ intro?.headline }}</h1>
       </template>
       <template #sub>
-        I build opinionated AI experimental tools. Use with moderation. This page is the index.
+        {{ intro?.subhead }}
       </template>
       <template #ctas>
-        <a class="btn btn-filled" href="#work">
-          <span>See the work</span>
+        <a class="btn btn-filled" :href="intro?.ctas[0]?.target">
+          <span>{{ intro?.ctas[0]?.label }}</span>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
-        <NuxtLink class="btn btn-ghost" to="/consulting">Consulting</NuxtLink>
+        <NuxtLink class="btn btn-ghost" :to="intro?.ctas[1]?.target">{{ intro?.ctas[1]?.label }}</NuxtLink>
       </template>
     </HeroSection>
 
@@ -75,23 +82,19 @@ useSeoMeta({ ogUrl: canonical })
       <div class="shell">
         <div class="bio-grid">
           <div>
-            <span class="label">About</span>
-            <h2>About.</h2>
+            <span class="label">{{ about?.label }}</span>
+            <h2>{{ about?.heading }}</h2>
           </div>
           <div class="bio-body" data-reveal>
             <p>
-              I'm Claudio Mendonça, design engineer, working at the intersection
-              of design, code, and AI.
+              {{ about?.intro }}
             </p>
             <p class="secondary">
-              The products on this page are the experiments I'm shipping under
-              my own name. The <NuxtLink class="link-underline" to="/consulting">consulting page</NuxtLink>
-              is what I do for clients: systems that produce their recurring
-              documents and reports, plus training so their team works with AI
-              on everything else.
+              {{ about?.practice.before
+              }}<NuxtLink class="link-underline" :to="about?.practice.linkTarget">{{ about?.practice.linkLabel }}</NuxtLink>{{ about?.practice.after }}
             </p>
             <p class="secondary">
-              Based in beautiful British Columbia. Available for a small number of engagements at a time.
+              {{ about?.availability }}
             </p>
           </div>
         </div>

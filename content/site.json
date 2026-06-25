@@ -27,23 +27,26 @@
   },
 
   "intro": {
-    "eyebrow": "Claudio Mendonça — Founder. Designer. Engineer.",
-    "headlinePrefix": "AI",
-    "headlineWords": ["Experiments", "Consulting", "Training"],
+    "eyebrow": "CLAUDIO MENDONÇA — FOUNDER.DESIGNER.ENGINEER",
+    "headline": "AI EXPERIMENTS",
     "subhead": "I build opinionated AI experimental tools. Use with moderation. This page is the index.",
     "ctas": [
-      { "label": "See the work", "target": "experiments" },
-      { "label": "Consulting", "target": "consulting" }
+      { "label": "See the work", "target": "#work" },
+      { "label": "Consulting", "target": "/consulting" }
     ]
   },
 
   "about": {
+    "label": "About",
     "heading": "About.",
-    "paragraphs": [
-      "I'm Claudio Mendonça, design engineer, working at the intersection of design, code, and AI.",
-      "The products on this page are the experiments I'm shipping under my own name. The consulting practice is what I do for clients: systems that produce their recurring documents and reports, plus training so their team works with AI on everything else.",
-      "Based in beautiful British Columbia. Available for a small number of engagements at a time."
-    ]
+    "intro": "I'm Claudio Mendonça, design engineer, working at the intersection of design, code, and AI.",
+    "practice": {
+      "before": "The products on this page are the experiments I'm shipping under my own name. The ",
+      "linkLabel": "consulting page",
+      "linkTarget": "/consulting",
+      "after": " is what I do for clients: systems that produce their recurring documents and reports, plus training so their team works with AI on everything else."
+    },
+    "availability": "Based in beautiful British Columbia. Available for a small number of engagements at a time."
   },
 
   "experiments": {
@@ -51,33 +54,44 @@
     "items": [
       {
         "id": "cutthecrap",
-        "name": "Cut The Crap",
-        "description": "YouTube videos as tweets",
-        "url": "https://cutthecrap.claudiomendonca.com"
+        "title": "Cut The Crap",
+        "tag": "YOUTUBE VIDEOS AS TWEETS",
+        "url": "https://cutthecrap.claudiomendonca.com",
+        "image": "/screenshots/cutthecrap.jpg",
+        "alt": "Cut The Crap — YouTube videos as tweets"
       },
       {
         "id": "edge",
-        "name": "Edge",
-        "description": "Auto-generated blog about AI news & research",
-        "url": "https://edge.ccmdesign.ca"
+        "title": "Edge",
+        "tag": "AUTO GENERATED BLOG ABOUT AI NEWS & RESEARCH",
+        "url": "https://edge.ccmdesign.ca",
+        "image": "/screenshots/edge.jpg",
+        "alt": "Edge — auto-generated AI news blog"
       },
       {
         "id": "squoosh",
-        "name": "Batch Squoosh",
-        "description": "Self-hosted image compression tool",
-        "url": "https://squoosh.ccmdesign.com"
+        "title": "BATCH SQUOOSH",
+        "tag": "Tool · Self-hosted",
+        "url": "https://squoosh.ccmdesign.com",
+        "image": "/screenshots/squoosh.jpg",
+        "alt": "Batch Squoosh — self-hosted image compression",
+        "ariaLabel": "Squoosh"
       },
       {
         "id": "varro",
-        "name": "Varro",
-        "description": "Fully AI-generated blog & social media content",
-        "url": "https://varro.me"
+        "title": "Varro",
+        "tag": "FULLY AI GENERATED BLOG & SOCIAL MEDIA CONTENT",
+        "url": "https://varro.me",
+        "image": "/screenshots/varro.jpg",
+        "alt": "Varro — fully AI generated blog and social content"
       },
       {
         "id": "feedback",
-        "name": "Feedback",
-        "description": "AI-powered feedback collection",
-        "url": "https://feedback.ccmdesign.ca"
+        "title": "Feedback",
+        "tag": "AI-POWERED FEEDBACK COLLECTION",
+        "url": "https://feedback.ccmdesign.ca",
+        "image": "/screenshots/feedback.jpg",
+        "alt": "Feedback — AI-powered feedback collection"
       }
     ]
   },
@@ -88,7 +102,7 @@
     "subhead": "Every week your team rebuilds the same reports, briefs, and newsletters by hand. I build systems that produce that work for you, on schedule and on-brand. For the parts that don't repeat, I teach your team to work with AI so they move faster there too.",
     "ctas": [
       { "label": "Start a conversation", "target": "mailto:claudioccm@gmail.com" },
-      { "label": "See how it works", "target": "process" }
+      { "label": "See how it works", "target": "#how" }
     ],
 
     "deliverables": [
@@ -143,7 +157,7 @@
         },
         {
           "id": "automate",
-          "title": "Automate the repetitive.",
+          "title": "Automate the<br />repetitive.",
           "tagline": "The reports and newsletters you rebuild every cycle, produced by a system instead.",
           "blurb": "I build the system that produces your recurring documents on schedule and on-brand, in your tools, yours to keep. A human stays in the loop and signs off before anything ships.",
           "outcomes": [
@@ -154,7 +168,7 @@
         },
         {
           "id": "empower",
-          "title": "Empower your team.",
+          "title": "Empower<br />your team.",
           "tagline": "For the judgment calls and one-offs: your team working with AI, not depending on me.",
           "blurb": "Hands-on training and setup for the work that doesn't repeat — how to think with AI, where it helps, where it doesn't, and how to keep quality and brand intact. Role-specific, on your actual workflows, not a generic deck.",
           "outcomes": [

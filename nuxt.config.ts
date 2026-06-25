@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
+    '@nuxt/content',
     '@nuxt/fonts',
     '@nuxt/image',
     '@nuxt/eslint',

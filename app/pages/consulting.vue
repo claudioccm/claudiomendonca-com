@@ -4,34 +4,33 @@
   decomposed into HeroSection (PRO-77), ConsultingEntry, HowItWorks, and
   CtaBanner (all PRO-78).
 
-  Offering data lives in app/data/consulting.ts so adding a fourth offering
-  is one new array entry — no edit to this page, ConsultingEntry,
-  HowItWorks, CtaBanner, or sections.css. (PRO-78 R10, K4, AC4.)
+  Copy + offering data are sourced from the `site` content collection
+  (content/site.json → consulting) via useSiteContent (PRO-176), so adding a
+  fourth offering is one new entry in consulting.offerings.items — no edit to
+  this page, ConsultingEntry, HowItWorks, CtaBanner, or sections.css.
+  (PRO-78 R10, K4, AC4; PRO-176.)
 
   The outer <div> exists because Nuxt's eslint preset enforces a single
   template root on pages (the layout's <main> already provides semantics).
 -->
 <script setup lang="ts">
-import { consultingOfferings } from '~/data/consulting'
+// All /consulting copy is sourced from the `site` content collection
+// (content/site.json) — the single source of truth (PRO-176).
+const { data: site } = await useSiteContent()
+const consulting = computed(() => site.value?.consulting)
+const consultingOfferings = computed(() => consulting.value?.offerings.items ?? [])
+const tagItems = computed(() => consulting.value?.deliverables ?? [])
+
+// Offerings section label keeps the prototype's "Offerings — NN" form, with the
+// count zero-padded and derived from the offerings list so it stays in sync.
+const offeringsLabel = computed(() =>
+  `${consulting.value?.offerings.label ?? ''} — ${padIndex(consultingOfferings.value.length)}`,
+)
 
 // Canonical / og:url for /consulting. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({ ogUrl: canonical })
-
-// Role / tools strip shown under the hero. Page-owned copy — no data module,
-// since it is presentational and specific to this page. PRO-174 retired the
-// scrolling marquee; this now renders as a static readable list.
-const tagItems = [
-  'Recurring reports',
-  'Newsletters',
-  'Research briefs',
-  'On-brand output',
-  'Human-in-the-loop',
-  'Team training',
-  'Built in your tools',
-  'Yours to keep',
-]
 </script>
 
 <template>
@@ -39,23 +38,20 @@ const tagItems = [
     <HeroSection down-arrow-href="#consulting">
       <template #eyebrow>
         <span class="dot" aria-hidden="true" />
-        <span>Consulting — automated, on-brand, accountable</span>
+        <span>{{ consulting?.eyebrow }}</span>
       </template>
       <template #headline>
-        <h1>Your recurring work, done by a system.</h1>
+        <h1>{{ consulting?.headline }}</h1>
       </template>
       <template #sub>
-        Every week your team rebuilds the same reports, briefs, and newsletters
-        by hand. I build systems that produce that work for you, on schedule and
-        on-brand. For the parts that don't repeat, I teach your team to work with
-        AI so they move faster there too.
+        {{ consulting?.subhead }}
       </template>
       <template #ctas>
-        <a class="btn btn-filled" href="mailto:claudioccm@gmail.com">
-          <span>Start a conversation</span>
+        <a class="btn btn-filled" :href="consulting?.ctas[0]?.target">
+          <span>{{ consulting?.ctas[0]?.label }}</span>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
-        <a class="btn btn-ghost" href="#how">See how it works</a>
+        <a class="btn btn-ghost" :href="consulting?.ctas[1]?.target">{{ consulting?.ctas[1]?.label }}</a>
       </template>
     </HeroSection>
 
@@ -69,21 +65,15 @@ const tagItems = [
       <div class="shell">
         <div class="bio-grid">
           <div>
-            <span class="label">Who this is for</span>
-            <h2>The brief.</h2>
+            <span class="label">{{ consulting?.brief.label }}</span>
+            <h2>{{ consulting?.brief.heading }}</h2>
           </div>
           <div class="bio-body">
             <p>
-              Most "AI strategy" is a slide deck. This is the opposite: working
-              systems that produce your recurring documents and reports, built to
-              your brand, with a person accountable for what goes out the door.
+              {{ consulting?.brief.paragraphs[0] }}
             </p>
             <p class="secondary">
-              I work with research nonprofits, foundations, think tanks, and
-              small expert teams — the ones who publish to make their case and
-              rebuild the same reports, briefs, and newsletters from scratch
-              every cycle. The work is valuable. Doing it by hand, over and over,
-              is not.
+              {{ consulting?.brief.paragraphs[1] }}
             </p>
           </div>
         </div>
@@ -94,25 +84,21 @@ const tagItems = [
       <div class="shell">
         <div class="bio-grid">
           <div>
-            <span class="label">The honest version</span>
-            <h2>Not just a chatbot.</h2>
+            <span class="label">{{ consulting?.differentiator.label }}</span>
+            <h2>{{ consulting?.differentiator.heading }}</h2>
           </div>
           <div class="bio-body">
             <p>
-              Anyone can get a draft out of a chatbot. The hard part is the
-              system that runs every cycle, stays on-brand, and has someone
-              accountable when it matters. That is the part you are paying for,
-              and it is the part a generic chatbot won't do.
+              {{ consulting?.differentiator.paragraphs[0] }}
             </p>
-            <figure class="stat-figure" role="figure" aria-label="95% of company AI pilots never deliver a measurable return.">
+            <figure class="stat-figure" role="figure" :aria-label="`${consulting?.differentiator.stat.value} ${consulting?.differentiator.stat.label}`">
               <span class="stat-figure__value" aria-hidden="true">
                 <span class="stat-figure__num">95</span><span class="stat-figure__suffix">%</span>
               </span>
               <figcaption class="stat-figure__caption">
-                <span class="stat-figure__label">of company AI pilots never deliver a measurable return.</span>
+                <span class="stat-figure__label">{{ consulting?.differentiator.stat.label }}</span>
                 <p class="stat-figure__note">
-                  The ones run with an outside specialist succeed about twice as
-                  often as in-house builds.
+                  {{ consulting?.differentiator.stat.note }}
                 </p>
                 <cite>— MIT, <em>State of AI in Business 2025</em></cite>
               </figcaption>
@@ -125,8 +111,8 @@ const tagItems = [
     <section id="consulting" data-screen-label="Consulting — List">
       <div class="shell">
         <div class="section-head">
-          <span class="label">Offerings — 03</span>
-          <h2>What I do.</h2>
+          <span class="label">{{ offeringsLabel }}</span>
+          <h2>{{ consulting?.offerings.heading }}</h2>
         </div>
         <ol class="entry-list" aria-label="Consulting offerings">
           <ConsultingEntry
@@ -147,37 +133,18 @@ const tagItems = [
     <section data-screen-label="Consulting — Pricing">
       <div class="shell">
         <div class="section-head">
-          <span class="label">What it costs</span>
-          <h2>No mystery pricing.</h2>
+          <span class="label">{{ consulting?.pricing.label }}</span>
+          <h2>{{ consulting?.pricing.heading }}</h2>
         </div>
         <p class="price-lead">
-          Transparent and fixed. You know the number before we start.
+          {{ consulting?.pricing.lead }}
         </p>
         <dl class="price-list">
-          <div class="price-row">
-            <dt>Opportunity Audit</dt>
+          <div v-for="row in consulting?.pricing.rows" :key="row.item" class="price-row">
+            <dt>{{ row.item }}<template v-if="row.qualifier">{{ ' ' }}<span class="price-tag">{{ row.qualifier }}</span></template></dt>
             <dd>
-              <span class="price">9999,00</span>
-              <span class="price-note">2–3 weeks · credited toward your build</span>
-            </dd>
-          </div>
-          <div class="price-row">
-            <dt>Build <span class="price-tag">automate</span></dt>
-            <dd>
-              <span class="price">from 9999,00</span>
-              <span class="price-note">fixed, set against the value it creates</span>
-            </dd>
-          </div>
-          <div class="price-row">
-            <dt>Empower <span class="price-tag">training + setup</span></dt>
-            <dd>
-              <span class="price">9999,00</span>
-            </dd>
-          </div>
-          <div class="price-row">
-            <dt>Care &amp; R&amp;D</dt>
-            <dd>
-              <span class="price">9999,00 / month</span>
+              <span class="price">{{ row.price }}</span>
+              <span v-if="row.note" class="price-note">{{ row.note }}</span>
             </dd>
           </div>
         </dl>
@@ -188,10 +155,10 @@ const tagItems = [
          the page level keeps the CtaBanner prop contract untouched (PRO-113 R3). -->
     <div id="contact">
       <CtaBanner
-        heading="Got something to build?"
-        body="A short note about what you're working on is enough to start. No deck required."
-        cta-label="Start a conversation"
-        cta-href="mailto:claudioccm@gmail.com"
+        :heading="consulting?.cta.heading ?? ''"
+        :body="consulting?.cta.body ?? ''"
+        :cta-label="consulting?.cta.label ?? ''"
+        :cta-href="consulting?.cta.target ?? ''"
       />
     </div>
   </div>

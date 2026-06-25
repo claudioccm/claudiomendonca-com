@@ -238,15 +238,20 @@ body.is-menu-open { overflow: hidden; }
 }
 .footer h2 {
   font-family: var(--font-sans);
-  font-weight: var(--font-weight-medium);
+  /* Weight 400 (not --font-weight-medium): while PRO-175's
+     `h1–h6 { font-weight: 400 !important }` foundation rule was in force it
+     overrode this selector, so the footer labels have always rendered at 400.
+     PRO-176 drops that `!important`; pinning 400 here preserves the exact
+     shipped rendering rather than letting the labels jump to 500. */
+  font-weight: 400;
   font-size: var(--text-caption);
   /* These footer column labels (Site / Contact / Elsewhere) are an element
-     heading used as a small uppercase label, not a display headline. The
-     global `h1–h6 { text-transform: none !important }` in base.css would flip
-     them to mixed case, so re-assert uppercase with `!important` here to keep
-     the intended label treatment. Removed alongside the base.css case-flip
-     when the section pass (PRO-176/177) lands. */
-  text-transform: uppercase !important;
+     heading used as a small uppercase label, not a display headline. PRO-175
+     needed `!important` to beat the global `h1–h6 { text-transform: none
+     !important }` foundation override; PRO-176 dropped that override, so this
+     selector (specificity 0,1,1) now wins on the cascade alone and the
+     `!important` is no longer required. */
+  text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 20px;
   /* Dim (#A8A39A) on ink (#0E0D0B) is ~7.7:1 — passes AAA for this small
