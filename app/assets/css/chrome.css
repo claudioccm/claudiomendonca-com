@@ -240,10 +240,16 @@ body.is-menu-open { overflow: hidden; }
   font-family: var(--font-sans);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-caption);
-  text-transform: uppercase;
+  /* These footer column labels (Site / Contact / Elsewhere) are an element
+     heading used as a small uppercase label, not a display headline. The
+     global `h1–h6 { text-transform: none !important }` in base.css would flip
+     them to mixed case, so re-assert uppercase with `!important` here to keep
+     the intended label treatment. Removed alongside the base.css case-flip
+     when the section pass (PRO-176/177) lands. */
+  text-transform: uppercase !important;
   letter-spacing: 0.08em;
   margin: 0 0 20px;
-  /* Dim (#9a9aa2) on ink (#08080a) is ~8.3:1 — passes AAA for this small
+  /* Dim (#A8A39A) on ink (#0E0D0B) is ~7.7:1 — passes AAA for this small
      uppercase label. The label still reads as a tertiary heading via size +
      case, not via a washed-out contrast. */
   color: var(--dim);

@@ -1,13 +1,13 @@
-/* Redesign 1/6 — dark base styles (PRO-109).
-   Dark reset, body on ink, film-grain + vignette canvas (replaces the light
-   Motto® blueprint grid). Keeps .shell + type utilities + anchor offset +
-   reduced-motion scroll-behavior, and adds the page-transition CSS that the
-   nuxt.config `app.pageTransition: { name: 'page' }` hook consumes.
+/* Redesign v2 — editorial base styles (PRO-175).
+   Editorial reset on the warm-black paper: JetBrains Mono body, Instrument
+   Serif mixed-case headings, vignette canvas. Keeps .shell + type utilities +
+   anchor offset + reduced-motion scroll-behavior, and the page-transition CSS
+   that the nuxt.config `app.pageTransition: { name: 'page' }` hook consumes.
 
    The visible film grain is rendered by the global <GrainOverlay> component
-   (fixed, pointer-events:none). base.css owns only the dark page colour and a
-   soft edge vignette so the canvas reads as a deep, lit surface rather than
-   flat black. */
+   (fixed, pointer-events:none). base.css owns only the warm-black page colour
+   and a soft edge vignette so the canvas reads as a deep, lit surface rather
+   than flat black. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
