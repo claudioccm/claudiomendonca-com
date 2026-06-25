@@ -19,9 +19,10 @@ const canonical = 'https://claudiomendonca.com/consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({ ogUrl: canonical })
 
-// Role / tools strip shown in the marquee under the hero. Page-owned copy —
-// no data module, since it is presentational and specific to this page.
-const marqueeItems = [
+// Role / tools strip shown under the hero. Page-owned copy — no data module,
+// since it is presentational and specific to this page. PRO-174 retired the
+// scrolling marquee; this now renders as a static readable list.
+const tagItems = [
   'Recurring reports',
   'Newsletters',
   'Research briefs',
@@ -41,7 +42,7 @@ const marqueeItems = [
         <span>Consulting — automated, on-brand, accountable</span>
       </template>
       <template #headline>
-        <KineticHeading text="Your recurring work, done by a system." />
+        <h1>Your recurring work, done by a system.</h1>
       </template>
       <template #sub>
         Every week your team rebuilds the same reports, briefs, and newsletters
@@ -50,14 +51,19 @@ const marqueeItems = [
         AI so they move faster there too.
       </template>
       <template #ctas>
-        <MagneticButton variant="filled" href="mailto:claudioccm@gmail.com" arrow>
-          Start a conversation
-        </MagneticButton>
-        <MagneticButton variant="ghost" href="#how">See how it works</MagneticButton>
+        <a class="btn btn-filled" href="mailto:claudioccm@gmail.com">
+          <span>Start a conversation</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
       </template>
     </HeroSection>
 
-    <Marquee :items="marqueeItems" aria-label="What I deliver" />
+    <ul class="tag-strip" aria-label="What I deliver">
+      <li v-for="(item, i) in tagItems" :key="i" class="tag-strip__item">
+        {{ item }}
+      </li>
+    </ul>
 
     <section data-screen-label="Consulting — Positioning">
       <div class="shell">
@@ -98,13 +104,19 @@ const marqueeItems = [
               accountable when it matters. That is the part you are paying for,
               and it is the part a generic chatbot won't do.
             </p>
-            <StatCounter :value="95" suffix="%" label="of company AI pilots never deliver a measurable return.">
-              <p class="stat-counter-note">
-                The ones run with an outside specialist succeed about twice as
-                often as in-house builds.
-              </p>
-              <cite>— MIT, <em>State of AI in Business 2025</em></cite>
-            </StatCounter>
+            <figure class="stat-figure" role="figure" aria-label="95% of company AI pilots never deliver a measurable return.">
+              <span class="stat-figure__value" aria-hidden="true">
+                <span class="stat-figure__num">95</span><span class="stat-figure__suffix">%</span>
+              </span>
+              <figcaption class="stat-figure__caption">
+                <span class="stat-figure__label">of company AI pilots never deliver a measurable return.</span>
+                <p class="stat-figure__note">
+                  The ones run with an outside specialist succeed about twice as
+                  often as in-house builds.
+                </p>
+                <cite>— MIT, <em>State of AI in Business 2025</em></cite>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>

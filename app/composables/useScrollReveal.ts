@@ -1,5 +1,4 @@
-import { onMounted, onScopeDispose, unref, type Ref } from 'vue'
-import { useReducedMotion } from './useReducedMotion'
+import type { Ref } from 'vue'
 
 export interface ScrollRevealOptions {
   /** Pixels the element travels up into place. Default 24. */
@@ -17,63 +16,20 @@ export interface ScrollRevealOptions {
 type MaybeElementRef = Ref<HTMLElement | null | undefined> | HTMLElement | null | undefined
 
 /**
- * useScrollReveal — progressive-enhancement scroll reveal (PRO-109, R9 + KTD3).
+ * useScrollReveal — retired no-op (PRO-174).
  *
- * Contract:
- *   - SSR / no-JS: this composable is a no-op. It never sets a hidden start
- *     state, so server-rendered content stays VISIBLE (no-JS view-source has
- *     full content; no flash-of-hidden-content). The hidden state is applied
- *     only in onMounted on the client.
- *   - prefers-reduced-motion: leave the element visible, skip the animation.
- *   - otherwise: set a hidden start state, then a ScrollTrigger reveals it when
- *     it scrolls into view.
+ * The GSAP/ScrollTrigger scroll reveal was removed with the rest of the motion
+ * stack. Scroll reveals are now driven entirely by CSS: tag an element with
+ * `data-reveal` and the `[data-reveal]` rule in app/assets/css/base.css fades
+ * it in via a scroll-linked View Timeline (guarded by `@supports` +
+ * `prefers-reduced-motion: no-preference`, so no-JS / reduced-motion /
+ * unsupported browsers keep the fully-visible default).
  *
- * GSAP is dynamically imported inside onMounted so it never enters the SSR graph
- * (KTD2). The created ScrollTrigger is killed on scope dispose.
+ * This composable is kept as an inert no-op so existing call sites continue to
+ * compile without churn and the exported `ScrollRevealOptions` type stays
+ * available. It performs no work, registers no listeners, and imports nothing
+ * from the removed libraries.
  */
-export function useScrollReveal(target: MaybeElementRef, options: ScrollRevealOptions = {}) {
-  const { y = 24, duration = 0.8, stagger = 0, start = 'top 85%', childSelector } = options
-  const reduced = useReducedMotion()
-
-  // Guarded so the composable is inert if ever invoked outside a component setup
-  // (e.g. server data fetch) — onMounted only fires on the client.
-  let cleanup: (() => void) | undefined
-
-  onMounted(async () => {
-    if (reduced.value) return // reduced motion: stay visible, no animation
-
-    const el = unref(target)
-    if (!el) return
-
-    const targets = childSelector ? el.querySelectorAll(childSelector) : el
-
-    const { gsap } = await import('gsap')
-    const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-    gsap.registerPlugin(ScrollTrigger)
-
-    // Hidden start state applied on the CLIENT only (KTD3).
-    gsap.set(targets, { opacity: 0, y })
-
-    const tween = gsap.to(targets, {
-      opacity: 1,
-      y: 0,
-      duration,
-      stagger,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: el,
-        start,
-        once: true,
-      },
-    })
-
-    cleanup = () => {
-      tween.scrollTrigger?.kill()
-      tween.kill()
-    }
-  })
-
-  onScopeDispose(() => {
-    cleanup?.()
-  })
+export function useScrollReveal(_target: MaybeElementRef, _options: ScrollRevealOptions = {}): void {
+  // Intentionally empty — reveals are CSS-driven via [data-reveal]. See above.
 }

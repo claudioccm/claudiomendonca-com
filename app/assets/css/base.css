@@ -65,6 +65,42 @@ body::before {
   .page-leave-to { opacity: 1; transform: none; }
 }
 
+/* ---------- Scroll reveal utility ([data-reveal]) — PRO-174 ----------
+   A pure-CSS replacement for the retired GSAP scroll reveal. Any element
+   tagged `data-reveal` opts in: it fades + lifts into place as it scrolls
+   into view, driven by a scroll-linked View Timeline (no JS, no library).
+
+   Progressive enhancement (R7): the DEFAULT state is fully visible. The
+   animation is layered on ONLY inside a double guard —
+     1. @media (prefers-reduced-motion: no-preference): motion-sensitive
+        users keep the static, fully-visible element.
+     2. @supports ((animation-timeline: view()) and (animation-range: entry)):
+        browsers without scroll-driven animations (e.g. Firefox, older
+        Safari) keep the static element too. The `animation-range: entry`
+        clause is required to exclude browsers with only partial support.
+   So no-JS, reduced-motion, and unsupported browsers all render the element
+   visible with no hidden start state — the reveal is decorative-only, so no
+   JS IntersectionObserver fallback is needed.
+
+   `animation-timeline` is declared AFTER the `animation` shorthand so the
+   shorthand doesn't reset the timeline. Only `opacity` + `transform` are
+   animated (compositor-friendly). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    @keyframes reveal-in {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    [data-reveal] {
+      animation: reveal-in auto linear both;
+      animation-timeline: view();
+      /* Play the reveal across the element's entry into the viewport. */
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
 /* Anchor-jump offset under the sticky nav (carried from PRO-79 U1).
    In-page anchors (#work, #about, #contact, #consulting, #top) scroll their
    target to the viewport top; scroll-margin-top reserves clearance so the

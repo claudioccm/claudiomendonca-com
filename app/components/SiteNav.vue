@@ -7,10 +7,14 @@
 //   - the scroll listener that toggles .is-scrolled on the root <header>
 //
 // PRO-110 layers a mobile full-screen overlay menu on top: a hamburger toggle
-// (visible below the overlay breakpoint), a GSAP open/close animation that
-// degrades to an instant toggle under reduced motion, a hand-rolled focus trap,
-// Esc-to-close, body scroll lock (incl. pausing Lenis when it's running), and
-// focus restoration to the trigger on close. Tap targets are >=44px.
+// (visible below the overlay breakpoint), a hand-rolled focus trap,
+// Esc-to-close, body scroll lock, and focus restoration to the trigger on
+// close. Tap targets are >=44px.
+//
+// PRO-174 retired the motion stack: the overlay open/close is now an instant
+// CSS class toggle (.is-open) with no GSAP stagger, and the body-class scroll
+// lock no longer pauses Lenis (Lenis was removed; the overflow:hidden body
+// lock is the sole, load-bearing lock).
 interface NavLink {
   label: string
   href: string
@@ -20,8 +24,6 @@ interface NavLink {
 }
 
 const route = useRoute()
-const { $lenis } = useNuxtApp()
-const reduced = useReducedMotion()
 
 const isScrolled = ref(false)
 const isMenuOpen = ref(false)
@@ -40,9 +42,6 @@ const links = computed<NavLink[]>(() => [
 // ---- Overlay menu element refs + handles ----
 const overlayRef = ref<HTMLElement | null>(null)
 const toggleRef = ref<HTMLButtonElement | null>(null)
-// GSAP timeline for the overlay open/close; typed loosely since gsap is loaded
-// dynamically on the client only (mirrors useScrollReveal's import pattern).
-let overlayTimeline: { kill: () => void } | null = null
 
 // ---- Scroll listener (is-scrolled) — SSR-safe, registered onMounted ----
 let handleScroll: (() => void) | null = null
@@ -62,16 +61,13 @@ function focusableInOverlay(): HTMLElement[] {
 }
 
 function lockScroll() {
+  // The body class applies overflow:hidden so the page behind the overlay can't
+  // scroll. This is the sole scroll lock since Lenis was removed (PRO-174).
   document.body.classList.add('is-menu-open')
-  // Pause Lenis when it's running so the page behind the overlay can't scroll.
-  // On touch / reduced-motion Lenis is null (native scroll), so the body class
-  // overflow:hidden lock above is the load-bearing one there.
-  $lenis?.stop()
 }
 
 function unlockScroll() {
   document.body.classList.remove('is-menu-open')
-  $lenis?.start()
 }
 
 function trapKeydown(event: KeyboardEvent) {
@@ -101,40 +97,17 @@ async function openMenu() {
   isMenuOpen.value = true
   lockScroll()
 
+  // Wait for the overlay to flip out of its inert / visibility:hidden closed
+  // state (the .is-open CSS class fades it in) before moving focus into it.
   await nextTick()
-
-  // Animate in unless reduced motion is preferred — then it's an instant toggle.
-  // The overlay container's fade is handled by the CSS .is-open transition; GSAP
-  // only staggers the link items. We tween `opacity` (NOT `autoAlpha`) so the
-  // links never pass through visibility:hidden — they must stay focusable for
-  // the focus move + Tab trap below, which fire right after this.
-  if (!reduced.value && overlayRef.value) {
-    const { gsap } = await import('gsap')
-    overlayTimeline?.kill()
-    const items = overlayRef.value.querySelectorAll('.nav-overlay__item')
-    const tl = gsap.timeline()
-    tl.fromTo(
-      items,
-      { opacity: 0, y: 16 },
-      { opacity: 1, y: 0, duration: 0.4, stagger: 0.06, ease: 'power3.out' },
-    )
-    overlayTimeline = tl
-  }
 
   // A fast open->close (or unmount) can flip isMenuOpen back to false while we
-  // were awaiting nextTick / the GSAP import above. Bail before installing the
-  // focus trap so we never leave a keydown handler attached over a closed,
-  // inert overlay (closeMenu already tore down whatever it could see). Kill any
-  // open timeline we just built so it doesn't play over the now-closed overlay.
-  if (!isMenuOpen.value) {
-    overlayTimeline?.kill()
-    overlayTimeline = null
-    return
-  }
+  // were awaiting nextTick. Bail before installing the focus trap so we never
+  // leave a keydown handler attached over a closed, inert overlay (closeMenu
+  // already tore down whatever it could see).
+  if (!isMenuOpen.value) return
 
   // Move focus into the overlay and install the trap.
-  await nextTick()
-  if (!isMenuOpen.value) return
   focusableInOverlay()[0]?.focus()
   keydownHandler = trapKeydown
   document.addEventListener('keydown', keydownHandler)
@@ -144,8 +117,6 @@ function closeMenu() {
   if (!isMenuOpen.value) return
   isMenuOpen.value = false
   unlockScroll()
-  overlayTimeline?.kill()
-  overlayTimeline = null
   if (keydownHandler) {
     document.removeEventListener('keydown', keydownHandler)
     keydownHandler = null
@@ -182,12 +153,9 @@ onBeforeUnmount(() => {
     document.removeEventListener('keydown', keydownHandler)
     keydownHandler = null
   }
-  overlayTimeline?.kill()
-  overlayTimeline = null
   if (typeof document !== 'undefined') {
     document.body.classList.remove('is-menu-open')
   }
-  $lenis?.start()
 })
 </script>
 
