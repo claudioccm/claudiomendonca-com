@@ -44,14 +44,13 @@ export default defineNuxtConfig({
     '~/assets/css/sections.css',
   ],
 
-  // Typography: Inter 500 for body, Oswald 500 for display, JetBrains Mono 500
-  // for the new monospace accent (PRO-109). Single weight per family, no italics.
-  // Fallback stacks live in tokens.css via --font-sans / --font-disp / --font-mono.
+  // Typography (Redesign v2, PRO-175): Instrument Serif 400 (normal + italic)
+  // for display headlines, JetBrains Mono 400/500 for body, nav, mono accents.
+  // Fallback stacks live in tokens.css via --font-disp / --font-sans / --font-mono.
   fonts: {
     families: [
-      { name: 'Inter', weights: [500], styles: ['normal'] },
-      { name: 'Oswald', weights: [500], styles: ['normal'] },
-      { name: 'JetBrains Mono', weights: [500], styles: ['normal'] },
+      { name: 'Instrument Serif', weights: [400], styles: ['normal', 'italic'] },
+      { name: 'JetBrains Mono', weights: [400, 500], styles: ['normal'] },
     ],
   },
 
