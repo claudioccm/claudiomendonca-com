@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "siteName": "Claudio Mendonça",
+    "title": "Claudio Mendonça — AI Experiments",
+    "description": "Personal site of Claudio Mendonça. AI experiments and client services.",
+    "url": "https://claudiomendonca.com"
+  },
+
+  "identity": {
+    "name": "Claudio Mendonça",
+    "roles": ["Founder", "Designer", "Engineer"],
+    "title": "Design engineer",
+    "tagline": "AI experiments, and a small consulting practice.",
+    "location": "British Columbia",
+    "availability": "Available for a small number of engagements at a time.",
+    "email": "claudioccm@gmail.com",
+    "social": [
+      { "label": "GitHub", "url": "" },
+      { "label": "X / Twitter", "url": "" }
+    ],
+    "elsewhere": [
+      { "label": "ccmdesign", "url": "https://ccmdesign.com" },
+      { "label": "Batch Squoosh", "url": "https://squoosh.ccmdesign.com" }
+    ],
+    "copyright": "© 2026 Claudio Mendonça. All rights reserved.",
+    "builtWith": "Built with Claude"
+  },
+
+  "intro": {
+    "eyebrow": "Claudio Mendonça — Founder. Designer. Engineer.",
+    "headlinePrefix": "AI",
+    "headlineWords": ["Experiments", "Consulting", "Training"],
+    "subhead": "I build opinionated AI experimental tools. Use with moderation. This page is the index.",
+    "ctas": [
+      { "label": "See the work", "target": "experiments" },
+      { "label": "Consulting", "target": "consulting" }
+    ]
+  },
+
+  "about": {
+    "heading": "About.",
+    "paragraphs": [
+      "I'm Claudio Mendonça, design engineer, working at the intersection of design, code, and AI.",
+      "The products on this page are the experiments I'm shipping under my own name. The consulting practice is what I do for clients: systems that produce their recurring documents and reports, plus training so their team works with AI on everything else.",
+      "Based in beautiful British Columbia. Available for a small number of engagements at a time."
+    ]
+  },
+
+  "experiments": {
+    "heading": "Experiments",
+    "items": [
+      {
+        "id": "cutthecrap",
+        "name": "Cut The Crap",
+        "description": "YouTube videos as tweets",
+        "url": "https://cutthecrap.claudiomendonca.com"
+      },
+      {
+        "id": "edge",
+        "name": "Edge",
+        "description": "Auto-generated blog about AI news & research",
+        "url": "https://edge.ccmdesign.ca"
+      },
+      {
+        "id": "squoosh",
+        "name": "Batch Squoosh",
+        "description": "Self-hosted image compression tool",
+        "url": "https://squoosh.ccmdesign.com"
+      },
+      {
+        "id": "varro",
+        "name": "Varro",
+        "description": "Fully AI-generated blog & social media content",
+        "url": "https://varro.me"
+      },
+      {
+        "id": "feedback",
+        "name": "Feedback",
+        "description": "AI-powered feedback collection",
+        "url": "https://feedback.ccmdesign.ca"
+      }
+    ]
+  },
+
+  "consulting": {
+    "eyebrow": "Consulting — automated, on-brand, accountable",
+    "headline": "Your recurring work, done by a system.",
+    "subhead": "Every week your team rebuilds the same reports, briefs, and newsletters by hand. I build systems that produce that work for you, on schedule and on-brand. For the parts that don't repeat, I teach your team to work with AI so they move faster there too.",
+    "ctas": [
+      { "label": "Start a conversation", "target": "mailto:claudioccm@gmail.com" },
+      { "label": "See how it works", "target": "process" }
+    ],
+
+    "deliverables": [
+      "Recurring reports",
+      "Newsletters",
+      "Research briefs",
+      "On-brand output",
+      "Human-in-the-loop",
+      "Team training",
+      "Built in your tools",
+      "Yours to keep"
+    ],
+
+    "brief": {
+      "label": "Who this is for",
+      "heading": "The brief.",
+      "paragraphs": [
+        "Most \"AI strategy\" is a slide deck. This is the opposite: working systems that produce your recurring documents and reports, built to your brand, with a person accountable for what goes out the door.",
+        "I work with research nonprofits, foundations, think tanks, and small expert teams — the ones who publish to make their case and rebuild the same reports, briefs, and newsletters from scratch every cycle. The work is valuable. Doing it by hand, over and over, is not."
+      ]
+    },
+
+    "differentiator": {
+      "label": "The honest version",
+      "heading": "Not just a chatbot.",
+      "paragraphs": [
+        "Anyone can get a draft out of a chatbot. The hard part is the system that runs every cycle, stays on-brand, and has someone accountable when it matters. That is the part you are paying for, and it is the part a generic chatbot won't do."
+      ],
+      "stat": {
+        "value": "95%",
+        "label": "of company AI pilots never deliver a measurable return.",
+        "note": "The ones run with an outside specialist succeed about twice as often as in-house builds.",
+        "source": "MIT, State of AI in Business 2025"
+      }
+    },
+
+    "offerings": {
+      "label": "Offerings",
+      "heading": "What I do.",
+      "outcomesLabel": "What you walk away with",
+      "items": [
+        {
+          "id": "opportunity-audit",
+          "title": "Opportunity Audit.",
+          "tagline": "Two to three weeks. A plain plan and a fixed price before you commit to a build.",
+          "blurb": "I sort your team's recurring work into three buckets: what to automate, what to upskill your people on, and what to leave to humans. You walk away with one measurable target and a fixed quote for the build. No obligation to go further.",
+          "outcomes": [
+            "Your work mapped: automate, empower, or leave alone.",
+            "One measurable outcome the build will be held to.",
+            "A fixed build price, credited back if you proceed."
+          ]
+        },
+        {
+          "id": "automate",
+          "title": "Automate the repetitive.",
+          "tagline": "The reports and newsletters you rebuild every cycle, produced by a system instead.",
+          "blurb": "I build the system that produces your recurring documents on schedule and on-brand, in your tools, yours to keep. A human stays in the loop and signs off before anything ships.",
+          "outcomes": [
+            "A working system that produces the work, every cycle.",
+            "Hours back for the people who were doing it by hand.",
+            "Output that looks like you, not a template."
+          ]
+        },
+        {
+          "id": "empower",
+          "title": "Empower your team.",
+          "tagline": "For the judgment calls and one-offs: your team working with AI, not depending on me.",
+          "blurb": "Hands-on training and setup for the work that doesn't repeat — how to think with AI, where it helps, where it doesn't, and how to keep quality and brand intact. Role-specific, on your actual workflows, not a generic deck.",
+          "outcomes": [
+            "A team that works with AI on the messy middle.",
+            "A playbook and setup your team keeps.",
+            "Less dependence on any one specialist, me included."
+          ]
+        }
+      ]
+    },
+
+    "process": {
+      "label": "Engagement",
+      "heading": "How it works.",
+      "steps": [
+        {
+          "title": "Audit.",
+          "body": "A short, paid audit. We agree on the problem, the one outcome that matters, and a fixed price, before any build starts."
+        },
+        {
+          "title": "Build.",
+          "body": "Hands-on delivery in your repo and tools. Short cycles, weekly checkpoints, no surprises at the final review. A human signs off on what ships."
+        },
+        {
+          "title": "Run it.",
+          "body": "Your team owns the system and the docs. Most keep me on a Care & R&D retainer to maintain it, handle the edge cases, and automate the next thing. The build is the start, not the finish."
+        }
+      ]
+    },
+
+    "pricing": {
+      "label": "What it costs",
+      "heading": "No mystery pricing.",
+      "lead": "Transparent and fixed. You know the number before we start.",
+      "rows": [
+        {
+          "item": "Opportunity Audit",
+          "price": "9999,00",
+          "note": "2–3 weeks · credited toward your build"
+        },
+        {
+          "item": "Build",
+          "qualifier": "automate",
+          "price": "from 9999,00",
+          "note": "fixed, set against the value it creates"
+        },
+        {
+          "item": "Empower",
+          "qualifier": "training + setup",
+          "price": "9999,00"
+        },
+        {
+          "item": "Care & R&D",
+          "price": "9999,00 / month"
+        }
+      ]
+    },
+
+    "cta": {
+      "heading": "Got something to build?",
+      "body": "A short note about what you're working on is enough to start. No deck required.",
+      "label": "Start a conversation",
+      "target": "mailto:claudioccm@gmail.com"
+    }
+  },
+
+  "navigation": [
+    { "label": "Experiments", "target": "experiments" },
+    { "label": "Consulting", "target": "consulting" },
+    { "label": "About", "target": "about" },
+    { "label": "Contact", "target": "contact" }
+  ]
+}
