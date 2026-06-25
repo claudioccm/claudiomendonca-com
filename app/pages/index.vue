@@ -1,6 +1,7 @@
 <!--
-  Home one-pager (PRO-112 dark redesign). Hero = HeroSection + KineticHeading +
-  MagneticButton (PRO-111); #work = ExperimentCard grid; #about = bio block.
+  Home one-pager (PRO-112 dark redesign). Hero = HeroSection (static CSS
+  gradient backdrop, static <h1> + plain .btn CTAs — PRO-174); #work =
+  ExperimentCard grid; #about = bio block.
   Card data is iterated from app/data/experiments.ts, so adding a product is one
   new array entry + one image file — no edit to this page or ExperimentCard for
   the data itself. Section ids #work / #about are load-bearing (nav, footer,

@@ -83,16 +83,17 @@
   overflow: hidden; /* clip the bleed of the absolutely-positioned bg layer */
 }
 
-/* Background layer (PRO-111): sits behind .shell. Holds either the WebGL
-   HeroScene canvas or the CSS gradient fallback. Decorative + non-interactive. */
+/* Background layer (PRO-111): sits behind .shell. Holds the CSS gradient
+   backdrop (the WebGL HeroScene was retired in PRO-174). Decorative +
+   non-interactive. */
 .hero-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
 }
-/* Animated accent gradient shown when WebGL is unavailable / not capable.
-   Drifts slowly via background-position; held STATIC under reduced-motion. */
+/* Animated accent gradient — the sole hero backdrop (PRO-174). Drifts slowly
+   via background-position; held STATIC under reduced-motion. */
 .hero-bg-fallback {
   position: absolute;
   inset: 0;

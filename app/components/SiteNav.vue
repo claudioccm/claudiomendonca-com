@@ -52,9 +52,9 @@ function focusableInOverlay(): HTMLElement[] {
   if (!root) return []
   // The overlay is `inert` + visibility:hidden when closed, so this only ever
   // runs against a visible, interactive overlay. We deliberately do NOT filter
-  // on offsetParent: the open animation briefly tweens item opacity, and an
-  // offsetParent check would race that frame and drop every link, leaving focus
-  // stranded outside the overlay.
+  // on offsetParent: the overlay's opacity fade-in (CSS transition) can leave
+  // offsetParent briefly unresolved on open, and that check would race that
+  // frame and drop every link, leaving focus stranded outside the overlay.
   return Array.from(
     root.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
   )
