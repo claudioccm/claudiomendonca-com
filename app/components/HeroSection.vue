@@ -9,6 +9,9 @@
   fallback behind the WebGL scene). No Three.js, no capability gate. The slot
   API (#eyebrow / #headline / #sub / #ctas + downArrow props) is unchanged —
   both index.vue and consulting.vue depend on it.
+
+  PRO-177: added an optional #after slot, rendered after the CTA row inside the
+  hero shell, for /consulting's in-hero deliverable chips. index.vue omits it.
 -->
 <script setup lang="ts">
 interface Props {
@@ -39,6 +42,10 @@ withDefaults(defineProps<Props>(), {
       <div class="hero-cta-row">
         <slot name="ctas" />
       </div>
+      <!-- Optional content rendered after the CTA row, inside the hero shell
+           (e.g. /consulting's deliverable chips). /index does not use it, so the
+           home hero is unchanged. (PRO-177) -->
+      <slot name="after" />
       <a
         v-if="downArrow"
         :href="downArrowHref"

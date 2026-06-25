@@ -18,12 +18,12 @@ const process = computed(() => site.value?.consulting.process)
 <template>
   <section id="how" data-screen-label="Consulting — How it works">
     <div class="shell">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="label">{{ process?.label }}</span>
         <h2>{{ process?.heading }}</h2>
       </div>
       <div class="steps">
-        <div v-for="(step, i) in process?.steps" :key="step.title" class="step">
+        <div v-for="(step, i) in process?.steps" :key="step.title" class="step" data-reveal>
           <span class="num">{{ padIndex(i + 1) }}</span>
           <h3>{{ step.title }}</h3>
           <p>

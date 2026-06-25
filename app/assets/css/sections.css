@@ -745,36 +745,28 @@
   .stat-figure { grid-template-columns: 1fr; gap: 20px; }
 }
 
-/* ---------- Tag strip (PRO-113 U4; statified PRO-174) ----------
-   Static role/tools strip under the consulting hero. The infinite scrolling
-   marquee was retired with the motion stack; this is now a plain wrapping
-   list — every item is real, readable text with no animation. Quiet dark
-   vocabulary: mono items in --dim with an --accent bullet separator. */
-.tag-strip {
+/* ---------- Hero deliverable chips (PRO-177) ----------
+   A wrap of bordered mono chips inside the /consulting hero, directly under the
+   CTA row (rendered via HeroSection's #after slot). Replaces the old full-width
+   .tag-strip band; the data still comes from consulting.deliverables. Quiet dark
+   vocabulary: mono uppercase items in --dim inside a 1px hairline box — matches
+   the editorial reference (Consulting.dc.html). */
+.hero-chips {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: clamp(14px, 2vw, 28px) clamp(28px, 4vw, 56px);
-  margin: 0;
-  padding: clamp(14px, 2vw, 20px) var(--page-pad-x);
+  gap: 8px;
+  margin: clamp(40px, 6vh, 70px) 0 0;
+  padding: 0;
   list-style: none;
-  border-top: 1px solid var(--hairline-solid);
-  border-bottom: 1px solid var(--hairline-solid);
 }
-.tag-strip__item {
+.hero-chips__item {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--dim);
-  display: flex;
-  align-items: center;
-  gap: clamp(28px, 4vw, 56px);
-}
-/* Accent bullet separator before each item. */
-.tag-strip__item::before {
-  content: "•";
-  color: var(--accent);
+  border: 1px solid var(--hairline-solid);
+  padding: 7px 13px;
 }
 
 /* ---------- Reduced motion override (R14; extended PRO-79 U4) ----------
