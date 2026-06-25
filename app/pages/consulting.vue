@@ -10,6 +10,14 @@
   this page, ConsultingEntry, HowItWorks, CtaBanner, or sections.css.
   (PRO-78 R10, K4, AC4; PRO-176.)
 
+  PRO-177 (editorial reskin pass): the deliverables now render as a wrap of
+  bordered mono chips INSIDE the hero (HeroSection #after slot, .hero-chips),
+  per Consulting.dc.html, replacing the old full-width .tag-strip band. Section
+  blocks carry [data-reveal] for the PRO-174 CSS scroll-reveal (pure-CSS,
+  reduced-motion / no-JS safe). The pill CTA buttons + hero down-arrow are kept
+  as shipped shared chrome (PRO-174); the deck's rectangular buttons / no-arrow
+  are not adopted to avoid a cross-page theme change.
+
   The outer <div> exists because Nuxt's eslint preset enforces a single
   template root on pages (the layout's <main> already provides semantics).
 -->
@@ -53,22 +61,26 @@ useSeoMeta({ ogUrl: canonical })
         </a>
         <a class="btn btn-ghost" :href="consulting?.ctas[1]?.target">{{ consulting?.ctas[1]?.label }}</a>
       </template>
+      <!-- Deliverables as a wrap of bordered mono chips inside the hero, per the
+           editorial reference (PRO-177). Replaces the old full-width .tag-strip
+           band; data still comes from consulting.deliverables. -->
+      <template #after>
+        <ul class="hero-chips" aria-label="What I deliver">
+          <li v-for="(item, i) in tagItems" :key="i" class="hero-chips__item">
+            {{ item }}
+          </li>
+        </ul>
+      </template>
     </HeroSection>
-
-    <ul class="tag-strip" aria-label="What I deliver">
-      <li v-for="(item, i) in tagItems" :key="i" class="tag-strip__item">
-        {{ item }}
-      </li>
-    </ul>
 
     <section data-screen-label="Consulting — Positioning">
       <div class="shell">
         <div class="bio-grid">
-          <div>
+          <div data-reveal>
             <span class="label">{{ consulting?.brief.label }}</span>
             <h2>{{ consulting?.brief.heading }}</h2>
           </div>
-          <div class="bio-body">
+          <div class="bio-body" data-reveal>
             <p>
               {{ consulting?.brief.paragraphs[0] }}
             </p>
@@ -83,11 +95,11 @@ useSeoMeta({ ogUrl: canonical })
     <section data-screen-label="Consulting — DIY counter">
       <div class="shell">
         <div class="bio-grid">
-          <div>
+          <div data-reveal>
             <span class="label">{{ consulting?.differentiator.label }}</span>
             <h2>{{ consulting?.differentiator.heading }}</h2>
           </div>
-          <div class="bio-body">
+          <div class="bio-body" data-reveal>
             <p>
               {{ consulting?.differentiator.paragraphs[0] }}
             </p>
@@ -110,7 +122,7 @@ useSeoMeta({ ogUrl: canonical })
 
     <section id="consulting" data-screen-label="Consulting — List">
       <div class="shell">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <span class="label">{{ offeringsLabel }}</span>
           <h2>{{ consulting?.offerings.heading }}</h2>
         </div>
@@ -118,6 +130,7 @@ useSeoMeta({ ogUrl: canonical })
           <ConsultingEntry
             v-for="(offering, i) in consultingOfferings"
             :key="offering.id"
+            data-reveal
             :idx="i + 1"
             :title="offering.title"
             :tagline="offering.tagline"
@@ -132,15 +145,15 @@ useSeoMeta({ ogUrl: canonical })
 
     <section data-screen-label="Consulting — Pricing">
       <div class="shell">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <span class="label">{{ consulting?.pricing.label }}</span>
           <h2>{{ consulting?.pricing.heading }}</h2>
         </div>
-        <p class="price-lead">
+        <p class="price-lead" data-reveal>
           {{ consulting?.pricing.lead }}
         </p>
         <dl class="price-list">
-          <div v-for="row in consulting?.pricing.rows" :key="row.item" class="price-row">
+          <div v-for="row in consulting?.pricing.rows" :key="row.item" class="price-row" data-reveal>
             <dt>{{ row.item }}<template v-if="row.qualifier">{{ ' ' }}<span class="price-tag">{{ row.qualifier }}</span></template></dt>
             <dd>
               <span class="price">{{ row.price }}</span>
