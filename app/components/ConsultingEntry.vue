@@ -10,8 +10,9 @@
 
   `title` carries an embedded `<br />` from the data layer (PRO-78 K3) to
   control the display-font line break, and is therefore rendered via
-  `v-html`. Source is the static module `app/data/consulting.ts`, not user
-  input, so there is no XSS surface.
+  `v-html`. Source is the repo-controlled `site` content collection
+  (content/site.json → consulting.offerings.items, PRO-176), not user input,
+  so there is no XSS surface.
 -->
 <script setup lang="ts">
 interface Props {
