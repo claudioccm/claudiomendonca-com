@@ -60,7 +60,6 @@ const site = defineCollection({
       social: z.array(linkEntry),
       elsewhere: z.array(linkEntry),
       copyright: z.string(),
-      builtWith: z.string(),
     }),
 
     intro: z.object({

@@ -92,21 +92,37 @@
   z-index: 0;
   pointer-events: none;
 }
-/* Animated accent gradient — the sole hero backdrop (PRO-174). Drifts slowly
-   via background-position; held STATIC under reduced-motion. */
+/* Flat dark backdrop — matches the homepage hero's calm cool-black canvas
+   (Claudio feedback 2026-06-26). The previous drifting accent gradient was the
+   visual odd-one-out; the hero now reads on the same --ink as the rest of the
+   site, carried by the eyebrow + display headline. */
 .hero-bg-fallback {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(60% 60% at 28% 32%, color-mix(in srgb, var(--accent) 28%, transparent) 0%, transparent 70%),
-    radial-gradient(50% 50% at 80% 75%, color-mix(in srgb, var(--accent-alt) 18%, transparent) 0%, transparent 70%),
-    var(--ink);
-  background-size: 200% 200%, 200% 200%, 100% 100%;
-  animation: hero-bg-drift 24s ease-in-out infinite alternate;
+  background: var(--ink);
 }
-@keyframes hero-bg-drift {
-  0%   { background-position: 0% 0%, 100% 100%, 0 0; }
-  100% { background-position: 100% 100%, 0% 0%, 0 0; }
+
+/* Interactive dot-field overlay for the consulting hero (HeroDotField.vue) —
+   the same treatment as the home hero so the two read as one system (Claudio
+   feedback 2026-06-26). Dots are built client-side; empty + harmless in SSR /
+   no-JS / reduced-motion. Sits above the flat backdrop, below the hero content
+   (.hero .shell is z-index 1). */
+.hero-dotfield {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: clamp(40px, 6vw, 90px);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-dotfield__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(var(--paper-rgb), 0.1);
+  justify-self: center;
+  align-self: center;
+  will-change: transform;
 }
 
 /* Keep hero content above the bg layer. */
@@ -146,7 +162,9 @@
 .hero h1 .amp { font-style: normal; font-feature-settings: "ss01"; }
 .hero-sub {
   margin-top: clamp(29px, 3vw, 48px);
-  max-width: 640px;
+  /* Full container width (Claudio feedback 2026-06-26) — no readability cap; the
+     consulting hero sub spans the shell like the headline above it. */
+  max-width: none;
   font-size: clamp(20px, 1.8vw, 25px);
   line-height: 1.38;
   color: var(--color-pitch-black);
@@ -207,7 +225,7 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: rgba(237, 234, 227, 0.1);
+  background: rgba(var(--paper-rgb), 0.1);
   justify-self: center;
   align-self: center;
   will-change: transform;
@@ -222,7 +240,7 @@
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(237, 234, 227, 0.55);
+  color: rgba(var(--paper-rgb), 0.55);
   line-height: 1.5;
 }
 .home-hero__meta span { display: block; }
@@ -233,18 +251,20 @@
   max-width: 50%;
 }
 
-/* Headline block — kept above the dot-field. */
+/* Headline block — kept above the dot-field. Fills the hero's full content
+   width (inside the section padding); the sub paragraph + links keep their own
+   max-widths for readability. */
 .home-hero__inner {
   position: relative;
   z-index: 2;
-  max-width: 1100px;
+  width: 100%;
 }
 .home-hero__eyebrow {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(237, 234, 227, 0.43);
+  color: rgba(var(--paper-rgb), 0.43);
   margin: 0 0 clamp(20px, 4vh, 40px);
 }
 .home-hero__headline {
@@ -292,7 +312,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.65;
-  color: rgba(237, 234, 227, 0.8);
+  color: rgba(var(--paper-rgb), 0.8);
 }
 .home-hero__links {
   margin-top: clamp(26px, 4vh, 40px);
@@ -305,14 +325,14 @@
 .home-hero__link {
   color: var(--paper);
   text-decoration: none;
-  border-bottom: 1px solid rgba(237, 234, 227, 0.33);
+  border-bottom: 1px solid rgba(var(--paper-rgb), 0.33);
   padding-bottom: 3px;
   transition: opacity 0.25s ease;
 }
 .home-hero__link:hover { opacity: 0.55; }
 .home-hero__link--dim {
-  color: rgba(237, 234, 227, 0.6);
-  border-bottom-color: rgba(237, 234, 227, 0.13);
+  color: rgba(var(--paper-rgb), 0.6);
+  border-bottom-color: rgba(var(--paper-rgb), 0.13);
 }
 
 /* Bottom hint corners. */
@@ -324,12 +344,12 @@
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(237, 234, 227, 0.32);
+  color: rgba(var(--paper-rgb), 0.32);
   text-decoration: none;
 }
 .home-hero__hint--bl { left: clamp(28px, 5vw, 48px); }
 .home-hero__hint--br { right: clamp(28px, 5vw, 48px); }
-a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
+a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 
 @media (max-width: 600px) {
   /* Float the meta corner out of the absolute corner on small screens so it
@@ -389,7 +409,7 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(237, 234, 227, 0.43);
+  color: rgba(var(--paper-rgb), 0.43);
 }
 .section-index__label { text-transform: uppercase; }
 
@@ -420,7 +440,7 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
   transition: background 0.3s ease, padding-left 0.3s ease;
 }
 .experiment-row:hover {
-  background: rgba(237, 234, 227, 0.03);
+  background: rgba(var(--paper-rgb), 0.03);
   padding-left: 14px;
 }
 .experiment-row:focus-visible {
@@ -429,7 +449,7 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
 }
 .experiment-row__idx {
   font-size: 12px;
-  color: rgba(237, 234, 227, 0.32);
+  color: rgba(var(--paper-rgb), 0.32);
   letter-spacing: 0.05em;
 }
 .experiment-row__title {
@@ -440,7 +460,7 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
 }
 .experiment-row__desc {
   font-size: 12px;
-  color: rgba(237, 234, 227, 0.55);
+  color: rgba(var(--paper-rgb), 0.55);
   justify-self: end;
   text-align: right;
   max-width: 280px;
@@ -694,14 +714,16 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
-  max-width: 14ch;
+  /* Full container width (Claudio feedback 2026-06-26) — no ch cap. */
+  max-width: none;
   color: var(--paper);
 }
 .cta-banner p {
   margin: 24px 0 0;
   font-size: var(--text-body);
   color: var(--dim);
-  max-width: 40ch;
+  /* Full container width (Claudio feedback 2026-06-26) — no ch cap. */
+  max-width: none;
 }
 
 /* ---------- Section trail caption (PRO-78) ----------
@@ -915,12 +937,6 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
   .experiment-row:hover .experiment-row__arrow {
     transform: none !important;
   }
-  /* Consulting hero gradient backdrop (HeroSection): hold the drift static. The
-     home hero's dot-field is JS-gated on matchMedia and the caret blink is
-     CSS-guarded above, so neither needs neutralizing here. */
-  .hero-bg-fallback {
-    animation: none !important;
-  }
 }
 
 /* ============================================================
@@ -939,7 +955,7 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
   background-color: var(--ink);
   background-image: repeating-linear-gradient(
     135deg,
-    rgba(237, 234, 227, 0.06) 0 2px,
+    rgba(var(--paper-rgb), 0.06) 0 2px,
     transparent 2px 12px
   );
   border: 1px solid var(--hairline-solid);
@@ -1300,7 +1316,7 @@ a.home-hero__hint:hover { color: rgba(237, 234, 227, 0.6); }
   color: inherit;
   transition: padding-left 300ms ease, background-color 300ms ease;
 }
-.teaser-row:hover { background: rgba(237, 234, 227, 0.03); padding-left: 14px; }
+.teaser-row:hover { background: rgba(var(--paper-rgb), 0.03); padding-left: 14px; }
 .teaser-row:focus-visible {
   outline: 2px solid var(--paper);
   outline-offset: 2px;

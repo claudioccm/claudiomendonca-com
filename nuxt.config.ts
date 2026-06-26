@@ -22,20 +22,20 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       // /writing is listed explicitly; crawlLinks then discovers each
-      // /writing/<slug> post from the index's <NuxtLink>s. The five post paths
-      // are also listed explicitly as a belt-and-suspenders guarantee (and to
-      // self-document the route set), so a post that ever stops being linked
-      // from the index still prerenders on purpose rather than silently
-      // dropping — matching the existing routes comment's intent (PRO-178).
+      // /writing/<slug> post from the index's <NuxtLink>s. The blog is currently
+      // empty (starting from scratch), so no post paths are enumerated here —
+      // new posts dropped into content/writing/ will be crawled automatically
+      // from the index. Re-add explicit /writing/<slug> entries only if a post
+      // ever needs to prerender without being linked from the index.
       routes: [
         '/',
         '/consulting',
         '/writing',
-        '/writing/a-chatbot-is-not-a-system',
-        '/writing/the-95-percent-problem',
-        '/writing/reports-that-build-themselves',
-        '/writing/teaching-a-team-to-think-with-ai',
-        '/writing/self-hosting-squoosh',
+        // SEO/GEO endpoints — hand-rolled Nitro routes (server/routes/*) that
+        // query @nuxt/content at prerender time and emit static files Netlify
+        // serves directly. Listed explicitly since nothing links to them.
+        '/sitemap.xml',
+        '/llms.txt',
       ],
     },
   },
@@ -85,16 +85,37 @@ export default defineNuxtConfig({
           name: 'description',
           content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
         },
+        // Explicit crawl directive — index everything, allow large preview
+        // images in search + AI results (helps SEO/GEO rich results).
+        { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+        { name: 'author', content: 'Claudio Mendonça' },
+
         // Canonical / Open Graph base for https://claudiomendonca.com.
-        // Per-route canonical + og:url are set in each page via useSeoMeta;
-        // these site-wide og defaults reuse the title/description above.
+        // Per-route canonical + og:url + per-page og:title/og:description are set
+        // in each page via useSeoMeta; these site-wide og defaults reuse the
+        // title/description above and supply the shared image + locale.
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Claudio Mendonça' },
+        { property: 'og:locale', content: 'en_US' },
         { property: 'og:title', content: 'Claudio Mendonça — AI Experiments' },
         {
           property: 'og:description',
           content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
         },
+        { property: 'og:image', content: 'https://claudiomendonca.com/og-image.png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: 'Claudio Mendonça — AI Experiments' },
+
+        // Twitter / X card — shared defaults; pages override title/description
+        // via useSeoMeta (twitterTitle / twitterDescription).
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Claudio Mendonça — AI Experiments' },
+        {
+          name: 'twitter:description',
+          content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
+        },
+        { name: 'twitter:image', content: 'https://claudiomendonca.com/og-image.png' },
       ],
 
       // Google Analytics 4 (gtag.js) — property G-N2W2CXJ5JE.
@@ -111,6 +132,21 @@ export default defineNuxtConfig({
             "gtag('js', new Date());",
             "gtag('config', 'G-N2W2CXJ5JE');",
           ].join(''),
+        },
+
+        // ccm-feedback review widget (feedback.ccmdesign.ca) — Claudio's own
+        // tool. Self-installs from this one tag: a floating review FAB
+        // (bottom-right, desktop only, hidden <768px) to pin comments on real
+        // DOM elements and export them as JSON for a coding agent to action.
+        // Local-storage mode (no backend). Loaded site-wide so it works on the
+        // deployed site too; to hide it from production visitors, gate this entry
+        // behind `import.meta.dev` or a Netlify `CONTEXT !== 'production'` check.
+        {
+          src: 'https://feedback.ccmdesign.ca/w.js',
+          defer: true,
+          'data-project': 'claudiomendonca-com',
+          'data-theme': 'dark',
+          'data-accent': '#e6f6f4',
         },
       ],
     },

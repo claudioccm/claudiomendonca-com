@@ -35,29 +35,39 @@ const post = computed(() => doc.value!)
 
 // Canonical / og:url + per-post SEO. Site base = https://claudiomendonca.com.
 const canonical = computed(() => `https://claudiomendonca.com${post.value.path}`)
-useHead({ link: [{ rel: 'canonical', href: canonical.value }] })
-useSeoMeta({
-  title: () => `${post.value.title} — Claudio Mendonça`,
-  description: () => post.value.dek,
-  ogUrl: () => canonical.value,
-  ogType: 'article',
-})
 
-// Article structured data (schema.org/Article). Emitted as an inline
-// ld+json <script> in the prerendered <head> so crawlers get rich-result
-// metadata (headline, author, dates, canonical url) without client JS.
-// `dek` is optional in the schema; the description key is omitted when absent
-// rather than shipping an empty string.
-//
 // The frontmatter authors `date` as Z-suffixed ISO-8601, but @nuxt/content's
 // SQLite layer surfaces it in the rendered payload as a space-separated
 // datetime ("2026-02-28 16:00:00") — NOT valid schema.org ISO-8601. Re-parse
 // whatever `post.value.date` holds into a strict ISO string so crawlers accept
-// datePublished/dateModified; fall back to the raw value if parsing ever fails.
+// the article og: timestamps and the JSON-LD datePublished/dateModified; fall
+// back to the raw value if parsing ever fails. Declared before useSeoMeta so the
+// article-time getters below reference it without a use-before-define.
 const isoDate = computed(() => {
   const d = new Date(post.value.date)
   return Number.isNaN(d.getTime()) ? post.value.date : d.toISOString()
 })
+
+useHead({ link: [{ rel: 'canonical', href: canonical.value }] })
+useSeoMeta({
+  title: () => `${post.value.title} — Claudio Mendonça`,
+  description: () => post.value.dek,
+  ogTitle: () => post.value.title,
+  ogDescription: () => post.value.dek,
+  ogUrl: () => canonical.value,
+  ogType: 'article',
+  articlePublishedTime: () => isoDate.value,
+  articleModifiedTime: () => isoDate.value,
+  articleAuthor: ['Claudio Mendonça'],
+  twitterTitle: () => post.value.title,
+  twitterDescription: () => post.value.dek,
+})
+
+// Article structured data (schema.org/Article). Emitted as an inline
+// ld+json <script> in the prerendered <head> so crawlers + answer engines get
+// rich-result metadata (headline, author, dates, image, canonical url) without
+// client JS. `dek` is optional in the schema; the description key is omitted
+// when absent rather than shipping an empty string.
 const articleJsonld = computed(() => {
   const data: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -65,10 +75,11 @@ const articleJsonld = computed(() => {
     'headline': post.value.title,
     'datePublished': isoDate.value,
     'dateModified': isoDate.value,
+    'image': 'https://claudiomendonca.com/og-image.png',
     'author': {
       '@type': 'Person',
       'name': 'Claudio Mendonça',
-      'url': 'https://claudiomendonca.com/',
+      'url': 'https://claudiomendonca.com/#person',
     },
     'publisher': {
       '@type': 'Person',

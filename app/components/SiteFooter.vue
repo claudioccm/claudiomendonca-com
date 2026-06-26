@@ -52,7 +52,6 @@
       <div class="footer-meta">
         <div>© 2026 Claudio Mendonça. All rights reserved.</div>
         <div class="glyph" aria-hidden="true">✱</div>
-        <div>Built with Claude</div>
       </div>
     </div>
   </footer>

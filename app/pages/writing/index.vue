@@ -36,17 +36,18 @@ const featured = computed(() => posts.value?.find(p => p.featured) ?? null)
 const rest = computed(() => (posts.value ?? []).filter(p => p !== featured.value))
 
 // ---- Category filter chips (client-progressive) ----
-// Chip label → schema category value. The schema enum is singular "Essay"; the
-// reference chip label is the plural "Essays" — the only mismatch. 'All' is a
-// sentinel that disables filtering.
-const CHIPS: { label: string; category: string | null }[] = [
-  { label: 'All', category: null },
-  { label: 'Essays', category: 'Essay' },
-  { label: 'Field notes', category: 'Field notes' },
-  { label: 'Training', category: 'Training' },
-  { label: 'Opinion', category: 'Opinion' },
-  { label: 'Build log', category: 'Build log' },
-]
+// Chips are derived from the categories actually present in the published posts
+// (not the full schema enum), so the bar only ever shows filters that match real
+// content and stays in sync as posts are added or removed. 'All' (category: null)
+// is the sentinel that disables filtering; the rest follow first-seen order
+// (posts are newest-first).
+const chips = computed<{ label: string, category: string | null }[]>(() => {
+  const present: string[] = []
+  for (const p of posts.value ?? []) {
+    if (p.category && !present.includes(p.category)) present.push(p.category)
+  }
+  return [{ label: 'All', category: null }, ...present.map(c => ({ label: c, category: c }))]
+})
 
 const activeCategory = ref<string | null>(null) // null = All
 
@@ -77,11 +78,16 @@ const noPostsVisible = computed(
 // Canonical / og:url for /writing. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/writing'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
+const writingDescription
+  = 'Notes on building AI systems — what works, what doesn’t, and the experiments in between.'
 useSeoMeta({
   title: 'Writing — Claudio Mendonça',
-  description:
-    'Notes on building AI systems that ship — what works, what doesn’t, and the experiments in between.',
+  description: writingDescription,
+  ogTitle: 'Writing — Claudio Mendonça',
+  ogDescription: writingDescription,
   ogUrl: canonical,
+  twitterTitle: 'Writing — Claudio Mendonça',
+  twitterDescription: writingDescription,
 })
 </script>
 
@@ -93,13 +99,14 @@ useSeoMeta({
         <span class="label" data-reveal>Writing &amp; experiments</span>
         <h1 class="writing-header__title" data-reveal>The journal.</h1>
         <p class="writing-header__dek" data-reveal>
-          Notes on building AI systems that ship — what works, what doesn’t, and
-          the experiments in between. Written by hand; the newsletter is not.
+          Notes on building AI systems — what works, what doesn’t, and the
+          experiments in between.
         </p>
 
-        <!-- Category filter chips. SSR renders all chips; JS makes them filter. -->
+        <!-- Category filter chips, derived from the posts' own categories. SSR
+             renders them all; JS makes them filter. -->
         <ul class="filter-chips mono" data-reveal aria-label="Filter posts by category">
-          <li v-for="chip in CHIPS" :key="chip.label">
+          <li v-for="chip in chips" :key="chip.label">
             <button
               type="button"
               class="filter-chips__item"

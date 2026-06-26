@@ -17,10 +17,11 @@
       stays correct and every decorative accent now resolves monochrome. */
 :root {
   /* ---------- NEW semantic editorial palette (warm-black / cream) ---------- */
-  --ink: #0E0D0B;                       /* page background — warm near-black */
+  --ink: #0e0e16;                       /* page background — cool near-black */
   --raised: #17150F;                    /* raised surfaces / cards — warm */
-  --hairline: rgba(237, 234, 227, .08); /* low-alpha cream separators (≈#EDEAE314) */
-  --paper: #EDEAE3;                     /* primary text — warm cream */
+  --hairline: rgba(var(--paper-rgb), .08); /* low-alpha paper separators */
+  --paper: #e6f6f4;                     /* primary text — cool near-white */
+  --paper-rgb: 230, 246, 244;           /* RGB channels of --paper, for rgba() alpha compositing (hero/teaser accents) */
   --dim: #A8A39A;                        /* secondary text — warm grey */
   --faint: #6F6A60;                      /* tertiary / de-emphasized text — warm grey */
   --accent: var(--paper);                /* neutralized — paper (no chroma) */

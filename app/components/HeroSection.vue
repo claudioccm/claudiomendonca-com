@@ -29,6 +29,9 @@ withDefaults(defineProps<Props>(), {
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
       <div class="hero-bg-fallback" />
+      <!-- Interactive dot-field, matching the home hero (PRO feedback). Decorative,
+           client-built, reduced-motion-safe. Only /consulting uses HeroSection. -->
+      <HeroDotField />
     </div>
 
     <div class="shell">

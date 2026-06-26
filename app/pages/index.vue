@@ -28,10 +28,67 @@
 // (content/site.json) — the single source of truth (PRO-176).
 const { data: site } = await useSiteContent()
 
-// Canonical / og:url for the homepage. Site base = https://claudiomendonca.com.
-const canonical = 'https://claudiomendonca.com/'
+// Canonical / og:url + per-page SEO. Site base = https://claudiomendonca.com.
+const SITE_URL = 'https://claudiomendonca.com'
+const canonical = `${SITE_URL}/`
+const homeDescription
+  = 'AI experiments shipped under my own name, and a small consulting practice that turns recurring documents and reports into accountable, on-brand systems. Claudio Mendonça — design engineer.'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
-useSeoMeta({ ogUrl: canonical })
+useSeoMeta({
+  title: 'Claudio Mendonça — AI Experiments',
+  description: homeDescription,
+  ogTitle: 'Claudio Mendonça — AI Experiments',
+  ogDescription: homeDescription,
+  ogUrl: canonical,
+  twitterTitle: 'Claudio Mendonça — AI Experiments',
+  twitterDescription: homeDescription,
+})
+
+// Structured data (schema.org) for SEO + GEO. A Person entity (who this is,
+// with sameAs links so answer engines can disambiguate the entity) plus a
+// WebSite entity, linked via @id. Emitted as inline ld+json in the prerendered
+// <head> — no client JS. JSON.stringify drops the undefined keys cleanly.
+const structuredData = computed(() => {
+  const id = site.value?.identity
+  const sameAs = [...(id?.social ?? []), ...(id?.elsewhere ?? [])]
+    .map(s => s.url)
+    .filter(Boolean)
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': `${SITE_URL}/#person`,
+        'name': id?.name ?? 'Claudio Mendonça',
+        'url': canonical,
+        'jobTitle': id?.title ?? 'Design engineer',
+        'description': 'Design engineer working at the intersection of design, code, and AI.',
+        'email': id?.email ? `mailto:${id.email}` : undefined,
+        'address': id?.location
+          ? { '@type': 'PostalAddress', 'addressRegion': id.location }
+          : undefined,
+        ...(sameAs.length ? { sameAs } : {}),
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        'url': canonical,
+        'name': site.value?.meta.siteName ?? 'Claudio Mendonça',
+        'description': site.value?.meta.description,
+        'inLanguage': 'en',
+        'publisher': { '@id': `${SITE_URL}/#person` },
+      },
+    ],
+  }
+})
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(structuredData.value)),
+    },
+  ],
+})
 
 // Scroll reveals are CSS-only: [data-reveal] elements (section index bars,
 // experiment rows, the bio block) are revealed by the [data-reveal] rule in

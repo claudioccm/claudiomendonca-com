@@ -254,7 +254,7 @@ body.is-menu-open { overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 20px;
-  /* Dim (#A8A39A) on ink (#0E0D0B) is ~7.7:1 — passes AAA for this small
+  /* Dim (#A8A39A) on ink (#0e0e16) is ~7.7:1 — passes AAA for this small
      uppercase label. The label still reads as a tertiary heading via size +
      case, not via a washed-out contrast. */
   color: var(--dim);

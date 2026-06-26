@@ -1,2 +1,54 @@
-User-Agent: *
-Disallow:
+# robots.txt — claudiomendonca.com
+# Open to all crawlers, including AI / answer engines (GEO). The explicit AI
+# user-agent blocks below are an editable allowlist: flip any to "Disallow: /"
+# to opt that crawler out.
+
+User-agent: *
+Allow: /
+
+# --- Search / SEO crawlers ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# --- AI / LLM / answer-engine crawlers (generative engine optimization) ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Curated LLM index: https://claudiomendonca.com/llms.txt
+Sitemap: https://claudiomendonca.com/sitemap.xml

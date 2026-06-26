@@ -28,6 +28,9 @@ pnpm-debug.log*
 .vscode
 .idea
 
+# Claude Code local config (settings.local.json, launch.json, etc.)
+.claude
+
 # Local doc artifacts (lfg-tracked output)
 todos/_resolved/
 .gstack/

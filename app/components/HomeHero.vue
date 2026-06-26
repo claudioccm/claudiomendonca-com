@@ -143,6 +143,11 @@ function startWave() {
   const sec = heroEl.value
   if (!field || !sec || !dots.length) return
 
+  // Animated dot colour follows the --paper token (read once) so a theme
+  // recolor applies to the moving dots too, not just the at-rest CSS state.
+  const paperRgb = getComputedStyle(document.documentElement)
+    .getPropertyValue('--paper-rgb').trim() || '230, 246, 244'
+
   let local: Array<{ el: HTMLElement, x: number, y: number }> = []
   const recompute = () => {
     local = dots.map(el => ({
@@ -225,7 +230,7 @@ function startWave() {
       if (amp > 1) amp = 1
       else if (amp < 0) amp = 0
       o.el.style.transform = `scale(${1 + amp * 1.5})`
-      o.el.style.background = `rgba(237,234,227,${0.10 + amp * 0.34})`
+      o.el.style.background = `rgba(${paperRgb},${0.10 + amp * 0.34})`
     }
     waveRAF = requestAnimationFrame(loop)
   }

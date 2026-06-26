@@ -35,10 +35,58 @@ const offeringsLabel = computed(() =>
   `${consulting.value?.offerings.label ?? ''} — ${padIndex(consultingOfferings.value.length)}`,
 )
 
-// Canonical / og:url for /consulting. Site base = https://claudiomendonca.com.
+// Canonical / og:url + per-page SEO. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
-useSeoMeta({ ogUrl: canonical })
+useSeoMeta({
+  title: 'Consulting — Claudio Mendonça',
+  description: () => consulting.value?.subhead,
+  ogTitle: 'Consulting — Claudio Mendonça',
+  ogDescription: () => consulting.value?.subhead,
+  ogUrl: canonical,
+  twitterTitle: 'Consulting — Claudio Mendonça',
+  twitterDescription: () => consulting.value?.subhead,
+})
+
+// Structured data (schema.org/ProfessionalService) for SEO + GEO: what the
+// service is, who provides it, and the offerings as an OfferCatalog so answer
+// engines can surface the concrete services. Inline ld+json, no client JS.
+const serviceJsonld = computed(() => {
+  const c = consulting.value
+  const offers = (c?.offerings.items ?? []).map(o => ({
+    '@type': 'Offer',
+    'itemOffered': {
+      '@type': 'Service',
+      'name': o.title.replace(/<br\s*\/?>/gi, ' ').replace(/\s+/g, ' ').trim(),
+      'description': o.tagline,
+    },
+  }))
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    'name': 'Claudio Mendonça — AI systems consulting',
+    'url': canonical,
+    'description': c?.subhead,
+    'serviceType': 'AI automation and team training consulting',
+    'areaServed': 'Worldwide',
+    'provider': {
+      '@type': 'Person',
+      'name': 'Claudio Mendonça',
+      'url': 'https://claudiomendonca.com/#person',
+    },
+    ...(offers.length
+      ? { hasOfferCatalog: { '@type': 'OfferCatalog', 'name': 'What I do', 'itemListElement': offers } }
+      : {}),
+  }
+})
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(serviceJsonld.value)),
+    },
+  ],
+})
 </script>
 
 <template>
@@ -143,26 +191,9 @@ useSeoMeta({ ogUrl: canonical })
 
     <HowItWorks />
 
-    <section data-screen-label="Consulting — Pricing">
-      <div class="shell">
-        <div class="section-head" data-reveal>
-          <span class="label">{{ consulting?.pricing.label }}</span>
-          <h2>{{ consulting?.pricing.heading }}</h2>
-        </div>
-        <p class="price-lead" data-reveal>
-          {{ consulting?.pricing.lead }}
-        </p>
-        <dl class="price-list">
-          <div v-for="row in consulting?.pricing.rows" :key="row.item" class="price-row" data-reveal>
-            <dt>{{ row.item }}<template v-if="row.qualifier">{{ ' ' }}<span class="price-tag">{{ row.qualifier }}</span></template></dt>
-            <dd>
-              <span class="price">{{ row.price }}</span>
-              <span v-if="row.note" class="price-note">{{ row.note }}</span>
-            </dd>
-          </div>
-        </dl>
-      </div>
-    </section>
+    <!-- Pricing section removed (Claudio feedback 2026-06-26) — the figures were
+         9999,00 placeholders. The `consulting.pricing` data stays in site.json so
+         the section can be reinstated once real numbers exist. -->
 
     <!-- #contact anchor wraps the CTA banner (mailto lives here). Wrapping at
          the page level keeps the CtaBanner prop contract untouched (PRO-113 R3). -->
