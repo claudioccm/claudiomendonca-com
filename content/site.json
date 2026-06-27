@@ -190,15 +190,15 @@
       "steps": [
         {
           "title": "Audit.",
-          "body": "A short, paid audit. We agree on the problem, the one outcome that matters, and a fixed price, before any build starts."
+          "body": "We start with a short audit. Identify a low-hanging fruit and together we pin down the one outcome that matters. I give you a fixed price for the pilot build — so nothing's a surprise before the real work starts."
         },
         {
           "title": "Build.",
-          "body": "Hands-on delivery in your repo and tools. Short cycles, weekly checkpoints, no surprises at the final review. A human signs off on what ships."
+          "body": "I build it hands-on, integrating it as much as possible with your own tools, in short cycles you can follow. It runs on your data, and a person signs off before anything goes out — so you can trust what it produces."
         },
         {
           "title": "Run it.",
-          "body": "Your team owns the system and the docs. Most keep me on a Care & R&D retainer to maintain it, handle the edge cases, and automate the next thing. The build is the start, not the finish."
+          "body": "The system and its docs are yours to keep. Most people keep me on to maintain it, smooth out the edge cases, and automate the next thing — but you're never locked in. The build is the start, not the finish."
         }
       ]
     },
