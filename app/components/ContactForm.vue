@@ -2,37 +2,34 @@
   Consulting contact form (Claudio feedback 2026-06-27: "We will need a contact
   form here … whatever email system that simplifies form > send email").
 
-  Uses NETLIFY FORMS — no API keys, no backend code. The form is prerendered into
-  the static HTML by `nuxt generate`, so Netlify detects it at deploy time and
-  emails submissions to the site owner (and stores them under Forms in the
-  dashboard). A hidden `bot-field` honeypot is declared via `netlify-honeypot`.
+  Posts to the Netlify Function at /.netlify/functions/contact (Resend email
+  send) — the same Resend setup as the newsletter, so contact + newsletter share
+  one backend. Functions deploy via the CLI, so this works under the site's
+  manual-deploy flow (unlike Netlify Forms, which needs the build pipeline).
 
-  Progressive enhancement: without JS the form does a native POST to "/" and
-  Netlify shows its default success page. With JS we intercept, POST the
-  url-encoded body to "/" via fetch, and swap to an inline success state — no
-  navigation. States: idle → submitting → success | error.
+  States: idle → submitting → success | error. A hidden "website" honeypot field
+  catches bots (the function rejects non-empty values). Email is validated
+  client-side before the round-trip; the function re-validates server-side.
+  JS-only (no native fallback) — no-JS users use the "email me directly" mailto.
 
-  NOTE: Netlify "Forms" must be enabled for the site (default on). If submissions
-  don't arrive, enable Forms in the Netlify dashboard. Styles:
-  app/assets/css/sections.css (.contact-form / .contact-success).
+  NOTE: requires RESEND_API_KEY (shared with the newsletter) plus a verified
+  Resend sending domain for CONTACT_FROM_EMAIL. Until those are set the function
+  returns an error and the form points the visitor at the mailto fallback.
+  Styles: app/assets/css/sections.css (.contact-form / .contact-success).
 -->
 <script setup lang="ts">
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
+// Keep in sync with netlify/functions/contact.ts.
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const FUNCTION_PATH = '/.netlify/functions/contact'
 
 const name = ref('')
 const email = ref('')
 const message = ref('')
-const botField = ref('') // honeypot — must stay empty for real humans
+const website = ref('') // honeypot — must stay empty for real humans
 const status = ref<Status>('idle')
 const errorMessage = ref<string | null>(null)
-
-function encode(data: Record<string, string>): string {
-  return Object.keys(data)
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k] ?? '')}`)
-    .join('&')
-}
 
 async function submit() {
   if (status.value === 'submitting') return
@@ -47,21 +44,18 @@ async function submit() {
   errorMessage.value = null
 
   try {
-    // fetch() only rejects on network failure, not on 4xx/5xx — so check the
-    // status explicitly, otherwise a 404 (e.g. Netlify Forms not detecting the
-    // form) would be reported as a false success.
-    const res = await fetch('/', {
+    const res = await fetch(FUNCTION_PATH, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': 'contact',
-        'name': name.value.trim(),
-        'email': email.value.trim(),
-        'message': message.value.trim(),
-        'bot-field': botField.value,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name.value.trim(),
+        email: email.value.trim(),
+        message: message.value.trim(),
+        website: website.value,
       }),
     })
-    if (res.ok) {
+    const data = await res.json().catch(() => null) as { ok?: boolean } | null
+    if (res.ok && data?.ok) {
       status.value = 'success'
     }
     else {
@@ -80,18 +74,12 @@ async function submit() {
   <form
     v-if="status !== 'success'"
     class="contact-form"
-    name="contact"
-    method="POST"
-    data-netlify="true"
-    netlify-honeypot="bot-field"
+    novalidate
     @submit.prevent="submit"
   >
-    <!-- Netlify needs the form name in the POST body for AJAX submits. -->
-    <input type="hidden" name="form-name" value="contact">
-
-    <!-- Honeypot: hidden from humans, bots fill it and Netlify drops them. -->
+    <!-- Honeypot: hidden from humans; bots fill it and the function drops them. -->
     <p class="contact-form__hp" aria-hidden="true">
-      <label>Don’t fill this out: <input v-model="botField" name="bot-field" tabindex="-1" autocomplete="off"></label>
+      <label>Don’t fill this out: <input v-model="website" name="website" tabindex="-1" autocomplete="off"></label>
     </p>
 
     <div class="contact-form__field">

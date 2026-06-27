@@ -14,7 +14,7 @@
             <span>Claudio Mendonça</span>
           </NuxtLink>
           <p class="t-body ash tagline">
-            AI experiments, and a small consulting practice.
+            AI experiments, consulting, and training.
           </p>
         </div>
 
