@@ -28,7 +28,7 @@
     "eyebrow": "(01) — The index",
     "headline": "AI",
     "typewriter": ["Experiments", "Consulting", "Training"],
-    "subhead": "I build opinionated AI experimental tools. Use with moderation. This page is the index.",
+    "subhead": "I build opinionated AI tools, that solve some of my own problems. Have a look around, they might solve yours too.",
     "ctas": [
       { "label": "See the work", "target": "#work" },
       { "label": "Consulting", "target": "/consulting" }
@@ -152,7 +152,7 @@
           "id": "opportunity-audit",
           "title": "Opportunity Audit.",
           "tagline": "Two to three weeks. A plain plan and a fixed price before you commit to a build.",
-          "blurb": "I sort your team's recurring work into three buckets: what to automate, what to upskill your people on, and what to leave to humans. You walk away with one measurable target and a fixed quote for the build. No obligation to go further.",
+          "blurb": "I sort your team's recurring work into three buckets: what to automate, what to train your people on, and what to leave to humans. You walk away with one measurable target and a fixed quote for the build. No obligation to go further.",
           "outcomes": [
             "Your work mapped: automate, empower, or leave alone.",
             "One measurable outcome the build will be held to.",
@@ -185,7 +185,7 @@
     },
 
     "process": {
-      "label": "Engagement",
+      "label": "How we work",
       "heading": "How it works.",
       "steps": [
         {
