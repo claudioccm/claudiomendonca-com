@@ -97,7 +97,11 @@ useHead({
         <span>{{ consulting?.eyebrow }}</span>
       </template>
       <template #headline>
-        <h1>{{ consulting?.headline }}</h1>
+        <!-- headline carries an editorial <br /> (content/site.json); static
+             repo-controlled source, not user input — rendered via v-html like
+             the offering titles (ConsultingEntry). -->
+        <!-- eslint-disable-next-line vue/no-v-html -- static repo-controlled source -->
+        <h1 v-html="consulting?.headline" />
       </template>
       <template #sub>
         {{ consulting?.subhead }}
@@ -150,6 +154,9 @@ useHead({
           <div class="bio-body" data-reveal>
             <p>
               {{ consulting?.differentiator.paragraphs[0] }}
+            </p>
+            <p class="secondary">
+              {{ consulting?.differentiator.paragraphs[1] }}
             </p>
             <figure class="stat-figure" role="figure" :aria-label="`${consulting?.differentiator.stat.value} ${consulting?.differentiator.stat.label}`">
               <span class="stat-figure__value" aria-hidden="true">

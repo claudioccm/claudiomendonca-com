@@ -33,7 +33,6 @@
         <div>
           <h2>Contact</h2>
           <ul>
-            <li><a href="mailto:claudioccm@gmail.com">claudioccm@gmail.com</a></li>
             <li><a href="#" rel="noopener">GitHub</a></li>
             <li><a href="#" rel="noopener">X / Twitter</a></li>
           </ul>
@@ -44,7 +43,7 @@
           <h2>Elsewhere</h2>
           <ul>
             <li><a href="https://ccmdesign.com" target="_blank" rel="noopener">ccmdesign ↗</a></li>
-            <li><a href="https://squoosh.ccmdesign.com" target="_blank" rel="noopener">Batch Squoosh ↗</a></li>
+            <li><a href="https://varro.me" target="_blank" rel="noopener">Varro ↗</a></li>
           </ul>
         </div>
       </div>

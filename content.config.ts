@@ -55,7 +55,6 @@ const site = defineCollection({
       title: z.string(),
       tagline: z.string(),
       location: z.string(),
-      availability: z.string(),
       email: z.string(),
       social: z.array(linkEntry),
       elsewhere: z.array(linkEntry),
@@ -87,7 +86,6 @@ const site = defineCollection({
         linkTarget: z.string(),
         after: z.string(),
       }),
-      availability: z.string(),
     }),
 
     experiments: z.object({

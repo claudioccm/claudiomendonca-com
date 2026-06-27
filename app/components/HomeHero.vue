@@ -41,9 +41,6 @@ interface Props {
   subhead: string
   /** Two CTAs: [0] in-page anchor (#work), [1] route (/consulting). */
   ctas: Cta[]
-  /** Top-right meta corner. */
-  location: string
-  availability: string
 }
 
 const props = defineProps<Props>()
@@ -266,12 +263,6 @@ onBeforeUnmount(() => {
 <template>
   <section ref="heroEl" class="home-hero">
     <div ref="dotfieldEl" class="home-hero__dotfield" aria-hidden="true" />
-
-    <!-- top-right meta corner (top-left identity dropped — nav carries the name) -->
-    <div class="home-hero__meta home-hero__meta--tr">
-      <span>{{ location }}</span>
-      <span>{{ availability }}</span>
-    </div>
 
     <div class="home-hero__inner">
       <p class="home-hero__eyebrow">{{ eyebrow }}</p>

@@ -423,7 +423,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   line-height: 0.95;
   letter-spacing: -0.01em;
   margin: 0 0 clamp(40px, 6vh, 70px);
-  max-width: 16ch;
+  max-width: none;
   color: var(--paper);
 }
 .experiment-index { border-top: 1px solid var(--hairline); }

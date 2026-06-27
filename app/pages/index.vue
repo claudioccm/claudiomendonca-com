@@ -106,8 +106,6 @@ useHead({
         :words="site.intro.typewriter ?? []"
         :subhead="site.intro.subhead"
         :ctas="site.intro.ctas"
-        :location="site.identity.location"
-        :availability="site.identity.availability"
       />
 
       <section id="work">
@@ -138,9 +136,6 @@ useHead({
               <p class="secondary">
                 {{ site.about.practice.before
                 }}<NuxtLink class="link-underline" :to="site.about.practice.linkTarget">{{ site.about.practice.linkLabel }}</NuxtLink>{{ site.about.practice.after }}
-              </p>
-              <p class="secondary">
-                {{ site.about.availability }}
               </p>
             </div>
           </div>
