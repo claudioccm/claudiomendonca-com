@@ -47,7 +47,10 @@ async function submit() {
   errorMessage.value = null
 
   try {
-    await fetch('/', {
+    // fetch() only rejects on network failure, not on 4xx/5xx — so check the
+    // status explicitly, otherwise a 404 (e.g. Netlify Forms not detecting the
+    // form) would be reported as a false success.
+    const res = await fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
@@ -58,11 +61,17 @@ async function submit() {
         'bot-field': botField.value,
       }),
     })
-    status.value = 'success'
+    if (res.ok) {
+      status.value = 'success'
+    }
+    else {
+      status.value = 'error'
+      errorMessage.value = 'Couldn’t send right now — please email me directly.'
+    }
   }
   catch {
     status.value = 'error'
-    errorMessage.value = 'Something went wrong — try again, or email me directly.'
+    errorMessage.value = 'Couldn’t send right now — please email me directly.'
   }
 }
 </script>
