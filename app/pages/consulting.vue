@@ -113,15 +113,11 @@ useHead({
         </a>
         <a class="btn btn-ghost" :href="consulting?.ctas[1]?.target">{{ consulting?.ctas[1]?.label }}</a>
       </template>
-      <!-- Deliverables as a wrap of bordered mono chips inside the hero, per the
-           editorial reference (PRO-177). Replaces the old full-width .tag-strip
-           band; data still comes from consulting.deliverables. -->
+      <!-- Deliverables as a full-width single-row marquee scrolling right→left
+           (Claudio feedback 2026-06-27). Data still comes from
+           consulting.deliverables; reduced-motion falls back to a static wrap. -->
       <template #after>
-        <ul class="hero-chips" aria-label="What I deliver">
-          <li v-for="(item, i) in tagItems" :key="i" class="hero-chips__item">
-            {{ item }}
-          </li>
-        </ul>
+        <HeroMarquee :items="tagItems" />
       </template>
     </HeroSection>
 
@@ -202,15 +198,27 @@ useHead({
          9999,00 placeholders. The `consulting.pricing` data stays in site.json so
          the section can be reinstated once real numbers exist. -->
 
-    <!-- #contact anchor wraps the CTA banner (mailto lives here). Wrapping at
-         the page level keeps the CtaBanner prop contract untouched (PRO-113 R3). -->
-    <div id="contact">
-      <CtaBanner
-        :heading="consulting?.cta.heading ?? ''"
-        :body="consulting?.cta.body ?? ''"
-        :cta-label="consulting?.cta.label ?? ''"
-        :cta-href="consulting?.cta.target ?? ''"
-      />
-    </div>
+    <!-- #contact: the consulting CTA copy + a working contact form (Netlify
+         Forms, ContactForm.vue). The hero "Start a conversation" CTA scrolls
+         here. Replaced the old mailto-only CtaBanner (Claudio feedback
+         2026-06-27). -->
+    <section id="contact" class="contact-section" data-screen-label="Consulting — Contact">
+      <div class="shell">
+        <div class="contact-grid">
+          <div class="contact-intro" data-reveal>
+            <h2 class="contact-intro__title">{{ consulting?.cta.heading }}</h2>
+            <p class="contact-intro__body">{{ consulting?.cta.body }}</p>
+            <a
+              v-if="consulting?.cta.target"
+              class="contact-intro__mail mono"
+              :href="consulting.cta.target"
+            >or email me directly →</a>
+          </div>
+          <div data-reveal>
+            <ContactForm />
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>

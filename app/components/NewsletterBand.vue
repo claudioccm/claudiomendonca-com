@@ -82,11 +82,12 @@ async function submit() {
       <div class="newsletter-stub" data-reveal>
         <div class="newsletter-stub__copy">
           <h2 id="newsletter-heading" class="newsletter-stub__title">
-            Edge — the newsletter.
+            The newsletter.
           </h2>
           <p class="newsletter-stub__lead mono">
-            An auto-generated digest of AI news &amp; research, with a human edit
-            before it goes out. Occasional. No spam.
+            Occasional notes on what I'm building with AI — the experiments,
+            what's working, what isn't. Sent only when there's something worth
+            your inbox.
           </p>
         </div>
 
@@ -160,7 +161,7 @@ async function submit() {
           <span class="newsletter-success__mark" aria-hidden="true" />
           <p class="newsletter-success__title">You're on the list.</p>
           <p class="newsletter-success__sub mono">
-            The next digest will land in your inbox.
+            The next one will land in your inbox.
           </p>
         </div>
       </div>

@@ -104,7 +104,7 @@
     "headline": "Your recurring work, <br />done by a system.",
     "subhead": "Every week your team rebuilds the same reports, newsletters, and many more tasks. I build systems that produce that work for you, on schedule, on-brand, and accountable. For the parts that don't repeat, I teach your team to work with AI so they move faster there too.",
     "ctas": [
-      { "label": "Start a conversation", "target": "mailto:claudioccm@gmail.com" },
+      { "label": "Start a conversation", "target": "#contact" },
       { "label": "See how it works", "target": "#how" }
     ],
 

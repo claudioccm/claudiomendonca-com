@@ -884,29 +884,123 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   .stat-figure { grid-template-columns: 1fr; gap: 20px; }
 }
 
-/* ---------- Hero deliverable chips (PRO-177) ----------
-   A wrap of bordered mono chips inside the /consulting hero, directly under the
-   CTA row (rendered via HeroSection's #after slot). Replaces the old full-width
-   .tag-strip band; the data still comes from consulting.deliverables. Quiet dark
-   vocabulary: mono uppercase items in --dim inside a 1px hairline box — matches
-   the editorial reference (Consulting.dc.html). */
-.hero-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: clamp(40px, 6vh, 70px) 0 0;
-  padding: 0;
-  list-style: none;
+/* ---------- Hero deliverable marquee (PRO-177 → 2026-06-27) ----------
+   A full-width, single-row strip of the consulting deliverables scrolling
+   right→left inside the hero, rendered via HeroSection's #after slot
+   (HeroMarquee.vue). It breaks out of .shell to span the viewport; the track
+   holds two identical sets and animates -50% for a seamless loop (each item
+   carries its own trailing margin so -50% lands exactly one set over). Quiet
+   dark vocabulary: mono uppercase items in --dim inside a 1px hairline box. The
+   reduced-motion override (R14) disables the scroll and falls back to a static
+   wrap (the previous .hero-chips behaviour). */
+.hero-marquee {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-top: clamp(40px, 6vh, 70px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
-.hero-chips__item {
+.hero-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: hero-marquee-scroll 48s linear infinite;
+}
+/* Partial Pause/Stop/Hide affordance for pointer users; reduced-motion stops it
+   entirely below. */
+.hero-marquee:hover .hero-marquee__track { animation-play-state: paused; }
+.hero-marquee__item {
+  flex: 0 0 auto;
+  margin-right: 8px;
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--dim);
   border: 1px solid var(--hairline-solid);
   padding: 7px 13px;
 }
+@keyframes hero-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Contact form (consulting #contact) — 2026-06-27 ----------
+   Two-column band (intro copy + form) at the bottom of /consulting, replacing
+   the old mailto-only CtaBanner. The form is ContactForm.vue (Netlify Forms).
+   Inputs use the quiet editorial vocabulary: transparent field, 1px hairline
+   border, paper text, faint placeholder. Collapses to one column under 800px. */
+.contact-section {
+  padding: clamp(72px, 10vw, 120px) 0;
+  border-top: 1px solid var(--hairline-solid);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+.contact-intro__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--paper);
+}
+.contact-intro__body {
+  margin: 20px 0 0;
+  max-width: 38ch;
+  color: var(--dim);
+  line-height: 1.6;
+}
+.contact-intro__mail {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline-solid);
+  padding-bottom: 2px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.contact-intro__mail:hover { color: var(--paper); border-color: var(--paper); }
+
+.contact-form { display: grid; gap: 12px; }
+.contact-form__input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--hairline-solid);
+  color: var(--paper);
+  padding: 12px 14px;
+  font-size: var(--text-body);
+  transition: border-color 160ms ease;
+}
+.contact-form__input::placeholder { color: var(--faint); }
+.contact-form__input:focus-visible { outline: none; border-color: var(--paper); }
+.contact-form__textarea { resize: vertical; min-height: 120px; }
+.contact-form__btn { margin-top: 4px; justify-self: start; }
+.contact-form__error { color: var(--dim); margin: 0; font-size: 12px; letter-spacing: 0.04em; }
+.contact-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.contact-success { display: flex; flex-direction: column; gap: 8px; }
+.contact-success__mark { width: 32px; height: 2px; background: var(--paper); margin-bottom: 8px; }
+.contact-success__title {
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--paper);
+}
+.contact-success__sub { color: var(--dim); margin: 0; font-size: 12px; line-height: 1.7; }
 
 /* ---------- Reduced motion override (R14; extended PRO-79 U4) ----------
    Neutralizes every transition/animation that produces motion. The experiment
@@ -937,6 +1031,22 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   .experiment-row:hover .experiment-row__arrow {
     transform: none !important;
   }
+  /* Hero deliverable marquee: stop the scroll and fall back to a static wrapped
+     row (the pre-marquee .hero-chips behaviour); hide the seamless-loop
+     duplicate so items don't read/appear twice. */
+  .hero-marquee {
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hero-marquee__track {
+    animation: none !important;
+    width: auto;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-marquee__item { margin-right: 0; }
+  .hero-marquee__item[aria-hidden="true"] { display: none; }
 }
 
 /* ============================================================
