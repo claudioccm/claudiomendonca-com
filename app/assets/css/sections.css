@@ -512,6 +512,37 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 .bio-body p.secondary { color: var(--dim); font-size: var(--text-body); line-height: var(--leading-body); }
 
+/* ---------- Credibility strip (identity.trustedBy) ----------
+   Closes the bio column on the home page and sits under the consulting hero.
+   Deliberately typographic rather than a logo wall: no image pipeline, no
+   trademark surface, and it wraps cleanly at any width. The names are separated
+   by a rendered hairline pip so no punctuation lives in the content layer. */
+.trusted-by {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+  margin: 32px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.trusted-by__label { color: var(--dim); }
+.trusted-by__name { color: var(--paper); }
+/* Hairline pip between names — presentational, so it stays in CSS. */
+.trusted-by__name + .trusted-by__name::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-right: 14px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: var(--dim);
+}
+
 /* ---------- Global label eyebrow (PRO-78 K2) ----------
    Extracted from the prototype's repeated inline-style block so consulting
    markup stays clean. Identical body to .section-head .label, which remains

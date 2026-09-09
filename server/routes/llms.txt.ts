@@ -3,7 +3,7 @@
  *
  * The llmstxt.org convention: a curated, link-rich Markdown summary that gives
  * LLMs / answer engines (GEO — generative engine optimization) a high-signal
- * map of the site. The framing copy is hand-written; the Experiments and
+ * map of the site. The framing copy is hand-written; the Work and
  * Writing link lists are pulled from the same content layer the pages render,
  * so they never drift from the site. Listed in nitro.prerender.routes; Netlify
  * serves it as text/plain by extension.
@@ -11,6 +11,13 @@
 import { queryCollection } from '@nuxt/content/server'
 
 const BASE = 'https://claudiomendonca.com'
+
+/** Oxford-comma list join — "a, b, and c" — for the prose intro line. */
+function formatList(items: string[]): string {
+  if (items.length < 2) return items[0] ?? ''
+  if (items.length === 2) return `${items[0]} and ${items[1]}`
+  return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`
+}
 
 function monthYear(value: string): string {
   const d = new Date(value)
@@ -29,18 +36,18 @@ export default defineEventHandler(async (event) => {
     .all()
 
   const identity = site?.identity
-  const experiments = site?.experiments.items ?? []
+  const work = site?.work.items ?? []
 
   const lines: string[] = [
     '# Claudio Mendonça',
     '',
-    '> Design engineer working at the intersection of design, code, and AI. Builds opinionated AI experiments under his own name and runs a small consulting practice that turns clients’ recurring documents, reports, and newsletters into accountable, on-brand systems.',
+    '> Design engineer with fifteen years of practice, building AI systems that run in production. Ships his own AI products under his own name and runs a consulting practice that turns clients’ recurring documents, reports, and newsletters into accountable, on-brand systems, and trains the teams who operate them.',
     '',
-    `${identity?.name ?? 'Claudio Mendonça'} is a founder, designer, and engineer based in ${identity?.location ?? 'British Columbia, Canada'}. This site is the index to his work: AI experiments shipped under his own name, a small consulting practice, and writing about building AI systems that actually ship. Available for a small number of engagements at a time.`,
+    `${identity?.name ?? 'Claudio Mendonça'} is a founder, designer, and engineer based in ${identity?.location ?? 'British Columbia, Canada'}, with fifteen years of design and engineering practice${identity?.trustedBy ? ` and work for teams at ${formatList(identity.trustedBy.names)}` : ''}. This site is the index to his work: AI systems built and run under his own name, a consulting practice for research nonprofits, foundations, think tanks, and small expert teams, and writing about building AI systems that hold up in production. Available for a small number of engagements at a time.`,
     '',
-    '## Experiments',
+    '## Work',
     '',
-    ...experiments.map(e => `- [${e.title}](${e.url}): ${e.description ?? e.tag}`),
+    ...work.map(e => `- [${e.title}](${e.url}): ${e.description ?? e.tag}`),
     '',
     '## Consulting',
     '',

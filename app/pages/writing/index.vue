@@ -79,7 +79,7 @@ const noPostsVisible = computed(
 const canonical = 'https://claudiomendonca.com/writing'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 const writingDescription
-  = 'Notes on building AI systems — what works, what doesn’t, and the experiments in between.'
+  = 'Notes on building AI systems that run in production — what holds up, what doesn’t, and what it takes to trust the output.'
 useSeoMeta({
   title: 'Writing — Claudio Mendonça',
   description: writingDescription,
@@ -96,11 +96,11 @@ useSeoMeta({
     <!-- PAGE HEADER -->
     <section class="writing-header">
       <div class="shell">
-        <span class="label" data-reveal>Writing &amp; experiments</span>
+        <span class="label" data-reveal>Writing &amp; field notes</span>
         <h1 class="writing-header__title" data-reveal>The journal.</h1>
         <p class="writing-header__dek" data-reveal>
-          Notes on building AI systems — what works, what doesn’t, and the
-          experiments in between.
+          Notes on building AI systems that run in production — what holds up,
+          what doesn’t, and what it takes to trust the output.
         </p>
 
         <!-- Category filter chips, derived from the posts' own categories. SSR

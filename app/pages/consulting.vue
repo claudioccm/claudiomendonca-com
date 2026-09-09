@@ -28,6 +28,9 @@ const { data: site } = await useSiteContent()
 const consulting = computed(() => site.value?.consulting)
 const consultingOfferings = computed(() => consulting.value?.offerings.items ?? [])
 const tagItems = computed(() => consulting.value?.deliverables ?? [])
+// Shared credibility strip (identity.trustedBy) — same data the home #about
+// block renders. Optional in the schema, so the template v-ifs on it.
+const trustedBy = computed(() => site.value?.identity.trustedBy)
 
 // Offerings section label keeps the prototype's "Offerings — NN" form, with the
 // count zero-padded and derived from the offerings list so it stays in sync.
@@ -134,6 +137,15 @@ useHead({
             </p>
             <p class="secondary">
               {{ consulting?.brief.paragraphs[1] }}
+            </p>
+
+            <p v-if="trustedBy" class="trusted-by mono">
+              <span class="trusted-by__label">{{ trustedBy.label }}</span>
+              <span
+                v-for="name in trustedBy.names"
+                :key="name"
+                class="trusted-by__name"
+              >{{ name }}</span>
             </p>
           </div>
         </div>

@@ -10,7 +10,7 @@
 -->
 <script setup lang="ts">
 defineProps<{
-  /** Left-hand label, e.g. "Experiments". Rendered uppercase via CSS. */
+  /** Left-hand label, e.g. "Work". Rendered uppercase via CSS. */
   label: string
   /** Right-hand position string, e.g. "02 / 05". */
   index: string
