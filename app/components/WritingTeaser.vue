@@ -1,5 +1,5 @@
 <!--
-  Home "Writing teaser" section (PRO-180) — "Notes from the workshop."
+  Home "Writing teaser" section (PRO-180) — "Notes from the practice."
 
   Spec: _process/design-exploration-unzipped/Hero - Combined.dc.html (BLOG block,
   lines 245–304) + screenshots 01/02-home-blog.png. A section head (mono
@@ -66,7 +66,7 @@ const hasPosts = computed(() => total.value > 0)
 
       <!-- Headline + "All posts →" -->
       <div class="writing-teaser__head">
-        <h2 class="writing-teaser__title" data-reveal>Notes from the workshop.</h2>
+        <h2 class="writing-teaser__title" data-reveal>Notes from the practice.</h2>
         <NuxtLink to="/writing" class="writing-teaser__all" data-reveal>
           All posts
           <span class="writing-teaser__all-arrow" aria-hidden="true">→</span>

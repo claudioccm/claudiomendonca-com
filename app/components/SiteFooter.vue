@@ -14,7 +14,7 @@
             <span>Claudio Mendonça</span>
           </NuxtLink>
           <p class="t-body ash tagline">
-            AI experiments, consulting, and training.
+            AI systems, consulting, and training.
           </p>
         </div>
 
@@ -22,7 +22,7 @@
         <div>
           <h2>Site</h2>
           <ul>
-            <li><a href="/#work">Experiments</a></li>
+            <li><a href="/#work">Work</a></li>
             <li><a href="/writing">Writing</a></li>
             <li><a href="/consulting">Consulting</a></li>
             <li><a href="/#about">About</a></li>

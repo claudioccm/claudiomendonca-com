@@ -1,8 +1,8 @@
 {
   "meta": {
     "siteName": "Claudio Mendonça",
-    "title": "Claudio Mendonça — AI Experiments",
-    "description": "Personal site of Claudio Mendonça. AI experiments and client services.",
+    "title": "Claudio Mendonça — AI Systems & Consulting",
+    "description": "Claudio Mendonça builds AI systems that produce the recurring work of teams that publish, and trains the people who run them. Fifteen years of design and engineering practice.",
     "url": "https://claudiomendonca.com"
   },
 
@@ -10,7 +10,7 @@
     "name": "Claudio Mendonça",
     "roles": ["Founder", "Designer", "Engineer"],
     "title": "Design engineer",
-    "tagline": "AI experiments, consulting, and training.",
+    "tagline": "AI systems, consulting, and training.",
     "location": "British Columbia",
     "email": "claudioccm@gmail.com",
     "social": [
@@ -21,14 +21,18 @@
       { "label": "ccmdesign", "url": "https://ccmdesign.com" },
       { "label": "Varro", "url": "https://varro.me" }
     ],
+    "trustedBy": {
+      "label": "Trusted by teams at",
+      "names": ["Harvard", "NYU", "Meta", "Berkeley"]
+    },
     "copyright": "© 2026 Claudio Mendonça. All rights reserved."
   },
 
   "intro": {
-    "eyebrow": "(01) — The index",
+    "eyebrow": "(01) — The practice",
     "headline": "AI",
-    "typewriter": ["Experiments", "Consulting", "Training"],
-    "subhead": "I build opinionated AI tools, that solve some of my own problems. Have a look around, they might solve yours too.",
+    "typewriter": ["Systems", "Consulting", "Training"],
+    "subhead": "I build AI systems that do real work in production, and train the teams who run them. Fifteen years of design and engineering practice, now pointed at what AI can actually be trusted with.",
     "ctas": [
       { "label": "See the work", "target": "#work" },
       { "label": "Consulting", "target": "/consulting" }
@@ -38,23 +42,23 @@
   "about": {
     "label": "About",
     "heading": "About.",
-    "intro": "I'm Claudio Mendonça, a design engineer working at the intersection of design and code. Experimenting with how we interact with software that can do much more than it used to.",
+    "intro": "I'm Claudio Mendonça, a design engineer. Fifteen years building software for organizations that can't afford to get it wrong — now focused on AI systems held to that same standard.",
     "practice": {
-      "before": "This website showcases my experiments. I also offer ",
+      "before": "Everything on this page is built, shipped, and running under my own name. I also do ",
       "linkLabel": "consulting",
       "linkTarget": "/consulting",
-      "after": " for clients, applying this knowledge to improve their systems and train their team to better leverage these new AI capabilities."
+      "after": " — building the systems that produce a team's recurring work, and training the people who run them."
     }
   },
 
-  "experiments": {
-    "heading": "Personal experiments using AI for engineering, UX and process automation",
+  "work": {
+    "heading": "Systems I've built and run in production.",
     "items": [
       {
         "id": "cutthecrap",
         "title": "Cut The Crap",
-        "tag": "YOUTUBE VIDEOS AS TWEETS",
-        "description": "Built to bust the youtube clickbait, and reduce the time I spend learning about new techniques, hacks and news in the AI space",
+        "tag": "YOUTUBE, WITHOUT THE CLICKBAIT",
+        "description": "Strips YouTube AI-hype down to what actually shipped.",
         "url": "https://cutthecrap.claudiomendonca.com",
         "image": "/screenshots/cutthecrap.jpg",
         "alt": "Cut The Crap — YouTube videos as tweets"
@@ -62,8 +66,8 @@
       {
         "id": "edge",
         "title": "Edge",
-        "tag": "AUTO GENERATED BLOG ABOUT AI NEWS & RESEARCH",
-        "description": "My daily update on AI research for my main subjects of interest",
+        "tag": "AUTONOMOUS DAILY RESEARCH BRIEF",
+        "description": "A daily AI research brief, generated and published autonomously.",
         "url": "https://edge.ccmdesign.ca",
         "image": "/screenshots/edge.jpg",
         "alt": "Edge — auto-generated AI news blog"
@@ -71,8 +75,8 @@
       {
         "id": "squoosh",
         "title": "Batch Squoosh",
-        "tag": "Tool · Self-hosted",
-        "description": "A quick way to compress multiple images using the squoosh algorithm",
+        "tag": "TOOL · SELF-HOSTED",
+        "description": "Bulk image compression on the Squoosh algorithm, self-hosted, no one-at-a-time.",
         "url": "https://squoosh.ccmdesign.com",
         "image": "/screenshots/squoosh.jpg",
         "alt": "Batch Squoosh — self-hosted image compression",
@@ -81,20 +85,20 @@
       {
         "id": "varro",
         "title": "Varro",
-        "tag": "FULLY AI GENERATED BLOG & SOCIAL MEDIA CONTENT",
-        "description": "A (almost) fully autonomous article generation platform.",
+        "tag": "AUTONOMOUS CONTENT PIPELINE",
+        "description": "Near-autonomous article and social pipeline, on-brand at volume.",
         "url": "https://varro.me",
         "image": "/screenshots/varro.jpg",
-        "alt": "Varro — fully AI generated blog and social content"
+        "alt": "Varro — autonomous article and social content pipeline"
       },
       {
         "id": "feedback",
         "title": "Feedback",
-        "tag": "AI-POWERED FEEDBACK COLLECTION",
-        "description": "Using website comments interface to give context to your Agents. This is both a collaboration tool between teams of people and agents.",
+        "tag": "SHARED CONTEXT FOR PEOPLE AND AGENTS",
+        "description": "Turns page comments into structured context an agent can act on — one thread for the team and its agents.",
         "url": "https://feedback.ccmdesign.ca",
         "image": "/screenshots/feedback.jpg",
-        "alt": "Feedback — AI-powered feedback collection"
+        "alt": "Feedback — shared context for people and agents"
       }
     ]
   },
@@ -123,8 +127,8 @@
       "label": "Who this is for",
       "heading": "The brief.",
       "paragraphs": [
-        "Most \"AI strategy\" is a slide deck. This is the opposite: working systems that produce your recurring work, built to your brand, grounded in your data.",
-        "The work is valuable. Doing it by hand, over and over, is not."
+        "Most \"AI strategy\" is a slide deck. This is the opposite: working systems that produce your recurring work, built to your brand, grounded in your data, with a person accountable for what goes out the door.",
+        "I work with research nonprofits, foundations, think tanks, and small expert teams — the ones who publish to make their case and rebuild the same reports, briefs, and newsletters from scratch every cycle. The work is valuable. Doing it by hand, over and over, is not."
       ]
     },
 
@@ -132,8 +136,8 @@
       "label": "The honest version",
       "heading": "Not just a chatbot.",
       "paragraphs": [
-        "Artificial Intelligence is much more than a chatbot.",
-        "The hard part is understanding what it can do for your business, reliably. The hard part is building systems that you can rely on because they're grounded in your data, and they expose that paper trail. That is the part you are paying for, and it is the part a generic chatbot won't do."
+        "Artificial intelligence is much more than a chatbot.",
+        "Anyone can get a draft out of a chatbot. The hard part is knowing what AI can be trusted with in your business, then building a system that runs every cycle, stays grounded in your data, and leaves a paper trail you can audit. That is what you are paying for, and it is the part a generic chatbot won't do."
       ],
       "stat": {
         "value": "95%",
@@ -240,7 +244,7 @@
   },
 
   "navigation": [
-    { "label": "Experiments", "target": "experiments" },
+    { "label": "Work", "target": "work" },
     { "label": "Consulting", "target": "consulting" },
     { "label": "About", "target": "about" },
     { "label": "Contact", "target": "contact" }

@@ -1,0 +1,11 @@
+# pnpm 12 gates native build scripts behind `allowBuilds` (it ignores the
+# package.json `pnpm.onlyBuiltDependencies` field this repo used to rely on).
+# All five are the stack's own native deps: better-sqlite3 backs @nuxt/content's
+# local DB, sharp backs @nuxt/image, and esbuild / unrs-resolver /
+# @parcel/watcher back the Vite build and dev watcher.
+allowBuilds:
+  '@parcel/watcher': true
+  better-sqlite3: true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true

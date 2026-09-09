@@ -32,18 +32,18 @@ const isConsulting = computed(() => route.path === '/consulting')
 const isHome = computed(() => route.path === '/')
 
 const links = computed<NavLink[]>(() => [
-  // Experiments + About are in-page anchors that live on the HOME page
+  // Work + About are in-page anchors that live on the HOME page
   // (#work / #about). From any other route they MUST be absolute (/#work), or the
   // browser looks for the anchor on the current page and the link silently does
   // nothing — the inconsistency flagged from /writing. Home keeps the bare hash
   // for an instant same-page scroll.
-  { label: 'Experiments', href: isHome.value ? '#work' : '/#work', routeMatch: '/' },
+  { label: 'Work', href: isHome.value ? '#work' : '/#work', routeMatch: '/' },
   // Writing is its own route (PRO-178); paints aria-current on /writing and any
   // /writing/[slug] post (startsWith match below).
   { label: 'Writing', href: '/writing', routeMatch: '/writing' },
   { label: 'Consulting', href: '/consulting', routeMatch: '/consulting' },
   // About points to an in-page anchor on home, not its own route, so it
-  // never carries aria-current — only Experiments lights up on /.
+  // never carries aria-current — only Work lights up on /.
   { label: 'About', href: isHome.value ? '#about' : '/#about', routeMatch: null, hideSm: true },
   // #contact lives only on /consulting (the CTA banner). Bare hash there, absolute
   // to the consulting page from everywhere else.

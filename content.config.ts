@@ -5,7 +5,7 @@
  *   - `site`    — type 'data', single `content/site.json`. The live source of
  *                 truth for all page copy (home + consulting). Migrated from the
  *                 former interim `content/content.json`, enriched to carry the
- *                 exact field shape the components render (the experiments cards
+ *                 exact field shape the components render (the work index rows
  *                 and the consulting offerings, which previously lived in
  *                 app/data/*.ts). Folding those arrays in here makes this file
  *                 the single source of truth (PRO-176 acceptance).
@@ -58,6 +58,11 @@ const site = defineCollection({
       email: z.string(),
       social: z.array(linkEntry),
       elsewhere: z.array(linkEntry),
+      // Client name-drop rendered as a credibility strip (home #about +
+      // /consulting). Optional so the site still validates with no proof line.
+      trustedBy: z
+        .object({ label: z.string(), names: z.array(z.string()) })
+        .optional(),
       copyright: z.string(),
     }),
 
@@ -67,7 +72,7 @@ const site = defineCollection({
       subhead: z.string(),
       ctas: z.array(targetEntry),
       // Words cycled by the home hero typewriter (HomeHero.vue). The headline
-      // reads "<headline> <typewriter[i]>" — e.g. "AI Experiments". SSR / no-JS /
+      // reads "<headline> <typewriter[i]>" — e.g. "AI Systems". SSR / no-JS /
       // reduced-motion render the first word statically. Optional → if unset the
       // hero shows the bare headline.
       typewriter: z.array(z.string()).optional(),
@@ -88,7 +93,7 @@ const site = defineCollection({
       }),
     }),
 
-    experiments: z.object({
+    work: z.object({
       heading: z.string(),
       items: z.array(
         z.object({
@@ -99,7 +104,7 @@ const site = defineCollection({
           image: z.string(),
           alt: z.string(),
           // Sentence-case description shown as the mono right-hand text of the
-          // home Experiments index rows (ExperimentRow.vue). Falls back to `tag`
+          // home Work index rows (ExperimentRow.vue). Falls back to `tag`
           // when unset.
           description: z.string().optional(),
           // Optional terser accessible name for the link; falls back to `title`.

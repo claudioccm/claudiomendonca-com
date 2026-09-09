@@ -39,7 +39,7 @@ const Harness = defineComponent({
     const isConsulting = computed(() => route.value.path === '/consulting')
 
     const links = computed<NavLink[]>(() => [
-      { label: 'Experiments', href: isConsulting.value ? '/#work' : '#work', routeMatch: '/' },
+      { label: 'Work', href: isConsulting.value ? '/#work' : '#work', routeMatch: '/' },
       { label: 'Consulting', href: '/consulting', routeMatch: '/consulting' },
       { label: 'About', href: isConsulting.value ? '/#about' : '#about', routeMatch: null, hideSm: true },
       { label: 'Contact', href: '#contact', routeMatch: null },
@@ -53,17 +53,17 @@ const Harness = defineComponent({
 })
 
 describe('SiteNav links computed', () => {
-  it('on / : Experiments and About use in-page anchors', () => {
+  it('on / : Work and About use in-page anchors', () => {
     const wrapper = mount(Harness, { props: { path: '/' } })
     const links = wrapper.vm.links as NavLink[]
-    expect(links[0]).toEqual(expect.objectContaining({ label: 'Experiments', href: '#work', routeMatch: '/' }))
+    expect(links[0]).toEqual(expect.objectContaining({ label: 'Work', href: '#work', routeMatch: '/' }))
     expect(links[2]).toEqual(expect.objectContaining({ label: 'About', href: '#about', routeMatch: null }))
   })
 
-  it('on /consulting : Experiments and About flip to cross-route anchors', () => {
+  it('on /consulting : Work and About flip to cross-route anchors', () => {
     const wrapper = mount(Harness, { props: { path: '/consulting' } })
     const links = wrapper.vm.links as NavLink[]
-    expect(links[0]).toEqual(expect.objectContaining({ label: 'Experiments', href: '/#work' }))
+    expect(links[0]).toEqual(expect.objectContaining({ label: 'Work', href: '/#work' }))
     expect(links[2]).toEqual(expect.objectContaining({ label: 'About', href: '/#about' }))
   })
 
@@ -81,11 +81,11 @@ describe('SiteNav links computed', () => {
     // the label set and order must stay fixed — a guard against the two lists
     // drifting apart when the overlay is edited.
     const links = mount(Harness, { props: { path: '/' } }).vm.links as NavLink[]
-    expect(links.map((l) => l.label)).toEqual(['Experiments', 'Consulting', 'About', 'Contact'])
+    expect(links.map((l) => l.label)).toEqual(['Work', 'Consulting', 'About', 'Contact'])
   })
 
   it('only the active route carries aria-current via routeMatch', () => {
-    // routeMatch drives aria-current="page" in the template. Experiments matches
+    // routeMatch drives aria-current="page" in the template. Work matches
     // '/', Consulting matches '/consulting'; About and Contact never light up.
     const links = mount(Harness, { props: { path: '/' } }).vm.links as NavLink[]
     expect(links[0].routeMatch).toBe('/')

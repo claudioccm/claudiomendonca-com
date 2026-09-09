@@ -6,7 +6,7 @@
   /consulting still uses). It renders:
     - a full-viewport canvas-feel section with corner annotations,
     - an interactive DOT-FIELD that ripples under the cursor,
-    - a TYPEWRITER that cycles the headline word ("AI Experiments → Consulting →
+    - a TYPEWRITER that cycles the headline word ("AI Systems → Consulting →
       Training") behind a blinking caret.
 
   Progressive enhancement (R7): the SSR / no-JS render is the COMPLETE static

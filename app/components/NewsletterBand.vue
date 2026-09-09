@@ -85,9 +85,9 @@ async function submit() {
             The newsletter.
           </h2>
           <p class="newsletter-stub__lead mono">
-            Occasional notes on what I'm building with AI — the experiments,
-            what's working, what isn't. Sent only when there's something worth
-            your inbox.
+            Occasional notes from the work — what I'm building with AI, what
+            holds up in production, and what doesn't. Sent only when there's
+            something worth your inbox.
           </p>
         </div>
 
