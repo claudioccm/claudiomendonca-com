@@ -22,6 +22,13 @@
   # Netlify auto-detects pnpm from pnpm-lock.yaml; PNPM_VERSION makes it explicit.
   NODE_VERSION = "22"
   PNPM_VERSION = "10"
+  # Pin the Nitro preset. Nitro auto-detects Netlify CI and switches to the
+  # `netlify` preset, which emits to `dist` instead of `.output/public` — so the
+  # build succeeded but the deploy failed on "Deploy directory '.output/public'
+  # does not exist" (first Git-triggered build, 2026-09-09). Forcing `static`
+  # makes CI produce exactly what a local `pnpm generate` produces, so `publish`
+  # above stays true in both places.
+  NITRO_PRESET = "static"
 
 # Serverless functions (PRO-179). The static `nuxt generate` build can't host a
 # Nuxt server route, so the newsletter signup is a standalone Netlify Function in
