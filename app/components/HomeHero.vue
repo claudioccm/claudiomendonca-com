@@ -6,11 +6,10 @@
   /consulting still uses). It renders:
     - a full-viewport canvas-feel section with corner annotations,
     - an interactive DOT-FIELD that ripples under the cursor,
-    - a TYPEWRITER that cycles the headline word ("AI Systems → Consulting →
-      Training") behind a blinking caret.
+    - a TYPEWRITER that cycles recurring-business-problem questions behind a blinking caret.
 
   Progressive enhancement (R7): the SSR / no-JS render is the COMPLETE static
-  hero — "AI <firstWord>" is in the served HTML, the dot-field container is an
+  hero — "Still <firstWord>" is in the served HTML, the dot-field container is an
   empty decorative div, every line of copy is present and visible. The dots and
   the typewriter are wired client-side in onMounted. Under
   `prefers-reduced-motion: reduce` we skip BOTH motions entirely (static word,
@@ -34,18 +33,18 @@ interface Cta {
 interface Props {
   /** Eyebrow, e.g. "(01) — The index". */
   eyebrow: string
-  /** Upright headline stem, e.g. "AI". */
+  /** Upright headline stem, e.g. "Still". */
   headline: string
   /** Italic words cycled by the typewriter. words[0] is the static SSR render. */
   words: string[]
   subhead: string
-  /** Two CTAs: [0] in-page anchor (#work), [1] route (/consulting). */
+  /** Two CTAs: [0] contact route, [1] in-page problems anchor. */
   ctas: Cta[]
 }
 
 const props = defineProps<Props>()
 
-// First word is rendered server-side so "AI <word>" is in the SSR HTML.
+// First word is rendered server-side so "Still <question>" is in the SSR HTML.
 const firstWord = props.words[0] ?? ''
 
 const heroEl = ref<HTMLElement | null>(null)
@@ -53,7 +52,7 @@ const dotfieldEl = ref<HTMLElement | null>(null)
 const wordEl = ref<HTMLElement | null>(null)
 
 // How long each word holds before it retypes.
-const HOLD_MS = 1700
+const HOLD_MS = 3000
 
 // --- mutable animation state (closures, not reactive) ---
 let timers: number[] = []
@@ -246,7 +245,7 @@ function stopAll() {
 }
 
 onMounted(() => {
-  // Respect reduced-motion: skip BOTH motions. The static "AI <firstWord>" and
+  // Respect reduced-motion: skip BOTH motions. The static "Still <firstWord>" and
   // empty dot-field already render; nothing else to do.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   buildField()
@@ -266,9 +265,9 @@ onBeforeUnmount(() => {
 
     <div class="home-hero__inner">
       <p class="home-hero__eyebrow">{{ eyebrow }}</p>
-      <h1 class="home-hero__headline">
+      <h1 class="home-hero__headline" :aria-label="`${headline} ${firstWord}`">
         <span class="home-hero__stem">{{ headline }}</span>
-        <span class="home-hero__word-wrap">
+        <span class="home-hero__word-wrap" aria-hidden="true">
           <span ref="wordEl" class="home-hero__word">{{ firstWord }}</span><span class="home-hero__caret" aria-hidden="true" />
         </span>
       </h1>
@@ -283,7 +282,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div class="home-hero__hint home-hero__hint--bl">Index — 01 / 05</div>
-    <a class="home-hero__hint home-hero__hint--br" href="#work">Scroll ↓</a>
+    <div class="home-hero__hint home-hero__hint--bl">Squamish & Sea-to-Sky</div>
+    <a class="home-hero__hint home-hero__hint--br" href="#problems">Sound familiar? ↓</a>
   </section>
 </template>

@@ -41,7 +41,7 @@ const links = computed<NavLink[]>(() => [
   // Writing is its own route (PRO-178); paints aria-current on /writing and any
   // /writing/[slug] post (startsWith match below).
   { label: 'Writing', href: '/writing', routeMatch: '/writing' },
-  { label: 'Consulting', href: '/consulting', routeMatch: '/consulting' },
+  { label: 'Services', href: '/consulting', routeMatch: '/consulting' },
   // About points to an in-page anchor on home, not its own route, so it
   // never carries aria-current — only Work lights up on /.
   { label: 'About', href: isHome.value ? '#about' : '/#about', routeMatch: null, hideSm: true },

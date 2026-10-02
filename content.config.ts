@@ -71,11 +71,22 @@ const site = defineCollection({
       headline: z.string(),
       subhead: z.string(),
       ctas: z.array(targetEntry),
-      // Words cycled by the home hero typewriter (HomeHero.vue). The headline
-      // reads "<headline> <typewriter[i]>" — e.g. "AI Systems". SSR / no-JS /
+      // Questions cycled by the home hero typewriter (HomeHero.vue). The headline
+      // reads "<headline> <typewriter[i]>" — e.g. "Still chasing quotes?". SSR / no-JS /
       // reduced-motion render the first word statically. Optional → if unset the
       // hero shows the bare headline.
       typewriter: z.array(z.string()).optional(),
+    }),
+
+    problems: z.object({
+      label: z.string(),
+      heading: z.string(),
+      intro: z.string(),
+      items: z.array(z.object({
+        title: z.string(),
+        description: z.string(),
+      })),
+      cta: targetEntry,
     }),
 
     about: z.object({
@@ -128,11 +139,10 @@ const site = defineCollection({
         label: z.string(),
         heading: z.string(),
         paragraphs: z.array(z.string()),
-        stat: z.object({
+        startingPoint: z.object({
           value: z.string(),
           label: z.string(),
           note: z.string(),
-          source: z.string(),
         }),
       }),
       offerings: z.object({
@@ -159,19 +169,6 @@ const site = defineCollection({
           z.object({
             title: z.string(),
             body: z.string(),
-          }),
-        ),
-      }),
-      pricing: z.object({
-        label: z.string(),
-        heading: z.string(),
-        lead: z.string(),
-        rows: z.array(
-          z.object({
-            item: z.string(),
-            qualifier: z.string().optional(),
-            price: z.string(),
-            note: z.string().optional(),
           }),
         ),
       }),

@@ -1,64 +1,91 @@
 {
   "meta": {
     "siteName": "Claudio Mendonça",
-    "title": "Claudio Mendonça — AI Systems & Consulting",
-    "description": "Claudio Mendonça builds AI systems that produce the recurring work of teams that publish, and trains the people who run them. Fifteen years of design and engineering practice.",
+    "title": "Claudio Mendonça — Small Business Software & AI in Squamish",
+    "description": "Custom software, practical AI, and clearer data for small businesses in Squamish and the Sea-to-Sky. Start with one recurring problem and a useful first fix.",
     "url": "https://claudiomendonca.com"
   },
-
   "identity": {
     "name": "Claudio Mendonça",
-    "roles": ["Founder", "Designer", "Engineer"],
+    "roles": [
+      "Founder",
+      "Designer",
+      "Engineer"
+    ],
     "title": "Design engineer",
-    "tagline": "AI systems, consulting, and training.",
-    "location": "British Columbia",
+    "tagline": "Custom software, practical AI, and clearer data.",
+    "location": "Squamish, British Columbia",
     "email": "claudioccm@gmail.com",
     "social": [
-      { "label": "GitHub", "url": "" },
-      { "label": "X / Twitter", "url": "" }
+      {
+        "label": "GitHub",
+        "url": ""
+      },
+      {
+        "label": "X / Twitter",
+        "url": ""
+      }
     ],
     "elsewhere": [
-      { "label": "ccmdesign", "url": "https://ccmdesign.com" },
-      { "label": "Varro", "url": "https://varro.me" }
+      {
+        "label": "ccmdesign",
+        "url": "https://ccmdesign.com"
+      },
+      {
+        "label": "Varro",
+        "url": "https://varro.me"
+      }
     ],
     "trustedBy": {
-      "label": "Trusted by teams at",
-      "names": ["Harvard", "NYU", "Meta", "Berkeley"]
+      "label": "Previous design and engineering work for",
+      "names": [
+        "Harvard",
+        "NYU",
+        "Meta",
+        "Berkeley"
+      ]
     },
     "copyright": "© 2026 Claudio Mendonça. All rights reserved."
   },
-
   "intro": {
-    "eyebrow": "(01) — The practice",
-    "headline": "AI",
-    "typewriter": ["Systems", "Consulting", "Training"],
-    "subhead": "I build AI systems that do real work in production, and train the teams who run them. Fifteen years of design and engineering practice, now pointed at what AI can actually be trusted with.",
+    "eyebrow": "AI + custom software for small business",
+    "headline": "Still",
+    "typewriter": [
+      "chasing quotes?",
+      "copying data?",
+      "working late?"
+    ],
+    "subhead": "I help small businesses in Squamish and the Sea-to-Sky solve the work that keeps coming back. AI helps me build software around your business, connect the tools you use, and turn scattered data into something useful.",
     "ctas": [
-      { "label": "See the work", "target": "#work" },
-      { "label": "Consulting", "target": "/consulting" }
+      {
+        "label": "Start with one thing",
+        "target": "/consulting#contact"
+      },
+      {
+        "label": "See what I can help with",
+        "target": "#problems"
+      }
     ]
   },
-
   "about": {
-    "label": "About",
-    "heading": "About.",
-    "intro": "I'm Claudio Mendonça, a design engineer. Fifteen years building software for organizations that can't afford to get it wrong — now focused on AI systems held to that same standard.",
+    "label": "Your local partner",
+    "heading": "Hi, I’m Claudio.",
+    "intro": "I’m a designer and software engineer based in Squamish. For fifteen years, I’ve helped teams turn complicated work into tools people can actually use. I bring that experience to the everyday problems of running a small business.",
     "practice": {
-      "before": "Everything on this page is built, shipped, and running under my own name. I also do ",
-      "linkLabel": "consulting",
+      "before": "You work directly with me, from figuring out the problem to getting the solution running. My approach is simple: ",
+      "linkLabel": "start with one thing",
       "linkTarget": "/consulting",
-      "after": " — building the systems that produce a team's recurring work, and training the people who run them."
+      "after": ", make it useful, and build from there. I explain the choices, do the hands-on work, and help your team get comfortable with the result."
     }
   },
-
   "work": {
-    "heading": "Systems I've built and run in production.",
+    "heading": "Tools I’ve built to make work easier.",
     "items": [
       {
         "id": "cutthecrap",
         "title": "Cut The Crap",
-        "tag": "YOUTUBE, WITHOUT THE CLICKBAIT",
-        "description": "Strips YouTube AI-hype down to what actually shipped.",
+        "tag": "QUICKER RESEARCH",
+        "description": "Turns long AI videos into short summaries so you can decide what is worth your time.",
         "url": "https://cutthecrap.claudiomendonca.com",
         "image": "/screenshots/cutthecrap.jpg",
         "alt": "Cut The Crap — YouTube videos as tweets"
@@ -66,8 +93,8 @@
       {
         "id": "edge",
         "title": "Edge",
-        "tag": "AUTONOMOUS DAILY RESEARCH BRIEF",
-        "description": "A daily AI research brief, generated and published autonomously.",
+        "tag": "RESEARCH IN ONE PLACE",
+        "description": "Collects and summarises AI news into a daily brief.",
         "url": "https://edge.ccmdesign.ca",
         "image": "/screenshots/edge.jpg",
         "alt": "Edge — auto-generated AI news blog"
@@ -75,8 +102,8 @@
       {
         "id": "squoosh",
         "title": "Batch Squoosh",
-        "tag": "TOOL · SELF-HOSTED",
-        "description": "Bulk image compression on the Squoosh algorithm, self-hosted, no one-at-a-time.",
+        "tag": "LESS REPETITIVE WORK",
+        "description": "Compresses a batch of images in one go, ready for the web.",
         "url": "https://squoosh.ccmdesign.com",
         "image": "/screenshots/squoosh.jpg",
         "alt": "Batch Squoosh — self-hosted image compression",
@@ -85,8 +112,8 @@
       {
         "id": "varro",
         "title": "Varro",
-        "tag": "AUTONOMOUS CONTENT PIPELINE",
-        "description": "Near-autonomous article and social pipeline, on-brand at volume.",
+        "tag": "CONSISTENT COMMUNICATION",
+        "description": "Helps turn ideas into articles and social posts in a consistent voice.",
         "url": "https://varro.me",
         "image": "/screenshots/varro.jpg",
         "alt": "Varro — autonomous article and social content pipeline"
@@ -94,159 +121,179 @@
       {
         "id": "feedback",
         "title": "Feedback",
-        "tag": "SHARED CONTEXT FOR PEOPLE AND AGENTS",
-        "description": "Turns page comments into structured context an agent can act on — one thread for the team and its agents.",
+        "tag": "CLEARER FEEDBACK",
+        "description": "Keeps website comments and the changes they need together in one place.",
         "url": "https://feedback.ccmdesign.ca",
         "image": "/screenshots/feedback.jpg",
         "alt": "Feedback — shared context for people and agents"
       }
     ]
   },
-
   "consulting": {
-    "eyebrow": "Consulting — automated, on-brand, accountable",
-    "headline": "Your recurring work, <br />done by a system.",
-    "subhead": "Every week your team rebuilds the same reports, newsletters, and many more tasks. I build systems that produce that work for you, on schedule, on-brand, and accountable. For the parts that don't repeat, I teach your team to work with AI so they move faster there too.",
+    "eyebrow": "Small business services · Squamish & Sea-to-Sky",
+    "headline": "Start with<br />one thing.",
+    "subhead": "A quote you keep chasing. A spreadsheet you rebuild every week. Paperwork that follows you home. We start with one recurring problem and use the right mix of software, AI, and your existing tools to make it easier.",
     "ctas": [
-      { "label": "Start a conversation", "target": "#contact" },
-      { "label": "See how it works", "target": "#how" }
+      {
+        "label": "Start with one thing",
+        "target": "#contact"
+      },
+      {
+        "label": "See how we start",
+        "target": "#how"
+      }
     ],
-
     "deliverables": [
-      "Recurring reports",
-      "Newsletters",
-      "Research briefs",
-      "On-brand output",
-      "Human-in-the-loop",
+      "Customer follow-ups",
+      "Quotes & paperwork",
+      "Connected tools",
+      "Useful business data",
+      "Custom software",
+      "Practical AI",
       "Team training",
-      "Built in your tools",
-      "Yours to keep"
+      "Local support"
     ],
-
     "brief": {
-      "label": "Who this is for",
-      "heading": "The brief.",
+      "label": "Who I help",
+      "heading": "A small team. A lot to keep moving.",
       "paragraphs": [
-        "Most \"AI strategy\" is a slide deck. This is the opposite: working systems that produce your recurring work, built to your brand, grounded in your data, with a person accountable for what goes out the door.",
-        "I work with research nonprofits, foundations, think tanks, and small expert teams — the ones who publish to make their case and rebuild the same reports, briefs, and newsletters from scratch every cycle. The work is valuable. Doing it by hand, over and over, is not."
+        "You know your business. But between serving customers, looking after your team, and keeping things moving, the same small jobs can take up more of your week than they should.",
+        "I work with owners and small teams in Squamish and the Sea-to-Sky: service businesses, trades, local shops, and tourism operators. Bring me the task that keeps getting pushed back, the information you keep re-entering, or the process only you know how to run."
       ]
     },
-
     "differentiator": {
-      "label": "The honest version",
-      "heading": "Not just a chatbot.",
+      "label": "Where AI helps",
+      "heading": "Software that fits your business.",
       "paragraphs": [
-        "Artificial intelligence is much more than a chatbot.",
-        "Anyone can get a draft out of a chatbot. The hard part is knowing what AI can be trusted with in your business, then building a system that runs every cycle, stays grounded in your data, and leaves a paper trail you can audit. That is what you are paying for, and it is the part a generic chatbot won't do."
+        "AI helps me design and build customised software with less development overhead, making focused tools more practical for a small business. That might be a way to prepare quotes, connect your existing apps, or see the numbers you need in one place.",
+        "Inside the tools we build, AI can also organise information, prepare drafts, and help you work with your business data. We decide where it is useful and what needs your approval. Sometimes the best fix is simply setting up the software you already pay for."
       ],
-      "stat": {
-        "value": "95%",
-        "label": "of company AI pilots never deliver a measurable return.",
-        "note": "The ones run with an outside specialist succeed about twice as often as in-house builds.",
-        "source": "MIT, State of AI in Business 2025"
+      "startingPoint": {
+        "value": "01",
+        "label": "One recurring problem. A useful first fix.",
+        "note": "A clear scope, a fixed price, and a way to tell whether the change is helping."
       }
     },
-
     "offerings": {
-      "label": "Offerings",
-      "heading": "What I do.",
+      "label": "Ways to work together",
+      "heading": "Practical help, at the right size.",
       "outcomesLabel": "What you walk away with",
       "items": [
         {
-          "id": "opportunity-audit",
-          "title": "Opportunity Audit.",
-          "tagline": "Two to three weeks. A plain plan and a fixed price before you commit to a build.",
-          "blurb": "I sort your team's recurring work into three buckets: what to automate, what to train your people on, and what to leave to humans. You walk away with one measurable target and a fixed quote for the build. No obligation to go further.",
+          "id": "first-fix",
+          "title": "The first<br />useful fix.",
+          "tagline": "One recurring problem, with a clear scope and a fixed price.",
+          "blurb": "We look at how the task works today, choose a manageable improvement, and agree on the price before I start. I put the solution in place and walk you through it. This is a small working project, with something useful at the end.",
           "outcomes": [
-            "Your work mapped: automate, empower, or leave alone.",
-            "One measurable outcome the build will be held to.",
-            "A fixed build price, credited back if you proceed."
+            "One task made easier, in the tools you actually use.",
+            "Setup, a walkthrough, and clear instructions.",
+            "A before-and-after check of time, steps, or missed follow-ups."
           ]
         },
         {
-          "id": "automate",
-          "title": "Automate the<br />repetitive.",
-          "tagline": "The reports and newsletters you rebuild every cycle, produced by a system instead.",
-          "blurb": "I build the system that produces your recurring documents on schedule and on-brand, in your tools, yours to keep. A human stays in the loop and signs off before anything ships.",
+          "id": "connected-business",
+          "title": "Tools that<br />work together.",
+          "tagline": "When the problem runs across your website, software, and data.",
+          "blurb": "I connect the parts of your business that keep handing work back to you. That could mean getting website enquiries into your customer records, preparing routine paperwork, or building a simple view of jobs and sales. Custom software fills the gaps your existing tools leave.",
           "outcomes": [
-            "A working system that produces the work, every cycle.",
-            "Hours back for the people who were doing it by hand.",
-            "Output that looks like you, not a template."
+            "Less copying between forms, inboxes, and spreadsheets.",
+            "A clearer view of customers, work, and business information.",
+            "Software shaped around how your team works."
           ]
         },
         {
-          "id": "empower",
-          "title": "Empower<br />your team.",
-          "tagline": "For the judgment calls and one-offs: your team working with AI, not depending on me.",
-          "blurb": "Hands-on training and setup for the work that doesn't repeat — how to think with AI, where it helps, where it doesn't, and how to keep quality and brand intact. Role-specific, on your actual workflows, not a generic deck.",
+          "id": "ongoing-help",
+          "title": "Help as<br />you grow.",
+          "tagline": "Practical training, upkeep, and the next useful improvement.",
+          "blurb": "Once the first fix is working, I can help your team use AI in their daily work, keep your tools running, and tackle the next bottleneck. We agree on what support includes and what it costs. You choose when to take the next step.",
           "outcomes": [
-            "A team that works with AI on the messy middle.",
-            "A playbook and setup your team keeps.",
-            "Less dependence on any one specialist, me included."
+            "Hands-on training using your own tasks and examples.",
+            "Documentation and access to the tools built for you.",
+            "Ongoing support with an agreed scope and cost."
           ]
         }
       ]
     },
-
     "process": {
       "label": "How we work",
-      "heading": "How it works.",
+      "heading": "A simple way to get started.",
       "steps": [
         {
-          "title": "Audit.",
-          "body": "We start with a short audit. Identify a low-hanging fruit and together we pin down the one outcome that matters. I give you a fixed price for the pilot build — so nothing's a surprise before the real work starts."
+          "title": "Show me the task.",
+          "body": "Tell me what keeps taking time. We look at the actual steps and the tools involved, then choose one thing worth improving."
         },
         {
-          "title": "Build.",
-          "body": "I build it hands-on, integrating it as much as possible with your own tools, in short cycles you can follow. It runs on your data, and a person signs off before anything goes out — so you can trust what it produces."
+          "title": "Agree on the first fix.",
+          "body": "You get a clear scope and fixed price before work begins, including any ongoing software costs. We agree on what a useful result looks like."
         },
         {
-          "title": "Run it.",
-          "body": "The system and its docs are yours to keep. Most people keep me on to maintain it, smooth out the edge cases, and automate the next thing — but you're never locked in. The build is the start, not the finish."
+          "title": "Use it. See what changes.",
+          "body": "I build and test the solution, help you use it, and check the result with you. We can leave it there or work on the next thing when you’re ready."
         }
       ]
     },
-
-    "pricing": {
-      "label": "What it costs",
-      "heading": "No mystery pricing.",
-      "lead": "Transparent and fixed. You know the number before we start.",
-      "rows": [
-        {
-          "item": "Opportunity Audit",
-          "price": "9999,00",
-          "note": "2–3 weeks · credited toward your build"
-        },
-        {
-          "item": "Build",
-          "qualifier": "automate",
-          "price": "from 9999,00",
-          "note": "fixed, set against the value it creates"
-        },
-        {
-          "item": "Empower",
-          "qualifier": "training + setup",
-          "price": "9999,00"
-        },
-        {
-          "item": "Care & R&D",
-          "price": "9999,00 / month"
-        }
-      ]
-    },
-
     "cta": {
-      "heading": "Got something to build?",
-      "body": "A short note about what you're working on is enough to start. No deck required.",
-      "label": "Start a conversation",
+      "heading": "What keeps taking up your time?",
+      "body": "Tell me a little about your business and one task you would like to make easier. A few sentences are enough. I’ll help you work out a sensible place to start.",
+      "label": "Start with one thing",
       "target": "mailto:claudioccm@gmail.com"
     }
   },
-
   "navigation": [
-    { "label": "Work", "target": "work" },
-    { "label": "Consulting", "target": "consulting" },
-    { "label": "About", "target": "about" },
-    { "label": "Contact", "target": "contact" }
-  ]
+    {
+      "label": "Services",
+      "target": "consulting"
+    },
+    {
+      "label": "Work",
+      "target": "work"
+    },
+    {
+      "label": "About",
+      "target": "about"
+    },
+    {
+      "label": "Writing",
+      "target": "writing"
+    },
+    {
+      "label": "Contact",
+      "target": "contact"
+    }
+  ],
+  "problems": {
+    "label": "Sound familiar?",
+    "heading": "The small things that take up your week.",
+    "intro": "Quotes, customer questions, paperwork, and updates. When the same task keeps coming back, there may be a simpler way to handle it.",
+    "items": [
+      {
+        "title": "Quotes waiting for a follow-up?",
+        "description": "Keep track of new enquiries, open quotes, and who needs a reply."
+      },
+      {
+        "title": "Typing the same details twice?",
+        "description": "Connect your forms, spreadsheets, and business tools so information moves with the work."
+      },
+      {
+        "title": "Paperwork taking over your evening?",
+        "description": "Prepare routine documents, invoices, and updates with less copying and chasing."
+      },
+      {
+        "title": "Everyone coming to you for answers?",
+        "description": "Put everyday instructions and business knowledge somewhere your team can use them."
+      },
+      {
+        "title": "Numbers spread across five places?",
+        "description": "Bring together the information you need to see what is happening and what needs attention."
+      },
+      {
+        "title": "Customer updates always slipping?",
+        "description": "Make follow-ups, reminders, and useful marketing easier to keep up with."
+      }
+    ],
+    "cta": {
+      "label": "Start with one thing",
+      "target": "/consulting#consulting"
+    }
+  }
 }

@@ -25,6 +25,7 @@
   `site` is prerendered, so it is always present in the static build.
 -->
 <script setup lang="ts">
+import { meta as siteMeta } from '../../content/site.json'
 // Home-page copy is sourced from the `site` content collection
 // (content/site.json) — the single source of truth (PRO-176).
 const { data: site } = await useSiteContent()
@@ -32,18 +33,15 @@ const { data: site } = await useSiteContent()
 // Canonical / og:url + per-page SEO. Site base = https://claudiomendonca.com.
 const SITE_URL = 'https://claudiomendonca.com'
 const canonical = `${SITE_URL}/`
-const homeDescription
-  = 'AI systems built, shipped, and run under my own name, and a consulting practice that turns a team\u2019s recurring documents and reports into accountable, on-brand systems. Claudio Mendon\u00e7a \u2014 design engineer, fifteen years of practice.'
-const homeTitle = 'Claudio Mendon\u00e7a \u2014 AI Systems & Consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({
-  title: homeTitle,
-  description: homeDescription,
-  ogTitle: homeTitle,
-  ogDescription: homeDescription,
+  title: siteMeta.title,
+  description: siteMeta.description,
+  ogTitle: siteMeta.title,
+  ogDescription: siteMeta.description,
   ogUrl: canonical,
-  twitterTitle: homeTitle,
-  twitterDescription: homeDescription,
+  twitterTitle: siteMeta.title,
+  twitterDescription: siteMeta.description,
 })
 
 // Structured data (schema.org) for SEO + GEO. A Person entity (who this is,
@@ -64,11 +62,10 @@ const structuredData = computed(() => {
         'name': id?.name ?? 'Claudio Mendonça',
         'url': canonical,
         'jobTitle': id?.title ?? 'Design engineer',
-        'description':
-          'Design engineer with fifteen years of practice, building AI systems that run in production and training the teams that operate them.',
+        'description': site.value?.about.intro,
         'email': id?.email ? `mailto:${id.email}` : undefined,
         'address': id?.location
-          ? { '@type': 'PostalAddress', 'addressRegion': id.location }
+          ? { '@type': 'PostalAddress', 'addressLocality': 'Squamish', 'addressRegion': 'British Columbia', 'addressCountry': 'CA' }
           : undefined,
         ...(sameAs.length ? { sameAs } : {}),
       },
@@ -76,8 +73,8 @@ const structuredData = computed(() => {
         '@type': 'WebSite',
         '@id': `${SITE_URL}/#website`,
         'url': canonical,
-        'name': site.value?.meta.siteName ?? 'Claudio Mendonça',
-        'description': site.value?.meta.description,
+        'name': siteMeta.siteName,
+        'description': siteMeta.description,
         'inLanguage': 'en',
         'publisher': { '@id': `${SITE_URL}/#person` },
       },
@@ -111,9 +108,29 @@ useHead({
         :ctas="site.intro.ctas"
       />
 
+      <section id="problems">
+        <div class="shell">
+          <SectionIndex :label="site.problems.label" index="02 / 05" />
+          <h2 class="experiments-title" data-reveal>{{ site.problems.heading }}</h2>
+          <p class="section-intro mono" data-reveal>{{ site.problems.intro }}</p>
+          <div class="experiment-index">
+            <div v-for="(problem, i) in site.problems.items" :key="problem.title" class="experiment-row problem-row" data-reveal>
+              <span class="experiment-row__idx mono">{{ padIndex(i + 1) }}</span>
+              <h3 class="experiment-row__title">{{ problem.title }}</h3>
+              <p class="experiment-row__desc mono">{{ problem.description }}</p>
+            </div>
+          </div>
+          <div class="section-trail" data-reveal>
+            <NuxtLink class="btn btn-filled" :to="site.problems.cta.target">
+              {{ site.problems.cta.label }} <span aria-hidden="true">→</span>
+            </NuxtLink>
+          </div>
+        </div>
+      </section>
+
       <section id="work">
         <div class="shell">
-          <SectionIndex label="Work" index="02 / 05" />
+          <SectionIndex label="My own tools" index="03 / 05" />
           <h2 class="experiments-title" data-reveal>{{ site.work.heading }}</h2>
           <div class="experiment-index">
             <ExperimentRow
@@ -131,7 +148,7 @@ useHead({
 
       <section id="about">
         <div class="shell">
-          <SectionIndex :label="site.about.label" index="03 / 05" />
+          <SectionIndex :label="site.about.label" index="04 / 05" />
           <div class="bio-grid">
             <h2 data-reveal>{{ site.about.heading }}</h2>
             <div class="bio-body" data-reveal>

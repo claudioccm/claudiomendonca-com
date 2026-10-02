@@ -42,12 +42,12 @@ const offeringsLabel = computed(() =>
 const canonical = 'https://claudiomendonca.com/consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({
-  title: 'Consulting — Claudio Mendonça',
+  title: 'Small Business Services — Claudio Mendonça',
   description: () => consulting.value?.subhead,
-  ogTitle: 'Consulting — Claudio Mendonça',
+  ogTitle: 'Small Business Services — Claudio Mendonça',
   ogDescription: () => consulting.value?.subhead,
   ogUrl: canonical,
-  twitterTitle: 'Consulting — Claudio Mendonça',
+  twitterTitle: 'Small Business Services — Claudio Mendonça',
   twitterDescription: () => consulting.value?.subhead,
 })
 
@@ -67,11 +67,11 @@ const serviceJsonld = computed(() => {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    'name': 'Claudio Mendonça — AI systems consulting',
+    'name': 'Claudio Mendonça — Small business software and AI',
     'url': canonical,
     'description': c?.subhead,
-    'serviceType': 'AI automation and team training consulting',
-    'areaServed': 'Worldwide',
+    'serviceType': ['Custom software', 'Business automation', 'Data integration', 'AI training'],
+    'areaServed': ['Squamish', 'Whistler', 'Pemberton', 'Sea-to-Sky corridor'],
     'provider': {
       '@type': 'Person',
       'name': 'Claudio Mendonça',
@@ -152,7 +152,7 @@ useHead({
       </div>
     </section>
 
-    <section data-screen-label="Consulting — DIY counter">
+    <section data-screen-label="Services — Software and AI">
       <div class="shell">
         <div class="bio-grid">
           <div data-reveal>
@@ -166,16 +166,15 @@ useHead({
             <p class="secondary">
               {{ consulting?.differentiator.paragraphs[1] }}
             </p>
-            <figure class="stat-figure" role="figure" :aria-label="`${consulting?.differentiator.stat.value} ${consulting?.differentiator.stat.label}`">
+            <figure class="stat-figure">
               <span class="stat-figure__value" aria-hidden="true">
-                <span class="stat-figure__num">95</span><span class="stat-figure__suffix">%</span>
+                <span class="stat-figure__num">{{ consulting?.differentiator.startingPoint.value }}</span>
               </span>
               <figcaption class="stat-figure__caption">
-                <span class="stat-figure__label">{{ consulting?.differentiator.stat.label }}</span>
+                <span class="stat-figure__label">{{ consulting?.differentiator.startingPoint.label }}</span>
                 <p class="stat-figure__note">
-                  {{ consulting?.differentiator.stat.note }}
+                  {{ consulting?.differentiator.startingPoint.note }}
                 </p>
-                <cite>— MIT, <em>State of AI in Business 2025</em></cite>
               </figcaption>
             </figure>
           </div>
@@ -192,6 +191,7 @@ useHead({
         <ol class="entry-list" aria-label="Consulting offerings">
           <ConsultingEntry
             v-for="(offering, i) in consultingOfferings"
+            :id="offering.id"
             :key="offering.id"
             data-reveal
             :idx="i + 1"
@@ -205,10 +205,6 @@ useHead({
     </section>
 
     <HowItWorks />
-
-    <!-- Pricing section removed (Claudio feedback 2026-06-26) — the figures were
-         9999,00 placeholders. The `consulting.pricing` data stays in site.json so
-         the section can be reinstated once real numbers exist. -->
 
     <!-- #contact: the consulting CTA copy + a working contact form (Netlify
          Forms, ContactForm.vue). The hero "Start a conversation" CTA scrolls
