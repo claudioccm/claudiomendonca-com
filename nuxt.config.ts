@@ -1,3 +1,5 @@
+import siteContent from './content/site.json'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2026-05-21',
@@ -78,12 +80,12 @@ export default defineNuxtConfig({
 
     head: {
       htmlAttrs: { lang: 'en' },
-      title: 'Claudio Mendonça — AI Experiments',
+      title: siteContent.meta.title,
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
+          content: siteContent.meta.description,
         },
         // Explicit crawl directive — index everything, allow large preview
         // images in search + AI results (helps SEO/GEO rich results).
@@ -96,26 +98,26 @@ export default defineNuxtConfig({
         // title/description above and supply the shared image + locale.
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Claudio Mendonça' },
-        { property: 'og:locale', content: 'en_US' },
-        { property: 'og:title', content: 'Claudio Mendonça — AI Experiments' },
+        { property: 'og:locale', content: 'en_CA' },
+        { property: 'og:title', content: siteContent.meta.title },
         {
           property: 'og:description',
-          content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
+          content: siteContent.meta.description,
         },
-        { property: 'og:image', content: 'https://claudiomendonca.com/og-image.png' },
-        { property: 'og:image:width', content: '1200' },
-        { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: 'Claudio Mendonça — AI Experiments' },
+        { property: 'og:image', content: 'https://claudiomendonca.com/og-small-business.png' },
+        { property: 'og:image:width', content: '1731' },
+        { property: 'og:image:height', content: '909' },
+        { property: 'og:image:alt', content: siteContent.meta.title },
 
         // Twitter / X card — shared defaults; pages override title/description
         // via useSeoMeta (twitterTitle / twitterDescription).
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Claudio Mendonça — AI Experiments' },
+        { name: 'twitter:title', content: siteContent.meta.title },
         {
           name: 'twitter:description',
-          content: 'Personal site of Claudio Mendonça. AI experiments and client services.',
+          content: siteContent.meta.description,
         },
-        { name: 'twitter:image', content: 'https://claudiomendonca.com/og-image.png' },
+        { name: 'twitter:image', content: 'https://claudiomendonca.com/og-small-business.png' },
       ],
 
       // Google Analytics 4 (gtag.js) — property G-N2W2CXJ5JE.

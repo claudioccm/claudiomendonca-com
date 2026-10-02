@@ -24,9 +24,9 @@ I run the same 200-report batch through each candidate API, record median latenc
 
 When I tested three providers last quarter, the middle-tier option showed 1.8-second median latency on 4k-token prompts but produced inconsistent JSON keys on 14 percent of runs. That variance forced an extra parsing layer that added 45 minutes of review time per cycle. The cheapest option stayed under $40 monthly yet hit rate limits after 180 requests in a single hour, forcing the job to queue until the next billing window reset.
 
-Adding a fourth metric—schema stability across [prompt rephrasings](/blog/prompt-version-control-framework)—further filters candidates. One model returned valid output 98 percent of the time when the prompt stayed identical but dropped to 71 percent when I varied sentence order slightly. Because monthly reports often include minor wording changes from upstream data sources, this test exposed a hidden maintenance cost.
+Adding a fourth metric—schema stability across prompt rephrasings—further filters candidates. One model returned valid output 98 percent of the time when the prompt stayed identical but dropped to 71 percent when I varied sentence order slightly. Because monthly reports often include minor wording changes from upstream data sources, this test exposed a hidden maintenance cost.
 
-I also tracked cumulative [token spend](/blog/llm-cost-optimization-prompt-engineering-system-design) across the full batch and compared it against the published rates. The variance between quoted price and actual spend reached 22 percent on one provider once I included the overhead of retry logic for failed schema checks. That gap only became visible after running the test on the exact report templates used in production.
+I also tracked cumulative token spend across the full batch and compared it against the published rates. The variance between quoted price and actual spend reached 22 percent on one provider once I included the overhead of retry logic for failed schema checks. That gap only became visible after running the test on the exact report templates used in production.
 
 ## Architecting to Avoid Vendor Lock-In
 

@@ -75,7 +75,7 @@ const articleJsonld = computed(() => {
     'headline': post.value.title,
     'datePublished': isoDate.value,
     'dateModified': isoDate.value,
-    'image': 'https://claudiomendonca.com/og-image.png',
+    'image': 'https://claudiomendonca.com/og-small-business.png',
     'author': {
       '@type': 'Person',
       'name': 'Claudio Mendonça',

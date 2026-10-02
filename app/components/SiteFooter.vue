@@ -4,7 +4,7 @@
   index.html version, which has empty <a> placeholders).
 -->
 <template>
-  <footer id="contact" class="footer">
+  <footer id="site-footer" class="footer">
     <div class="shell">
       <div class="footer-grid">
         <!-- Brand column -->
@@ -14,7 +14,8 @@
             <span>Claudio Mendonça</span>
           </NuxtLink>
           <p class="t-body ash tagline">
-            AI systems, consulting, and training.
+            Custom software, practical AI, and clearer data.
+            Based in Squamish.
           </p>
         </div>
 
@@ -24,7 +25,7 @@
           <ul>
             <li><a href="/#work">Work</a></li>
             <li><a href="/writing">Writing</a></li>
-            <li><a href="/consulting">Consulting</a></li>
+            <li><a href="/consulting">Services</a></li>
             <li><a href="/#about">About</a></li>
           </ul>
         </div>
@@ -33,8 +34,8 @@
         <div>
           <h2>Contact</h2>
           <ul>
-            <li><a href="#" rel="noopener">GitHub</a></li>
-            <li><a href="#" rel="noopener">X / Twitter</a></li>
+            <li><a href="/consulting#contact">Start with one thing</a></li>
+            <li><a href="mailto:claudioccm@gmail.com">Email Claudio</a></li>
           </ul>
         </div>
 

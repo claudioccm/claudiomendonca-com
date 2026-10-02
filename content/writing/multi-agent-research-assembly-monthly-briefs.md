@@ -34,7 +34,7 @@ Decompose the brief into isolated subtasks first. One agent pulls recent reports
 
 Route outputs through that store so downstream agents receive clean, verified context. Sequential handoffs work for most monthly cycles because each step depends on the prior result. For cross-domain briefs, run extraction agents in parallel and merge findings at the synthesis stage.
 
-Stateful patterns cut repeated calls. Once an agent stores its result, the next cycle reuses it instead of starting over. [LangChain data showed stateful handoffs and skills saved 40-50 percent of calls on recurring requests](/blog/llm-cost-optimization-prompt-engineering-system-design).
+Stateful patterns cut repeated calls. Once an agent stores its result, the next cycle reuses it instead of starting over. LangChain data showed stateful handoffs and skills saved 40-50 percent of calls on recurring requests.
 
 LangGraph supplies the orchestration layer. It handles the supervisor loop, context passing, and error recovery across frameworks. CrewAI and Microsoft Agent Framework can plug in through the same protocol when needed.
 
@@ -46,13 +46,13 @@ When briefs repeat monthly, the shared store also acts as a lightweight cache. A
 
 ## Keeping Quality Without Bottlenecks
 
-Limit human review to the final synthesis step. Subagent outputs stay narrow enough that errors surface early in the shared store rather than in the finished brief. [A comparable human-in-the-loop pipeline for research digests](/blog/human-in-the-loop-ai-research-digests) demonstrates how this final checkpoint keeps oversight effective without adding friction to every subtask.
+Limit human review to the final synthesis step. Subagent outputs stay narrow enough that errors surface early in the shared store rather than in the finished brief.
 
 Anthropic tested a lead agent plus subagents against a single large model on internal research tasks. The multi-agent version delivered a 90.2 percent performance lift because separate context windows allowed parallel reasoning without interference. The same separation prevents one noisy source from contaminating the entire brief.
 
 Add simple checks at each handoff. An extraction agent flags missing fields. A synthesis agent rejects contradictions it cannot resolve. These gates keep the supervisor from passing flawed work downstream.
 
-The approach still requires a human at the end. The reviewer checks tone, resolves any remaining conflicts, and confirms [brand standards](/blog/reusable-brand-voice-templates-ai-client-reports). That single checkpoint preserves accountability without slowing the pipeline.
+The approach still requires a human at the end. The reviewer checks tone, resolves any remaining conflicts, and confirms [brand standards](/writing/reusable-brand-voice-templates-ai-client-reports). That single checkpoint preserves accountability without slowing the pipeline.
 
 Microsoft’s documentation on agent patterns notes that supervisor-subagent designs also improve audit trails. Every subagent output carries a traceable origin, which satisfies compliance needs common in research or client deliverables. [Microsoft’s Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns) emphasizes that this traceability emerges naturally from the separation of concerns rather than from added logging layers.
 

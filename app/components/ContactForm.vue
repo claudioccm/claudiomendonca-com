@@ -113,14 +113,14 @@ async function submit() {
     </div>
 
     <div class="contact-form__field">
-      <label class="sr-only" for="contact-message">Message</label>
+      <label class="sr-only" for="contact-message">What keeps taking up your time?</label>
       <textarea
         id="contact-message"
         v-model="message"
         name="message"
         class="contact-form__input contact-form__textarea mono"
         rows="4"
-        placeholder="A short note about what you’re working on…"
+        placeholder="Tell me about your business and one task you’d like to make easier…"
         required
         :disabled="status === 'submitting'"
       />
@@ -131,7 +131,7 @@ async function submit() {
       class="btn btn-filled contact-form__btn"
       :disabled="status === 'submitting'"
     >
-      <span>{{ status === 'submitting' ? 'Sending…' : 'Send message' }}</span>
+      <span>{{ status === 'submitting' ? 'Sending…' : 'Find a starting point' }}</span>
       <span class="btn-arrow" aria-hidden="true">→</span>
     </button>
 

@@ -72,9 +72,9 @@ A second chained prompt then takes the structured data and applies the voice rul
 
 ## Version Templates and Prevent Drift
 
-Treat the template file like code. Store it in a shared repository, tag each release, and require a short changelog entry for any change to voice rules or structure. Without version control, small wording shifts accumulate and the output slowly moves off brand. A practical system that turns prompt edits into traceable, testable, and reversible changes is outlined in [Prompt Version Control: Treat Edits Like Code Changes](/blog/prompt-version-control-framework).
+Treat the template file like code. Store it in a shared repository, tag each release, and require a short changelog entry for any change to voice rules or structure. Without version control, small wording shifts accumulate and the output slowly moves off brand.
 
-A lightweight human review gate sits after the AI step. The reviewer checks only that the numbers are accurate and the voice rules were followed. The gate does not rewrite content; it either approves or returns the file with a specific rule citation. This keeps review time under fifteen minutes per report. Effective [approval interfaces](/blog/human-in-the-loop-ux-approval-interfaces) surface full context and use calibrated thresholds to keep oversight effective.
+A lightweight human review gate sits after the AI step. The reviewer checks only that the numbers are accurate and the voice rules were followed. The gate does not rewrite content; it either approves or returns the file with a specific rule citation. This keeps review time under fifteen minutes per report. Effective approval interfaces surface full context and use calibrated thresholds to keep oversight effective.
 
 The 81 percent of companies that still produce off-brand content despite having guidelines do so because enforcement stays manual. An encoded template moves enforcement into the prompt itself. The model either follows the listed rules or the output is rejected at the gate.
 
