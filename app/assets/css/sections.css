@@ -381,6 +381,7 @@
   color: var(--dim);
 }
 .client-logos__list {
+  --client-logo-size: 160px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -392,28 +393,39 @@
 .client-logos__list li {
   display: flex;
   align-items: center;
-  width: 160px;
+  flex: 0 0 auto;
   height: 50px;
 }
 .client-logos__list img {
   display: block;
-  width: 100%;
+  width: var(--client-logo-size);
   height: auto;
-  max-height: 50px;
+  max-width: none;
   object-fit: contain;
   object-position: left center;
   filter: brightness(0) invert(1);
   opacity: 0.4;
+}
+/* Size by visual weight: NYU's torch matches the Harvard shield. */
+.client-logos__list img[src="/clients/nyu.svg"] {
+  width: calc(var(--client-logo-size) * 1.5);
+}
+.client-logos__list img[src="/clients/meta.svg"],
+.client-logos__list img[src="/clients/berkeley.svg"] {
+  width: calc(var(--client-logo-size) * 0.85);
 }
 /* Preserve the white details as cutouts when reversing Harvard's colour crest. */
 .client-logos__list img[src="/clients/harvard.svg"] {
   filter: grayscale(1) contrast(100) invert(1);
   mix-blend-mode: screen;
 }
-@media (max-width: 600px) {
-  .client-logos__list { gap: 24px 32px; }
-  .client-logos__list li { width: 128px; height: 40px; }
-  .client-logos__list img { max-height: 40px; }
+@media (max-width: 900px) {
+  .client-logos__list {
+    --client-logo-size: clamp(96px, calc(40vw - 32px), 160px);
+    display: grid;
+    grid-template-columns: var(--client-logo-size) calc(var(--client-logo-size) * 1.5);
+    gap: 24px;
+  }
 }
 
 
