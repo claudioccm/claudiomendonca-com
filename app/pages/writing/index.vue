@@ -1,23 +1,4 @@
-<!--
-  Writing index — "The journal." (PRO-178).
-
-  Spec: _process/design-exploration-unzipped/Blog.dc.html + screenshots
-  01-blog2.png / 02-blog2.png. Page header (mono eyebrow + serif "The journal."
-  + dek), category filter chips, a featured post block, a grid of PostCards, and
-  the (stubbed) newsletter band.
-
-  Posts come from the `writing` @nuxt/content collection (schema in
-  content.config.ts, added in PRO-176) via queryCollection('writing'). The query
-  runs at prerender time and is serialized into the static payload, so every
-  post is present in the SSR HTML (crawlable, no-JS-friendly).
-
-  Filter chips are PROGRESSIVE: SSR renders the full grid (All). On the client,
-  the chips become interactive and filter the grid reactively — no URL routing,
-  matching the reference's visual-only chips. No-JS users keep the full list.
-
-  The outer <div> exists because Nuxt's eslint preset enforces a single template
-  root on pages (the layout's <main> already provides semantics).
--->
+<!-- Writing archive with category filtering, featured article, and newsletter signup. -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
@@ -96,7 +77,6 @@ useSeoMeta({
     <!-- PAGE HEADER -->
     <section class="writing-header">
       <div class="shell">
-        <span class="label" data-reveal>Writing &amp; field notes</span>
         <h1 class="writing-header__title" data-reveal>The journal.</h1>
         <p class="writing-header__dek" data-reveal>
           {{ writingDescription }}
@@ -124,9 +104,6 @@ useSeoMeta({
     <section v-if="showFeatured && featured" class="writing-featured">
       <div class="shell">
         <NuxtLink :to="featured.path" class="post-featured" data-reveal>
-          <div class="post-featured__cover hatch" aria-hidden="true">
-            <span class="post-featured__cover-label mono">cover — featured essay</span>
-          </div>
           <div class="post-featured__body">
             <div class="post-featured__meta mono">
               <span>{{ featured.category }}</span>
@@ -151,7 +128,7 @@ useSeoMeta({
     <!-- GRID -->
     <section class="writing-grid-section">
       <div class="shell">
-        <div v-if="visibleRest.length" class="writing-grid-section__head mono" data-reveal>More posts</div>
+        <h2 v-if="visibleRest.length" class="writing-grid-section__head" data-reveal>More posts</h2>
         <ul v-if="visibleRest.length" class="posts-grid" aria-label="Posts">
           <li v-for="post in visibleRest" :key="post.path">
             <PostCard

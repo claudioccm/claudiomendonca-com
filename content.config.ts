@@ -58,16 +58,22 @@ const site = defineCollection({
       email: z.string(),
       social: z.array(linkEntry),
       elsewhere: z.array(linkEntry),
-      // Client name-drop rendered as a credibility strip (home #about +
-      // /consulting). Optional so the site still validates with no proof line.
+      // Client logos shared by the home and services heroes.
       trustedBy: z
-        .object({ label: z.string(), names: z.array(z.string()) })
+        .object({
+          label: z.string(),
+          clients: z.array(z.object({
+            name: z.string(),
+            src: z.string(),
+            width: z.number().positive(),
+            height: z.number().positive(),
+          })),
+        })
         .optional(),
       copyright: z.string(),
     }),
 
     intro: z.object({
-      eyebrow: z.string(),
       headline: z.string(),
       subhead: z.string(),
       ctas: z.array(targetEntry),
@@ -79,7 +85,6 @@ const site = defineCollection({
     }),
 
     problems: z.object({
-      label: z.string(),
       heading: z.string(),
       intro: z.string(),
       items: z.array(z.object({
@@ -90,7 +95,6 @@ const site = defineCollection({
     }),
 
     about: z.object({
-      label: z.string(),
       heading: z.string(),
       intro: z.string(),
       // The middle paragraph carries an inline route link to /consulting, so it
@@ -125,36 +129,26 @@ const site = defineCollection({
     }),
 
     consulting: z.object({
-      eyebrow: z.string(),
       headline: z.string(),
       subhead: z.string(),
       ctas: z.array(targetEntry),
-      deliverables: z.array(z.string()),
       brief: z.object({
-        label: z.string(),
         heading: z.string(),
         paragraphs: z.array(z.string()),
       }),
       differentiator: z.object({
-        label: z.string(),
         heading: z.string(),
         paragraphs: z.array(z.string()),
         startingPoint: z.object({
-          value: z.string(),
           label: z.string(),
           note: z.string(),
         }),
       }),
       offerings: z.object({
-        label: z.string(),
         heading: z.string(),
-        outcomesLabel: z.string(),
         items: z.array(
           z.object({
             id: z.string(),
-            // May carry an embedded `<br />` to control the display-font line
-            // break; rendered via v-html in ConsultingEntry (static source,
-            // not user input).
             title: z.string(),
             tagline: z.string(),
             blurb: z.string(),
@@ -163,7 +157,6 @@ const site = defineCollection({
         ),
       }),
       process: z.object({
-        label: z.string(),
         heading: z.string(),
         steps: z.array(
           z.object({

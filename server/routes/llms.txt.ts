@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
     '',
     '> Custom software, practical AI, and clearer data for small businesses in Squamish and the Sea-to-Sky. Start with one recurring problem and a useful first fix.',
     '',
-    `${identity?.name ?? 'Claudio Mendonça'} is a founder, designer, and engineer based in ${identity?.location ?? 'British Columbia, Canada'}, with fifteen years of design and engineering practice${identity?.trustedBy ? ` and work for teams at ${formatList(identity.trustedBy.names)}` : ''}. He helps small businesses improve customer follow-ups, paperwork, connected tools, business data, and team routines. AI supports building customised software and working with information. Engagements start with one recurring problem, an agreed scope, and a fixed price before work begins.`,
+    `${identity?.name ?? 'Claudio Mendonça'} is a founder, designer, and engineer based in ${identity?.location ?? 'British Columbia, Canada'}, with fifteen years of design and engineering practice${identity?.trustedBy ? ` and work for teams at ${formatList(identity.trustedBy.clients.map(client => client.name))}` : ''}. He helps small businesses improve customer follow-ups, paperwork, connected tools, business data, and team routines. AI supports building customised software and working with information. Engagements start with one recurring problem, an agreed scope, and a fixed price before work begins.`,
     '',
     '## Work',
     '',

@@ -143,6 +143,7 @@ a.link-underline {
    .tag, .price-tag) are class-scoped and intentionally keep their own uppercase
    treatment — they are not element headings, so this rule does not touch them. */
 h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
   font-family: var(--font-disp);
   font-weight: 400;
   line-height: 0.9;

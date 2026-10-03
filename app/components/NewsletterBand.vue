@@ -195,14 +195,15 @@ async function submit() {
 .newsletter-success__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(22.4px, 3.2vw, 38.4px);
+  text-wrap: balance;
   line-height: 0.95;
   letter-spacing: -0.01em;
   margin: 0;
   color: var(--paper);
 }
 .newsletter-success__sub {
-  font-size: 12px;
+  font-size: var(--text-caption);
   line-height: 1.7;
   color: var(--dim);
   margin: 0;
