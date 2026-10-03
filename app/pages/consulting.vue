@@ -1,42 +1,12 @@
-<!--
-  Consulting one-pager. Composition lifted from
-  _process/prototype/consulting.html lines 33–251 with section primitives
-  decomposed into HeroSection (PRO-77), ConsultingEntry, HowItWorks, and
-  CtaBanner (all PRO-78).
-
-  Copy + offering data are sourced from the `site` content collection
-  (content/site.json → consulting) via useSiteContent (PRO-176), so adding a
-  fourth offering is one new entry in consulting.offerings.items — no edit to
-  this page, ConsultingEntry, HowItWorks, CtaBanner, or sections.css.
-  (PRO-78 R10, K4, AC4; PRO-176.)
-
-  PRO-177 (editorial reskin pass): the deliverables now render as a wrap of
-  bordered mono chips INSIDE the hero (HeroSection #after slot, .hero-chips),
-  per Consulting.dc.html, replacing the old full-width .tag-strip band. Section
-  blocks carry [data-reveal] for the PRO-174 CSS scroll-reveal (pure-CSS,
-  reduced-motion / no-JS safe). The pill CTA buttons + hero down-arrow are kept
-  as shipped shared chrome (PRO-174); the deck's rectangular buttons / no-arrow
-  are not adopted to avoid a cross-page theme change.
-
-  The outer <div> exists because Nuxt's eslint preset enforces a single
-  template root on pages (the layout's <main> already provides semantics).
--->
+<!-- Small-business services, scope, process, and contact form. Copy comes from content/site.json. -->
 <script setup lang="ts">
 // All /consulting copy is sourced from the `site` content collection
 // (content/site.json) — the single source of truth (PRO-176).
 const { data: site } = await useSiteContent()
 const consulting = computed(() => site.value?.consulting)
 const consultingOfferings = computed(() => consulting.value?.offerings.items ?? [])
-const tagItems = computed(() => consulting.value?.deliverables ?? [])
-// Shared credibility strip (identity.trustedBy) — same data the home #about
-// block renders. Optional in the schema, so the template v-ifs on it.
+// Both heroes share the client logos from the content collection.
 const trustedBy = computed(() => site.value?.identity.trustedBy)
-
-// Offerings section label keeps the prototype's "Offerings — NN" form, with the
-// count zero-padded and derived from the offerings list so it stays in sync.
-const offeringsLabel = computed(() =>
-  `${consulting.value?.offerings.label ?? ''} — ${padIndex(consultingOfferings.value.length)}`,
-)
 
 // Canonical / og:url + per-page SEO. Site base = https://claudiomendonca.com.
 const canonical = 'https://claudiomendonca.com/consulting'
@@ -60,7 +30,7 @@ const serviceJsonld = computed(() => {
     '@type': 'Offer',
     'itemOffered': {
       '@type': 'Service',
-      'name': o.title.replace(/<br\s*\/?>/gi, ' ').replace(/\s+/g, ' ').trim(),
+      'name': o.title,
       'description': o.tagline,
     },
   }))
@@ -94,17 +64,9 @@ useHead({
 
 <template>
   <div>
-    <HeroSection down-arrow-href="#consulting">
-      <template #eyebrow>
-        <span class="dot" aria-hidden="true" />
-        <span>{{ consulting?.eyebrow }}</span>
-      </template>
+    <HeroSection>
       <template #headline>
-        <!-- headline carries an editorial <br /> (content/site.json); static
-             repo-controlled source, not user input — rendered via v-html like
-             the offering titles (ConsultingEntry). -->
-        <!-- eslint-disable-next-line vue/no-v-html -- static repo-controlled source -->
-        <h1 v-html="consulting?.headline" />
+        <h1>{{ consulting?.headline }}</h1>
       </template>
       <template #sub>
         {{ consulting?.subhead }}
@@ -116,19 +78,37 @@ useHead({
         </a>
         <a class="btn btn-ghost" :href="consulting?.ctas[1]?.target">{{ consulting?.ctas[1]?.label }}</a>
       </template>
-      <!-- Deliverables as a full-width single-row marquee scrolling right→left
-           (Claudio feedback 2026-06-27). Data still comes from
-           consulting.deliverables; reduced-motion falls back to a static wrap. -->
       <template #after>
-        <HeroMarquee :items="tagItems" />
+        <ClientLogos v-if="trustedBy" :label="trustedBy.label" :clients="trustedBy.clients" />
       </template>
     </HeroSection>
+
+    <section id="consulting" data-screen-label="Consulting — List">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <h2>{{ consulting?.offerings.heading }}</h2>
+        </div>
+        <ol class="entry-list" aria-label="Consulting offerings">
+          <ConsultingEntry
+            v-for="offering in consultingOfferings"
+            :id="offering.id"
+            :key="offering.id"
+            data-reveal
+            :title="offering.title"
+            :tagline="offering.tagline"
+            :blurb="offering.blurb"
+            :outcomes="offering.outcomes"
+          />
+        </ol>
+      </div>
+    </section>
+
+    <HowItWorks />
 
     <section data-screen-label="Consulting — Positioning">
       <div class="shell">
         <div class="bio-grid">
           <div data-reveal>
-            <span class="label">{{ consulting?.brief.label }}</span>
             <h2>{{ consulting?.brief.heading }}</h2>
           </div>
           <div class="bio-body" data-reveal>
@@ -139,14 +119,6 @@ useHead({
               {{ consulting?.brief.paragraphs[1] }}
             </p>
 
-            <p v-if="trustedBy" class="trusted-by mono">
-              <span class="trusted-by__label">{{ trustedBy.label }}</span>
-              <span
-                v-for="name in trustedBy.names"
-                :key="name"
-                class="trusted-by__name"
-              >{{ name }}</span>
-            </p>
           </div>
         </div>
       </div>
@@ -156,7 +128,6 @@ useHead({
       <div class="shell">
         <div class="bio-grid">
           <div data-reveal>
-            <span class="label">{{ consulting?.differentiator.label }}</span>
             <h2>{{ consulting?.differentiator.heading }}</h2>
           </div>
           <div class="bio-body" data-reveal>
@@ -167,9 +138,6 @@ useHead({
               {{ consulting?.differentiator.paragraphs[1] }}
             </p>
             <figure class="stat-figure">
-              <span class="stat-figure__value" aria-hidden="true">
-                <span class="stat-figure__num">{{ consulting?.differentiator.startingPoint.value }}</span>
-              </span>
               <figcaption class="stat-figure__caption">
                 <span class="stat-figure__label">{{ consulting?.differentiator.startingPoint.label }}</span>
                 <p class="stat-figure__note">
@@ -181,30 +149,6 @@ useHead({
         </div>
       </div>
     </section>
-
-    <section id="consulting" data-screen-label="Consulting — List">
-      <div class="shell">
-        <div class="section-head" data-reveal>
-          <span class="label">{{ offeringsLabel }}</span>
-          <h2>{{ consulting?.offerings.heading }}</h2>
-        </div>
-        <ol class="entry-list" aria-label="Consulting offerings">
-          <ConsultingEntry
-            v-for="(offering, i) in consultingOfferings"
-            :id="offering.id"
-            :key="offering.id"
-            data-reveal
-            :idx="i + 1"
-            :title="offering.title"
-            :tagline="offering.tagline"
-            :blurb="offering.blurb"
-            :outcomes="offering.outcomes"
-          />
-        </ol>
-      </div>
-    </section>
-
-    <HowItWorks />
 
     <!-- #contact: the consulting CTA copy + a working contact form (Netlify
          Forms, ContactForm.vue). The hero "Start a conversation" CTA scrolls

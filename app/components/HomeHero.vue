@@ -1,27 +1,4 @@
-<!--
-  Home hero (editorial redesign) — the signature upper section, ported from the
-  prototype (_process/design-exploration-unzipped/Hero - Combined.dc.html).
-
-  This is a DEDICATED home component, NOT the shared HeroSection.vue (which
-  /consulting still uses). It renders:
-    - a full-viewport canvas-feel section with corner annotations,
-    - an interactive DOT-FIELD that ripples under the cursor,
-    - a TYPEWRITER that cycles recurring-business-problem questions behind a blinking caret.
-
-  Progressive enhancement (R7): the SSR / no-JS render is the COMPLETE static
-  hero — "Still <firstWord>" is in the served HTML, the dot-field container is an
-  empty decorative div, every line of copy is present and visible. The dots and
-  the typewriter are wired client-side in onMounted. Under
-  `prefers-reduced-motion: reduce` we skip BOTH motions entirely (static word,
-  no ripple) and CSS hides the caret blink. All listeners/timers/RAF are torn
-  down in onBeforeUnmount (mirrors the SiteNav.vue lifecycle convention).
-
-  The top-LEFT identity corner from the prototype is intentionally omitted: the
-  persistent SiteNav wordmark already carries the name, so only the top-right
-  (location / availability) + the two bottom hints render here.
-
-  Styles live in app/assets/css/sections.css under `.home-hero`.
--->
+<!-- Home hero. The full first question renders server-side; motion respects reduced-motion preferences. -->
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
@@ -31,8 +8,6 @@ interface Cta {
 }
 
 interface Props {
-  /** Eyebrow, e.g. "(01) — The index". */
-  eyebrow: string
   /** Upright headline stem, e.g. "Still". */
   headline: string
   /** Italic words cycled by the typewriter. words[0] is the static SSR render. */
@@ -264,11 +239,13 @@ onBeforeUnmount(() => {
     <div ref="dotfieldEl" class="home-hero__dotfield" aria-hidden="true" />
 
     <div class="home-hero__inner">
-      <p class="home-hero__eyebrow">{{ eyebrow }}</p>
       <h1 class="home-hero__headline" :aria-label="`${headline} ${firstWord}`">
-        <span class="home-hero__stem">{{ headline }}</span>
-        <span class="home-hero__word-wrap" aria-hidden="true">
-          <span ref="wordEl" class="home-hero__word">{{ firstWord }}</span><span class="home-hero__caret" aria-hidden="true" />
+        <span class="home-hero__question" aria-hidden="true">
+          {{ headline }} <span ref="wordEl" class="home-hero__word">{{ firstWord }}</span><span class="home-hero__caret" />
+        </span>
+        <!-- Reserve the natural height of every question so typing never moves the content below. -->
+        <span v-for="word in words" :key="word" class="home-hero__question home-hero__question--measure" aria-hidden="true">
+          {{ headline }} <span class="home-hero__word">{{ word }}</span><span class="home-hero__caret" />
         </span>
       </h1>
       <p class="home-hero__sub">{{ subhead }}</p>
@@ -280,9 +257,7 @@ onBeforeUnmount(() => {
           {{ ctas[1].label }} <span aria-hidden="true">↗</span>
         </NuxtLink>
       </div>
+      <slot />
     </div>
-
-    <div class="home-hero__hint home-hero__hint--bl">Squamish & Sea-to-Sky</div>
-    <a class="home-hero__hint home-hero__hint--br" href="#problems">Sound familiar? ↓</a>
   </section>
 </template>

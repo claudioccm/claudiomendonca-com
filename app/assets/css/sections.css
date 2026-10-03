@@ -1,35 +1,4 @@
-/* Motto® page-section styles — hero, home hero, section heads, experiments
-   index, about/bio, and button atoms.
-     - Buttons (.btn, .btn-filled, .btn-ghost, .btn-arrow)
-     - Shared hero (.hero, .hero-eyebrow, .hero h1, .hero-sub, .hero-cta-row,
-       .down-arrow) — used by /consulting via HeroSection.vue
-     - Home hero (.home-hero*) — the editorial-redesign full-viewport hero with
-       the dot-field + typewriter (HomeHero.vue). Spec: _process/
-       design-exploration-unzipped/Hero - Combined.dc.html (HERO block).
-     - Section index bar (.section-index*) — SectionIndex.vue ("NN / 05")
-     - Section head (.section-head*) — used by /consulting + HowItWorks.vue
-     - Experiments index (.experiments-title, .experiment-index, .experiment-row*)
-       — ExperimentRow.vue typographic rows (replaced the old image cards)
-     - About / bio (.bio-grid*, .bio-body*)
-   Plus a reduced-motion override appended at the bottom (R14).
-
-   PRO-78 appended (consulting page section primitives):
-     - Entry list wrapper (.entry-list) — prototype lines 360–363
-     - Entry base (.entry, .entry .idx, .entry-body, .entry h3, .entry .tagline,
-       .entry .blurb, .entry .meta, .entry-actions, mobile collapse) — lines 474–539
-     - Entry-rich variant (.entry.entry-rich, mobile collapse) — lines 669–676
-     - Entry outcomes column (.entry-rich .entry-body--outcomes) — new (K2),
-       replaces the prototype's inline-styled border-left; adds mobile rule.
-     - Outcomes list (.outcomes, .outcomes li, .outcomes li::before) — lines 647–667
-     - Steps grid (.steps, .step, .step .num, .step h3, .step p) — lines 583–616
-     - CTA banner (.cta-banner, .cta-banner h2, .cta-banner p) — lines 619–644
-     - Global .label rule (.label, .label::before) — new (K2), extracted from
-       the prototype's repeated inline-style payload (consulting.html lines 65,
-       114, 141, 168). Co-exists with .section-head .label (identical body).
-     - Section-trail caption spacer (.section-trail) — new, promoted from the
-       repeated inline `style="margin-top: 48px;"` once a second consumer
-       appeared (consulting.vue + HowItWorks.vue). Responsive clamp is a small
-       improvement over the prototype's fixed 48px. */
+/* Shared page styles: buttons, heroes, problem and tool rows, services, writing, and forms. */
 
 /* ---------- Buttons (pill atoms) ---------- */
 .btn {
@@ -95,7 +64,7 @@
 /* Flat dark backdrop — matches the homepage hero's calm cool-black canvas
    (Claudio feedback 2026-06-26). The previous drifting accent gradient was the
    visual odd-one-out; the hero now reads on the same --ink as the rest of the
-   site, carried by the eyebrow + display headline. */
+   site, carried by the display headline. */
 .hero-bg-fallback {
   position: absolute;
   inset: 0;
@@ -131,29 +100,9 @@
   z-index: 1;
 }
 
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  font-family: var(--font-sans);
-  font-size: var(--text-caption);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-pitch-black);
-  margin-bottom: clamp(38px, 4vw, 58px);
-}
-.hero-eyebrow .dot {
-  width: 8px; height: 8px; background: var(--color-pitch-black);
-  display: inline-block;
-}
 .hero h1 {
   font-family: var(--font-disp);
-  /* Hero headline runs larger than the section heads (.section-head h2 /
-     .entry h3 at 80px max) for top-of-page impact. The 56px floor stays clear
-     of the 375px overflow that PRO-79 U1 fixed (the longest word "EXPERIMENTS"
-     runs ~285px at 56px vs a ~335px container); overflow-wrap guards any future
-     longer word. */
-  font-size: clamp(56px, 9vw, 130px);
+  font-size: clamp(44.8px, 7.2vw, 104px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
@@ -175,23 +124,6 @@
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
-}
-.down-arrow {
-  /* Tap target ≥44px (PRO-79 U6): pad the hit area to 44×44 around the bare
-     glyph via flex centering — no visible box, radius, or border (Motto). The
-     negative left margin keeps the glyph optically flush with the page edge
-     despite the wider hit box. */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  margin-top: clamp(48px, 6vw, 96px);
-  margin-left: -10px;
-  font-family: var(--font-disp);
-  font-size: 34px;
-  line-height: 1;
-  color: var(--color-pitch-black);
 }
 
 /* ============================================================
@@ -231,26 +163,6 @@
   will-change: transform;
 }
 
-/* Top-right meta corner — location / availability (top-left identity corner is
-   intentionally dropped; the nav wordmark carries the name). */
-.home-hero__meta {
-  position: absolute;
-  z-index: 3;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(var(--paper-rgb), 0.55);
-  line-height: 1.5;
-}
-.home-hero__meta span { display: block; }
-.home-hero__meta--tr {
-  top: clamp(28px, 5vw, 48px);
-  right: clamp(28px, 5vw, 48px);
-  text-align: right;
-  max-width: 50%;
-}
-
 /* Headline block — kept above the dot-field. Fills the hero's full content
    width (inside the section padding); the sub paragraph + links keep their own
    max-widths for readability. */
@@ -259,28 +171,18 @@
   z-index: 2;
   width: 100%;
 }
-.home-hero__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(var(--paper-rgb), 0.43);
-  margin: 0 0 clamp(20px, 4vh, 40px);
-}
+
 .home-hero__headline {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(56px, 8.6vw, 148px);
+  font-size: clamp(44.8px, 6.88vw, 118.4px);
   line-height: 0.9;
   letter-spacing: -0.01em;
   margin: 0;
-  display: block;
+  display: grid;
 }
-.home-hero__stem { display: block; }
-.home-hero__word-wrap {
-  display: block;
-  min-height: 1em;
-}
+.home-hero__question { grid-area: 1 / 1; text-wrap: balance; }
+.home-hero__question--measure { visibility: hidden; }
 .home-hero__word {
   font-style: italic;
   letter-spacing: -0.005em;
@@ -308,7 +210,7 @@
   margin: clamp(22px, 4vh, 40px) 0 0;
   max-width: 650px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body);
   line-height: 1.65;
   color: rgba(var(--paper-rgb), 0.8);
 }
@@ -318,7 +220,7 @@
   gap: 28px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-body);
 }
 .home-hero__link {
   color: var(--paper);
@@ -333,37 +235,10 @@
   border-bottom-color: rgba(var(--paper-rgb), 0.13);
 }
 
-/* Bottom hint corners. */
-.home-hero__hint {
-  position: absolute;
-  bottom: clamp(28px, 5vw, 48px);
-  z-index: 2;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(var(--paper-rgb), 0.32);
-  text-decoration: none;
-}
-.home-hero__hint--bl { left: clamp(28px, 5vw, 48px); }
-.home-hero__hint--br { right: clamp(28px, 5vw, 48px); }
-a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
-
 @media (max-width: 600px) {
-  /* Float the meta corner out of the absolute corner on small screens so it
-     never crowds the headline; render it inline above the eyebrow instead. */
-  .home-hero__meta--tr {
-    position: static;
-    max-width: none;
-    text-align: left;
-    margin: 0 0 28px;
-    order: -1;
-  }
+
   .home-hero { justify-content: flex-start; padding-top: clamp(40px, 16vh, 120px); }
-  .home-hero__word-wrap { min-height: 2em; }
   .home-hero__caret { display: none; }
-  .home-hero__hint--bl { bottom: 50px; }
-  .home-hero__hint--br { bottom: 24px; }
 }
 
 /* ---------- Section heading ---------- */
@@ -373,55 +248,23 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   gap: 16px;
   margin-bottom: clamp(48px, 6vw, 96px);
 }
-.section-head .label {
-  font-size: var(--text-caption);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--dim);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-head .label::before {
-  content: "";
-  width: 24px; height: 1px;
-  background: var(--paper);
-}
+
 .section-head h2 {
   font-family: var(--font-disp);
-  font-size: clamp(56px, 9vw, 80px);
+  font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.94;
   letter-spacing: -0.02em;
   margin: 0;
   color: var(--paper);
 }
 
-/* ---------- Section index bar (NN / 05) ----------
-   Reusable numbered section header (SectionIndex.vue): top hairline, uppercase
-   mono label left, position "NN / 05" right. Ported from the prototype's
-   repeated section meta row. */
-.section-index {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-top: 1px solid var(--hairline);
-  padding-top: 18px;
-  margin-bottom: clamp(44px, 7vh, 90px);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(var(--paper-rgb), 0.43);
-}
-.section-index__label { text-transform: uppercase; }
-
 /* ---------- Experiments index (home) — typographic rows ----------
    Replaces the old image cards (ExperimentCard) with the prototype's
-   `.exprow` index list (ExperimentRow.vue): NN · serif title · mono desc ↗. */
+   `.exprow` index list (ExperimentRow.vue): serif title and supporting description. */
 .experiments-title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(36px, 6vw, 80px);
+  font-size: clamp(28.8px, 4.8vw, 64px);
   line-height: 0.95;
   letter-spacing: -0.01em;
   margin: 0 0 clamp(40px, 6vh, 70px);
@@ -432,57 +275,53 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 
 .section-intro {
   max-width: 680px;
-  color: var(--ash);
+  color: var(--dim);
   line-height: 1.7;
   margin: -16px 0 40px;
 }
-.experiment-row.problem-row { grid-template-columns: 44px 1fr minmax(200px, 320px); }
-.experiment-row.problem-row:hover { padding-left: 0; background: none; }
+.experiment-row.problem-row:hover { background: none; }
 .problem-row h3, .problem-row p { margin: 0; }
-.problem-row .experiment-row__title { font-size: clamp(28px, 3.2vw, 44px); }
-.problem-row .experiment-row__desc { max-width: 320px; line-height: 1.7; }
+.problem-row .experiment-row__title { font-size: clamp(22.4px, 2.56vw, 35.2px); }
+.problem-row .experiment-row__desc { line-height: 1.7; }
 
 @media (min-width: 601px) and (max-width: 800px) {
-  .experiment-row.problem-row { grid-template-columns: 32px 1fr; }
-  .problem-row .experiment-row__desc { grid-column: 2; text-align: left; justify-self: start; }
+  .experiment-row.problem-row { grid-template-columns: 1fr; }
+  .problem-row .experiment-row__desc { grid-column: 1; text-align: left; justify-self: start; }
 }
 
 .experiment-row {
   display: grid;
-  grid-template-columns: 64px 1fr auto;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
   align-items: baseline;
   gap: 24px;
   text-decoration: none;
   color: var(--paper);
   padding: clamp(22px, 3vh, 34px) 0;
   border-bottom: 1px solid var(--hairline);
-  transition: background 0.3s ease, padding-left 0.3s ease;
+  transition: background 0.3s ease;
 }
 .experiment-row:hover {
   background: rgba(var(--paper-rgb), 0.03);
-  padding-left: 14px;
 }
 .experiment-row:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
-.experiment-row__idx {
-  font-size: 12px;
-  color: rgba(var(--paper-rgb), 0.32);
-  letter-spacing: 0.05em;
-}
+
 .experiment-row__title {
+  text-wrap: balance;
   font-family: var(--font-disp);
-  font-size: clamp(28px, 4.4vw, 58px);
+  font-size: clamp(22.4px, 3.52vw, 46.4px);
   line-height: 1;
   letter-spacing: -0.01em;
 }
 .experiment-row__desc {
-  font-size: 12px;
-  color: rgba(var(--paper-rgb), 0.55);
+  font-size: var(--text-body);
+  color: var(--dim);
   justify-self: end;
-  text-align: right;
-  max-width: 280px;
+  text-align: left;
+  line-height: 1.65;
+  max-width: 360px;
 }
 .experiment-row__arrow {
   display: inline-block;
@@ -492,13 +331,11 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .experiment-row:hover .experiment-row__arrow { transform: translate(4px, -4px); }
 
 @media (max-width: 600px) {
-  /* Drop the mono description below the title; keep number + title on the first
-     row so the serif title keeps its weight. */
+  /* Stack each title and description on narrow screens. */
   .experiment-row {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
     gap: 8px 16px;
   }
-  .experiment-row.problem-row { grid-template-columns: auto 1fr; }
   .experiment-row__desc {
     grid-column: 1 / -1;
     justify-self: start;
@@ -517,7 +354,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 @media (max-width: 800px) { .bio-grid { grid-template-columns: 1fr; } }
 .bio-grid h2 {
   font-family: var(--font-disp);
-  font-size: clamp(56px, 9vw, 80px);
+  font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.94;
   letter-spacing: -0.02em;
   margin: 0;
@@ -532,85 +369,74 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 .bio-body p.secondary { color: var(--dim); font-size: var(--text-body); line-height: var(--leading-body); }
 
-/* ---------- Credibility strip (identity.trustedBy) ----------
-   Closes the bio column on the home page and sits under the consulting hero.
-   Deliberately typographic rather than a logo wall: no image pipeline, no
-   trademark surface, and it wraps cleanly at any width. The names are separated
-   by a rendered hairline pip so no punctuation lives in the content layer. */
-.trusted-by {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 14px;
-  margin: 32px 0 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--hairline);
-  font-size: var(--text-caption);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+/* ---------- Client logos shared by both heroes ---------- */
+.client-logos {
+  margin-top: clamp(40px, 5vw, 64px);
 }
-.trusted-by__label { color: var(--dim); }
-.trusted-by__name { color: var(--paper); }
-/* Hairline pip between names — presentational, so it stays in CSS. */
-.trusted-by__name + .trusted-by__name::before {
-  content: '';
-  display: inline-block;
-  width: 3px;
-  height: 3px;
-  margin-right: 14px;
-  vertical-align: middle;
-  border-radius: 50%;
-  background: var(--dim);
-}
-
-/* ---------- Global label eyebrow (PRO-78 K2) ----------
-   Extracted from the prototype's repeated inline-style block so consulting
-   markup stays clean. Identical body to .section-head .label, which remains
-   in place as the more-specific selector for section-head consumers. */
-.label {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-sans);
+.client-logos__label {
+  margin: 0 0 24px;
+  font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  line-height: 1.5;
   color: var(--dim);
 }
-.label::before {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--paper);
+.client-logos__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
+.client-logos__list li {
+  display: flex;
+  align-items: center;
+  width: 160px;
+  height: 50px;
+}
+.client-logos__list img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 50px;
+  object-fit: contain;
+  object-position: left center;
+  filter: brightness(0) invert(1);
+  opacity: 0.4;
+}
+/* Preserve the white details as cutouts when reversing Harvard's colour crest. */
+.client-logos__list img[src="/clients/harvard.svg"] {
+  filter: grayscale(1) contrast(100) invert(1);
+  mix-blend-mode: screen;
+}
+@media (max-width: 600px) {
+  .client-logos__list { gap: 24px 32px; }
+  .client-logos__list li { width: 128px; height: 40px; }
+  .client-logos__list img { max-height: 40px; }
+}
+
 
 /* ---------- Entry list (PRO-78) — prototype lines 360–363 ---------- */
 .entry-list {
   display: grid;
   gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 /* ---------- Entry base (PRO-78) — prototype lines 474–539 ---------- */
 .entry {
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 1fr;
   gap: clamp(24px, 4vw, 70px);
   padding: clamp(48px, 6vw, 77px) 0;
   border-top: 1px solid var(--hairline-solid);
   align-items: start;
 }
 .entry:last-child { border-bottom: 1px solid var(--hairline-solid); }
-.entry .idx {
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-medium);
-  font-size: clamp(28px, 3.6vw, 44px);
-  line-height: 1;
-  /* Accent the offering index — the page's one focal accent, echoing the
-     home cards' mono-index treatment (PRO-112). */
-  color: var(--accent);
-  letter-spacing: 0.02em;
-}
+
 .entry-body {
   display: grid;
   grid-template-columns: 1fr;
@@ -618,7 +444,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 .entry h3 {
   font-family: var(--font-disp);
-  font-size: clamp(56px, 9vw, 80px);
+  font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
@@ -657,13 +483,12 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 
 @media (max-width: 700px) {
   .entry { grid-template-columns: 1fr; gap: 16px; }
-  .entry .idx { font-size: var(--text-subheading); }
 }
 
 /* ---------- Entry-rich variant (PRO-78) — prototype lines 669–676 ----------
-   Three-column layout for the consulting offerings list (idx | body | outcomes). */
+   Two-column layout for the consulting offerings list (body | outcomes). */
 .entry.entry-rich {
-  grid-template-columns: 96px 1.1fr 1fr;
+  grid-template-columns: 1.1fr 1fr;
   gap: clamp(24px, 4vw, 70px);
 }
 @media (max-width: 900px) {
@@ -735,7 +560,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .step h3 {
   margin: 0;
   font-family: var(--font-disp);
-  font-size: clamp(34px, 4vw, 61px);
+  font-size: clamp(27.2px, 3.2vw, 48.8px);
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--paper);
@@ -761,7 +586,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 @media (max-width: 800px) { .cta-banner { grid-template-columns: 1fr; align-items: start; } }
 .cta-banner h2 {
   font-family: var(--font-disp);
-  font-size: clamp(56px, 9vw, 80px);
+  font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
@@ -888,20 +713,12 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 /* ---------- First-fix callout ---------- */
 .stat-figure {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: clamp(20px, 3vw, 40px);
   margin: 8px 0 0;
 }
-.stat-figure__value {
-  display: flex;
-  align-items: baseline;
-  font-family: var(--font-disp);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: -0.02em;
-  color: var(--paper);
-}
-.stat-figure__num { font-size: clamp(56px, 9vw, 104px); line-height: 1; }
+
 .stat-figure__caption {
   display: grid;
   gap: 10px;
@@ -921,48 +738,6 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 @media (max-width: 600px) {
   .stat-figure { grid-template-columns: 1fr; gap: 20px; }
-}
-
-/* ---------- Hero deliverable marquee (PRO-177 → 2026-06-27) ----------
-   A full-width, single-row strip of the consulting deliverables scrolling
-   right→left inside the hero, rendered via HeroSection's #after slot
-   (HeroMarquee.vue). It breaks out of .shell to span the viewport; the track
-   holds two identical sets and animates -50% for a seamless loop (each item
-   carries its own trailing margin so -50% lands exactly one set over). Quiet
-   dark vocabulary: mono uppercase items in --dim inside a 1px hairline box. The
-   reduced-motion override (R14) disables the scroll and falls back to a static
-   wrap (the previous .hero-chips behaviour). */
-.hero-marquee {
-  width: 100vw;
-  margin-inline: calc(50% - 50vw);
-  margin-top: clamp(40px, 6vh, 70px);
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-.hero-marquee__track {
-  display: flex;
-  width: max-content;
-  animation: hero-marquee-scroll 48s linear infinite;
-}
-/* Partial Pause/Stop/Hide affordance for pointer users; reduced-motion stops it
-   entirely below. */
-.hero-marquee:hover .hero-marquee__track { animation-play-state: paused; }
-.hero-marquee__item {
-  flex: 0 0 auto;
-  margin-right: 8px;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--dim);
-  border: 1px solid var(--hairline-solid);
-  padding: 7px 13px;
-}
-@keyframes hero-marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* ---------- Contact form (consulting #contact) — 2026-06-27 ----------
@@ -986,7 +761,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .contact-intro__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(32px, 5vw, 64px);
+  font-size: clamp(25.6px, 4vw, 51.2px);
   line-height: 0.95;
   letter-spacing: -0.01em;
   margin: 0;
@@ -1021,25 +796,26 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   font-size: var(--text-body);
   transition: border-color 160ms ease;
 }
-.contact-form__input::placeholder { color: var(--faint); }
+.contact-form__input::placeholder { color: var(--dim); opacity: 1; }
 .contact-form__input:focus-visible { outline: none; border-color: var(--paper); }
 .contact-form__textarea { resize: vertical; min-height: 120px; }
 .contact-form__btn { margin-top: 4px; justify-self: start; }
-.contact-form__error { color: var(--dim); margin: 0; font-size: 12px; letter-spacing: 0.04em; }
+.contact-form__error { color: var(--dim); margin: 0; font-size: var(--text-caption); letter-spacing: 0.04em; }
 .contact-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .contact-success { display: flex; flex-direction: column; gap: 8px; }
 .contact-success__mark { width: 32px; height: 2px; background: var(--paper); margin-bottom: 8px; }
 .contact-success__title {
+  text-wrap: balance;
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(22.4px, 3.2vw, 38.4px);
   line-height: 0.95;
   letter-spacing: -0.01em;
   margin: 0;
   color: var(--paper);
 }
-.contact-success__sub { color: var(--dim); margin: 0; font-size: 12px; line-height: 1.7; }
+.contact-success__sub { color: var(--dim); margin: 0; font-size: var(--text-caption); line-height: 1.7; }
 
 /* ---------- Reduced motion override (R14; extended PRO-79 U4) ----------
    Neutralizes every transition/animation that produces motion. The experiment
@@ -1059,33 +835,13 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   .btn:active {
     transform: none !important;
   }
-  /* Experiment index rows: keep the background tint, drop the left-shift and the
-     arrow slide (the only motion). */
+  /* Experiment index rows: keep the background tint and stop the arrow slide. */
   .experiment-row {
     transition-property: background !important;
-  }
-  .experiment-row:hover {
-    padding-left: 0 !important;
   }
   .experiment-row:hover .experiment-row__arrow {
     transform: none !important;
   }
-  /* Hero deliverable marquee: stop the scroll and fall back to a static wrapped
-     row (the pre-marquee .hero-chips behaviour); hide the seamless-loop
-     duplicate so items don't read/appear twice. */
-  .hero-marquee {
-    overflow: visible;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-  .hero-marquee__track {
-    animation: none !important;
-    width: auto;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .hero-marquee__item { margin-right: 0; }
-  .hero-marquee__item[aria-hidden="true"] { display: none; }
 }
 
 /* ============================================================
@@ -1093,22 +849,9 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
    Spec: _process/design-exploration-unzipped/Blog.dc.html +
    Blog Post.dc.html + screenshots 01/02-blog2.png, 01/02-post.png.
    Editorial cream-on-ink: Instrument Serif display, JetBrains Mono
-   meta/body, diagonal-hatch cover placeholders. Tokens reused from
+   metadata and body. Tokens reused from
    tokens.css (--paper / --dim / --faint / --ink / --hairline-solid).
    ============================================================ */
-
-/* Diagonal-hatch cover/avatar placeholder (no image asset). Matches the
-   reference's repeating-linear-gradient hatch. Reused by post cards, the
-   featured cover, the article cover, and the byline avatar. */
-.hatch {
-  background-color: var(--ink);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(var(--paper-rgb), 0.06) 0 2px,
-    transparent 2px 12px
-  );
-  border: 1px solid var(--hairline-solid);
-}
 
 /* ---------- Page header ---------- */
 .writing-header {
@@ -1120,7 +863,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .writing-header__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(56px, 11vw, 170px);
+  font-size: clamp(44.8px, 8.8vw, 136px);
   line-height: 0.86;
   letter-spacing: -0.02em;
   margin: clamp(20px, 3vh, 32px) 0 0;
@@ -1146,7 +889,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 .filter-chips__item {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   color: var(--dim);
   background: transparent;
@@ -1180,7 +923,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .writing-grid-section { border-top: none; }
 .post-featured {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: clamp(28px, 4vw, 64px);
   align-items: center;
   border-top: 1px solid var(--hairline-solid);
@@ -1188,34 +931,17 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   color: inherit;
   transition: transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-@media (max-width: 760px) {
-  .post-featured { grid-template-columns: 1fr; }
-}
 .post-featured:hover { transform: translateY(-4px); }
 .post-featured:focus-visible {
   outline: 2px solid var(--paper);
   outline-offset: 4px;
 }
-.post-featured__cover {
-  aspect-ratio: 4 / 3;
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
-  transition: border-color 350ms ease;
-}
-.post-featured:hover .post-featured__cover { border-color: var(--dim); }
-.post-featured__cover-label {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--faint);
-}
+
 .post-featured__meta {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: var(--text-caption);
   color: var(--dim);
   margin-bottom: 18px;
 }
@@ -1223,7 +949,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .post-featured__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(36px, 5.5vw, 76px);
+  font-size: clamp(28.8px, 4.4vw, 60.8px);
   line-height: 0.96;
   letter-spacing: -0.01em;
   margin: 0 0 20px;
@@ -1239,7 +965,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .post-featured__cta {
   display: inline-block;
   margin-top: 24px;
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--paper);
 }
 .post-featured__arrow {
@@ -1254,24 +980,22 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   padding-bottom: clamp(60px, 9vh, 110px);
 }
 .writing-grid-section__head {
-  border-top: 1px solid var(--hairline-solid);
-  padding-top: 18px;
-  margin-bottom: clamp(34px, 5vh, 56px);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--dim);
+  font-family: var(--font-disp);
+  font-size: calc(var(--text-heading-sm) * 0.8);
+  font-weight: 400;
+  margin: 0 0 32px;
+  color: var(--paper);
 }
 .posts-grid {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: clamp(28px, 3vw, 48px);
 }
 .posts-empty {
-  font-size: 13px;
+  font-size: var(--text-caption);
   color: var(--dim);
 }
 
@@ -1286,19 +1010,12 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   outline: 2px solid var(--paper);
   outline-offset: 4px;
 }
-.post-card__cover {
-  aspect-ratio: 16 / 10;
-  margin-bottom: 18px;
-  transition: border-color 350ms ease;
-}
-.post-card:hover .post-card__cover { border-color: var(--dim); }
+
 .post-card__meta {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: var(--text-caption);
   color: var(--dim);
   margin-bottom: 12px;
 }
@@ -1306,14 +1023,14 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .post-card__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(26px, 3vw, 36px);
+  font-size: clamp(20.8px, 2.4vw, 28.8px);
   line-height: 1.02;
   letter-spacing: -0.01em;
   margin: 0 0 12px;
   color: var(--paper);
 }
 .post-card__dek {
-  font-size: 13px;
+  font-size: var(--text-body);
   line-height: 1.65;
   color: var(--dim);
   margin: 0;
@@ -1339,14 +1056,14 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .newsletter-stub__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(34px, 5vw, 68px);
+  font-size: clamp(27.2px, 4vw, 54.4px);
   line-height: 0.95;
   letter-spacing: -0.01em;
   margin: 16px 0;
   color: var(--paper);
 }
 .newsletter-stub__lead {
-  font-size: 12px;
+  font-size: var(--text-body);
   line-height: 1.7;
   color: var(--dim);
   max-width: 440px;
@@ -1372,12 +1089,12 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   font-size: 14px;
   padding: 12px 2px;
 }
-.newsletter-stub__input::placeholder { color: var(--faint); }
+.newsletter-stub__input::placeholder { color: var(--dim); opacity: 1; }
 .newsletter-stub__btn {
   background: var(--paper);
   color: var(--ink);
   border: none;
-  font-size: 13px;
+  font-size: var(--text-caption);
   padding: 12px 22px;
   white-space: nowrap;
 }
@@ -1389,40 +1106,30 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   cursor: not-allowed;
 }
 .newsletter-stub__note {
-  font-size: 10px;
-  color: var(--faint);
+  font-size: var(--text-caption);
+  color: var(--dim);
   letter-spacing: 0.04em;
 }
 
 /* ============================================================
    Home Writing teaser (PRO-180) — "Notes from the workshop."
    Spec: Hero - Combined.dc.html (BLOG block) + 01/02-home-blog.png.
-   Reuses the .post-featured* + .hatch vocabulary above; adds the section
-   head (meta row + headline + "All posts →") and the recent-row list.
+   Reuses the featured-post styles above, with a section heading, archive link,
+   and recent-post rows.
    ============================================================ */
-.writing-teaser__meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-top: 1px solid var(--hairline-solid);
-  padding-top: 18px;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--dim);
-}
+
 .writing-teaser__head {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 24px;
-  margin: clamp(36px, 5vh, 64px) 0 clamp(36px, 5vh, 64px);
+  margin: 0 0 clamp(36px, 5vh, 64px);
 }
 .writing-teaser__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(36px, 6vw, 80px);
+  font-size: clamp(28.8px, 4.8vw, 64px);
   line-height: 0.95;
   letter-spacing: -0.01em;
   margin: 0;
@@ -1430,7 +1137,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   color: var(--paper);
 }
 .writing-teaser__all {
-  font-size: 13px;
+  font-size: var(--text-caption);
   color: var(--paper);
   border-bottom: 1px solid var(--hairline-solid);
   padding-bottom: 3px;
@@ -1457,36 +1164,35 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 .teaser-row {
   display: grid;
-  grid-template-columns: 110px 1fr auto;
+  grid-template-columns: minmax(110px, auto) 1fr auto;
   align-items: baseline;
   gap: 20px;
   padding: clamp(20px, 2.6vh, 30px) 0;
   border-bottom: 1px solid var(--hairline-solid);
   color: inherit;
-  transition: padding-left 300ms ease, background-color 300ms ease;
+  transition: background-color 300ms ease;
 }
-.teaser-row:hover { background: rgba(var(--paper-rgb), 0.03); padding-left: 14px; }
+.teaser-row:hover { background: rgba(var(--paper-rgb), 0.03); }
 .teaser-row:focus-visible {
   outline: 2px solid var(--paper);
   outline-offset: 2px;
 }
 .teaser-row__cat {
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: var(--text-caption);
   color: var(--dim);
 }
 .teaser-row__title {
+  text-wrap: balance;
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(20px, 2.4vw, 30px);
+  font-size: clamp(20px, 1.92vw, 24px);
   line-height: 1.05;
   letter-spacing: -0.005em;
   color: var(--paper);
 }
 .teaser-row__date {
-  font-size: 11px;
-  color: var(--faint);
+  font-size: var(--text-caption);
+  color: var(--dim);
   justify-self: end;
   white-space: nowrap;
 }
@@ -1498,12 +1204,10 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   .teaser-row__date { justify-self: start; }
 }
 
-/* Reduced motion: the row hover slide is a padding/background transition only;
-   drop it so no motion plays on hover. The "All posts" arrow slide is a
+/* Reduced motion: the row hover changes only its background. The "All posts" arrow slide is a
    transform — neutralize it too. */
 @media (prefers-reduced-motion: reduce) {
   .teaser-row { transition: background-color 300ms ease; }
-  .teaser-row:hover { padding-left: 0; }
   .writing-teaser__all-arrow { transition: none !important; }
   .writing-teaser__all:hover .writing-teaser__all-arrow { transform: none !important; }
 }
@@ -1523,7 +1227,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 .article__back {
   display: inline-block;
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--dim);
   margin-bottom: clamp(34px, 5vh, 56px);
   transition: color 200ms ease;
@@ -1533,9 +1237,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: var(--text-caption);
   color: var(--dim);
   margin-bottom: 24px;
 }
@@ -1543,7 +1245,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .article__title {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(44px, 7.5vw, 108px);
+  font-size: clamp(35.2px, 6vw, 86.4px);
   line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0;
@@ -1569,17 +1271,12 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
   padding-top: 24px;
   border-top: 1px solid var(--hairline-solid);
 }
-.article__avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  flex: none;
-}
+
 .article__byline-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 12px;
+  font-size: var(--text-caption);
   line-height: 1.5;
 }
 .article__author { color: var(--paper); }
@@ -1587,21 +1284,6 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
    --faint (#6F6A60) on --ink is 3.61:1 (fails); --dim (#A8A39A) is ~7.4:1 and
    keeps the author>role hierarchy. (PRO-181 a11y fix — Lighthouse color-contrast.) */
 .article__role { color: var(--dim); }
-.article__cover-wrap {
-  max-width: 1080px;
-  margin: clamp(44px, 7vh, 80px) auto 0;
-}
-.article__cover {
-  aspect-ratio: 21 / 9;
-  display: flex;
-  align-items: flex-end;
-  padding: 20px;
-}
-.article__cover-label {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--faint);
-}
 
 /* ---------- Prose (ContentRenderer body) ---------- */
 .article__body {
@@ -1624,7 +1306,7 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 .prose h2 {
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: clamp(30px, 4vw, 46px);
+  font-size: clamp(24px, 3.2vw, 36.8px);
   line-height: 1;
   letter-spacing: -0.01em;
   text-transform: none;
@@ -1673,14 +1355,12 @@ a.home-hero__hint:hover { color: rgba(var(--paper-rgb), 0.6); }
 }
 
 /* ---------- Writing reduced-motion neutralization (R14) ----------
-   The card/featured lift + cover border + cta arrow are transform/border
+   The card/featured lift and CTA arrow are transform
    transitions only, so dropping the transition is correct. Color-carrying
    transitions (chip, back link) are left intact (non-motion). */
 @media (prefers-reduced-motion: reduce) {
   .post-card,
   .post-featured,
-  .post-card__cover,
-  .post-featured__cover,
   .post-featured__arrow {
     transition: none !important;
   }

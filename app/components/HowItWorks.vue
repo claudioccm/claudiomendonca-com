@@ -19,7 +19,6 @@ const process = computed(() => site.value?.consulting.process)
   <section id="how" data-screen-label="Consulting — How it works">
     <div class="shell">
       <div class="section-head" data-reveal>
-        <span class="label">{{ process?.label }}</span>
         <h2>{{ process?.heading }}</h2>
       </div>
       <div class="steps">

@@ -38,17 +38,36 @@
     ],
     "trustedBy": {
       "label": "Previous design and engineering work for",
-      "names": [
-        "Harvard",
-        "NYU",
-        "Meta",
-        "Berkeley"
+      "clients": [
+        {
+          "name": "Harvard University",
+          "src": "/clients/harvard.svg",
+          "width": 600,
+          "height": 165
+        },
+        {
+          "name": "New York University",
+          "src": "/clients/nyu.svg",
+          "width": 210,
+          "height": 36
+        },
+        {
+          "name": "Meta",
+          "src": "/clients/meta.svg",
+          "width": 948,
+          "height": 191
+        },
+        {
+          "name": "University of California, Berkeley",
+          "src": "/clients/berkeley.svg",
+          "width": 215.125,
+          "height": 67.592
+        }
       ]
     },
     "copyright": "© 2026 Claudio Mendonça. All rights reserved."
   },
   "intro": {
-    "eyebrow": "AI + custom software for small business",
     "headline": "Still",
     "typewriter": [
       "chasing quotes?",
@@ -68,7 +87,6 @@
     ]
   },
   "about": {
-    "label": "Your local partner",
     "heading": "Hi, I’m Claudio.",
     "intro": "I’m a designer and software engineer based in Squamish. For fifteen years, I’ve helped teams turn complicated work into tools people can actually use. I bring that experience to the everyday problems of running a small business.",
     "practice": {
@@ -130,31 +148,19 @@
     ]
   },
   "consulting": {
-    "eyebrow": "Small business services · Squamish & Sea-to-Sky",
-    "headline": "Start with<br />one thing.",
-    "subhead": "A quote you keep chasing. A spreadsheet you rebuild every week. Paperwork that follows you home. We start with one recurring problem and use the right mix of software, AI, and your existing tools to make it easier.",
+    "headline": "Software, automation, and AI support.",
+    "subhead": "I build custom software, connect your tools and data, and help your team use AI. Practical help for small businesses in Squamish and the Sea-to-Sky, starting with one recurring problem.",
     "ctas": [
       {
         "label": "Start with one thing",
         "target": "#contact"
       },
       {
-        "label": "See how we start",
-        "target": "#how"
+        "label": "Explore the services",
+        "target": "#consulting"
       }
     ],
-    "deliverables": [
-      "Customer follow-ups",
-      "Quotes & paperwork",
-      "Connected tools",
-      "Useful business data",
-      "Custom software",
-      "Practical AI",
-      "Team training",
-      "Local support"
-    ],
     "brief": {
-      "label": "Who I help",
       "heading": "A small team. A lot to keep moving.",
       "paragraphs": [
         "You know your business. But between serving customers, looking after your team, and keeping things moving, the same small jobs can take up more of your week than they should.",
@@ -162,28 +168,24 @@
       ]
     },
     "differentiator": {
-      "label": "Where AI helps",
       "heading": "Software that fits your business.",
       "paragraphs": [
         "AI helps me design and build customised software with less development overhead, making focused tools more practical for a small business. That might be a way to prepare quotes, connect your existing apps, or see the numbers you need in one place.",
         "Inside the tools we build, AI can also organise information, prepare drafts, and help you work with your business data. We decide where it is useful and what needs your approval. Sometimes the best fix is simply setting up the software you already pay for."
       ],
       "startingPoint": {
-        "value": "01",
         "label": "One recurring problem. A useful first fix.",
         "note": "A clear scope, a fixed price, and a way to tell whether the change is helping."
       }
     },
     "offerings": {
-      "label": "Ways to work together",
-      "heading": "Practical help, at the right size.",
-      "outcomesLabel": "What you walk away with",
+      "heading": "What I can help with.",
       "items": [
         {
           "id": "first-fix",
-          "title": "The first<br />useful fix.",
+          "title": "Custom software & automation",
           "tagline": "One recurring problem, with a clear scope and a fixed price.",
-          "blurb": "We look at how the task works today, choose a manageable improvement, and agree on the price before I start. I put the solution in place and walk you through it. This is a small working project, with something useful at the end.",
+          "blurb": "I build focused tools that take repetitive work off your plate: preparing quotes, sending reminders, or turning routine paperwork into a few simple steps. We start with one task, agree on a clear scope and fixed price, then put the solution to work.",
           "outcomes": [
             "One task made easier, in the tools you actually use.",
             "Setup, a walkthrough, and clear instructions.",
@@ -192,7 +194,7 @@
         },
         {
           "id": "connected-business",
-          "title": "Tools that<br />work together.",
+          "title": "Connecting your tools & data",
           "tagline": "When the problem runs across your website, software, and data.",
           "blurb": "I connect the parts of your business that keep handing work back to you. That could mean getting website enquiries into your customer records, preparing routine paperwork, or building a simple view of jobs and sales. Custom software fills the gaps your existing tools leave.",
           "outcomes": [
@@ -203,7 +205,7 @@
         },
         {
           "id": "ongoing-help",
-          "title": "Help as<br />you grow.",
+          "title": "AI training & ongoing support",
           "tagline": "Practical training, upkeep, and the next useful improvement.",
           "blurb": "Once the first fix is working, I can help your team use AI in their daily work, keep your tools running, and tackle the next bottleneck. We agree on what support includes and what it costs. You choose when to take the next step.",
           "outcomes": [
@@ -215,7 +217,6 @@
       ]
     },
     "process": {
-      "label": "How we work",
       "heading": "A simple way to get started.",
       "steps": [
         {
@@ -262,7 +263,6 @@
     }
   ],
   "problems": {
-    "label": "Sound familiar?",
     "heading": "The small things that take up your week.",
     "intro": "Quotes, customer questions, paperwork, and updates. When the same task keeps coming back, there may be a simpler way to handle it.",
     "items": [

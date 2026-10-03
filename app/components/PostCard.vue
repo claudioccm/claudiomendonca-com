@@ -1,16 +1,4 @@
-<!--
-  Leaf card for the Writing grid (PRO-178).
-
-  Mirrors ExperimentCard's conventions: a diagonal-hatch cover placeholder
-  (.hatch, pure CSS — no image asset), a mono meta row
-  (category / date / read-time), a serif title, and a dek. Wraps a NuxtLink to
-  the post route so client-side nav + prerender crawling both work.
-
-  The card carries `data-reveal` so it fades in on scroll via the CSS
-  [data-reveal] utility (base.css) — double-guarded for reduced-motion / no-JS,
-  so the served markup is the complete static card. Styles live in
-  app/assets/css/sections.css under the Writing block.
--->
+<!-- Writing card with publication metadata, title, and summary. -->
 <script setup lang="ts">
 import { computed } from 'vue'
 
@@ -34,7 +22,6 @@ const readLabel = computed(() =>
 
 <template>
   <NuxtLink :to="to" class="post-card" data-reveal>
-    <div class="post-card__cover hatch" aria-hidden="true" />
     <div class="post-card__meta mono">
       <span>{{ category }}</span>
       <span class="post-card__sep" aria-hidden="true">/</span>
