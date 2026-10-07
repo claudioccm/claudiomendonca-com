@@ -52,7 +52,7 @@
   /* Editorial wordmark — Instrument Serif, mixed case (PRO-175). */
   font-family: var(--font-disp);
   font-weight: 400;
-  font-size: 21px;
+  font-size: 28px;
   color: var(--paper);
   letter-spacing: 0;
   /* Already inline-flex; add a 44px min hit height (PRO-79 U6). The footer
@@ -65,7 +65,7 @@
 }
 .wordmark .ast {
   font-family: var(--font-disp);
-  font-size: 22px;
+  font-size: 30px;
   line-height: 1;
   color: var(--accent);
 }
