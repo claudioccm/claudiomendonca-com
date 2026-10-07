@@ -3,7 +3,7 @@
     "siteName": "Claudio Mendonça",
     "title": "Claudio Mendonça — Small Business Software & AI in Squamish",
     "description": "Custom software, practical AI, and clearer data for small businesses in Squamish and the Sea-to-Sky. Start with one recurring problem and a useful first fix.",
-    "url": "https://claudiomendonca.com"
+    "url": "https://ccm-labs.ca"
   },
   "identity": {
     "name": "Claudio Mendonça",
@@ -29,15 +29,11 @@
     "elsewhere": [
       {
         "label": "ccmdesign",
-        "url": "https://ccmdesign.com"
-      },
-      {
-        "label": "Varro",
-        "url": "https://varro.me"
+        "url": "https://ccmdesign.ca"
       }
     ],
     "trustedBy": {
-      "label": "Previous design and engineering work for",
+      "label": "Design and engineering work for",
       "clients": [
         {
           "name": "Harvard University",
@@ -65,7 +61,7 @@
         }
       ]
     },
-    "copyright": "© 2026 Claudio Mendonça. All rights reserved."
+    "copyright": "© 2026 CCM Labs. All rights reserved."
   },
   "intro": {
     "headline": "Still",
@@ -122,7 +118,7 @@
         "title": "Batch Squoosh",
         "tag": "LESS REPETITIVE WORK",
         "description": "Compresses a batch of images in one go, ready for the web.",
-        "url": "https://squoosh.ccmdesign.com",
+        "url": "https://squoosh.ccmdesign.ca",
         "image": "/screenshots/squoosh.jpg",
         "alt": "Batch Squoosh — self-hosted image compression",
         "ariaLabel": "Squoosh"

@@ -21,6 +21,8 @@ interface NavLink {
   /** Path that should paint aria-current="page" on this link; null = never active. */
   routeMatch: string | null
   hideSm?: boolean
+  /** Off-site link: opens in a new tab. */
+  external?: boolean
 }
 
 const route = useRoute()
@@ -42,6 +44,8 @@ const links = computed<NavLink[]>(() => [
   // /writing/[slug] post (startsWith match below).
   { label: 'Writing', href: '/writing', routeMatch: '/writing' },
   { label: 'Services', href: '/consulting', routeMatch: '/consulting' },
+  // Sister company; links straight out to its own site.
+  { label: 'CCMDesign', href: 'https://ccmdesign.ca', routeMatch: null, external: true },
   // About points to an in-page anchor on home, not its own route, so it
   // never carries aria-current — only Work lights up on /.
   { label: 'About', href: isHome.value ? '#about' : '/#about', routeMatch: null, hideSm: true },
@@ -183,9 +187,9 @@ onBeforeUnmount(() => {
 <template>
   <header id="top" class="nav" :class="{ 'is-scrolled': isScrolled }">
     <div class="shell nav-inner">
-      <NuxtLink to="/" class="wordmark" aria-label="Claudio Mendonça — home" aria-current-value="false">
+      <NuxtLink to="/" class="wordmark" aria-label="CCM Labs — home" aria-current-value="false">
         <span class="ast" aria-hidden="true">✱</span>
-        <span>Claudio Mendonça</span>
+        <span>CCM Labs</span>
       </NuxtLink>
 
       <!-- Desktop inline links (hidden below the overlay breakpoint via CSS). -->
@@ -196,6 +200,8 @@ onBeforeUnmount(() => {
               :href="link.href"
               :class="{ 'hide-sm': link.hideSm }"
               :aria-current="isCurrent(link.routeMatch) ? 'page' : undefined"
+              :target="link.external ? '_blank' : undefined"
+              :rel="link.external ? 'noopener' : undefined"
             >{{ link.label }}</a>
           </li>
         </ul>
@@ -234,6 +240,8 @@ onBeforeUnmount(() => {
           <a
             :href="link.href"
             :aria-current="isCurrent(link.routeMatch) ? 'page' : undefined"
+            :target="link.external ? '_blank' : undefined"
+            :rel="link.external ? 'noopener' : undefined"
             @click="closeMenu"
           >{{ link.label }}</a>
         </li>

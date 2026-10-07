@@ -56,8 +56,8 @@ const noPostsVisible = computed(
   () => !showFeatured.value && visibleRest.value.length === 0,
 )
 
-// Canonical / og:url for /writing. Site base = https://claudiomendonca.com.
-const canonical = 'https://claudiomendonca.com/writing'
+// Canonical / og:url for /writing. Site base = https://ccm-labs.ca.
+const canonical = 'https://ccm-labs.ca/writing'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 const writingDescription
   = 'Notes on useful software, practical AI, and making everyday business work easier.'

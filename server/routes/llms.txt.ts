@@ -10,7 +10,7 @@
  */
 import { queryCollection } from '@nuxt/content/server'
 
-const BASE = 'https://claudiomendonca.com'
+const BASE = 'https://ccm-labs.ca'
 
 /** Oxford-comma list join — "a, b, and c" — for the prose intro line. */
 function formatList(items: string[]): string {

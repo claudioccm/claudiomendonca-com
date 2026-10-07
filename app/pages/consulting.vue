@@ -8,8 +8,8 @@ const consultingOfferings = computed(() => consulting.value?.offerings.items ?? 
 // Both heroes share the client logos from the content collection.
 const trustedBy = computed(() => site.value?.identity.trustedBy)
 
-// Canonical / og:url + per-page SEO. Site base = https://claudiomendonca.com.
-const canonical = 'https://claudiomendonca.com/consulting'
+// Canonical / og:url + per-page SEO. Site base = https://ccm-labs.ca.
+const canonical = 'https://ccm-labs.ca/consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({
   title: 'Small Business Services — Claudio Mendonça',
@@ -45,7 +45,7 @@ const serviceJsonld = computed(() => {
     'provider': {
       '@type': 'Person',
       'name': 'Claudio Mendonça',
-      'url': 'https://claudiomendonca.com/#person',
+      'url': 'https://ccm-labs.ca/#person',
     },
     ...(offers.length
       ? { hasOfferCatalog: { '@type': 'OfferCatalog', 'name': 'What I do', 'itemListElement': offers } }

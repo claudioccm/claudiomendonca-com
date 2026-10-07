@@ -1,4 +1,4 @@
-# robots.txt — claudiomendonca.com
+# robots.txt — ccm-labs.ca
 # Open to all crawlers, including AI / answer engines (GEO). The explicit AI
 # user-agent blocks below are an editable allowlist: flip any to "Disallow: /"
 # to opt that crawler out.
@@ -50,5 +50,5 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
-# Curated LLM index: https://claudiomendonca.com/llms.txt
-Sitemap: https://claudiomendonca.com/sitemap.xml
+# Curated LLM index: https://ccm-labs.ca/llms.txt
+Sitemap: https://ccm-labs.ca/sitemap.xml

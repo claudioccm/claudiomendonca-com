@@ -8,7 +8,7 @@ defineProps<{
 <template>
   <div class="client-logos">
     <p class="client-logos__label">{{ label }}</p>
-    <ul class="client-logos__list" aria-label="Previous clients">
+    <ul class="client-logos__list" aria-label="Clients">
       <li v-for="client in clients" :key="client.name">
         <img :src="client.src" :alt="client.name" :width="client.width" :height="client.height">
       </li>
