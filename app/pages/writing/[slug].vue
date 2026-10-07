@@ -33,7 +33,7 @@ const isoDate = computed(() => {
 
 useHead({ link: [{ rel: 'canonical', href: canonical.value }] })
 useSeoMeta({
-  title: () => `${post.value.title} — Claudio Mendonça`,
+  title: () => `${post.value.title} — CCM Labs`,
   description: () => post.value.dek,
   ogTitle: () => post.value.title,
   ogDescription: () => post.value.dek,

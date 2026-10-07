@@ -12,12 +12,12 @@ const trustedBy = computed(() => site.value?.identity.trustedBy)
 const canonical = 'https://ccm-labs.ca/consulting'
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({
-  title: 'Small Business Services — Claudio Mendonça',
+  title: 'Small Business Services — CCM Labs',
   description: () => consulting.value?.subhead,
-  ogTitle: 'Small Business Services — Claudio Mendonça',
+  ogTitle: 'Small Business Services — CCM Labs',
   ogDescription: () => consulting.value?.subhead,
   ogUrl: canonical,
-  twitterTitle: 'Small Business Services — Claudio Mendonça',
+  twitterTitle: 'Small Business Services — CCM Labs',
   twitterDescription: () => consulting.value?.subhead,
 })
 
@@ -37,7 +37,7 @@ const serviceJsonld = computed(() => {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    'name': 'Claudio Mendonça — Small business software and AI',
+    'name': 'CCM Labs — Small business software and AI',
     'url': canonical,
     'description': c?.subhead,
     'serviceType': ['Custom software', 'Business automation', 'Data integration', 'AI training'],

@@ -62,12 +62,12 @@ useHead({ link: [{ rel: 'canonical', href: canonical }] })
 const writingDescription
   = 'Notes on useful software, practical AI, and making everyday business work easier.'
 useSeoMeta({
-  title: 'Writing — Claudio Mendonça',
+  title: 'Writing — CCM Labs',
   description: writingDescription,
-  ogTitle: 'Writing — Claudio Mendonça',
+  ogTitle: 'Writing — CCM Labs',
   ogDescription: writingDescription,
   ogUrl: canonical,
-  twitterTitle: 'Writing — Claudio Mendonça',
+  twitterTitle: 'Writing — CCM Labs',
   twitterDescription: writingDescription,
 })
 </script>

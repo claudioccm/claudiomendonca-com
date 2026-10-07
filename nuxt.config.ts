@@ -97,7 +97,7 @@ export default defineNuxtConfig({
         // in each page via useSeoMeta; these site-wide og defaults reuse the
         // title/description above and supply the shared image + locale.
         { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: 'Claudio Mendonça' },
+        { property: 'og:site_name', content: siteContent.meta.siteName },
         { property: 'og:locale', content: 'en_CA' },
         { property: 'og:title', content: siteContent.meta.title },
         {

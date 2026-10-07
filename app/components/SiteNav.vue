@@ -202,7 +202,7 @@ onBeforeUnmount(() => {
               :aria-current="isCurrent(link.routeMatch) ? 'page' : undefined"
               :target="link.external ? '_blank' : undefined"
               :rel="link.external ? 'noopener' : undefined"
-            >{{ link.label }}</a>
+            >{{ link.label }}<template v-if="link.external"> ↗</template></a>
           </li>
         </ul>
       </nav>
@@ -243,7 +243,7 @@ onBeforeUnmount(() => {
             :target="link.external ? '_blank' : undefined"
             :rel="link.external ? 'noopener' : undefined"
             @click="closeMenu"
-          >{{ link.label }}</a>
+          >{{ link.label }}<template v-if="link.external"> ↗</template></a>
         </li>
       </ul>
     </nav>

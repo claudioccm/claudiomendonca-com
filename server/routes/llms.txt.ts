@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
   const work = site?.work.items ?? []
 
   const lines: string[] = [
-    '# Claudio Mendonça',
+    '# CCM Labs',
     '',
     '> Custom software, practical AI, and clearer data for small businesses in Squamish and the Sea-to-Sky. Start with one recurring problem and a useful first fix.',
     '',
