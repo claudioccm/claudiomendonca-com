@@ -1,13 +1,14 @@
+# claudiomendonca.com now points at this site (domain alias on the ccm-labs
+# Netlify project) and forwards everything to ccm-labs.ca. Forced (!) so the
+# rule wins over the files that exist at the same path. Kept first so the old
+# domain reaches ccm-labs.ca in one hop, before any path rule below.
+https://claudiomendonca.com/*      https://ccm-labs.ca/:splat  301!
+https://www.claudiomendonca.com/*  https://ccm-labs.ca/:splat  301!
+http://claudiomendonca.com/*       https://ccm-labs.ca/:splat  301!
+http://www.claudiomendonca.com/*   https://ccm-labs.ca/:splat  301!
+
 # Netlify redirects for the static deploy (.output/public has no Nitro
 # runtime, so the routeRules redirect in nuxt.config.ts doesn't apply there —
 # this file is the production mirror of that rule).
 # /about is not a page; About is a section on the home page.
 /about  /#about  301
-
-# claudiomendonca.com now points at this site (domain alias on the ccm-labs
-# Netlify project) and forwards everything to ccm-labs.ca. Forced (!) so the
-# rule wins over the files that exist at the same path.
-https://claudiomendonca.com/*      https://ccm-labs.ca/:splat  301!
-https://www.claudiomendonca.com/*  https://ccm-labs.ca/:splat  301!
-http://claudiomendonca.com/*       https://ccm-labs.ca/:splat  301!
-http://www.claudiomendonca.com/*   https://ccm-labs.ca/:splat  301!
