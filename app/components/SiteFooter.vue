@@ -11,7 +11,7 @@
         <div class="footer-brand">
           <NuxtLink to="/" class="wordmark" aria-current-value="false">
             <span class="ast" aria-hidden="true">✱</span>
-            <span>Claudio Mendonça</span>
+            <span>CCM Labs</span>
           </NuxtLink>
           <p class="t-body ash tagline">
             Custom software, practical AI, and clearer data.
@@ -43,14 +43,13 @@
         <div>
           <h2>Elsewhere</h2>
           <ul>
-            <li><a href="https://ccmdesign.com" target="_blank" rel="noopener">ccmdesign ↗</a></li>
-            <li><a href="https://varro.me" target="_blank" rel="noopener">Varro ↗</a></li>
+            <li><a href="https://ccmdesign.ca" target="_blank" rel="noopener">ccmdesign ↗</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-meta">
-        <div>© 2026 Claudio Mendonça. All rights reserved.</div>
+        <div>© 2026 CCM Labs. All rights reserved.</div>
         <div class="glyph" aria-hidden="true">✱</div>
       </div>
     </div>

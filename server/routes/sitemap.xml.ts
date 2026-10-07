@@ -12,7 +12,7 @@
  */
 import { queryCollection } from '@nuxt/content/server'
 
-const BASE = 'https://claudiomendonca.com'
+const BASE = 'https://ccm-labs.ca'
 
 interface SitemapEntry {
   loc: string

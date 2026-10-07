@@ -16,8 +16,8 @@ if (!doc.value || doc.value.draft) {
 
 const post = computed(() => doc.value!)
 
-// Canonical / og:url + per-post SEO. Site base = https://claudiomendonca.com.
-const canonical = computed(() => `https://claudiomendonca.com${post.value.path}`)
+// Canonical / og:url + per-post SEO. Site base = https://ccm-labs.ca.
+const canonical = computed(() => `https://ccm-labs.ca${post.value.path}`)
 
 // The frontmatter authors `date` as Z-suffixed ISO-8601, but @nuxt/content's
 // SQLite layer surfaces it in the rendered payload as a space-separated
@@ -33,7 +33,7 @@ const isoDate = computed(() => {
 
 useHead({ link: [{ rel: 'canonical', href: canonical.value }] })
 useSeoMeta({
-  title: () => `${post.value.title} — Claudio Mendonça`,
+  title: () => `${post.value.title} — CCM Labs`,
   description: () => post.value.dek,
   ogTitle: () => post.value.title,
   ogDescription: () => post.value.dek,
@@ -58,11 +58,11 @@ const articleJsonld = computed(() => {
     'headline': post.value.title,
     'datePublished': isoDate.value,
     'dateModified': isoDate.value,
-    'image': 'https://claudiomendonca.com/og-small-business.png',
+    'image': 'https://ccm-labs.ca/og-small-business.png',
     'author': {
       '@type': 'Person',
       'name': 'Claudio Mendonça',
-      'url': 'https://claudiomendonca.com/#person',
+      'url': 'https://ccm-labs.ca/#person',
     },
     'publisher': {
       '@type': 'Person',

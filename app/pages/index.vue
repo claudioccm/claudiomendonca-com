@@ -5,8 +5,8 @@ import { meta as siteMeta } from '../../content/site.json'
 // (content/site.json) — the single source of truth (PRO-176).
 const { data: site } = await useSiteContent()
 
-// Canonical / og:url + per-page SEO. Site base = https://claudiomendonca.com.
-const SITE_URL = 'https://claudiomendonca.com'
+// Canonical / og:url + per-page SEO. Site base = https://ccm-labs.ca.
+const SITE_URL = 'https://ccm-labs.ca'
 const canonical = `${SITE_URL}/`
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 useSeoMeta({

@@ -18,7 +18,7 @@ A scoring rubric built around three numbers predicts whether an API will survive
 
 A 99.9 percent SLA still permits 43 minutes of downtime per month. One financial advisory platform that called the OpenAI API directly without monitoring paid for that gap when a 30-minute degradation caused its risk model to misread missing sentiment as neutral, producing an estimated $340,000 loss in 18 minutes.
 
-Google Gemini 3.8 Flash lists at $0.75 per million input tokens and $3.75 per million output tokens through the end of 2026. [Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing?hl=id) DeepSeek V4.1 Flash sits at $0.15 per million input tokens. These figures give a concrete baseline once you add the cost of post-processing time that only appears on your own data.
+Google Gemini 3.8 Flash lists at $0.75 per million input tokens and $3.75 per million output tokens through the end of 2026. [Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing) DeepSeek V4.1 Flash sits at $0.15 per million input tokens. These figures give a concrete baseline once you add the cost of post-processing time that only appears on your own data.
 
 I run the same 200-report batch through each candidate API, record median latency, count format deviations that require manual fixes, and note the highest sustained requests per minute before throttling. The rubric is simple: any API that needs more than two minutes of cleanup per report or exceeds its published rate limit during a normal month gets dropped before any production code is written.
 

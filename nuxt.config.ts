@@ -92,19 +92,19 @@ export default defineNuxtConfig({
         { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
         { name: 'author', content: 'Claudio Mendonça' },
 
-        // Canonical / Open Graph base for https://claudiomendonca.com.
+        // Canonical / Open Graph base for https://ccm-labs.ca.
         // Per-route canonical + og:url + per-page og:title/og:description are set
         // in each page via useSeoMeta; these site-wide og defaults reuse the
         // title/description above and supply the shared image + locale.
         { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: 'Claudio Mendonça' },
+        { property: 'og:site_name', content: siteContent.meta.siteName },
         { property: 'og:locale', content: 'en_CA' },
         { property: 'og:title', content: siteContent.meta.title },
         {
           property: 'og:description',
           content: siteContent.meta.description,
         },
-        { property: 'og:image', content: 'https://claudiomendonca.com/og-small-business.png' },
+        { property: 'og:image', content: 'https://ccm-labs.ca/og-small-business.png' },
         { property: 'og:image:width', content: '1731' },
         { property: 'og:image:height', content: '909' },
         { property: 'og:image:alt', content: siteContent.meta.title },
@@ -117,7 +117,7 @@ export default defineNuxtConfig({
           name: 'twitter:description',
           content: siteContent.meta.description,
         },
-        { name: 'twitter:image', content: 'https://claudiomendonca.com/og-small-business.png' },
+        { name: 'twitter:image', content: 'https://ccm-labs.ca/og-small-business.png' },
       ],
 
       // Google Analytics 4 (gtag.js) — property G-N2W2CXJ5JE.
