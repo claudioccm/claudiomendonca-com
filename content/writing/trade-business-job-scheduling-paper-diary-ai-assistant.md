@@ -36,7 +36,7 @@ You do not need to buy software to improve the process this week. Pick one forma
 
 ## What Does Field-Service Software Add to Job Scheduling?
 
-Field-service software brings job scheduling together with records used to manage service work. Instead of treating the calendar as a list of visits, these tools can connect an appointment to a staff member, job information and customer communication. That can reduce the searching and repeated entry involved in workflows like [carrying customer details from an enquiry through to an invoice](/blog/from-enquiry-to-invoice-stop-reentering-customer-details).
+Field-service software brings job scheduling together with records used to manage service work. Instead of treating the calendar as a list of visits, these tools can connect an appointment to a staff member, job information and customer communication. That can reduce the searching and repeated entry involved in workflows like carrying customer details from an enquiry through to an invoice.
 
 ServiceM8 describes a scheduling view where a dispatcher can move a job to a staff member and time slot, with the assigned staff member notified of the change.[ServiceM8’s scheduling information](https://www.servicem8.com/features-scheduling) Housecall Pro’s calendar brings jobs, estimates, events and unscheduled items into one view. Its instructions also let the user choose whether to notify the customer when changing a scheduled item.[^2]
 
@@ -62,7 +62,7 @@ After the next visit, the customer is not home. The electrician says, “The cus
 
 Before heading home, the electrician asks, “What’s still waiting, and what’s first tomorrow?” The assistant finds an overdue follow-up, prepares a message and lays out the next day’s jobs from the calendar. If another team member asks where the inspection stands, the answer is in the shared job record rather than a scrap of paper or someone’s memory.
 
-The electrician glances over the prepared updates and approves them, using a simple [approval checkpoint to keep a person in control of AI-prepared changes](/blog/lightweight-approval-checkpoints-ai-drafts). The day feels less like catching up on admin and more like knowing the work is in order.
+The electrician glances over the prepared updates and approves them, using a simple approval checkpoint to keep a person in control of AI-prepared changes. The day feels less like catching up on admin and more like knowing the work is in order.
 
 ## Conclusion
 
