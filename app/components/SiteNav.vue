@@ -204,6 +204,7 @@ onBeforeUnmount(() => {
               :rel="link.external ? 'noopener' : undefined"
             >{{ link.label }}<template v-if="link.external"> ↗</template></a>
           </li>
+          <li><ThemeToggle /></li>
         </ul>
       </nav>
 
@@ -245,6 +246,7 @@ onBeforeUnmount(() => {
             @click="closeMenu"
           >{{ link.label }}<template v-if="link.external"> ↗</template></a>
         </li>
+        <li class="nav-overlay__item"><ThemeToggle /></li>
       </ul>
     </nav>
   </header>

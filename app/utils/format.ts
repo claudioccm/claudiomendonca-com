@@ -33,3 +33,17 @@ export function formatMonthYear(iso: string, long = false): string {
     timeZone: 'UTC',
   })
 }
+
+/**
+ * Split a "Starting part: rest of the title" title into a brow (kicker) and
+ * the title proper. Only the first ": " splits, and both sides must be
+ * non-empty; anything else comes back whole with no brow. A colon without a
+ * following space ("10:30", "https://…") never splits.
+ */
+export function splitTitle(title: string): { brow: string | null, title: string } {
+  const at = title.indexOf(': ')
+  if (at < 1) return { brow: null, title }
+  const rest = title.slice(at + 2).trim()
+  if (!rest) return { brow: null, title }
+  return { brow: title.slice(0, at).trim(), title: rest }
+}

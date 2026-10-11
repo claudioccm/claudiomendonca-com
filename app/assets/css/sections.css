@@ -5,7 +5,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-body);
   line-height: 1;
@@ -102,9 +103,10 @@
 
 .hero h1 {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: clamp(44.8px, 7.2vw, 104px);
   line-height: 0.92;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   margin: 0;
   overflow-wrap: break-word;
 }
@@ -174,10 +176,11 @@
 
 .home-hero__headline {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(44.8px, 6.88vw, 118.4px);
   line-height: 0.9;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 0;
   display: grid;
 }
@@ -210,6 +213,7 @@
   margin: clamp(22px, 4vh, 40px) 0 0;
   max-width: 650px;
   font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
   font-size: var(--text-body);
   line-height: 1.65;
   color: rgba(var(--paper-rgb), 0.8);
@@ -220,6 +224,7 @@
   gap: 28px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
   font-size: var(--text-body);
 }
 .home-hero__link {
@@ -251,9 +256,10 @@
 
 .section-head h2 {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.94;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   margin: 0;
   color: var(--paper);
 }
@@ -263,10 +269,11 @@
    `.exprow` index list (ExperimentRow.vue): serif title and supporting description. */
 .experiments-title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(28.8px, 4.8vw, 64px);
   line-height: 0.95;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 0 0 clamp(40px, 6vh, 70px);
   max-width: none;
   color: var(--paper);
@@ -311,9 +318,10 @@
 .experiment-row__title {
   text-wrap: balance;
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: clamp(22.4px, 3.52vw, 46.4px);
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
 }
 .experiment-row__desc {
   font-size: var(--text-body);
@@ -354,9 +362,10 @@
 @media (max-width: 800px) { .bio-grid { grid-template-columns: 1fr; } }
 .bio-grid h2 {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.94;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   margin: 0;
   color: var(--paper);
 }
@@ -376,6 +385,7 @@
 .client-logos__label {
   margin: 0 0 24px;
   font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
   font-size: var(--text-caption);
   line-height: 1.5;
   color: var(--dim);
@@ -403,7 +413,7 @@
   max-width: none;
   object-fit: contain;
   object-position: left center;
-  filter: brightness(0) invert(1);
+  filter: var(--logo-filter);
   opacity: 0.4;
 }
 /* Size by visual weight: NYU's torch matches the Harvard shield. */
@@ -416,8 +426,8 @@
 }
 /* Preserve the white details as cutouts when reversing Harvard's colour crest. */
 .client-logos__list img[src="/clients/harvard.svg"] {
-  filter: grayscale(1) contrast(100) invert(1);
-  mix-blend-mode: screen;
+  filter: var(--logo-filter-crest);
+  mix-blend-mode: var(--logo-blend-crest);
 }
 @media (max-width: 900px) {
   .client-logos__list {
@@ -456,9 +466,10 @@
 }
 .entry h3 {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.92;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   margin: 0;
   color: var(--paper);
 }
@@ -546,6 +557,7 @@
 .outcomes li::before {
   content: "→";
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   color: var(--accent);
 }
 
@@ -565,6 +577,7 @@
 }
 .step .num {
   font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
   font-size: var(--text-heading-sm);
   line-height: 1;
   color: var(--accent);
@@ -572,9 +585,10 @@
 .step h3 {
   margin: 0;
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: clamp(27.2px, 3.2vw, 48.8px);
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   color: var(--paper);
 }
 .step p {
@@ -598,9 +612,10 @@
 @media (max-width: 800px) { .cta-banner { grid-template-columns: 1fr; align-items: start; } }
 .cta-banner h2 {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: clamp(44.8px, 7.2vw, 64px);
   line-height: 0.92;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   margin: 0;
   /* Full container width (Claudio feedback 2026-06-26) — no ch cap. */
   max-width: none;
@@ -674,17 +689,19 @@
 .price-row:last-child { border-bottom: 1px solid var(--hairline-solid); }
 .price-row dt {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: var(--font-weight-medium);
   font-size: clamp(28px, 3.2vw, 48px);
   line-height: 1;
-  letter-spacing: -0.015em;
+  letter-spacing: calc(-0.015em + var(--disp-tracking-shift));
   text-transform: uppercase;
   color: var(--paper);
 }
 .price-row .price-tag {
   display: inline-block;
   margin-left: 12px;
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-caption);
   letter-spacing: 0.12em;
@@ -698,10 +715,11 @@
 .price-row .price {
   display: block;
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: var(--font-weight-medium);
   font-size: clamp(22px, 2.2vw, 34px);
   line-height: 1.1;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   color: var(--paper);
 }
 .price-row .price-note {
@@ -772,10 +790,11 @@
 }
 .contact-intro__title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(25.6px, 4vw, 51.2px);
   line-height: 0.95;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 0;
   color: var(--paper);
 }
@@ -820,10 +839,11 @@
 .contact-success__title {
   text-wrap: balance;
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(22.4px, 3.2vw, 38.4px);
   line-height: 0.95;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 0;
   color: var(--paper);
 }
@@ -874,10 +894,11 @@
 }
 .writing-header__title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(44.8px, 8.8vw, 136px);
   line-height: 0.86;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   margin: clamp(20px, 3vh, 32px) 0 0;
   color: var(--paper);
 }
@@ -901,6 +922,7 @@
 }
 .filter-chips__item {
   font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
   font-size: var(--text-caption);
   letter-spacing: 0.06em;
   color: var(--dim);
@@ -960,10 +982,11 @@
 .post-featured__sep { color: var(--hairline-solid); }
 .post-featured__title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(28.8px, 4.4vw, 60.8px);
   line-height: 0.96;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 0 0 20px;
   color: var(--paper);
 }
@@ -993,6 +1016,7 @@
 }
 .writing-grid-section__head {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-size: calc(var(--text-heading-sm) * 0.8);
   font-weight: 400;
   margin: 0 0 32px;
@@ -1034,10 +1058,11 @@
 .post-card__sep { color: var(--hairline-solid); }
 .post-card__title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(20.8px, 2.4vw, 28.8px);
   line-height: 1.02;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 0 0 12px;
   color: var(--paper);
 }
@@ -1067,10 +1092,11 @@
 }
 .newsletter-stub__title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(27.2px, 4vw, 54.4px);
   line-height: 0.95;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 16px 0;
   color: var(--paper);
 }
@@ -1140,10 +1166,11 @@
 }
 .writing-teaser__title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(28.8px, 4.8vw, 64px);
   line-height: 0.95;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   margin: 0;
   max-width: 16ch;
   color: var(--paper);
@@ -1196,10 +1223,11 @@
 .teaser-row__title {
   text-wrap: balance;
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(20px, 1.92vw, 24px);
   line-height: 1.05;
-  letter-spacing: -0.005em;
+  letter-spacing: calc(-0.005em + var(--disp-tracking-shift));
   color: var(--paper);
 }
 .teaser-row__date {
@@ -1256,20 +1284,22 @@
 .article__sep { color: var(--hairline-solid); }
 .article__title {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(35.2px, 6vw, 86.4px);
   line-height: 0.92;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   margin: 0;
   color: var(--paper);
 }
 .article__dek {
-  font-family: var(--font-disp);
+  font-family: var(--font-serif);
+  font-size-adjust: var(--adjust-sub);
   font-style: italic;
   font-weight: 400;
   font-size: clamp(19px, 2.6vw, 26px);
   line-height: 1.3;
-  letter-spacing: 0;
+  letter-spacing: 0em;
   text-transform: none;
   margin-top: clamp(24px, 4vh, 38px);
   color: var(--paper);
@@ -1299,7 +1329,7 @@
 
 /* ---------- Prose (ContentRenderer body) ---------- */
 .article__body {
-  max-width: 680px;
+  max-width: 760px;
   margin: clamp(48px, 8vh, 90px) auto 0;
 }
 .prose p {
@@ -1317,10 +1347,11 @@
 }
 .prose h2 {
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   font-size: clamp(24px, 3.2vw, 36.8px);
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
   text-transform: none;
   margin: clamp(40px, 6vh, 68px) 0 22px;
   color: var(--paper);
@@ -1357,7 +1388,8 @@
   border-left: 2px solid var(--hairline-solid);
 }
 .prose blockquote p {
-  font-family: var(--font-disp);
+  font-family: var(--font-serif);
+  font-size-adjust: var(--adjust-sub);
   font-style: italic;
   font-size: clamp(26px, 3.6vw, 40px);
   line-height: 1.2;
@@ -1379,4 +1411,35 @@
   .post-card:hover,
   .post-featured:hover { transform: none !important; }
   .post-featured:hover .post-featured__arrow { transform: none !important; }
+}
+
+/* ---------- Supporting type roles (theme-dependent) ----------
+   Subheads/deks and meta lines take their family from tokens so the light
+   theme can hand them to Instrument Serif (see tokens.css). Declared last so
+   they win over the .mono utility and each block's own family. */
+.hero-sub,
+.home-hero__sub,
+.writing-header__dek,
+.post-featured__dek,
+.post-card__dek,
+.entry .tagline {
+  font-family: var(--font-sub);
+  font-size-adjust: var(--adjust-sub);
+  font-style: var(--sub-style);
+}
+.article__meta,
+.article__byline-text,
+.post-featured__meta,
+.post-card__meta,
+.teaser-row__cat,
+.teaser-row__date,
+.client-logos__label {
+  font-family: var(--font-meta);
+  font-size-adjust: var(--adjust-meta);
+}
+/* The author name is always JetBrains Mono bold, in both themes. */
+.article__author {
+  font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
+  font-weight: 700;
 }

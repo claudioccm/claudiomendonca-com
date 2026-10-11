@@ -46,9 +46,6 @@ function startWave() {
   const field = fieldEl.value
   if (!field || !dots.length) return
 
-  // Dot colour follows the --paper token (read once) so a theme recolor applies.
-  const paperRgb = getComputedStyle(document.documentElement)
-    .getPropertyValue('--paper-rgb').trim() || '230, 246, 244'
 
   let local: Array<{ el: HTMLElement, x: number, y: number }> = []
   const recompute = () => {
@@ -113,7 +110,7 @@ function startWave() {
       if (amp > 1) amp = 1
       else if (amp < 0) amp = 0
       o.el.style.transform = `scale(${1 + amp * 1.5})`
-      o.el.style.background = `rgba(${paperRgb},${0.10 + amp * 0.34})`
+      o.el.style.background = `rgba(var(--paper-rgb),${0.10 + amp * 0.34})`
     }
     waveRAF = requestAnimationFrame(loop)
   }

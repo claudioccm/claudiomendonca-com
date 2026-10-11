@@ -114,7 +114,7 @@ useSeoMeta({
                 <span>{{ featured.readingTime }} min</span>
               </template>
             </div>
-            <h2 class="post-featured__title">{{ featured.title }}</h2>
+            <h2 class="post-featured__title"><BrowTitle :title="featured.title" /></h2>
             <p v-if="featured.dek" class="post-featured__dek">{{ featured.dek }}</p>
             <span class="post-featured__cta mono">
               Read the essay

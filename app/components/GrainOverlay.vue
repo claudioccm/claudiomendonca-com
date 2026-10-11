@@ -36,8 +36,8 @@
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  opacity: 0.045;
-  mix-blend-mode: screen;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
 }
 
 .grain-overlay__svg {

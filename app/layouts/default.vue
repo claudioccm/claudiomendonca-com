@@ -1,3 +1,10 @@
+<script setup lang="ts">
+const { init } = useTheme()
+let stopTheme: (() => void) | null = null
+onMounted(() => { stopTheme = init() })
+onBeforeUnmount(() => { stopTheme?.() })
+</script>
+
 <template>
   <div class="layout-root">
     <!-- Skip link: first focusable element, visually hidden until keyboard

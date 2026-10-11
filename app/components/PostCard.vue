@@ -31,7 +31,7 @@ const readLabel = computed(() =>
         <span>{{ readLabel }}</span>
       </template>
     </div>
-    <h3 class="post-card__title">{{ title }}</h3>
+    <h3 class="post-card__title"><BrowTitle :title="title" /></h3>
     <p v-if="dek" class="post-card__dek">{{ dek }}</p>
   </NuxtLink>
 </template>

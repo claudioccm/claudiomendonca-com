@@ -17,7 +17,7 @@ html, body {
   margin: 0; padding: 0;
   background: var(--ink);
   color: var(--paper);
-  font-family: var(--font-sans);          /* JetBrains Mono (editorial body) */
+  font-family: var(--font-sans); font-size-adjust: var(--adjust-sans);          /* JetBrains Mono (editorial body) */
   font-weight: 400;                        /* mono body reads at 400, per reference */
   font-size: var(--text-body);
   line-height: var(--leading-body);
@@ -35,8 +35,8 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 90% 70% at 50% 38%, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0) 60%),
-    radial-gradient(ellipse 120% 120% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+    radial-gradient(ellipse 90% 70% at 50% 38%, var(--vignette-glow), transparent 60%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 55%, var(--vignette-edge) 100%);
 }
 
 /* Content sits above the texture/overlay layers.
@@ -145,16 +145,17 @@ a.link-underline {
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
   font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
   font-weight: 400;
   line-height: 0.9;
-  letter-spacing: -0.02em;
+  letter-spacing: calc(-0.02em + var(--disp-tracking-shift));
   text-transform: none;
 }
 
 /* ---------- Type utilities ---------- */
-.disp { font-family: var(--font-disp); font-weight: 400; line-height: 0.9; letter-spacing: -0.02em; }
-.sans { font-family: var(--font-sans); font-weight: 400; }
-.mono { font-family: var(--font-mono); font-weight: 400; }
+.disp { font-family: var(--font-disp); font-size-adjust: var(--adjust-disp); font-weight: 400; line-height: 0.9; letter-spacing: calc(-0.02em + var(--disp-tracking-shift)); }
+.sans { font-family: var(--font-sans); font-size-adjust: var(--adjust-sans); font-weight: 400; }
+.mono { font-family: var(--font-mono); font-size-adjust: var(--adjust-mono); font-weight: 400; }
 
 .t-caption   { font-size: var(--text-caption);    line-height: var(--leading-caption); }
 .t-body      { font-size: var(--text-body);       line-height: var(--leading-body); }
@@ -200,3 +201,21 @@ section {
 }
 
 section + section { border-top: 1px solid var(--color-stone-accent); }
+
+/* ---------- Brow (kicker) ----------
+   The "Starting part" of a "Starting part: rest" title, lifted above the
+   heading by <BrowTitle>. Body face, bold caps, at the body step of the type
+   scale whatever the heading's own size. */
+.brow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size-adjust: var(--adjust-sans);
+  font-size: var(--text-body);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  margin-bottom: 0.9em;
+}
