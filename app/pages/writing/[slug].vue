@@ -100,7 +100,7 @@ useHead({
           </template>
         </div>
 
-        <h1 class="article__title">{{ post.title }}</h1>
+        <h1 class="article__title"><BrowTitle :title="post.title" /></h1>
 
         <p v-if="post.dek" class="article__dek">{{ post.dek }}</p>
 

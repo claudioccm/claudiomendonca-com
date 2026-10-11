@@ -54,7 +54,7 @@ const hasPosts = computed(() => (posts.value?.length ?? 0) > 0)
               <span>{{ featured.readingTime }} min</span>
             </template>
           </div>
-          <h3 class="post-featured__title">{{ featured.title }}</h3>
+          <h3 class="post-featured__title"><BrowTitle :title="featured.title" /></h3>
           <p v-if="featured.dek" class="post-featured__dek">{{ featured.dek }}</p>
           <span class="post-featured__cta mono">
             Read
@@ -68,7 +68,7 @@ const hasPosts = computed(() => (posts.value?.length ?? 0) > 0)
         <li v-for="post in recent" :key="post.path" data-reveal>
           <NuxtLink :to="post.path" class="teaser-row">
             <span class="teaser-row__cat mono">{{ post.category }}</span>
-            <span class="teaser-row__title">{{ post.title }}</span>
+            <span class="teaser-row__title"><BrowTitle :title="post.title" /></span>
             <span class="teaser-row__date mono">
               {{ formatMonthYear(post.date) }}<template v-if="post.readingTime"> · {{ post.readingTime }} min</template>
             </span>

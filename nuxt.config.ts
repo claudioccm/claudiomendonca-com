@@ -68,7 +68,9 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: 'Instrument Serif', weights: [400], styles: ['normal', 'italic'] },
-      { name: 'JetBrains Mono', weights: [400, 500], styles: ['normal'] },
+      { name: 'JetBrains Mono', weights: [400, 500, 700], styles: ['normal', 'italic'] },
+      // Light theme body face (see tokens.css).
+      { name: 'IBM Plex Serif', weights: [400, 500, 700], styles: ['normal', 'italic'] },
     ],
   },
 
@@ -123,6 +125,20 @@ export default defineNuxtConfig({
       // Google Analytics 4 (gtag.js) — property G-N2W2CXJ5JE.
       // Site-wide; rendered into every prerendered page's <head> by `nuxt generate`.
       script: [
+        // Theme: set data-theme on <html> before first paint so a light-theme
+        // visitor never sees a dark flash. Stored choice wins (key matches
+        // THEME_STORAGE_KEY in app/composables/useTheme.ts), else the system
+        // preference. Without JS the site stays on the dark default.
+        {
+          key: 'ccm-theme',
+          tagPosition: 'head',
+          innerHTML: [
+            '(function(){var t;',
+            "try{t=localStorage.getItem('ccm-theme')}catch(e){}",
+            "if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}",
+            'document.documentElement.dataset.theme=t})()',
+          ].join(''),
+        },
         {
           src: 'https://www.googletagmanager.com/gtag/js?id=G-N2W2CXJ5JE',
           async: true,
