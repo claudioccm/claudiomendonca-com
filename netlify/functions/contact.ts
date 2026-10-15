@@ -10,7 +10,7 @@ import { Resend } from 'resend'
 //   RESEND_API_KEY    — Resend API key.
 //   CONTACT_TO_EMAIL  — where submissions are delivered (default below).
 //   CONTACT_FROM_EMAIL— a verified Resend sending identity, e.g.
-//                       "Claudio Mendonça <contact@claudiomendonca.com>". The
+//                       "Claudio Mendonça <contact@ccm-labs.ca>". The
 //                       domain MUST be verified in Resend or the send fails.
 
 // Keep validation in sync with app/components/ContactForm.vue.
@@ -26,7 +26,7 @@ const MAX_BODY_BYTES = 16 * 1024
 const HONEYPOT_FIELD = 'website'
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'claudio@ccmdesign.ca'
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'Claudio Mendonça <contact@claudiomendonca.com>'
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'Claudio Mendonça <contact@ccm-labs.ca>'
 
 type SuccessBody = { ok: true }
 type ErrorCode =
