@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
     '',
     '## Contact',
     '',
-    `- Email: ${identity?.email ?? 'claudioccm@gmail.com'}`,
+    `- Email: ${identity?.email ?? 'claudio@ccmdesign.ca'}`,
     `- Location: ${identity?.location ?? 'British Columbia, Canada'}`,
     `- Web: ${BASE}/`,
     '',
