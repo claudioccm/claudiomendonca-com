@@ -1,4 +1,4 @@
-<!-- Writing archive with category filtering, featured article, and newsletter signup. -->
+<!-- Writing archive with category filtering and a featured article. -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
@@ -145,8 +145,5 @@ useSeoMeta({
         <p v-if="noPostsVisible" class="posts-empty mono">No posts in this category yet.</p>
       </div>
     </section>
-
-    <!-- NEWSLETTER (functional Resend-backed signup — PRO-179) -->
-    <NewsletterBand />
   </div>
 </template>

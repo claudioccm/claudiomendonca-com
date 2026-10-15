@@ -140,9 +140,5 @@ useHead({
 
     <!-- Latest published writing. -->
     <WritingTeaser />
-
-    <!-- Newsletter band — functional Resend-backed signup (PRO-179). Adds
-         #newsletter; same band rendered on /writing. -->
-    <NewsletterBand />
   </div>
 </template>
