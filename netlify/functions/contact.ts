@@ -25,7 +25,7 @@ const MAX_BODY_BYTES = 16 * 1024
 // populate it and are rejected silently.
 const HONEYPOT_FIELD = 'website'
 
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'claudioccm@gmail.com'
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'claudio@ccmdesign.ca'
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'Claudio Mendonça <contact@claudiomendonca.com>'
 
 type SuccessBody = { ok: true }

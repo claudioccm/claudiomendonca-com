@@ -35,7 +35,7 @@
           <h2>Contact</h2>
           <ul>
             <li><a href="/consulting#contact">Start with one thing</a></li>
-            <li><a href="mailto:claudioccm@gmail.com">Email Claudio</a></li>
+            <li><a href="mailto:claudio@ccmdesign.ca">Email Claudio</a></li>
           </ul>
         </div>
 
