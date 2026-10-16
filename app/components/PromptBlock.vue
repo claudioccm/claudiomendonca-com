@@ -40,7 +40,7 @@ onBeforeUnmount(() => {
   <div class="prompt-copy">
     <div class="prompt-copy__text">
       <p class="prompt-copy__label">{{ label || 'The prompt' }}</p>
-      <p v-if="hasPlaceholders" class="prompt-copy__note mono">
+      <p v-if="hasPlaceholders" class="prompt-copy__note">
         After you paste it, swap the parts in [brackets] for your own details.
       </p>
     </div>

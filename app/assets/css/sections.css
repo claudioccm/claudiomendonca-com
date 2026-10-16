@@ -1486,7 +1486,10 @@
   margin: -1px 0 0 -1px;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  /* At most 3 columns (Claudio, 2026-10-16): a column is never narrower than
+     a third of the row, nor than 280px, so it drops to 2 and 1 on smaller
+     screens. */
+  grid-template-columns: repeat(auto-fill, minmax(max(min(100%, 280px), calc(100% / 3 - 1px)), 1fr));
 }
 .prompt-grid > li {
   border-left: 1px solid var(--hairline-solid);

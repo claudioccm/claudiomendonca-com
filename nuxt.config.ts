@@ -81,8 +81,8 @@ export default defineNuxtConfig({
     families: [
       { name: 'Instrument Serif', weights: [400], styles: ['normal', 'italic'] },
       { name: 'JetBrains Mono', weights: [400, 500, 700], styles: ['normal', 'italic'] },
-      // Light theme body face (see tokens.css).
-      { name: 'IBM Plex Serif', weights: [400, 500, 700], styles: ['normal', 'italic'] },
+      // Body face in both themes (2026-10-16).
+      { name: 'Schibsted Grotesk', weights: [400, 500, 700], styles: ['normal', 'italic'] },
     ],
   },
 

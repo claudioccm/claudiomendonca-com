@@ -84,7 +84,7 @@ async function submit() {
           <h2 id="newsletter-heading" class="newsletter-stub__title">
             The newsletter.
           </h2>
-          <p class="newsletter-stub__lead mono">
+          <p class="newsletter-stub__lead">
             Practical notes on making everyday work easier: useful software, clearer
             data, and where AI can help a small business. Sent when there’s
             something worth sharing.
@@ -147,7 +147,7 @@ async function submit() {
           <span
             v-else
             id="newsletter-note"
-            class="newsletter-stub__note mono"
+            class="newsletter-stub__note"
           >
             No spam. Unsubscribe anytime.
           </span>
@@ -160,7 +160,7 @@ async function submit() {
         >
           <span class="newsletter-success__mark" aria-hidden="true" />
           <p class="newsletter-success__title">You're on the list.</p>
-          <p class="newsletter-success__sub mono">
+          <p class="newsletter-success__sub">
             The next one will land in your inbox.
           </p>
         </div>

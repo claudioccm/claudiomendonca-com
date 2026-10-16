@@ -49,10 +49,10 @@
   --color-electric-violet: var(--accent);    /* decorative accent */
   --color-grass-green: var(--accent-rare);   /* decorative accent */
 
-  /* Fonts — editorial: Instrument Serif display, JetBrains Mono body + mono.
-     --font-sans is the body base (now monospace); --font-disp is the serif
-     display face; --font-mono is unchanged (still JetBrains Mono). */
-  --font-sans: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Fonts — editorial: Instrument Serif display, Schibsted Grotesk body,
+     JetBrains Mono for small UI labels (nav, buttons, chips, meta lines).
+     Same families in both themes (Claudio, 2026-10-16). */
+  --font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-disp: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-weight-medium: 500;
@@ -63,8 +63,8 @@
   --adjust-disp: none;
   --adjust-mono: none;
   /* Supporting roles. --font-serif is always Instrument Serif (article dek,
-     pull quotes). Subheads/deks and meta lines (bylines, post meta) follow the
-     body mono here and turn serif in the light theme. */
+     pull quotes). Subheads/deks follow the body face; meta lines (bylines,
+     post meta) use the mono label face. */
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-sub: var(--font-sans);    --adjust-sub: none;   --sub-style: normal;
   --font-meta: var(--font-mono);   --adjust-meta: none;
@@ -112,8 +112,8 @@
 
 /* ---------- Light theme ----------
    Set by the inline head script in nuxt.config.ts (stored choice, else the
-   system preference) and by ThemeToggle. Only the base semantic set and the
-   effect tokens change; the legacy --color-* names follow through var().
+   system preference) and by ThemeToggle. Only the colour set and the effect
+   tokens change; the legacy --color-* names follow through var().
    Note the names keep their dark-theme meaning: --ink is the page background
    and --paper the text, so here --ink is light and --paper is dark. */
 :root[data-theme="light"] {
@@ -126,17 +126,8 @@
   --faint: #6f6a60;                      /* tertiary text — 4.9:1 on --ink */
   --hairline-solid: #d3d7d4;
 
-  /* Typography flips with the theme: JetBrains Mono takes over the display
-     role, IBM Plex Serif sets the body, and Instrument Serif moves to the
-     supporting lines — italic subheads/deks, bylines and meta. JetBrains Mono sets wide,
-     so display is scaled down by x-height (font-size-adjust) and tightened;
-     the serif's small x-height is scaled up to match the mono body. */
-  --font-disp: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --adjust-disp: 0.43;
-  --disp-tracking-shift: -0.05em;
-  --font-sans: 'IBM Plex Serif', Georgia, serif;
-  --font-sub: var(--font-serif);   --adjust-sub: 0.55;   --sub-style: italic;
-  --font-meta: var(--font-serif);  --adjust-meta: 0.62;
+  /* Typography is the same in both themes (Claudio, 2026-10-16): Instrument
+     Serif headings, Schibsted Grotesk body, JetBrains Mono labels. */
 
   --vignette-glow: rgba(255, 255, 255, 0.5);
   --vignette-edge: rgba(14, 14, 22, 0.06);
