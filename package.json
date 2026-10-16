@@ -28,6 +28,7 @@
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/test-utils": "^2.4.11",
     "better-sqlite3": "^12.11.1",
+    "dialkit": "2.0.2",
     "eslint": "^10.4.0",
     "happy-dom": "^20.10.2",
     "typescript": "^6.0.3",

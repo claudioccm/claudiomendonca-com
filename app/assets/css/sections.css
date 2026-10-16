@@ -131,7 +131,7 @@
 /* ============================================================
    Home hero (editorial redesign) — full-viewport signature section.
    Spec: _process/design-exploration-unzipped/Hero - Combined.dc.html (HERO).
-   The interactive dot-field + cycling typewriter are wired in HomeHero.vue;
+   The ASCII water (HeroAsciiWater.vue) + cycling typewriter (HomeHero.vue);
    this is the static layout + the caret blink (reduced-motion-guarded). DEDICATED
    to the home page — the shared .hero* rules above still serve /consulting.
    Sized calc(100svh - 72px) to fill the viewport beneath the 72px sticky nav.
@@ -145,27 +145,20 @@
   padding: clamp(28px, 5vw, 72px) clamp(28px, 5vw, 72px) 100px;
   overflow: hidden;
 }
-/* Decorative dot-field: an absolute grid filling the hero. Dots are built
-   client-side (HomeHero.vue); empty + harmless in SSR / no-JS / reduced-motion. */
-.home-hero__dotfield {
+/* Decorative ASCII water (HeroAsciiWater.vue): a canvas filling the hero.
+   Drawn client-side; empty in SSR / no-JS, one static frame under reduced
+   motion. Clicks pass through to the section, which owns the listeners. */
+.home-hero__water {
   position: absolute;
   inset: 0;
-  display: grid;
-  padding: clamp(40px, 6vw, 90px);
+  width: 100%;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
-}
-.home-hero__dot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(var(--paper-rgb), 0.1);
-  justify-self: center;
-  align-self: center;
-  will-change: transform;
+  font-family: var(--font-mono);
 }
 
-/* Headline block — kept above the dot-field. Fills the hero's full content
+/* Headline block — kept above the water. Fills the hero's full content
    width (inside the section padding); the sub paragraph + links keep their own
    max-widths for readability. */
 .home-hero__inner {
