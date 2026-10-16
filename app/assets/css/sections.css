@@ -1338,9 +1338,8 @@
   line-height: 1.5;
 }
 .article__author { color: var(--paper); }
-/* --dim (not --faint): at 12px the byline role must clear WCAG AA 4.5:1.
-   --faint (#6F6A60) on --ink is 3.61:1 (fails); --dim (#A8A39A) is ~7.4:1 and
-   keeps the author>role hierarchy. (PRO-181 a11y fix — Lighthouse color-contrast.) */
+/* --dim (not --faint) keeps the author>role hierarchy and a comfortable margin
+   over WCAG AA at 12px (~7.4:1). (PRO-181 a11y fix — Lighthouse color-contrast.) */
 .article__role { color: var(--dim); }
 
 /* ---------- Prose (ContentRenderer body) ---------- */

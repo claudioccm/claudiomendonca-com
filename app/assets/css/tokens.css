@@ -17,23 +17,31 @@
       stays correct and every decorative accent now resolves monochrome. */
 :root {
   /* ---------- NEW semantic editorial palette (warm-black / cream) ---------- */
+  /* Two base colours; every grey below is mixed from them (Claudio,
+     2026-10-16), so all shades share the page's hue. The light theme only
+     swaps --ink and --paper and the greys follow, because these color-mix()
+     declarations re-resolve on :root with the overridden values. One ratio
+     works in both themes:
+       --raised 4% · --hairline-solid 13% · --faint 55% · --dim 68%
+     Contrast of the text greys on --ink (dark / light): --dim 7.4 / 7.6,
+     --faint 5.0 / 4.9 (both clear WCAG AA 4.5:1). */
   --ink: #0e0e16;                       /* page background — cool near-black */
-  --raised: #17150F;                    /* raised surfaces / cards — warm */
-  --hairline: rgba(var(--paper-rgb), .08); /* low-alpha paper separators */
   --paper: #e6f6f4;                     /* primary text — cool near-white */
   --paper-rgb: 230, 246, 244;           /* RGB channels of --paper, for rgba() alpha compositing (hero/teaser accents) */
-  --dim: #A8A39A;                        /* secondary text — warm grey */
-  --faint: #6F6A60;                      /* tertiary / de-emphasized text — warm grey */
+  --raised: color-mix(in oklab, var(--paper) 4%, var(--ink));   /* raised surfaces / cards */
+  --dim: color-mix(in oklab, var(--paper) 68%, var(--ink));     /* secondary text */
+  --faint: color-mix(in oklab, var(--paper) 55%, var(--ink));   /* tertiary / de-emphasized text */
+  --hairline: color-mix(in srgb, var(--paper) 8%, transparent); /* low-alpha paper separators */
   --accent: var(--paper);                /* neutralized — paper (no chroma) */
   --accent-alt: var(--dim);              /* neutralized — dim (no chroma) */
   --accent-rare: var(--dim);             /* neutralized — dim (no chroma) */
 
-  /* Neutral tint for boxed surfaces: 4% white over the page, so the box keeps
-     the page's hue instead of shifting warm like --raised. Light theme: 4% black. */
-  --surface-tint: rgba(255, 255, 255, 0.04);
+  /* Translucent tint for boxed surfaces: 4% of --paper over whatever is
+     behind (≈4% white in dark, 4% black in light). */
+  --surface-tint: color-mix(in srgb, var(--paper) 4%, transparent);
 
-  /* Solid equivalent of --hairline for borders that can't take rgba layering. */
-  --hairline-solid: #2A2823;
+  /* Solid equivalent of --hairline for borders that can't take alpha layering. */
+  --hairline-solid: color-mix(in oklab, var(--paper) 13%, var(--ink));
 
   /* ---------- LEGACY --color-* (remapped to dark) ----------
      Text/border tokens map to light values; surface/background tokens map to
@@ -123,13 +131,10 @@
 :root[data-theme="light"] {
   color-scheme: light;
   --ink: #f3f5f4;                        /* page background — cool off-white */
-  --raised: #e8ebe9;                     /* raised surfaces / cards */
   --paper: #0e0e16;                      /* primary text — the dark theme's ink */
   --paper-rgb: 14, 14, 22;
-  --dim: #55524c;                        /* secondary text — 7.2:1 on --ink */
-  --faint: #6f6a60;                      /* tertiary text — 4.9:1 on --ink */
-  --hairline-solid: #d3d7d4;
-  --surface-tint: rgba(0, 0, 0, 0.04);
+  /* --raised, --dim, --faint, --hairline(-solid) and --surface-tint are mixed
+     from --ink/--paper in :root above and follow this swap automatically. */
 
   /* Typography is the same in both themes (Claudio, 2026-10-16): Instrument
      Serif headings, Schibsted Grotesk body, JetBrains Mono labels. */
