@@ -1467,13 +1467,15 @@
    square corners, hairline borders.
    ============================================================ */
 /* Card grid with internal hairlines only (Claudio, 2026-10-16). Each cell
-   draws its own left and top border; the list is pulled 1px up and left
-   inside a clipping wrapper, so the first column's left border and the first
-   row's top border fall outside it. What's left are the lines between cells,
-   correct at any column count and on a short last row. Cells carry the
-   spacing (no grid gap); the wrapper's negative margins keep card text
-   aligned with the page shell. --cell-pad-x stays below --page-pad-x so
-   the wrapper never overflows the viewport. */
+   draws its own right and bottom border, and the list overhangs its clipping
+   wrapper by 1px on the right and bottom, so the last column's right border
+   and the last row's bottom border fall outside it. Everything else stays:
+   the lines between cells, plus the edges a cell shares with an empty slot on
+   a short last row (e.g. 10 cards in 3 columns: cards 8 and 9 keep a bottom
+   line, card 10 keeps a right line). Correct at any column count. Cells
+   carry the spacing (no grid gap); the wrapper's negative margins keep card
+   text aligned with the page shell. --cell-pad-x stays below --page-pad-x
+   so the wrapper never overflows the viewport. */
 .prompt-grid-wrap {
   --cell-pad-x: clamp(16px, 2.5vw, 36px);
   --cell-pad-y: clamp(24px, 3vw, 40px);
@@ -1482,7 +1484,7 @@
 }
 .prompt-grid {
   list-style: none;
-  margin: -1px 0 0 -1px;
+  margin: 0 -1px -1px 0;
   padding: 0;
   display: grid;
   /* At most 3 columns (Claudio, 2026-10-16): a column is never narrower than
@@ -1491,12 +1493,25 @@
   grid-template-columns: repeat(auto-fill, minmax(max(min(100%, 280px), calc(100% / 3 - 1px)), 1fr));
 }
 .prompt-grid > li {
-  border-left: 1px solid var(--hairline-solid);
-  border-top: 1px solid var(--hairline-solid);
+  border-right: 1px solid var(--hairline-solid);
+  border-bottom: 1px solid var(--hairline-solid);
+}
+/* The card fills its cell, so the whole cell is the link and hover target. */
+.prompt-grid .prompt-card {
+  height: 100%;
   padding: var(--cell-pad-y) var(--cell-pad-x);
 }
-.prompt-grid .prompt-card { height: 100%; }
-
+.prompt-grid .prompt-card:focus-visible { outline-offset: -6px; }
+/* Hover/focus one card and the others drop to 60% (Claudio, 2026-10-16).
+   The opacity goes on the card's contents: the card itself runs the
+   [data-reveal] scroll animation, which owns its opacity. Mouse/trackpad only
+   for hover, so a tap on a phone doesn't leave the grid dimmed; keyboard
+   focus does the same everywhere. */
+.prompt-grid .prompt-card > * { transition: opacity 200ms ease; }
+@media (hover: hover) {
+  .prompt-grid:has(.prompt-card:hover) .prompt-card:not(:hover) > * { opacity: 0.6; }
+}
+.prompt-grid:has(.prompt-card:focus-visible) .prompt-card:not(:focus-visible) > * { opacity: 0.6; }
 .prompt-card__for {
   margin: 14px 0 0;
   font-size: var(--text-caption);
