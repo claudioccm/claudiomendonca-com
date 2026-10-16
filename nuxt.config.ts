@@ -1,9 +1,18 @@
 import siteContent from './content/site.json'
+import { includePromptDrafts } from './app/utils/promptDrafts'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2026-05-21',
   devtools: { enabled: true },
+
+  // Draft prompts render (badged, noindex) in dev and on Netlify deploy
+  // previews / branch deploys only; see app/utils/promptDrafts.ts.
+  runtimeConfig: {
+    public: {
+      showPromptDrafts: includePromptDrafts(process.env),
+    },
+  },
 
   modules: [
     '@nuxt/content',

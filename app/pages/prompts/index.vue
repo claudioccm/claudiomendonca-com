@@ -2,9 +2,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-// Drafts are listed (badged) in `nuxt dev` only, so Claudio can review them
-// locally; `nuxt generate` never prerenders or links them.
-const showDrafts = import.meta.dev
+// Drafts are listed (badged) in dev and on Netlify previews only, so Claudio
+// can review them; production builds never prerender or link them.
+const showDrafts = useRuntimeConfig().public.showPromptDrafts
 
 const { data: prompts } = await useAsyncData('prompts-index', () => {
   const query = queryCollection('prompts').order('date', 'DESC')

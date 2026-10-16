@@ -24,6 +24,7 @@
  */
 import { readdirSync, readFileSync } from 'node:fs'
 import { defineCollection, defineContentConfig, z } from '@nuxt/content'
+import { includePromptDrafts } from './app/utils/promptDrafts'
 
 /**
  * Shared offset-tolerant ISO-8601 datetime validator. Accepts both
@@ -204,9 +205,10 @@ const PROMPT_CATEGORIES = ['Quotes & sales', 'Customer messages', 'On the job', 
 // Production builds leave `draft: true` prompts out of the collection entirely.
 // A `where('draft', '=', false)` filter alone is not enough: @nuxt/content ships
 // every document in the public /__nuxt_content/<collection>/sql_dump.txt, so a
-// filtered draft would still be downloadable. `nuxt dev` keeps them for review.
+// filtered draft would still be downloadable. `nuxt dev` and Netlify previews
+// keep them for review (see app/utils/promptDrafts.ts).
 function draftPromptFiles(): string[] {
-  if (process.env.NODE_ENV !== 'production') return []
+  if (includePromptDrafts(process.env)) return []
   try {
     return readdirSync('content/prompts')
       .filter(f => f.endsWith('.md'))

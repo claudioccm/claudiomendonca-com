@@ -9,8 +9,8 @@ const { data: doc } = await useAsyncData(`prompts-${route.path}`, () =>
   queryCollection('prompts').path(route.path).first(),
 )
 
-// Drafts render in `nuxt dev` only (see prompts/index.vue); 404 otherwise.
-if (!doc.value || (doc.value.draft && !import.meta.dev)) {
+// Drafts render in dev and on Netlify previews only (see prompts/index.vue).
+if (!doc.value || (doc.value.draft && !useRuntimeConfig().public.showPromptDrafts)) {
   throw createError({ statusCode: 404, statusMessage: 'Prompt not found', fatal: true })
 }
 

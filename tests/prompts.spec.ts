@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
 import { copyText, promptSlug, splitPlaceholders, trackPromptCopy } from '~/utils/prompts'
+import { includePromptDrafts } from '~/utils/promptDrafts'
 
 /**
  * app/utils/prompts.ts · prompt gallery helpers (2026-10-16).
@@ -72,5 +73,19 @@ describe('trackPromptCopy', () => {
 
   it('does nothing when gtag is blocked', () => {
     expect(() => trackPromptCopy('x', 'Admin', 1)).not.toThrow()
+  })
+})
+
+describe('includePromptDrafts', () => {
+  it('includes drafts in dev and on Netlify previews', () => {
+    expect(includePromptDrafts({ NODE_ENV: 'development' })).toBe(true)
+    expect(includePromptDrafts({ NODE_ENV: 'production', CONTEXT: 'deploy-preview' })).toBe(true)
+    expect(includePromptDrafts({ NODE_ENV: 'production', CONTEXT: 'branch-deploy' })).toBe(true)
+  })
+
+  it('excludes drafts from production and context-less production builds', () => {
+    expect(includePromptDrafts({ NODE_ENV: 'production', CONTEXT: 'production' })).toBe(false)
+    expect(includePromptDrafts({ NODE_ENV: 'production' })).toBe(false)
+    expect(includePromptDrafts({ NODE_ENV: 'production', CONTEXT: 'dev' })).toBe(false)
   })
 })
