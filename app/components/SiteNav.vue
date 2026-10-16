@@ -33,6 +33,9 @@ const isMenuOpen = ref(false)
 const isConsulting = computed(() => route.path === '/consulting')
 const isHome = computed(() => route.path === '/')
 
+// Instagram icon link, top right of the header on every screen size.
+const INSTAGRAM_URL = 'https://www.instagram.com/ccmlabs/'
+
 const links = computed<NavLink[]>(() => [
   // Work + About are in-page anchors that live on the HOME page
   // (#work / #about). From any other route they MUST be absolute (/#work), or the
@@ -44,14 +47,14 @@ const links = computed<NavLink[]>(() => [
   // /writing/[slug] post (startsWith match below).
   { label: 'Writing', href: '/writing', routeMatch: '/writing' },
   { label: 'Services', href: '/consulting', routeMatch: '/consulting' },
-  // Sister company; links straight out to its own site.
-  { label: 'CCMDesign', href: 'https://ccmdesign.ca', routeMatch: null, external: true },
+  // CCMDesign left the main nav (Claudio 2026-10-16); it is listed with the
+  // tools on the home page (#work) and in the footer instead.
   // About points to an in-page anchor on home, not its own route, so it
   // never carries aria-current — only Work lights up on /.
   { label: 'About', href: isHome.value ? '#about' : '/#about', routeMatch: null, hideSm: true },
-  // #contact lives only on /consulting (the CTA banner). Bare hash there, absolute
-  // to the consulting page from everywhere else.
-  { label: 'Contact', href: isConsulting.value ? '#contact' : '/consulting#contact', routeMatch: null },
+  // #contact is the contact form at the bottom of both home and /consulting.
+  // Bare hash there; from any other route, the home page form.
+  { label: 'Contact', href: isHome.value || isConsulting.value ? '#contact' : '/#contact', routeMatch: null },
 ])
 
 // aria-current="page" when the active path matches a link's routeMatch. The
@@ -207,6 +210,29 @@ onBeforeUnmount(() => {
           <li><ThemeToggle /></li>
         </ul>
       </nav>
+
+      <a
+        class="nav-social"
+        :href="INSTAGRAM_URL"
+        target="_blank"
+        rel="noopener"
+        aria-label="CCM Labs on Instagram"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4.2" />
+          <circle cx="17.4" cy="6.6" r="0.9" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
 
       <!-- Mobile hamburger (hidden at/above the overlay breakpoint via CSS). -->
       <button

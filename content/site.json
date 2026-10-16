@@ -18,6 +18,10 @@
     "email": "claudio@ccmdesign.ca",
     "social": [
       {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/ccmlabs/"
+      },
+      {
         "label": "GitHub",
         "url": ""
       },
@@ -74,7 +78,7 @@
     "ctas": [
       {
         "label": "Start with one thing",
-        "target": "/consulting#contact"
+        "target": "#contact"
       },
       {
         "label": "See what I can help with",
@@ -84,13 +88,7 @@
   },
   "about": {
     "heading": "Hi, I’m Claudio.",
-    "intro": "I’m a designer and software engineer based in Squamish. For fifteen years, I’ve helped teams turn complicated work into tools people can actually use. I bring that experience to the everyday problems of running a small business.",
-    "practice": {
-      "before": "You work directly with me, from figuring out the problem to getting the solution running. My approach is simple: ",
-      "linkLabel": "start with one thing",
-      "linkTarget": "/consulting",
-      "after": ", make it useful, and build from there. I explain the choices, do the hands-on work, and help your team get comfortable with the result."
-    }
+    "intro": "I’m a designer and software engineer in Squamish. For fifteen years I’ve turned complicated work into tools people actually use, and now I bring practical AI and software to small teams in the Sea-to-Sky. Tell me the task that keeps coming back. If a free tip fixes it, you’ll hear that first."
   },
   "work": {
     "heading": "Tools I’ve built to make work easier.",
@@ -140,6 +138,15 @@
         "url": "https://feedback.ccmdesign.ca",
         "image": "/screenshots/feedback.jpg",
         "alt": "Feedback — shared context for people and agents"
+      },
+      {
+        "id": "ccmdesign",
+        "title": "CCMDesign",
+        "tag": "DESIGN STUDIO",
+        "description": "My design and engineering studio, for larger websites and product work.",
+        "url": "https://ccmdesign.ca",
+        "image": "",
+        "alt": "CCMDesign — design and engineering studio"
       }
     ]
   },
@@ -289,7 +296,7 @@
     ],
     "cta": {
       "label": "Start with one thing",
-      "target": "/consulting#consulting"
+      "target": "#contact"
     }
   }
 }

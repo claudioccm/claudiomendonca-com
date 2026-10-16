@@ -36,6 +36,11 @@ const HEARD_FROM_OPTIONS: Record<string, string> = {
   other: 'Other',
 }
 const HEARD_FROM_OTHER_MAX_LENGTH = 200
+// Which form placement sent the lead (ContactSection formName).
+const FORM_NAMES: Record<string, string> = {
+  home: 'Home page',
+  consulting: 'Services page',
+}
 const UTM_MAX_LENGTH = 200
 const URL_MAX_LENGTH = 500
 const ATTRIBUTION_FIELDS = [
@@ -141,6 +146,7 @@ export default async (req: Request): Promise<Response> => {
   const sourceLine = heardFrom
     ? (heardFromOther ? `${heardFrom}: ${heardFromOther}` : heardFrom)
     : 'Not given'
+  const formName = FORM_NAMES[sanitizeLine(asString(payload, 'form_name') ?? '')] ?? 'Unknown'
   const attribution = ATTRIBUTION_FIELDS.map(({ key, label, max }) => ({
     label,
     value: sanitizeLine(asString(payload, key) ?? '').slice(0, max),
@@ -166,11 +172,11 @@ export default async (req: Request): Promise<Response> => {
       replyTo: email,
       subject: `New contact form message from ${name}${heardFrom ? ` (via ${heardFrom})` : ''}`,
       text: `From: ${name} <${email}>\n\n${message}`
-        + `\n\n---\nHow they heard about us: ${sourceLine}\n${attributionText}`,
+        + `\n\n---\nHow they heard about us: ${sourceLine}\nForm: ${formName}\n${attributionText}`,
       html: `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>`
         + `<p style="white-space:pre-wrap">${escapeHtml(message)}</p>`
         + `<hr><p><strong>How they heard about us:</strong> ${escapeHtml(sourceLine)}</p>`
-        + `<p style="color:#666;font-size:13px">${attributionHtml}</p>`,
+        + `<p style="color:#666;font-size:13px">Form: ${escapeHtml(formName)}<br>${attributionHtml}</p>`,
     })
 
     if (error) {

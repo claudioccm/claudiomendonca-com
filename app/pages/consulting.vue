@@ -150,27 +150,17 @@ useHead({
       </div>
     </section>
 
-    <!-- #contact: the consulting CTA copy + a working contact form (Netlify
-         Forms, ContactForm.vue). The hero "Start a conversation" CTA scrolls
-         here. Replaced the old mailto-only CtaBanner (Claudio feedback
-         2026-06-27). -->
-    <section id="contact" class="contact-section" data-screen-label="Consulting — Contact">
-      <div class="shell">
-        <div class="contact-grid">
-          <div class="contact-intro" data-reveal>
-            <h2 class="contact-intro__title">{{ consulting?.cta.heading }}</h2>
-            <p class="contact-intro__body">{{ consulting?.cta.body }}</p>
-            <a
-              v-if="consulting?.cta.target"
-              class="contact-intro__mail mono"
-              :href="consulting.cta.target"
-            >or email me directly →</a>
-          </div>
-          <div data-reveal>
-            <ContactForm />
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- #contact: the consulting CTA copy + a working contact form
+         (ContactSection.vue → ContactForm.vue). The hero "Start a
+         conversation" CTA scrolls here. Replaced the old mailto-only
+         CtaBanner (Claudio feedback 2026-06-27). -->
+    <ContactSection
+      v-if="consulting"
+      :heading="consulting.cta.heading"
+      :body="consulting.cta.body"
+      :mailto="consulting.cta.target"
+      form-name="consulting"
+      screen-label="Consulting — Contact"
+    />
   </div>
 </template>
