@@ -209,7 +209,6 @@ onBeforeUnmount(() => {
               :rel="link.external ? 'noopener' : undefined"
             >{{ link.label }}<template v-if="link.external"> ↗</template></a>
           </li>
-          <li><ThemeToggle /></li>
         </ul>
       </nav>
 
@@ -235,6 +234,10 @@ onBeforeUnmount(() => {
           <circle cx="17.4" cy="6.6" r="0.9" fill="currentColor" stroke="none" />
         </svg>
       </a>
+
+      <!-- Theme toggle, far right after Instagram (Claudio, 2026-10-16). Desktop
+           only; the mobile overlay has its own toggle. -->
+      <ThemeToggle class="nav-theme" />
 
       <!-- Mobile hamburger (hidden at/above the overlay breakpoint via CSS). -->
       <button

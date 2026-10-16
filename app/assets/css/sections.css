@@ -1536,7 +1536,7 @@
   flex-wrap: wrap;
   padding: clamp(20px, 3vw, 28px);
   border: 1px solid var(--hairline-solid);
-  background: var(--raised);
+  background: var(--surface-tint);
 }
 .prompt-copy__text {
   flex: 1 1 260px;
