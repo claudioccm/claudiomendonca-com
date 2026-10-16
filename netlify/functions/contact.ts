@@ -25,6 +25,28 @@ const MAX_BODY_BYTES = 16 * 1024
 // populate it and are rejected silently.
 const HONEYPOT_FIELD = 'website'
 
+// Lead source + attribution (2026-10-16). All optional; unknown or oversized
+// values are dropped/clipped, never rejected, so tracking can't block a lead.
+// Keep in sync with ContactForm.vue and app/utils/attribution.ts.
+const HEARD_FROM_OPTIONS: Record<string, string> = {
+  instagram: 'Instagram',
+  google: 'Google search',
+  referral: 'Referral',
+  chamber_event: 'Chamber or event',
+  other: 'Other',
+}
+const HEARD_FROM_OTHER_MAX_LENGTH = 200
+const UTM_MAX_LENGTH = 200
+const URL_MAX_LENGTH = 500
+const ATTRIBUTION_FIELDS = [
+  { key: 'utm_source', label: 'utm_source', max: UTM_MAX_LENGTH },
+  { key: 'utm_medium', label: 'utm_medium', max: UTM_MAX_LENGTH },
+  { key: 'utm_campaign', label: 'utm_campaign', max: UTM_MAX_LENGTH },
+  { key: 'utm_content', label: 'utm_content', max: UTM_MAX_LENGTH },
+  { key: 'referrer', label: 'Referrer', max: URL_MAX_LENGTH },
+  { key: 'landing_page', label: 'Landing page', max: URL_MAX_LENGTH },
+] as const
+
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'claudio@ccmdesign.ca'
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'Claudio Mendonça <contact@ccm-labs.ca>'
 
@@ -111,6 +133,25 @@ export default async (req: Request): Promise<Response> => {
     return jsonResponse(400, { ok: false, error: 'invalid_input' })
   }
 
+  const heardFromKey = sanitizeLine(asString(payload, 'heard_from') ?? '')
+  const heardFrom = HEARD_FROM_OPTIONS[heardFromKey] ?? ''
+  const heardFromOther = heardFromKey === 'other'
+    ? sanitizeLine(asString(payload, 'heard_from_other') ?? '').slice(0, HEARD_FROM_OTHER_MAX_LENGTH)
+    : ''
+  const sourceLine = heardFrom
+    ? (heardFromOther ? `${heardFrom}: ${heardFromOther}` : heardFrom)
+    : 'Not given'
+  const attribution = ATTRIBUTION_FIELDS.map(({ key, label, max }) => ({
+    label,
+    value: sanitizeLine(asString(payload, key) ?? '').slice(0, max),
+  }))
+  const attributionText = attribution
+    .map(({ label, value }) => `${label}: ${value || '—'}`)
+    .join('\n')
+  const attributionHtml = attribution
+    .map(({ label, value }) => `${escapeHtml(label)}: ${escapeHtml(value || '—')}`)
+    .join('<br>')
+
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) {
     console.error('[contact] missing env: RESEND_API_KEY')
@@ -123,10 +164,13 @@ export default async (req: Request): Promise<Response> => {
       from: FROM_EMAIL,
       to: TO_EMAIL,
       replyTo: email,
-      subject: `New contact form message from ${name}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
+      subject: `New contact form message from ${name}${heardFrom ? ` (via ${heardFrom})` : ''}`,
+      text: `From: ${name} <${email}>\n\n${message}`
+        + `\n\n---\nHow they heard about us: ${sourceLine}\n${attributionText}`,
       html: `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>`
-        + `<p style="white-space:pre-wrap">${escapeHtml(message)}</p>`,
+        + `<p style="white-space:pre-wrap">${escapeHtml(message)}</p>`
+        + `<hr><p><strong>How they heard about us:</strong> ${escapeHtml(sourceLine)}</p>`
+        + `<p style="color:#666;font-size:13px">${attributionHtml}</p>`,
     })
 
     if (error) {

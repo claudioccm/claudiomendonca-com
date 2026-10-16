@@ -16,17 +16,40 @@
   Resend sending domain for CONTACT_FROM_EMAIL. Until those are set the function
   returns an error and the form points the visitor at the mailto fallback.
   Styles: app/assets/css/sections.css (.contact-form / .contact-success).
+
+  Lead tracking (2026-10-16): an optional "How did you hear about us?" select
+  (with free text for "Other") plus the session's first-touch attribution
+  (UTMs, referrer, landing page — app/utils/attribution.ts) ride along in the
+  payload into the notification email. Only after the function answers 2xx
+  does the form fire the GA4 `generate_lead` event with the same fields.
+  GA4's own enhanced-measurement form_start is untouched.
 -->
 <script setup lang="ts">
+import { ATTRIBUTION_KEYS, readAttribution, type Attribution } from '~/utils/attribution'
+
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 // Keep in sync with netlify/functions/contact.ts.
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const FUNCTION_PATH = '/.netlify/functions/contact'
+const FORM_NAME = 'contact'
+// Keep values in sync with HEARD_FROM_OPTIONS in netlify/functions/contact.ts.
+const HEARD_FROM_OPTIONS = [
+  { value: 'instagram', label: 'Instagram' },
+  { value: 'google', label: 'Google search' },
+  { value: 'referral', label: 'Referral' },
+  { value: 'chamber_event', label: 'Chamber or event' },
+  { value: 'other', label: 'Other' },
+] as const
+const HEARD_FROM_OTHER_MAX_LENGTH = 200
+
+type Gtag = (command: 'event', name: string, params: Record<string, string>) => void
 
 const name = ref('')
 const email = ref('')
 const message = ref('')
+const heardFrom = ref('')
+const heardFromOther = ref('')
 const website = ref('') // honeypot — must stay empty for real humans
 const status = ref<Status>('idle')
 const errorMessage = ref<string | null>(null)
@@ -43,6 +66,11 @@ async function submit() {
   status.value = 'submitting'
   errorMessage.value = null
 
+  const attribution = readAttribution()
+  const heardFromDetail = heardFrom.value === 'other'
+    ? heardFromOther.value.trim().slice(0, HEARD_FROM_OTHER_MAX_LENGTH)
+    : ''
+
   try {
     const res = await fetch(FUNCTION_PATH, {
       method: 'POST',
@@ -51,12 +79,16 @@ async function submit() {
         name: name.value.trim(),
         email: email.value.trim(),
         message: message.value.trim(),
+        heard_from: heardFrom.value,
+        heard_from_other: heardFromDetail,
+        ...attribution,
         website: website.value,
       }),
     })
     const data = await res.json().catch(() => null) as { ok?: boolean } | null
     if (res.ok && data?.ok) {
       status.value = 'success'
+      trackLead(heardFromDetail, attribution)
     }
     else {
       status.value = 'error'
@@ -67,6 +99,26 @@ async function submit() {
     status.value = 'error'
     errorMessage.value = 'Couldn’t send right now — please email me directly.'
   }
+}
+
+// GA4 lead event — success path only. gtag is defined by the inline snippet in
+// nuxt.config.ts; it may be missing (blocked by an extension), so guard it.
+function trackLead(heardFromDetail: string, attribution: Attribution | null) {
+  const gtag = (window as unknown as { gtag?: Gtag }).gtag
+  if (typeof gtag !== 'function') return
+  const params: Record<string, string> = {
+    page_path: window.location.pathname,
+    form_name: FORM_NAME,
+    lead_source: heardFrom.value || 'not_given',
+  }
+  if (heardFromDetail) params.lead_source_detail = heardFromDetail
+  if (attribution) {
+    for (const key of ATTRIBUTION_KEYS) {
+      // GA4 caps event param values at 100 characters.
+      if (attribution[key]) params[key] = attribution[key].slice(0, 100)
+    }
+  }
+  gtag('event', 'generate_lead', params)
 }
 </script>
 
@@ -124,6 +176,44 @@ async function submit() {
         required
         :disabled="status === 'submitting'"
       />
+    </div>
+
+    <div class="contact-form__field">
+      <label class="sr-only" for="contact-heard-from">How did you hear about us? (optional)</label>
+      <select
+        id="contact-heard-from"
+        v-model="heardFrom"
+        name="heard_from"
+        class="contact-form__input contact-form__select mono"
+        :class="{ 'is-empty': !heardFrom }"
+        :disabled="status === 'submitting'"
+      >
+        <option value="">How did you hear about us? (optional)</option>
+        <option
+          v-for="option in HEARD_FROM_OPTIONS"
+          :key="option.value"
+          :value="option.value"
+        >
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+
+    <div
+      v-if="heardFrom === 'other'"
+      class="contact-form__field"
+    >
+      <label class="sr-only" for="contact-heard-from-other">Where did you hear about us?</label>
+      <input
+        id="contact-heard-from-other"
+        v-model="heardFromOther"
+        name="heard_from_other"
+        type="text"
+        class="contact-form__input mono"
+        placeholder="Where did you hear about us?"
+        :maxlength="HEARD_FROM_OTHER_MAX_LENGTH"
+        :disabled="status === 'submitting'"
+      >
     </div>
 
     <button
