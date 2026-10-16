@@ -32,7 +32,7 @@ import {
 import type { Box, Emitter, HeroWaterConfig } from '~/lib/asciiWater'
 
 const props = defineProps<{
-  /** Elements whose text gets a calm zone (lower-contrast water) behind it. */
+  /** Content elements; the water calms down behind one box around all of them. */
   calmTargets?: () => Element[]
 }>()
 
@@ -144,18 +144,24 @@ function layout() {
   draw()
 }
 
-/** Measure the hero copy (its text, not its full-width boxes) and rebuild the calm mask. */
+/** Measure the hero content (its text, not full-width boxes), take one box around it all, and rebuild the calm mask. */
 function updateCalm() {
   const canvas = canvasEl.value
   if (!canvas) return
   const r = canvas.getBoundingClientRect()
-  const boxes: Box[] = []
+  let box: Box | null = null
   const range = document.createRange()
   for (const el of props.calmTargets?.() ?? []) {
     range.selectNodeContents(el)
     const b = range.getBoundingClientRect()
-    if (b.width && b.height) boxes.push([b.left - r.left, b.top - r.top, b.right - r.left, b.bottom - r.top])
+    if (!b.width || !b.height) continue
+    const l = b.left - r.left
+    const t = b.top - r.top
+    const rt = b.right - r.left
+    const bt = b.bottom - r.top
+    box = box ? [Math.min(box[0], l), Math.min(box[1], t), Math.max(box[2], rt), Math.max(box[3], bt)] : [l, t, rt, bt]
   }
+  const boxes: Box[] = box ? [box] : []
   const { padding, feather } = cfg.calm
   calm = calmMask(glyphCols, glyphRows, cellW, cellH, boxes, padding, feather)
   fullRedraw = true

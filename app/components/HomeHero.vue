@@ -77,11 +77,14 @@ function delWord(el: HTMLElement, done: () => void) {
 }
 
 /* ---------- water ---------- */
-// The water calms down behind these so the copy stays readable (Claudio 2026-10-16).
+// The water calms down behind the whole content block, headline through the
+// client logos, so the copy stays readable (Claudio 2026-10-16).
 function calmTargets(): Element[] {
   const hero = heroEl.value
   if (!hero) return []
-  return Array.from(hero.querySelectorAll('.home-hero__question--measure, .home-hero__sub, .home-hero__links'))
+  return Array.from(hero.querySelectorAll(
+    '.home-hero__question--measure, .home-hero__sub, .home-hero__links, .client-logos__label, .client-logos__list > li',
+  ))
 }
 
 // Medium ripple from the headline each time the word changes.
