@@ -87,7 +87,9 @@
   list-style: none;
   margin: 0; padding: 0;
 }
+.nav-inner .wordmark { white-space: nowrap; }
 .nav-links a {
+  white-space: nowrap;
   /* Navigation uses the shared readable caption size. */
   font-family: var(--font-mono);
   font-size-adjust: var(--adjust-mono);
@@ -243,8 +245,11 @@
    lock is the sole scroll lock since Lenis was retired (PRO-174). */
 body.is-menu-open { overflow: hidden; }
 
-/* ---------- Nav responsive: overlay breakpoint ---------- */
-@media (max-width: 768px) {
+/* ---------- Nav responsive: overlay breakpoint ----------
+   1024px (was 768px): with seven links (Prompts added 2026-10-16) the inline
+   nav needs ~830px plus the wordmark, so it wrapped between 769 and ~960px.
+   The hamburger overlay now covers tablet widths too. */
+@media (max-width: 1024px) {
   .nav-desktop { display: none; }
   .nav-toggle { display: inline-flex; }
   .nav-overlay { display: flex; }

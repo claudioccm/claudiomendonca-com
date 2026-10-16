@@ -1464,6 +1464,34 @@
    head. Only the prompt box, steps and small extras are new; monochrome,
    square corners, hairline borders.
    ============================================================ */
+/* Card grid with internal hairlines only (Claudio, 2026-10-16). Each cell
+   draws its own left and top border; the list is pulled 1px up and left
+   inside a clipping wrapper, so the first column's left border and the first
+   row's top border fall outside it. What's left are the lines between cells,
+   correct at any column count and on a short last row. Cells carry the
+   spacing (no grid gap); the wrapper's negative margins keep card text
+   aligned with the page shell. --cell-pad-x stays below --page-pad-x so
+   the wrapper never overflows the viewport. */
+.prompt-grid-wrap {
+  --cell-pad-x: clamp(16px, 2.5vw, 36px);
+  --cell-pad-y: clamp(24px, 3vw, 40px);
+  overflow: hidden;
+  margin: calc(-1 * var(--cell-pad-y)) calc(-1 * var(--cell-pad-x));
+}
+.prompt-grid {
+  list-style: none;
+  margin: -1px 0 0 -1px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+.prompt-grid > li {
+  border-left: 1px solid var(--hairline-solid);
+  border-top: 1px solid var(--hairline-solid);
+  padding: var(--cell-pad-y) var(--cell-pad-x);
+}
+.prompt-grid .prompt-card { height: 100%; }
+
 .prompt-card__for {
   margin: 14px 0 0;
   font-size: var(--text-caption);

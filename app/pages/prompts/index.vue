@@ -72,18 +72,20 @@ useSeoMeta({
 
     <section class="writing-grid-section">
       <div class="shell">
-        <ul v-if="visible.length" class="posts-grid" aria-label="Prompts">
-          <li v-for="prompt in visible" :key="prompt.path">
-            <PromptCard
-              :to="prompt.path"
-              :title="prompt.title"
-              :category="prompt.category"
-              :audience="prompt.audience"
-              :description="prompt.description"
-              :draft="prompt.draft"
-            />
-          </li>
-        </ul>
+        <div v-if="visible.length" class="prompt-grid-wrap">
+          <ul class="prompt-grid" aria-label="Prompts">
+            <li v-for="prompt in visible" :key="prompt.path">
+              <PromptCard
+                :to="prompt.path"
+                :title="prompt.title"
+                :category="prompt.category"
+                :audience="prompt.audience"
+                :description="prompt.description"
+                :draft="prompt.draft"
+              />
+            </li>
+          </ul>
+        </div>
         <p v-else class="posts-empty mono">No prompts in this category yet.</p>
       </div>
     </section>

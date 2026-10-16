@@ -111,17 +111,19 @@ useSeoMeta({
     <section v-if="related.length" class="writing-grid-section prompt-related">
       <div class="shell">
         <h2 class="writing-grid-section__head">More prompts</h2>
-        <ul class="posts-grid" aria-label="More prompts">
-          <li v-for="item in related" :key="item.path">
-            <PromptCard
-              :to="item.path"
-              :title="item.title"
-              :category="item.category"
-              :audience="item.audience"
-              :description="item.description"
-            />
-          </li>
-        </ul>
+        <div class="prompt-grid-wrap">
+          <ul class="prompt-grid" aria-label="More prompts">
+            <li v-for="item in related" :key="item.path">
+              <PromptCard
+                :to="item.path"
+                :title="item.title"
+                :category="item.category"
+                :audience="item.audience"
+                :description="item.description"
+              />
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   </div>
