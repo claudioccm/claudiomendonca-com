@@ -96,16 +96,9 @@ const site = defineCollection({
 
     about: z.object({
       heading: z.string(),
+      // Short first-person intro shown right after the home hero (Claudio
+      // 2026-10-16). Also the Person description in the home page's JSON-LD.
       intro: z.string(),
-      // The middle paragraph carries an inline route link to /consulting, so it
-      // is stored as text fragments around the link rather than a flat string —
-      // keeps the link in the content layer while the page renders the anchor.
-      practice: z.object({
-        before: z.string(),
-        linkLabel: z.string(),
-        linkTarget: z.string(),
-        after: z.string(),
-      }),
     }),
 
     work: z.object({
