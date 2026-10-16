@@ -830,6 +830,19 @@
 .contact-form__input::placeholder { color: var(--dim); opacity: 1; }
 .contact-form__input:focus-visible { outline: none; border-color: var(--paper); }
 .contact-form__textarea { resize: vertical; min-height: 120px; }
+/* "How did you hear about us?" — native select restyled to match the inputs:
+   custom caret, dim text while the placeholder option is selected. */
+.contact-form__select {
+  appearance: none;
+  padding-right: 40px;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.contact-form__select.is-empty { color: var(--dim); }
+.contact-form__select option { color: initial; background: initial; }
 .contact-form__btn { margin-top: 4px; justify-self: start; }
 .contact-form__error { color: var(--dim); margin: 0; font-size: var(--text-caption); letter-spacing: 0.04em; }
 .contact-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
