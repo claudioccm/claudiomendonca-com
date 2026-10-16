@@ -140,6 +140,8 @@ function layout() {
   emitters = []
   buildAtlas()
   updateCalm()
+  // Paint the resting field now, so it shows before (or without) the first animation frame.
+  draw()
 }
 
 /** Measure the hero copy (its text, not its full-width boxes) and rebuild the calm mask. */
