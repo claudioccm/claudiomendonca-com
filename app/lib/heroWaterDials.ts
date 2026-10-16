@@ -47,8 +47,14 @@ export function mountHeroWaterDials(
       damping: [c.water.damping, 0, 0.08, 0.001],
       ambient: [c.water.ambient, 0, 2, 0.01],
     },
+    calm: {
+      strength: [c.calm.strength, 0, 1, 0.01],
+      padding: [c.calm.padding, 0, 120, 1],
+      feather: [c.calm.feather, 1, 240, 1],
+    },
     render: {
       cellSize: [c.render.cellSize, 8, 32, 1],
+      spacing: [c.render.spacing, 1, 3, 0.05],
       ramp: { type: 'text', default: c.render.ramp },
       base: [c.render.base, 0, 0.6, 0.01],
       contrast: [c.render.contrast, 0.1, 4, 0.05],
@@ -89,6 +95,7 @@ type DialValues = {
   click: HeroWaterConfig['click']
   text: { intensity: number, radius: number, origin: string }
   water: HeroWaterConfig['water']
+  calm: HeroWaterConfig['calm']
   render: HeroWaterConfig['render']
 }
 
@@ -98,6 +105,7 @@ function toConfig(v: DialValues): HeroWaterConfig {
     click: { ...v.click, rings: Math.round(v.click.rings) },
     text: { ...v.text, origin: v.text.origin as TextOrigin },
     water: { ...v.water },
+    calm: { ...v.calm },
     render: { ...v.render },
   }
 }

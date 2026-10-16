@@ -22,13 +22,19 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import {
   HERO_WATER_DEFAULTS,
   WaterSurface,
+  calmMask,
   cloneConfig,
   levelFor,
   makeEmitter,
   tickEmitter,
   waveCoefficients,
 } from '~/lib/asciiWater'
-import type { Emitter, HeroWaterConfig } from '~/lib/asciiWater'
+import type { Box, Emitter, HeroWaterConfig } from '~/lib/asciiWater'
+
+const props = defineProps<{
+  /** Elements whose text gets a calm zone (lower-contrast water) behind it. */
+  calmTargets?: () => Element[]
+}>()
 
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 
@@ -40,6 +46,7 @@ let ctx: CanvasRenderingContext2D | null = null
 let surface: WaterSurface | null = null
 let atlas: HTMLCanvasElement | null = null
 let levels = new Uint8Array(0)
+let calm: Float32Array = new Float32Array(0)
 let rampLen = 1
 let dpr = 1
 // Cell size in device px (integers, so atlas blits stay crisp) and CSS px.
@@ -116,8 +123,9 @@ function layout() {
   canvas.width = Math.max(1, Math.round(w * dpr))
   canvas.height = Math.max(1, Math.round(h * dpr))
   ctx.font = `${cfg.render.cellSize * dpr}px ${fontFamily}`
-  cwD = Math.max(2, Math.round(ctx.measureText('M').width))
-  chD = Math.max(4, Math.round(cfg.render.cellSize * LINE_HEIGHT * dpr))
+  const pitch = Math.max(1, cfg.render.spacing)
+  cwD = Math.max(2, Math.round(ctx.measureText('M').width * pitch))
+  chD = Math.max(4, Math.round(cfg.render.cellSize * LINE_HEIGHT * dpr * pitch))
   cellW = cwD / dpr
   cellH = chD / dpr
   glyphCols = Math.ceil(canvas.width / cwD)
@@ -131,6 +139,24 @@ function layout() {
   coef = waveCoefficients(cfg.water.speed, Math.sqrt(sx * sy))
   emitters = []
   buildAtlas()
+  updateCalm()
+}
+
+/** Measure the hero copy (its text, not its full-width boxes) and rebuild the calm mask. */
+function updateCalm() {
+  const canvas = canvasEl.value
+  if (!canvas) return
+  const r = canvas.getBoundingClientRect()
+  const boxes: Box[] = []
+  const range = document.createRange()
+  for (const el of props.calmTargets?.() ?? []) {
+    range.selectNodeContents(el)
+    const b = range.getBoundingClientRect()
+    if (b.width && b.height) boxes.push([b.left - r.left, b.top - r.top, b.right - r.left, b.bottom - r.top])
+  }
+  const { padding, feather } = cfg.calm
+  calm = calmMask(glyphCols, glyphRows, cellW, cellH, boxes, padding, feather)
+  fullRedraw = true
 }
 
 function simTick() {
@@ -152,6 +178,7 @@ function draw() {
   if (!ctx || !surface || !atlas) return
   const { cols, cur } = surface
   const { base, contrast, gamma } = cfg.render
+  const strength = cfg.calm.strength
   const full = fullRedraw
   const inv = 1 / perGlyph
   if (full) ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -165,13 +192,17 @@ function draw() {
       // A glyph shows the mean height of the simulation cells under it.
       let h = 0
       for (let r = 0, j = simRow + x; r < perGlyph; r++, j += cols) h += cur[j]!
-      const lv = levelFor(h * inv, rampLen, base, contrast, gamma)
+      const m = calm[i]! * strength
+      const lv = levelFor(h * inv * (1 - m), rampLen, base, contrast, gamma)
       if (!full && lv === levels[i]) continue
       levels[i] = lv
       const dx = x * cwD
       if (!full) ctx.clearRect(dx, dy, cwD, chD)
       if (lv > 0) {
+        // Calm zone: flatter (above) and fainter glyphs behind the copy.
+        if (m > 0) ctx.globalAlpha = 1 - 0.65 * m
         ctx.drawImage(atlas, lv * cwD, 0, cwD, chD, dx, dy, cwD, chD)
+        if (m > 0) ctx.globalAlpha = 1
         drawn++
       }
     }
@@ -276,6 +307,7 @@ function rock(clientX: number, clientY: number) {
 
 /** Medium ripple from the headline when the typewriter swaps its word (client-coordinate rects). */
 function textRipple(word: DOMRect | null, headline: DOMRect | null) {
+  updateCalm()
   if (reduced || !surface || cfg.text.intensity <= 0) return
   const box = cfg.text.origin === 'word' ? (word ?? headline) : headline
   if (!box) return
@@ -300,9 +332,13 @@ function applyConfig(next: HeroWaterConfig) {
   Object.assign(cfg.click, next.click)
   Object.assign(cfg.text, next.text)
   Object.assign(cfg.water, next.water)
-  const oldCell = cfg.render.cellSize
+  const prevCalm = `${cfg.calm.padding}/${cfg.calm.feather}`
+  Object.assign(cfg.calm, next.calm)
+  if (`${cfg.calm.padding}/${cfg.calm.feather}` !== prevCalm) updateCalm()
+  fullRedraw = true
+  const oldGrid = `${cfg.render.cellSize}/${cfg.render.spacing}`
   Object.assign(cfg.render, next.render)
-  if (cfg.render.cellSize !== oldCell) layout()
+  if (`${cfg.render.cellSize}/${cfg.render.spacing}` !== oldGrid) layout()
   else if (JSON.stringify(cfg.render) !== prevRender) buildAtlas()
   if (cfg.water.speed !== prevSpeed) coef = waveCoefficients(cfg.water.speed, Math.sqrt(sx * sy))
   if (reduced) staticFrame()

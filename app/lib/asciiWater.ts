@@ -49,9 +49,20 @@ export interface HeroWaterConfig {
     /** Raindrops at rest (0 = still water). */
     ambient: number
   }
+  /** Quieter water behind the hero copy so the text stays readable. */
+  calm: {
+    /** 0 = no change, 1 = flat and faint behind the text. */
+    strength: number
+    /** Extra room around the text, px. */
+    padding: number
+    /** Soft edge width, px. */
+    feather: number
+  }
   render: {
-    /** Glyph height, px (the cell is one character). */
+    /** Font size of the glyphs, px. */
     cellSize: number
+    /** Grid pitch as a multiple of the glyph box (1 = tight, 2 = twice the room). */
+    spacing: number
     /** Characters from flat/low to high. A leading space keeps troughs blank. */
     ramp: string
     /** Surface level at rest, 0..1 along the ramp. */
@@ -60,7 +71,7 @@ export interface HeroWaterConfig {
     contrast: number
     /** Ramp curve: <1 lifts the low end, >1 keeps only crests dense. */
     gamma: number
-    /** Glyph opacity at the bottom and top of the ramp. */
+    /** Glyph opacity at the bottom and top of the ramp. Equal values leave all contrast to the characters. */
     opacityMin: number
     opacityMax: number
     /** Frame cap (the simulation itself always ticks at 60 Hz). */
@@ -70,16 +81,18 @@ export interface HeroWaterConfig {
 
 export const HERO_WATER_DEFAULTS: HeroWaterConfig = {
   hover: { intensity: 0.45, radius: 18, spacing: 9, falloff: 1.5 },
-  click: { intensity: 1, radius: 30, rings: 3 },
+  click: { intensity: 2.2, radius: 36, rings: 3 },
   text: { intensity: 0.55, radius: 34, origin: 'word' },
-  water: { speed: 4.5, damping: 0.007, ambient: 0.3 },
+  water: { speed: 4.5, damping: 0.01, ambient: 0.15 },
+  calm: { strength: 0.75, padding: 20, feather: 56 },
   render: {
     cellSize: 14,
-    ramp: ' .·:-=+*#%@',
-    base: 0.14,
-    contrast: 1.2,
-    gamma: 1,
-    opacityMin: 0.1,
+    spacing: 1.5,
+    ramp: ' .,:;~=+*xoX#%&@',
+    base: 0.12,
+    contrast: 1.4,
+    gamma: 1.15,
+    opacityMin: 0.3,
     opacityMax: 0.5,
     fps: 60,
   },
@@ -239,4 +252,38 @@ export function tickEmitter(e: Emitter, surface: WaterSurface, sx: number, sy: n
   surface.disturb(e.x / sx, e.y / sy, e.radius / sx, e.radius / sy, push, 1)
   e.age++
   return true
+}
+
+/** A box in canvas px (left, top, right, bottom). */
+export type Box = [number, number, number, number]
+
+/**
+ * Calm-zone weight per glyph: 1 inside any (padded) box, easing to 0 across
+ * `feather` px outside it.
+ */
+export function calmMask(
+  cols: number, rows: number, cellW: number, cellH: number,
+  boxes: Box[], padding: number, feather: number,
+): Float32Array {
+  const m = new Float32Array(cols * rows)
+  if (!boxes.length) return m
+  const f = Math.max(1, feather)
+  for (let y = 0; y < rows; y++) {
+    const py = (y + 0.5) * cellH
+    for (let x = 0; x < cols; x++) {
+      const px = (x + 0.5) * cellW
+      let best = 0
+      for (const [l, t, r, b] of boxes) {
+        const dx = Math.max(l - padding - px, 0, px - r - padding)
+        const dy = Math.max(t - padding - py, 0, py - b - padding)
+        const d = Math.hypot(dx, dy)
+        if (d >= f) continue
+        const u = 1 - d / f
+        const w = u * u * (3 - 2 * u)
+        if (w > best) best = w
+      }
+      m[y * cols + x] = best
+    }
+  }
+  return m
 }

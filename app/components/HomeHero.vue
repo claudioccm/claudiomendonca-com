@@ -77,6 +77,13 @@ function delWord(el: HTMLElement, done: () => void) {
 }
 
 /* ---------- water ---------- */
+// The water calms down behind these so the copy stays readable (Claudio 2026-10-16).
+function calmTargets(): Element[] {
+  const hero = heroEl.value
+  if (!hero) return []
+  return Array.from(hero.querySelectorAll('.home-hero__question--measure, .home-hero__sub, .home-hero__links'))
+}
+
 // Medium ripple from the headline each time the word changes.
 function rippleFromText() {
   const h = heroEl.value?.querySelector('.home-hero__question:not(.home-hero__question--measure)')
@@ -103,7 +110,7 @@ onBeforeUnmount(() => {
 
 <template>
   <section ref="heroEl" class="home-hero">
-    <HeroAsciiWater ref="water" />
+    <HeroAsciiWater ref="water" :calm-targets="calmTargets" />
 
     <div class="home-hero__inner">
       <h1 class="home-hero__headline" :aria-label="`${headline} ${firstWord}`">
