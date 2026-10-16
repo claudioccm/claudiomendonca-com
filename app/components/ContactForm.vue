@@ -32,7 +32,6 @@ type Status = 'idle' | 'submitting' | 'success' | 'error'
 // Keep in sync with netlify/functions/contact.ts.
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const FUNCTION_PATH = '/.netlify/functions/contact'
-const FORM_NAME = 'contact'
 // Keep values in sync with HEARD_FROM_OPTIONS in netlify/functions/contact.ts.
 const HEARD_FROM_OPTIONS = [
   { value: 'instagram', label: 'Instagram' },
@@ -42,6 +41,10 @@ const HEARD_FROM_OPTIONS = [
   { value: 'other', label: 'Other' },
 ] as const
 const HEARD_FROM_OTHER_MAX_LENGTH = 200
+
+// Which placement this form is (GA4 form_name + the notification email), so
+// home-page and /consulting leads can be told apart.
+const props = withDefaults(defineProps<{ formName?: string }>(), { formName: 'consulting' })
 
 type Gtag = (command: 'event', name: string, params: Record<string, string>) => void
 
@@ -82,6 +85,7 @@ async function submit() {
         heard_from: heardFrom.value,
         heard_from_other: heardFromDetail,
         ...attribution,
+        form_name: props.formName,
         website: website.value,
       }),
     })
@@ -108,7 +112,7 @@ function trackLead(heardFromDetail: string, attribution: Attribution | null) {
   if (typeof gtag !== 'function') return
   const params: Record<string, string> = {
     page_path: window.location.pathname,
-    form_name: FORM_NAME,
+    form_name: props.formName,
     lead_source: heardFrom.value || 'not_given',
   }
   if (heardFromDetail) params.lead_source_detail = heardFromDetail

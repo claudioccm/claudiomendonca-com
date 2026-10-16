@@ -34,6 +34,7 @@ describe('contact function', () => {
     const res = await post({
       ...base,
       heard_from: 'instagram',
+      form_name: 'home',
       utm_source: 'instagram',
       utm_medium: 'social',
       utm_campaign: 'bio',
@@ -46,6 +47,7 @@ describe('contact function', () => {
     expect(mail.replyTo).toBe('lead@example.com')
     expect(mail.subject).toBe('New contact form message from Test Lead (via Instagram)')
     expect(mail.text).toContain('How they heard about us: Instagram')
+    expect(mail.text).toContain('Form: Home page')
     expect(mail.text).toContain('utm_source: instagram')
     expect(mail.text).toContain('utm_campaign: bio')
     expect(mail.text).toContain('utm_content: —')

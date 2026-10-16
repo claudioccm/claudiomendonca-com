@@ -1,8 +1,17 @@
 <!--
-  Static four-column footer. No state, no lifecycle. Markup pattern from
+  Four-column footer. No state beyond the route-aware contact link. Markup pattern from
   _process/prototype/consulting.html lines 255–301 (preferred over the
   index.html version, which has empty <a> placeholders).
 -->
+<script setup lang="ts">
+// The contact form lives at #contact on both home and /consulting; from any
+// other page "Start with one thing" goes to the home page form.
+const route = useRoute()
+const contactHref = computed(() =>
+  route.path === '/' || route.path === '/consulting' ? '#contact' : '/#contact',
+)
+</script>
+
 <template>
   <footer id="site-footer" class="footer">
     <div class="shell">
@@ -35,7 +44,7 @@
         <div>
           <h2>Contact</h2>
           <ul>
-            <li><a href="/consulting#contact">Start with one thing</a></li>
+            <li><a :href="contactHref">Start with one thing</a></li>
             <li><a href="mailto:claudio@ccmdesign.ca">Email Claudio</a></li>
           </ul>
         </div>
@@ -44,6 +53,7 @@
         <div>
           <h2>Elsewhere</h2>
           <ul>
+            <li><a href="https://www.instagram.com/ccmlabs/" target="_blank" rel="noopener">Instagram ↗</a></li>
             <li><a href="https://ccmdesign.ca" target="_blank" rel="noopener">ccmdesign ↗</a></li>
           </ul>
         </div>

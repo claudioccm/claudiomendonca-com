@@ -13,7 +13,7 @@ interface Props {
   /** Italic words cycled by the typewriter. words[0] is the static SSR render. */
   words: string[]
   subhead: string
-  /** Two CTAs: [0] contact route, [1] in-page problems anchor. */
+  /** Two CTAs: [0] on-page contact form (button), [1] in-page problems anchor. */
   ctas: Cta[]
 }
 
@@ -245,11 +245,13 @@ onBeforeUnmount(() => {
       </h1>
       <p class="home-hero__sub">{{ subhead }}</p>
       <div class="home-hero__links">
-        <a v-if="ctas[0]" class="home-hero__link" :href="ctas[0].target">
-          {{ ctas[0].label }} <span aria-hidden="true">↗</span>
+        <!-- Primary CTA is a real button to the on-page form (#contact);
+             both targets stay on this page, so the arrows point → and ↓. -->
+        <a v-if="ctas[0]" class="btn btn-filled home-hero__btn" :href="ctas[0].target">
+          {{ ctas[0].label }} <span aria-hidden="true">→</span>
         </a>
         <NuxtLink v-if="ctas[1]" class="home-hero__link home-hero__link--dim" :to="ctas[1].target">
-          {{ ctas[1].label }} <span aria-hidden="true">↗</span>
+          {{ ctas[1].label }} <span aria-hidden="true">↓</span>
         </NuxtLink>
       </div>
       <slot />

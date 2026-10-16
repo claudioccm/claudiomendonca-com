@@ -235,6 +235,9 @@
   transition: opacity 0.25s ease;
 }
 .home-hero__link:hover { opacity: 0.55; }
+/* Primary hero CTA: the shared filled pill, aligned with the text link. */
+.home-hero__links { align-items: center; }
+.home-hero__btn { text-decoration: none; }
 .home-hero__link--dim {
   color: rgba(var(--paper-rgb), 0.6);
   border-bottom-color: rgba(var(--paper-rgb), 0.13);

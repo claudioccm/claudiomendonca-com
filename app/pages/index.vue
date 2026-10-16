@@ -87,6 +87,20 @@ useHead({
         />
       </HomeHero>
 
+      <!-- Short first-person intro right after the hero (Claudio 2026-10-16:
+           "a small second section with an about section (brief, with this
+           'I'm Claudio...' stuff"). Replaces the old far-down bio block. -->
+      <section id="about">
+        <div class="shell">
+          <div class="bio-grid">
+            <h2 data-reveal>{{ site.about.heading }}</h2>
+            <div class="bio-body" data-reveal>
+              <p>{{ site.about.intro }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="problems">
         <div class="shell">
           <h2 class="experiments-title" data-reveal>{{ site.problems.heading }}</h2>
@@ -104,7 +118,14 @@ useHead({
           </div>
         </div>
       </section>
+    </template>
 
+    <!-- Latest published writing. -->
+    <WritingTeaser />
+
+    <template v-if="site">
+      <!-- Tools + products (incl. CCMDesign, moved out of the main nav),
+           kept lower on the page per Claudio 2026-10-16. -->
       <section id="work">
         <div class="shell">
           <h2 class="experiments-title" data-reveal>{{ site.work.heading }}</h2>
@@ -121,24 +142,14 @@ useHead({
         </div>
       </section>
 
-      <section id="about">
-        <div class="shell">
-          <div class="bio-grid">
-            <h2 data-reveal>{{ site.about.heading }}</h2>
-            <div class="bio-body" data-reveal>
-              <p>{{ site.about.intro }}</p>
-              <p class="secondary">
-                {{ site.about.practice.before
-                }}<NuxtLink class="link-underline" :to="site.about.practice.linkTarget">{{ site.about.practice.linkLabel }}</NuxtLink>{{ site.about.practice.after }}
-              </p>
-
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- Every home CTA (hero, problems, nav, footer) lands here. -->
+      <ContactSection
+        :heading="site.consulting.cta.heading"
+        :body="site.consulting.cta.body"
+        :mailto="site.consulting.cta.target"
+        form-name="home"
+        screen-label="Home — Contact"
+      />
     </template>
-
-    <!-- Latest published writing. -->
-    <WritingTeaser />
   </div>
 </template>
