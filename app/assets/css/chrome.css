@@ -264,10 +264,10 @@
 body.is-menu-open { overflow: hidden; }
 
 /* ---------- Nav responsive: overlay breakpoint ----------
-   1024px (was 768px): with seven links (Prompts added 2026-10-16) the inline
-   nav needs ~830px plus the wordmark, so it wrapped between 769 and ~960px.
-   The hamburger overlay now covers tablet widths too. */
-@media (max-width: 1024px) {
+   880px (was 768px): the six-link nav (Prompts added 2026-10-16) needs ~670px
+   plus the wordmark gap and theme toggle, so it crowded the wordmark below
+   ~850px. The hamburger overlay covers those widths. */
+@media (max-width: 880px) {
   .nav-desktop { display: none; }
   .nav-toggle { display: inline-flex; }
   /* Push the icon right, next to the hamburger. */
