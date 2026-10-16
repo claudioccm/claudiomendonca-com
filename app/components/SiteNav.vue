@@ -43,6 +43,8 @@ const links = computed<NavLink[]>(() => [
   // Writing is its own route (PRO-178); paints aria-current on /writing and any
   // /writing/[slug] post (startsWith match below).
   { label: 'Writing', href: '/writing', routeMatch: '/writing' },
+  // Free prompt gallery; prefix match like Writing.
+  { label: 'Prompts', href: '/prompts', routeMatch: '/prompts' },
   { label: 'Services', href: '/consulting', routeMatch: '/consulting' },
   // Sister company; links straight out to its own site.
   { label: 'CCMDesign', href: 'https://ccmdesign.ca', routeMatch: null, external: true },
@@ -60,7 +62,7 @@ const links = computed<NavLink[]>(() => [
 // item. A plain `===` here would leave the nav unlit while reading a post.
 function isCurrent(routeMatch: string | null): boolean {
   if (!routeMatch) return false
-  if (routeMatch === '/writing') return route.path.startsWith('/writing')
+  if (routeMatch === '/writing' || routeMatch === '/prompts') return route.path.startsWith(routeMatch)
   return route.path === routeMatch
 }
 

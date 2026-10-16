@@ -2,7 +2,7 @@
  * Dynamic sitemap, prerendered to a static /sitemap.xml on `nuxt generate`.
  *
  * Hand-rolled rather than pulling in @nuxtjs/sitemap — the route queries the
- * `writing` collection server-side via @nuxt/content's server API, so new posts
+ * `writing` and `prompts` collections server-side via @nuxt/content's server API, so new posts
  * appear automatically and each post's <lastmod> comes from its frontmatter
  * date. The static pages (/, /consulting, /writing) carry the newest post date
  * as a stable, content-derived lastmod. Listed in nitro.prerender.routes so it
@@ -38,6 +38,10 @@ export default defineEventHandler(async (event) => {
     .where('draft', '=', false)
     .order('date', 'DESC')
     .all()
+  const prompts = await queryCollection(event, 'prompts')
+    .where('draft', '=', false)
+    .order('date', 'DESC')
+    .all()
 
   const newest = posts.length ? toIso(posts[0]!.date) : undefined
 
@@ -46,6 +50,15 @@ export default defineEventHandler(async (event) => {
     { loc: `${BASE}/consulting`, lastmod: newest, changefreq: 'monthly', priority: '0.8' },
     { loc: `${BASE}/writing`, lastmod: newest, changefreq: 'weekly', priority: '0.8' },
     ...posts.map((p): SitemapEntry => ({
+      loc: `${BASE}${p.path}`,
+      lastmod: toIso(p.date),
+      changefreq: 'yearly',
+      priority: '0.6',
+    })),
+    ...(prompts.length
+      ? [{ loc: `${BASE}/prompts`, lastmod: toIso(prompts[0]!.date), changefreq: 'weekly', priority: '0.7' }]
+      : []),
+    ...prompts.map((p): SitemapEntry => ({
       loc: `${BASE}${p.path}`,
       lastmod: toIso(p.date),
       changefreq: 'yearly',

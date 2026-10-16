@@ -12,12 +12,16 @@
  *   - `writing` — type 'page', `content/writing/**`. Schema only for now; the
  *                 Writing index/posts land in PRO-178. The schema mirrors the
  *                 editorial taxonomy the redesign uses.
+ *   - `prompts` — type 'page', `content/prompts/**`. The free prompt gallery
+ *                 (/prompts). One file per prompt; the filename is the slug
+ *                 (/prompts/<slug>). The Markdown body is optional extra notes.
  *
  * Datetime convention: the `writing.date` field uses the shared
  * `datetimeOffset` helper (offset-tolerant ISO-8601) so both `Z`-suffixed UTC
  * and `±HH:MM` offset forms parse — matching the convention established in the
  * sibling `edge` repo's content.config.ts.
  */
+import { readdirSync, readFileSync } from 'node:fs'
 import { defineCollection, defineContentConfig, z } from '@nuxt/content'
 
 /**
@@ -193,6 +197,59 @@ const writing = defineCollection({
   }),
 })
 
+/** Categories for the prompt gallery filter chips (/prompts). */
+const PROMPT_CATEGORIES = ['Quotes & sales', 'Customer messages', 'On the job', 'Admin'] as const
+
+// Production builds leave `draft: true` prompts out of the collection entirely.
+// A `where('draft', '=', false)` filter alone is not enough: @nuxt/content ships
+// every document in the public /__nuxt_content/<collection>/sql_dump.txt, so a
+// filtered draft would still be downloadable. `nuxt dev` keeps them for review.
+function draftPromptFiles(): string[] {
+  if (process.env.NODE_ENV !== 'production') return []
+  try {
+    return readdirSync('content/prompts')
+      .filter(f => f.endsWith('.md'))
+      .filter(f => /^draft:\s*true\s*$/m.test(readFileSync(`content/prompts/${f}`, 'utf8')))
+      .map(f => `prompts/${f}`)
+  }
+  catch {
+    return []
+  }
+}
+
+const prompts = defineCollection({
+  type: 'page',
+  source: { include: 'prompts/**', exclude: draftPromptFiles() },
+  schema: z.object({
+    title: z.string().min(1),
+    // One line: what the prompt does. Used on the card, the page dek and meta.
+    description: z.string().min(1),
+    category: z.enum(PROMPT_CATEGORIES),
+    // Who it is for (trade / role), shown in the card and page meta.
+    audience: z.string().min(1),
+    // The copy-paste prompt(s), in the order they are used. `[BRACKETS]` mark
+    // the parts to swap and render highlighted.
+    prompts: z.array(z.object({
+      label: z.string().optional(),
+      text: z.string().min(1),
+    })).min(1),
+    // "How to use it" steps.
+    steps: z.array(z.string()).default([]),
+    // The honest caveat ("AI drafts. You sign.").
+    check: z.string().optional(),
+    exampleOutput: z.string().optional(),
+    // "That's the DIY version." line: what the built version does. Feeds the
+    // closing CTA to /consulting.
+    builtVersion: z.string().optional(),
+    // Instagram comment keyword that sends people to this page.
+    keyword: z.string().optional(),
+    // Instagram post the prompt was transcribed from, if any.
+    sourcePost: z.string().optional(),
+    date: datetimeOffset(),
+    draft: z.boolean().default(false),
+  }),
+})
+
 export default defineContentConfig({
-  collections: { site, writing },
+  collections: { site, writing, prompts },
 })

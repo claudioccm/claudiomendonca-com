@@ -1444,6 +1444,7 @@
 .article__byline-text,
 .post-featured__meta,
 .post-card__meta,
+.prompt-card__for,
 .teaser-row__cat,
 .teaser-row__date,
 .client-logos__label {
@@ -1456,3 +1457,165 @@
   font-size-adjust: var(--adjust-mono);
   font-weight: 700;
 }
+
+/* ============================================================
+   Prompt gallery (/prompts, /prompts/[slug]) — 2026-10-16
+   Reuses the writing header, filter chips, post-card grid and article
+   head. Only the prompt box, steps and small extras are new; monochrome,
+   square corners, hairline borders.
+   ============================================================ */
+.prompt-card__for {
+  margin: 14px 0 0;
+  font-size: var(--text-caption);
+  line-height: 1.5;
+  color: var(--dim);
+}
+.prompt-card__cta {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: var(--text-caption);
+  color: var(--paper);
+}
+.prompt-draft {
+  color: var(--paper);
+  border: 1px solid var(--paper);
+  padding: 0 6px;
+}
+
+.prompt-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vh, 64px);
+}
+.prompt-page__prompts {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.prompt-page__hint {
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--dim);
+}
+
+/* ---------- Prompt box ---------- */
+.prompt-block {
+  margin: 0;
+  border: 1px solid var(--hairline-solid);
+  background: var(--raised);
+}
+.prompt-block__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 10px 10px 20px;
+  border-bottom: 1px solid var(--hairline-solid);
+}
+.prompt-block__label {
+  font-size: var(--text-caption);
+  color: var(--dim);
+}
+.prompt-block__copy {
+  flex: none;
+  min-width: 96px;
+  min-height: 44px;
+  padding: 0 20px;
+  font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--paper);
+  border-radius: var(--radius-buttons);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.prompt-block__copy:hover,
+.prompt-block__copy.is-copied {
+  background: transparent;
+  color: var(--paper);
+}
+.prompt-block__copy:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+}
+.prompt-block__text,
+.prompt-example {
+  margin: 0;
+  padding: clamp(18px, 3vw, 28px) clamp(20px, 3vw, 28px);
+  font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--paper);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+/* Placeholders to swap: inverted, so they read in both themes without colour. */
+.prompt-block__slot {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0 3px;
+}
+.prompt-block__error {
+  margin: 0;
+  padding: 0 20px 16px;
+  font-size: var(--text-caption);
+  color: var(--paper);
+}
+
+/* ---------- Steps, caveat, example ---------- */
+.prompt-page__heading {
+  font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
+  font-weight: 400;
+  font-size: clamp(24px, 3.2vw, 36.8px);
+  line-height: 1;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
+  margin: 0 0 24px;
+  color: var(--paper);
+}
+.prompt-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.prompt-steps li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--hairline-solid);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--paper);
+}
+.prompt-steps li:last-child { border-bottom: 1px solid var(--hairline-solid); }
+.prompt-steps__n {
+  font-size: var(--text-caption);
+  line-height: 1.9;
+  color: var(--dim);
+}
+.prompt-check {
+  margin: 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--paper);
+  font-family: var(--font-serif);
+  font-size-adjust: var(--adjust-sub);
+  font-style: italic;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.3;
+  color: var(--paper);
+}
+.prompt-example {
+  border: 1px solid var(--hairline-solid);
+  color: var(--dim);
+}
+.prompt-page__notes p:last-child { margin-bottom: 0; }
+
+/* The CTA banner section that follows brings its own top padding. */
+.prompt-page { padding-bottom: 0; }
