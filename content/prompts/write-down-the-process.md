@@ -13,7 +13,7 @@ prompts:
       Mark any step where they should call me before going ahead.
 steps:
   - "Pick one task that stops when you're away. Closing out a job, ordering materials and onboarding a new customer are all good starts."
-  - "Paste the prompt above into your AI assistant and swap the brackets. The voice button works well here too."
+  - "Paste the prompt into your AI assistant and swap the brackets. The voice button works well here too."
   - "Answer the way you'd explain it to someone standing next to you. Ten minutes is usually enough."
   - "Hand the checklist to the person who'll use it and let them try it once while you're around. Fix whatever they trip on."
 check: Read it as the new hire would. If a step only makes sense to you, it isn't written down yet.

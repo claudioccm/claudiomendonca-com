@@ -15,6 +15,7 @@
  *   - `prompts` — type 'page', `content/prompts/**`. The free prompt gallery
  *                 (/prompts). One file per prompt; the filename is the slug
  *                 (/prompts/<slug>). The Markdown body is optional extra notes.
+ *                 The prompt text itself is copied, never rendered.
  *
  * Datetime convention: the `writing.date` field uses the shared
  * `datetimeOffset` helper (offset-tolerant ISO-8601) so both `Z`-suffixed UTC
@@ -227,8 +228,9 @@ const prompts = defineCollection({
     category: z.enum(PROMPT_CATEGORIES),
     // Who it is for (trade / role), shown in the card and page meta.
     audience: z.string().min(1),
-    // The copy-paste prompt(s), in the order they are used. `[BRACKETS]` mark
-    // the parts to swap and render highlighted.
+    // The copy-paste prompt(s), in the order they are used. Copied to the
+    // clipboard only; the text is never rendered on the site (Claudio,
+    // 2026-10-16). `[BRACKETS]` mark the parts to swap; `label` names each one.
     prompts: z.array(z.object({
       label: z.string().optional(),
       text: z.string().min(1),
@@ -237,7 +239,6 @@ const prompts = defineCollection({
     steps: z.array(z.string()).default([]),
     // The honest caveat ("AI drafts. You sign.").
     check: z.string().optional(),
-    exampleOutput: z.string().optional(),
     // "That's the DIY version." line: what the built version does. Feeds the
     // closing CTA to /consulting.
     builtVersion: z.string().optional(),

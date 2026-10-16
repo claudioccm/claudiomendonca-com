@@ -6,8 +6,8 @@ export interface PromptSegment {
   placeholder: boolean
 }
 
-// Split prompt text into plain runs and `[placeholder]` runs so the page can
-// mark the parts to swap. Joining every segment's text gives back the input.
+// Split prompt text into plain runs and `[placeholder]` runs. The page never
+// renders the text; it only checks for placeholders. Segments rejoin losslessly.
 export function splitPlaceholders(text: string): PromptSegment[] {
   const segments: PromptSegment[] = []
   const pattern = /\[[^[\]\n]+\]/g

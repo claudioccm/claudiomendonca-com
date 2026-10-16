@@ -12,7 +12,7 @@ prompts:
       For complaints: apologise once, say what we changed or will do, and invite them to call [PHONE]. Never argue, never offer discounts.
 steps:
   - "Copy your last ten reviews from Google Maps or your Business Profile: the good, the bad and the three-star ones. Keep first names only."
-  - "Paste them into your AI assistant with the prompt above, swapping the brackets."
+  - "Paste them into your AI assistant with the prompt, swapping the brackets."
   - "Make each one yours. Read every reply before you post it, add one detail only you would know, and cut anything that sounds canned. Post two or three a day rather than ten at once."
   - "Then keep it up: ten minutes every Monday, new reviews in, replies out."
 check: A reply under your name is public, so the reading step is not optional.

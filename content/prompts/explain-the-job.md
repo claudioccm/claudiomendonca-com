@@ -13,7 +13,7 @@ prompts:
       Don't change any price, measurement or date in my notes. If something in my notes is unclear, ask me instead of guessing.
 steps:
   - "Write or dictate your notes the way you normally would. Shorthand is fine."
-  - "Paste the prompt above into your AI assistant, with your notes under it."
+  - "Paste the prompt into your AI assistant, with your notes under it."
   - "Read it as if you were the customer. If a sentence would make you nervous or confused, ask it to fix that line."
   - "Send it with the quote or the invoice, so the numbers arrive with the reason behind them."
 check: Check every number against your notes. A plain-words message with the wrong price is worse than jargon.

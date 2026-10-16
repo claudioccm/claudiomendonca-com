@@ -1,4 +1,5 @@
-<!-- One prompt: copyable prompt box(es), how-to steps, CTA to /consulting, related prompts. -->
+<!-- One prompt: what it does, Copy button(s), how-to steps, CTA to /consulting, related prompts.
+     The prompt text is copied, never rendered (Claudio, 2026-10-16). -->
 <script setup lang="ts">
 import { computed } from 'vue'
 
@@ -15,9 +16,6 @@ if (!doc.value || (doc.value.draft && !import.meta.dev)) {
 
 const prompt = computed(() => doc.value!)
 const slug = computed(() => promptSlug(prompt.value.path))
-const hasPlaceholders = computed(() =>
-  prompt.value.prompts.some(item => splitPlaceholders(item.text).some(s => s.placeholder)),
-)
 const hasNotes = computed(() => (prompt.value.body?.value?.length ?? 0) > 0)
 
 // Related: same category first, then the newest others, three at most.
@@ -83,9 +81,6 @@ useSeoMeta({
             :category="prompt.category"
             :part="i + 1"
           />
-          <p v-if="hasPlaceholders" class="prompt-page__hint mono">
-            <mark class="prompt-block__slot">[Brackets]</mark> are yours to fill in.
-          </p>
         </div>
 
         <div v-if="prompt.steps?.length" class="prompt-page__section">
@@ -99,11 +94,6 @@ useSeoMeta({
         </div>
 
         <p v-if="prompt.check" class="prompt-check">{{ prompt.check }}</p>
-
-        <div v-if="prompt.exampleOutput" class="prompt-page__section">
-          <h2 id="example" class="prompt-page__heading">What comes back</h2>
-          <pre class="prompt-example">{{ prompt.exampleOutput }}</pre>
-        </div>
 
         <div v-if="hasNotes" class="prose prompt-page__notes">
           <ContentRenderer :value="prompt" />

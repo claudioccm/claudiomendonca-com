@@ -11,7 +11,7 @@ prompts:
       Keep each rule to one line.
 steps:
   - "Collect ten messages you actually sent: emails, DMs, texts to real customers. Pick the ones that sound like you. Take names and details out."
-  - "Paste the prompt above, with your ten messages under it."
+  - "Copy the prompt and paste it into a chat, with your ten messages under it."
   - "Save the rules as custom instructions. In ChatGPT: Settings, Personalization. In Claude: Settings, then Instructions for Claude. In Gemini: put them in a Gem."
   - "From then on, reply in one line: \"Reply to this: can't do Friday, offer Monday 9am, keep the deposit.\" It drafts in your voice."
 check: Still read every reply before it goes. Your voice rules don't know today's prices or hours.

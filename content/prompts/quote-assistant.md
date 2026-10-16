@@ -14,7 +14,7 @@ prompts:
 steps:
   - "Create a Project just for quotes. In ChatGPT or Claude, open Projects in the sidebar and start a new one. In Gemini, create a Gem. Name it Quotes."
   - "Upload what a new hire would need: your price list, your terms and conditions, and three quotes you're proud of. Take client names out first."
-  - "Paste the prompt above into the Project's instructions and swap the brackets."
+  - "Copy the prompt, paste it into the Project's instructions and swap the brackets."
   - "From then on, ask in one line: \"New quote. Client: Sam. Job: 12x16 cedar deck rebuild in Brackendale. Start: May.\" It asks what's missing, then drafts."
 check: Always check the numbers yourself. AI drafts. You sign.
 builtVersion: The one CCM Labs builds is connected to your live prices and client records, so there's nothing to upload and nothing to keep updated.

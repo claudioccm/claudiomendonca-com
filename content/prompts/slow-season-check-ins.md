@@ -11,7 +11,7 @@ prompts:
       End with one easy question they can answer in a line.
 steps:
   - "List who to write to: customers from the last two years, quotes from the last six months, and any job that needs a yearly check-up. Twenty names is plenty."
-  - "Paste the prompt above into your AI assistant, then add each customer's name, what you did for them and when."
+  - "Copy the prompt and paste it into your AI assistant, then add each customer's name, what you did for them and when."
   - "Send five a day, by text or email, whichever they use. Read each one before it goes and add a line only you could write. When someone answers, reply the same day."
   - "Write down who answered. Next slow season, you start with a warm list."
 builtVersion: The one I build at CCM Labs knows who's due for a check-in and drafts the message for you.

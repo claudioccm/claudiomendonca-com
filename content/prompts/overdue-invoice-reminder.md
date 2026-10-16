@@ -13,7 +13,7 @@ prompts:
       Then write a firmer second version I can send if I haven't heard back in [7] days. Still polite, and clear about the date I expect payment.
 steps:
   - "Find the invoice and check it really is unpaid. Look at your bank, not just your invoicing tool."
-  - "Paste the prompt above into your AI assistant and swap the brackets."
+  - "Paste the prompt into your AI assistant and swap the brackets."
   - "Send the first version by email, with the invoice attached again. Put the second one in your calendar for a week out."
   - "If they answer with a problem, deal with the problem. Don't send the second reminder on autopilot."
 check: Read both before they go. You know if there's a reason they're late, and the AI doesn't.

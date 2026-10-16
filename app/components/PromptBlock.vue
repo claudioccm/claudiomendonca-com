@@ -1,7 +1,8 @@
 <!--
-  One copy-paste prompt in a box with a Copy button (/prompts/<slug>).
-  `[BRACKETED]` parts render highlighted; the button copies the raw text.
-  Fires the GA4 `prompt_copy` event on a successful copy.
+  Copy control for one prompt (/prompts/<slug>). The prompt text is never
+  rendered (Claudio, 2026-10-16): the page explains what the prompt does and
+  this button puts the text on the clipboard. Fires GA4 `prompt_copy` on a
+  successful copy.
 -->
 <script setup lang="ts">
 interface Props {
@@ -15,7 +16,8 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const segments = computed(() => splitPlaceholders(props.text))
+// Tell people to fill in the brackets after pasting, without showing the text.
+const hasPlaceholders = computed(() => splitPlaceholders(props.text).some(s => s.placeholder))
 const status = ref<'idle' | 'copied' | 'error'>('idle')
 let resetTimer: ReturnType<typeof setTimeout> | null = null
 
@@ -35,25 +37,27 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <figure class="prompt-block">
-    <figcaption class="prompt-block__bar">
-      <span class="prompt-block__label mono">{{ label || 'The prompt' }}</span>
-      <button
-        type="button"
-        class="prompt-block__copy mono"
-        :class="{ 'is-copied': status === 'copied' }"
-        :aria-label="label ? `Copy prompt: ${label}` : 'Copy prompt'"
-        @click="copy"
-      >
-        {{ status === 'copied' ? 'Copied' : 'Copy' }}
-      </button>
-    </figcaption>
-    <pre class="prompt-block__text"><template v-for="(segment, i) in segments" :key="i"><mark v-if="segment.placeholder" class="prompt-block__slot">{{ segment.text }}</mark><template v-else>{{ segment.text }}</template></template></pre>
+  <div class="prompt-copy">
+    <div class="prompt-copy__text">
+      <p class="prompt-copy__label">{{ label || 'The prompt' }}</p>
+      <p v-if="hasPlaceholders" class="prompt-copy__note mono">
+        After you paste it, swap the parts in [brackets] for your own details.
+      </p>
+    </div>
+    <button
+      type="button"
+      class="btn btn-filled prompt-copy__btn"
+      :class="{ 'is-copied': status === 'copied' }"
+      :aria-label="label ? `Copy prompt: ${label}` : 'Copy prompt'"
+      @click="copy"
+    >
+      {{ status === 'copied' ? 'Copied' : 'Copy prompt' }}
+    </button>
     <p class="sr-only" aria-live="polite">
-      {{ status === 'copied' ? 'Prompt copied to clipboard.' : status === 'error' ? 'Couldn’t copy. Select the text and copy it by hand.' : '' }}
+      {{ status === 'copied' ? 'Prompt copied to clipboard.' : status === 'error' ? 'Couldn’t copy. Please try again.' : '' }}
     </p>
-    <p v-if="status === 'error'" class="prompt-block__error mono" aria-hidden="true">
-      Couldn’t copy. Select the text and copy it by hand.
+    <p v-if="status === 'error'" class="prompt-copy__error mono" aria-hidden="true">
+      Couldn’t copy. Please try again.
     </p>
-  </figure>
+  </div>
 </template>

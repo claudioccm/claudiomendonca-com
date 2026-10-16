@@ -13,7 +13,7 @@ prompts:
       Then, separately, list for me any job that is missing an address, a phone number or a next step.
 steps:
   - "Copy next week's jobs out of your calendar or diary. Typing them out roughly is fine."
-  - "Paste the prompt above into your AI assistant, with the jobs under it."
+  - "Paste the prompt into your AI assistant, with the jobs under it."
   - "Fill the gaps it lists before anything goes to the team. That list is the useful part."
   - "Send the message to the crew on Friday, by text or your group chat. Next week, fix the missing details in the calendar entry itself, so there are fewer gaps to fill."
 check: Check every address and phone number before it goes out. A crew at the wrong house is an expensive typo.
