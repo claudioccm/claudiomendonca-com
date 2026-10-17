@@ -82,12 +82,12 @@ export interface HeroWaterConfig {
 export const HERO_WATER_DEFAULTS: HeroWaterConfig = {
   hover: { intensity: 0.45, radius: 18, spacing: 9, falloff: 1.5 },
   click: { intensity: 2.2, radius: 36, rings: 3 },
-  text: { intensity: 0.55, radius: 34, origin: 'word' },
-  water: { speed: 4.5, damping: 0.01, ambient: 0.15 },
-  calm: { strength: 0.75, padding: 20, feather: 56 },
+  text: { intensity: 1.44, radius: 34, origin: 'word' },
+  water: { speed: 3.6, damping: 0.01, ambient: 0.15 },
+  calm: { strength: 0.75, padding: 8, feather: 18 },
   render: {
-    cellSize: 14,
-    spacing: 1.5,
+    cellSize: 13,
+    spacing: 1.9,
     ramp: ' .,:;~=+*xoX#%&@',
     base: 0.12,
     contrast: 1.4,
@@ -286,4 +286,26 @@ export function calmMask(
     }
   }
   return m
+}
+
+/**
+ * Merge line boxes into one box per text row: boxes whose vertical centres fall
+ * inside each other's span join, widening to cover both.
+ */
+export function rowBoxes(boxes: Box[]): Box[] {
+  const rows: Box[] = []
+  for (const b of [...boxes].sort((a, c) => a[1] - c[1])) {
+    const mid = (b[1] + b[3]) / 2
+    const row = rows.find(r => mid >= r[1] && mid <= r[3] || ((r[1] + r[3]) / 2 >= b[1] && (r[1] + r[3]) / 2 <= b[3]))
+    if (row) {
+      row[0] = Math.min(row[0], b[0])
+      row[1] = Math.min(row[1], b[1])
+      row[2] = Math.max(row[2], b[2])
+      row[3] = Math.max(row[3], b[3])
+    }
+    else {
+      rows.push([...b] as Box)
+    }
+  }
+  return rows
 }

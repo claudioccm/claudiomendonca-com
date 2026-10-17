@@ -4,6 +4,7 @@ import {
   WaterSurface,
   calmMask,
   cloneConfig,
+  rowBoxes,
   levelFor,
   makeEmitter,
   tickEmitter,
@@ -98,5 +99,16 @@ describe('calmMask', () => {
     expect(m[7 * 40 + 21]).toBeGreaterThan(0) // (215, 150): 5 px past the padding
     expect(m[7 * 40 + 21]).toBeLessThan(1)
     expect(m[7 * 40 + 30]).toBe(0) // (305, 150): beyond the feather
+  })
+})
+
+describe('rowBoxes', () => {
+  it('merges line fragments on the same row and keeps rows apart', () => {
+    const rows = rowBoxes([
+      [0, 0, 100, 20], // row 1, first word run
+      [120, 2, 300, 18], // row 1, a link on the same line
+      [0, 30, 250, 50], // row 2
+    ])
+    expect(rows).toEqual([[0, 0, 300, 20], [0, 30, 250, 50]])
   })
 })
