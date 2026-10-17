@@ -34,6 +34,7 @@ const contactHref = computed(() =>
           <ul>
             <li><a href="/#work">Work</a></li>
             <li><a href="/writing">Writing</a></li>
+            <li><a href="/prompts">Free prompts</a></li>
             <li><a href="/consulting">Services</a></li>
             <li><a href="/#about">About</a></li>
           </ul>

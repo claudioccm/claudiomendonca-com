@@ -67,7 +67,7 @@ useHead({
 
 // Scroll reveals are CSS-only: [data-reveal] elements (work rows and the bio block) are revealed by the [data-reveal] rule in
 // base.css via a scroll-linked View Timeline, double-guarded by `@supports` +
-// `prefers-reduced-motion: no-preference`. The hero's dot-field + typewriter are
+// `prefers-reduced-motion: no-preference`. The hero's ASCII water + typewriter are
 // the only JS motion, wired client-side inside HomeHero and reduced-motion-safe.
 </script>
 
@@ -104,11 +104,11 @@ useHead({
       <section id="problems">
         <div class="shell">
           <h2 class="experiments-title" data-reveal>{{ site.problems.heading }}</h2>
-          <p class="section-intro mono" data-reveal>{{ site.problems.intro }}</p>
+          <p class="section-intro" data-reveal>{{ site.problems.intro }}</p>
           <div class="experiment-index">
             <div v-for="problem in site.problems.items" :key="problem.title" class="experiment-row problem-row" data-reveal>
               <h3 class="experiment-row__title">{{ problem.title }}</h3>
-              <p class="experiment-row__desc mono">{{ problem.description }}</p>
+              <p class="experiment-row__desc">{{ problem.description }}</p>
             </div>
           </div>
           <div class="section-trail" data-reveal>

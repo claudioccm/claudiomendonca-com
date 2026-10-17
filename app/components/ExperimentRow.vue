@@ -26,7 +26,7 @@ const accessibleName = computed(() => props.ariaLabel ?? props.title)
     data-reveal
   >
     <span class="experiment-row__title">{{ title }}</span>
-    <span class="experiment-row__desc mono">
+    <span class="experiment-row__desc">
       {{ description }}
       <span class="experiment-row__arrow" aria-hidden="true">↗</span>
     </span>

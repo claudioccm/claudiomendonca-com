@@ -245,7 +245,7 @@ function trackLead(heardFromDetail: string, attribution: Attribution | null) {
   >
     <span class="contact-success__mark" aria-hidden="true" />
     <p class="contact-success__title">Message sent.</p>
-    <p class="contact-success__sub mono">
+    <p class="contact-success__sub">
       Thanks — I’ll get back to you soon.
     </p>
   </div>

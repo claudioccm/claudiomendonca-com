@@ -131,7 +131,7 @@
 /* ============================================================
    Home hero (editorial redesign) — full-viewport signature section.
    Spec: _process/design-exploration-unzipped/Hero - Combined.dc.html (HERO).
-   The interactive dot-field + cycling typewriter are wired in HomeHero.vue;
+   The ASCII water (HeroAsciiWater.vue) + cycling typewriter (HomeHero.vue);
    this is the static layout + the caret blink (reduced-motion-guarded). DEDICATED
    to the home page — the shared .hero* rules above still serve /consulting.
    Sized calc(100svh - 72px) to fill the viewport beneath the 72px sticky nav.
@@ -145,27 +145,20 @@
   padding: clamp(28px, 5vw, 72px) clamp(28px, 5vw, 72px) 100px;
   overflow: hidden;
 }
-/* Decorative dot-field: an absolute grid filling the hero. Dots are built
-   client-side (HomeHero.vue); empty + harmless in SSR / no-JS / reduced-motion. */
-.home-hero__dotfield {
+/* Decorative ASCII water (HeroAsciiWater.vue): a canvas filling the hero.
+   Drawn client-side; empty in SSR / no-JS, one static frame under reduced
+   motion. Clicks pass through to the section, which owns the listeners. */
+.home-hero__water {
   position: absolute;
   inset: 0;
-  display: grid;
-  padding: clamp(40px, 6vw, 90px);
+  width: 100%;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
-}
-.home-hero__dot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(var(--paper-rgb), 0.1);
-  justify-self: center;
-  align-self: center;
-  will-change: transform;
+  font-family: var(--font-mono);
 }
 
-/* Headline block — kept above the dot-field. Fills the hero's full content
+/* Headline block — kept above the water. Fills the hero's full content
    width (inside the section padding); the sub paragraph + links keep their own
    max-widths for readability. */
 .home-hero__inner {
@@ -1338,9 +1331,8 @@
   line-height: 1.5;
 }
 .article__author { color: var(--paper); }
-/* --dim (not --faint): at 12px the byline role must clear WCAG AA 4.5:1.
-   --faint (#6F6A60) on --ink is 3.61:1 (fails); --dim (#A8A39A) is ~7.4:1 and
-   keeps the author>role hierarchy. (PRO-181 a11y fix — Lighthouse color-contrast.) */
+/* --dim (not --faint) keeps the author>role hierarchy and a comfortable margin
+   over WCAG AA at 12px (~7.4:1). (PRO-181 a11y fix — Lighthouse color-contrast.) */
 .article__role { color: var(--dim); }
 
 /* ---------- Prose (ContentRenderer body) ---------- */
@@ -1447,6 +1439,7 @@
 .article__byline-text,
 .post-featured__meta,
 .post-card__meta,
+.prompt-card__for,
 .teaser-row__cat,
 .teaser-row__date,
 .client-logos__label {
@@ -1459,3 +1452,182 @@
   font-size-adjust: var(--adjust-mono);
   font-weight: 700;
 }
+
+/* ============================================================
+   Prompt gallery (/prompts, /prompts/[slug]) — 2026-10-16
+   Reuses the writing header, filter chips, post-card grid and article
+   head. Only the prompt box, steps and small extras are new; monochrome,
+   square corners, hairline borders.
+   ============================================================ */
+/* Card grid with internal hairlines only (Claudio, 2026-10-16). Each cell
+   draws its own right and bottom border, and the list overhangs its clipping
+   wrapper by 1px on the right and bottom, so the last column's right border
+   and the last row's bottom border fall outside it. Everything else stays:
+   the lines between cells, plus the edges a cell shares with an empty slot on
+   a short last row (e.g. 10 cards in 3 columns: cards 8 and 9 keep a bottom
+   line, card 10 keeps a right line). Correct at any column count. Cells
+   carry the spacing (no grid gap); the wrapper's negative margins keep card
+   text aligned with the page shell. --cell-pad-x stays below --page-pad-x
+   so the wrapper never overflows the viewport. */
+.prompt-grid-wrap {
+  --cell-pad-x: clamp(16px, 2.5vw, 36px);
+  --cell-pad-y: clamp(24px, 3vw, 40px);
+  overflow: hidden;
+  margin: calc(-1 * var(--cell-pad-y)) calc(-1 * var(--cell-pad-x));
+}
+.prompt-grid {
+  list-style: none;
+  margin: 0 -1px -1px 0;
+  padding: 0;
+  display: grid;
+  /* At most 3 columns (Claudio, 2026-10-16): a column is never narrower than
+     a third of the row, nor than 280px, so it drops to 2 and 1 on smaller
+     screens. */
+  grid-template-columns: repeat(auto-fill, minmax(max(min(100%, 280px), calc(100% / 3 - 1px)), 1fr));
+}
+.prompt-grid > li {
+  border-right: 1px solid var(--hairline-solid);
+  border-bottom: 1px solid var(--hairline-solid);
+}
+/* The card fills its cell, so the whole cell is the link and hover target. */
+.prompt-grid .prompt-card {
+  height: 100%;
+  padding: var(--cell-pad-y) var(--cell-pad-x);
+}
+.prompt-grid .prompt-card:focus-visible { outline-offset: -6px; }
+/* Hover/focus one card and the others drop to 60% (Claudio, 2026-10-16).
+   The opacity goes on the card's contents: the card itself runs the
+   [data-reveal] scroll animation, which owns its opacity. Mouse/trackpad only
+   for hover, so a tap on a phone doesn't leave the grid dimmed; keyboard
+   focus does the same everywhere. */
+.prompt-grid .prompt-card > * { transition: opacity 200ms ease; }
+@media (hover: hover) {
+  .prompt-grid:has(.prompt-card:hover) .prompt-card:not(:hover) > * { opacity: 0.6; }
+}
+.prompt-grid:has(.prompt-card:focus-visible) .prompt-card:not(:focus-visible) > * { opacity: 0.6; }
+.prompt-card__for {
+  margin: 14px 0 0;
+  font-size: var(--text-caption);
+  line-height: 1.5;
+  color: var(--dim);
+}
+.prompt-card__cta {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: var(--text-caption);
+  color: var(--paper);
+}
+.prompt-draft {
+  color: var(--paper);
+  border: 1px solid var(--paper);
+  padding: 0 6px;
+}
+
+.prompt-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vh, 64px);
+}
+.prompt-page__prompts {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---------- Copy control (the prompt text is never rendered) ---------- */
+.prompt-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  flex-wrap: wrap;
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--hairline-solid);
+  background: var(--surface-tint);
+}
+.prompt-copy__text {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.prompt-copy__label {
+  margin: 0;
+  font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
+  font-size: clamp(20.8px, 2.4vw, 26px);
+  line-height: 1.1;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
+  color: var(--paper);
+}
+.prompt-copy__note {
+  margin: 0;
+  font-size: var(--text-caption);
+  line-height: 1.5;
+  color: var(--dim);
+}
+.prompt-copy__btn { min-height: 44px; }
+.prompt-copy__btn.is-copied {
+  background: transparent;
+  color: var(--paper);
+}
+.prompt-copy__btn:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+.prompt-copy__error {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--paper);
+}
+
+/* ---------- Steps, caveat ---------- */
+.prompt-page__heading {
+  font-family: var(--font-disp);
+  font-size-adjust: var(--adjust-disp);
+  font-weight: 400;
+  font-size: clamp(24px, 3.2vw, 36.8px);
+  line-height: 1;
+  letter-spacing: calc(-0.01em + var(--disp-tracking-shift));
+  margin: 0 0 24px;
+  color: var(--paper);
+}
+.prompt-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.prompt-steps li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--hairline-solid);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--paper);
+}
+.prompt-steps li:last-child { border-bottom: 1px solid var(--hairline-solid); }
+.prompt-steps__n {
+  font-size: var(--text-caption);
+  line-height: 1.9;
+  color: var(--dim);
+}
+.prompt-check {
+  margin: 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--paper);
+  font-family: var(--font-serif);
+  font-size-adjust: var(--adjust-sub);
+  font-style: italic;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.3;
+  color: var(--paper);
+}
+.prompt-page__notes p:last-child { margin-bottom: 0; }
+
+/* The CTA banner section that follows brings its own top padding. */
+.prompt-page { padding-bottom: 0; }

@@ -89,7 +89,9 @@
   list-style: none;
   margin: 0; padding: 0;
 }
+.nav-inner .wordmark { white-space: nowrap; }
 .nav-links a {
+  white-space: nowrap;
   /* Navigation uses the shared readable caption size. */
   font-family: var(--font-mono);
   font-size-adjust: var(--adjust-mono);
@@ -131,10 +133,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: clamp(8px, 1.5vw, 20px);
+  /* Same spacing the link list uses between items. */
+  margin-left: clamp(20px, 3.5vw, 48px);
   transition: opacity 160ms ease;
 }
 .nav-social:hover { opacity: 0.55; }
+.nav-theme { margin-left: clamp(8px, 1.5vw, 20px); }
 .nav-social:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- Theme toggle ----------
@@ -261,12 +265,16 @@
    lock is the sole scroll lock since Lenis was retired (PRO-174). */
 body.is-menu-open { overflow: hidden; }
 
-/* ---------- Nav responsive: overlay breakpoint ---------- */
-@media (max-width: 768px) {
+/* ---------- Nav responsive: overlay breakpoint ----------
+   880px (was 768px): the six-link nav (Prompts added 2026-10-16) needs ~670px
+   plus the wordmark gap and theme toggle, so it crowded the wordmark below
+   ~850px. The hamburger overlay covers those widths. */
+@media (max-width: 880px) {
   .nav-desktop { display: none; }
   .nav-toggle { display: inline-flex; }
   /* Push the icon right, next to the hamburger. */
   .nav-social { margin-left: auto; margin-right: 4px; }
+  .nav-theme { display: none; }
   .nav-overlay { display: flex; }
 }
 

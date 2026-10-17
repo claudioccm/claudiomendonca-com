@@ -1,9 +1,18 @@
 import siteContent from './content/site.json'
+import { includePromptDrafts } from './app/utils/promptDrafts'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2026-05-21',
   devtools: { enabled: true },
+
+  // Draft prompts render (badged, noindex) in dev and on Netlify deploy
+  // previews / branch deploys only; see app/utils/promptDrafts.ts.
+  runtimeConfig: {
+    public: {
+      showPromptDrafts: includePromptDrafts(process.env),
+    },
+  },
 
   modules: [
     '@nuxt/content',
@@ -33,12 +42,25 @@ export default defineNuxtConfig({
         '/',
         '/consulting',
         '/writing',
+        // Prompt gallery index; crawlLinks finds each /prompts/<slug> from it.
+        // Drafts are never linked, so they never prerender.
+        '/prompts',
         // SEO/GEO endpoints — hand-rolled Nitro routes (server/routes/*) that
         // query @nuxt/content at prerender time and emit static files Netlify
         // serves directly. Listed explicitly since nothing links to them.
         '/sitemap.xml',
         '/llms.txt',
       ],
+    },
+  },
+
+  // Hero water tuning panel (`?dials`, HeroAsciiWater.vue). Netlify sets
+  // CONTEXT=production for production builds; there the flag is false and the
+  // DialKit import is dead code, so its chunk is never built or shipped. Dev,
+  // local generate and deploy previews keep it.
+  vite: {
+    define: {
+      __HERO_DIALS__: JSON.stringify(process.env.CONTEXT !== 'production'),
     },
   },
 
@@ -69,8 +91,8 @@ export default defineNuxtConfig({
     families: [
       { name: 'Instrument Serif', weights: [400], styles: ['normal', 'italic'] },
       { name: 'JetBrains Mono', weights: [400, 500, 700], styles: ['normal', 'italic'] },
-      // Light theme body face (see tokens.css).
-      { name: 'IBM Plex Serif', weights: [400, 500, 700], styles: ['normal', 'italic'] },
+      // Body face in both themes (2026-10-16).
+      { name: 'Schibsted Grotesk', weights: [400, 500, 700], styles: ['normal', 'italic'] },
     ],
   },
 

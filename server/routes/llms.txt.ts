@@ -34,6 +34,10 @@ export default defineEventHandler(async (event) => {
     .where('draft', '=', false)
     .order('date', 'DESC')
     .all()
+  const prompts = await queryCollection(event, 'prompts')
+    .where('draft', '=', false)
+    .order('date', 'DESC')
+    .all()
 
   const identity = site?.identity
   const work = site?.work.items ?? []
@@ -60,6 +64,11 @@ export default defineEventHandler(async (event) => {
       const dek = p.dek ? ` — ${p.dek}` : ''
       return `- [${p.title}](${BASE}${p.path})${my ? ` (${my})` : ''}${dek}`
     }),
+    '',
+    '## Free prompts',
+    '',
+    `- [Prompt gallery](${BASE}/prompts): Copy-paste AI prompts for small businesses. Free, no sign-up.`,
+    ...prompts.map(p => `- [${p.title}](${BASE}${p.path}): ${p.description}`),
     '',
     '## Contact',
     '',
