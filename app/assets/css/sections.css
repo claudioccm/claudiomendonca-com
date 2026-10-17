@@ -143,16 +143,21 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(28px, 5vw, 72px) clamp(28px, 5vw, 72px) 100px;
-  overflow: hidden;
+  /* Clip sideways only: the water reaches up under the nav (below). */
+  overflow-x: clip;
 }
-/* Decorative ASCII water (HeroAsciiWater.vue): a canvas filling the hero.
-   Drawn client-side; empty in SSR / no-JS, one static frame under reduced
-   motion. Clicks pass through to the section, which owns the listeners. */
+/* Decorative ASCII water (HeroAsciiWater.vue): a canvas filling the hero and
+   reaching 73px up (the 72px bar + its 1px border) behind the translucent sticky nav, so the field starts at
+   the top of the viewport. The hero itself stays in flow below the nav (no
+   negative margin), so the headline is never under it. Drawn client-side;
+   empty in SSR / no-JS, one static frame under reduced motion. Clicks pass
+   through to the section, which owns the listeners. */
 .home-hero__water {
   position: absolute;
-  inset: 0;
+  top: -73px;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 73px);
   z-index: 0;
   pointer-events: none;
   font-family: var(--font-mono);

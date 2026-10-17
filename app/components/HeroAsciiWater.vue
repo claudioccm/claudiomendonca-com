@@ -2,14 +2,16 @@
   Home hero background: an ASCII water surface (Claudio 2026-10-16, replacing
   the dot ripple). Simulation + defaults: app/lib/asciiWater.ts.
 
-  - Pointer move over the hero drags a "stick" through the water (low wake);
+  - Pointer move over the water (the hero and the translucent nav above it)
+    drags a "stick" through it (low wake);
     a finger drag does the same through passive touch listeners, so scrolling
     is never blocked.
   - Click / tap drops a "rock" (high, multi-ring burst) at that point.
   - The parent calls `textRipple()` when the typewriter swaps its word (medium).
 
-  Listens on the parent element (the hero section); the canvas itself is
-  pointer-events: none and aria-hidden, so links and focus are untouched.
+  Clicks and touches are heard on the parent element (the hero section), so nav
+  links never drop a rock; the canvas itself is pointer-events: none and
+  aria-hidden, so links and focus are untouched.
   Reduced motion: one static frame, no loop, no listeners. One rAF loop that
   sleeps when the water is flat, the hero is off screen or the tab is hidden.
 
@@ -81,7 +83,7 @@ let lastY = 0
 let travelled = 0
 
 // Perf readout for tuning (frame cost in ms, averaged).
-const stats = { frameMs: 0, cells: 0 }
+const stats = { frameMs: 0, cells: 0, wakes: 0, rocks: 0 }
 
 function readTheme() {
   const root = getComputedStyle(document.documentElement)
@@ -311,6 +313,7 @@ function stickTo(clientX: number, clientY: number) {
   travelled = (travelled + dist) % spacing
   lastX = p.x
   lastY = p.y
+  stats.wakes += emitted
   if (emitted) wake()
 }
 
@@ -318,6 +321,7 @@ function rock(clientX: number, clientY: number) {
   const p = localPoint(clientX, clientY)
   if (!p.inside || cfg.click.intensity <= 0) return
   emitters.push(makeEmitter(p.x, p.y, cfg.click.radius, cfg.click.intensity, cfg.click.rings, cfg.water.speed))
+  stats.rocks++
   wake()
 }
 
@@ -407,6 +411,19 @@ onMounted(() => {
   }
   const ro = new ResizeObserver(() => relayout())
   ro.observe(canvas)
+  // The sticky nav moves against the canvas as the page scrolls, so its calm
+  // bands are re-measured (once per frame at most).
+  let scrollQueued = false
+  const onScroll = () => {
+    if (scrollQueued) return
+    scrollQueued = true
+    requestAnimationFrame(() => {
+      scrollQueued = false
+      updateCalm()
+      if (raf === null) draw()
+    })
+  }
+  window.addEventListener('scroll', onScroll, { passive: true })
   // Re-read the glyph colour when the theme flips, and the font once it loads.
   const mo = new MutationObserver(() => {
     readTheme()
@@ -421,6 +438,7 @@ onMounted(() => {
   cleanups.push(() => {
     ro.disconnect()
     mo.disconnect()
+    window.removeEventListener('scroll', onScroll)
   })
 
   if (reduced) {
@@ -435,6 +453,8 @@ onMounted(() => {
     const onVis = () => {
       if (!document.hidden) wake()
     }
+    // On the window, so the wake follows the pointer over the nav too (the
+    // water runs behind it); stickTo ignores points outside the canvas.
     const onPointerMove = (e: PointerEvent) => {
       if (e.pointerType !== 'touch') stickTo(e.clientX, e.clientY)
     }
@@ -447,16 +467,16 @@ onMounted(() => {
     }
     const onClick = (e: MouseEvent) => rock(e.clientX, e.clientY)
     document.addEventListener('visibilitychange', onVis)
-    host.addEventListener('pointermove', onPointerMove, { passive: true })
-    host.addEventListener('pointerleave', onLeave)
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    document.documentElement.addEventListener('pointerleave', onLeave)
     host.addEventListener('touchmove', onTouchMove, { passive: true })
     host.addEventListener('touchend', onLeave, { passive: true })
     host.addEventListener('click', onClick)
     cleanups.push(() => {
       io.disconnect()
       document.removeEventListener('visibilitychange', onVis)
-      host.removeEventListener('pointermove', onPointerMove)
-      host.removeEventListener('pointerleave', onLeave)
+      window.removeEventListener('pointermove', onPointerMove)
+      document.documentElement.removeEventListener('pointerleave', onLeave)
       host.removeEventListener('touchmove', onTouchMove)
       host.removeEventListener('touchend', onLeave)
       host.removeEventListener('click', onClick)
