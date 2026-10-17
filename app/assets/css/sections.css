@@ -143,16 +143,21 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(28px, 5vw, 72px) clamp(28px, 5vw, 72px) 100px;
-  overflow: hidden;
+  /* Clip sideways only: the water reaches up under the nav (below). */
+  overflow-x: clip;
 }
-/* Decorative ASCII water (HeroAsciiWater.vue): a canvas filling the hero.
-   Drawn client-side; empty in SSR / no-JS, one static frame under reduced
-   motion. Clicks pass through to the section, which owns the listeners. */
+/* Decorative ASCII water (HeroAsciiWater.vue): a canvas filling the hero and
+   reaching 73px up (the 72px bar + its 1px border) behind the translucent sticky nav, so the field starts at
+   the top of the viewport. The hero itself stays in flow below the nav (no
+   negative margin), so the headline is never under it. Drawn client-side;
+   empty in SSR / no-JS, one static frame under reduced motion. Clicks pass
+   through to the section, which owns the listeners. */
 .home-hero__water {
   position: absolute;
-  inset: 0;
+  top: -73px;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 73px);
   z-index: 0;
   pointer-events: none;
   font-family: var(--font-mono);
@@ -333,6 +338,7 @@
   transition: transform 0.3s ease;
 }
 .experiment-row:hover .experiment-row__arrow { transform: translate(4px, -4px); }
+.experiment-row:hover .experiment-row__arrow--in { transform: translateX(4px); }
 
 @media (max-width: 600px) {
   /* Stack each title and description on narrow screens. */
@@ -1631,3 +1637,28 @@
 
 /* The CTA banner section that follows brings its own top padding. */
 .prompt-page { padding-bottom: 0; }
+
+/* ---------- Project page (/refs) ----------
+   Reuses the prompt page's article layout and Copy block. */
+.project-page { padding-bottom: 0; }
+.project-page__about > :last-child { margin-bottom: 0; }
+.project-page__about code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--paper);
+}
+.project-page__repo {
+  margin: 0;
+  font-size: var(--text-caption);
+}
+.project-page__repo a {
+  color: var(--dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.project-page__repo a:hover { color: var(--paper); }
+.project-page__repo a:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}

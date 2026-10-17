@@ -15,7 +15,7 @@ import type { HeroWaterConfig, TextOrigin } from './asciiWater'
 export function mountHeroWaterDials(
   current: HeroWaterConfig,
   apply: (next: HeroWaterConfig) => void,
-  stats: { frameMs: number, cells: number },
+  stats: { frameMs: number, cells: number, wakes: number, rocks: number },
 ): () => void {
   const d = HERO_WATER_DEFAULTS
   const c = current
