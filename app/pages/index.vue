@@ -67,7 +67,7 @@ useHead({
 
 // Scroll reveals are CSS-only: [data-reveal] elements (work rows and the bio block) are revealed by the [data-reveal] rule in
 // base.css via a scroll-linked View Timeline, double-guarded by `@supports` +
-// `prefers-reduced-motion: no-preference`. The hero's dot-field + typewriter are
+// `prefers-reduced-motion: no-preference`. The hero's ASCII water + typewriter are
 // the only JS motion, wired client-side inside HomeHero and reduced-motion-safe.
 </script>
 

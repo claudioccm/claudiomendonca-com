@@ -9,9 +9,8 @@
   The wave reacts to the global pointer position, gated to the field's own bounds,
   so it needs no reference to its parent section.
 
-  NOTE: the physics intentionally duplicate HomeHero.vue's inline dot-field rather
-  than sharing a composable — keeping the (recently fragile) home hero untouched.
-  TODO: extract a shared `useDotField` composable once both heroes are stable.
+  NOTE: the home hero moved to an ASCII water surface (HeroAsciiWater.vue,
+  2026-10-16); this dot-field now serves /consulting only.
   Styles: app/assets/css/sections.css (.hero-dotfield / .hero-dotfield__dot).
 -->
 <script setup lang="ts">

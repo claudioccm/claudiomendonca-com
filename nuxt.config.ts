@@ -54,6 +54,16 @@ export default defineNuxtConfig({
     },
   },
 
+  // Hero water tuning panel (`?dials`, HeroAsciiWater.vue). Netlify sets
+  // CONTEXT=production for production builds; there the flag is false and the
+  // DialKit import is dead code, so its chunk is never built or shipped. Dev,
+  // local generate and deploy previews keep it.
+  vite: {
+    define: {
+      __HERO_DIALS__: JSON.stringify(process.env.CONTEXT !== 'production'),
+    },
+  },
+
   // /about is not a page — About lives as a section on the home page
   // (#about). This redirect catches direct hits to /about in dev and any
   // server runtime. The static Netlify deploy doesn't run Nitro, so the
