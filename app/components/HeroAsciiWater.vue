@@ -24,6 +24,7 @@ import {
   WaterSurface,
   calmMask,
   cloneConfig,
+  rowBoxes,
   levelFor,
   makeEmitter,
   tickEmitter,
@@ -32,7 +33,7 @@ import {
 import type { Box, Emitter, HeroWaterConfig } from '~/lib/asciiWater'
 
 const props = defineProps<{
-  /** Content elements; the water calms down behind one box around all of them. */
+  /** Content elements; the water calms down behind each row of their text. */
   calmTargets?: () => Element[]
 }>()
 
@@ -144,26 +145,33 @@ function layout() {
   draw()
 }
 
-/** Measure the hero content (its text, not full-width boxes), take one box around it all, and rebuild the calm mask. */
+/**
+ * Measure each line of the hero content (text line boxes, plus images such as
+ * the client logos), merge them into one box per row, and rebuild the calm mask.
+ */
 function updateCalm() {
   const canvas = canvasEl.value
   if (!canvas) return
   const r = canvas.getBoundingClientRect()
-  let box: Box | null = null
+  const lines: Box[] = []
+  const add = (b: DOMRect) => {
+    if (b.width && b.height) lines.push([b.left - r.left, b.top - r.top, b.right - r.left, b.bottom - r.top])
+  }
   const range = document.createRange()
   for (const el of props.calmTargets?.() ?? []) {
-    range.selectNodeContents(el)
-    const b = range.getBoundingClientRect()
-    if (!b.width || !b.height) continue
-    const l = b.left - r.left
-    const t = b.top - r.top
-    const rt = b.right - r.left
-    const bt = b.bottom - r.top
-    box = box ? [Math.min(box[0], l), Math.min(box[1], t), Math.max(box[2], rt), Math.max(box[3], bt)] : [l, t, rt, bt]
+    if (!el.textContent?.trim()) {
+      add(el.getBoundingClientRect())
+      continue
+    }
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      if (!n.textContent?.trim()) continue
+      range.selectNodeContents(n)
+      for (const b of range.getClientRects()) add(b)
+    }
   }
-  const boxes: Box[] = box ? [box] : []
   const { padding, feather } = cfg.calm
-  calm = calmMask(glyphCols, glyphRows, cellW, cellH, boxes, padding, feather)
+  calm = calmMask(glyphCols, glyphRows, cellW, cellH, rowBoxes(lines), padding, feather)
   fullRedraw = true
 }
 
