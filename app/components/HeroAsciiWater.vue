@@ -18,7 +18,7 @@
   production builds drop it entirely.
 -->
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   HERO_WATER_DEFAULTS,
   WaterSurface,
@@ -372,9 +372,18 @@ function staticFrame() {
   draw()
 }
 
+const route = useRoute()
+let dialsOpen = false
+
+/**
+ * Open the tuning panel once `?dials` is in the URL. On a prerendered page Nuxt
+ * hydrates at the payload path (no query) and only restores the query after
+ * mount, so this also runs from a watch on the route query.
+ */
 async function openDials() {
-  if (!__HERO_DIALS__) return
-  if (!new URLSearchParams(window.location.search).has('dials')) return
+  if (!__HERO_DIALS__ || dialsOpen) return
+  if (!('dials' in route.query) && !new URLSearchParams(window.location.search).has('dials')) return
+  dialsOpen = true
   const { mountHeroWaterDials } = await import('~/lib/heroWaterDials')
   const destroy = mountHeroWaterDials(cfg, applyConfig, stats)
   cleanups.push(destroy)
@@ -458,7 +467,10 @@ onMounted(() => {
   if (import.meta.dev || __HERO_DIALS__) {
     (window as unknown as { __heroWater?: object }).__heroWater = { cfg, stats, applyConfig, peak: () => surface?.peak() ?? 0 }
   }
-  openDials()
+  if (__HERO_DIALS__) {
+    cleanups.push(watch(() => route.query, () => openDials()))
+    openDials()
+  }
 })
 
 onBeforeUnmount(() => {
