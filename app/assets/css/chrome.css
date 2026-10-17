@@ -30,13 +30,14 @@
 }
 
 /* ---------- Nav (PRO-110 dark) ----------
-   Resting nav reads as part of the ink canvas. The is-scrolled state adds a
-   hairline bottom border (carried from the PRO-76 behavior, dark-appropriate). */
+   The bar is the ink canvas at 60% (Claudio 2026-10-17), so the home hero's
+   ASCII water shows through it; text and icons stay at full strength. The
+   is-scrolled state adds a hairline bottom border (carried from PRO-76). */
 .nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--ink);
+  background: color-mix(in srgb, var(--ink) 60%, transparent);
   border-bottom: 1px solid transparent;
   transition: border-color 200ms ease;
 }
