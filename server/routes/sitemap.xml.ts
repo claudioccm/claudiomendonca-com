@@ -11,7 +11,6 @@
  * Referenced from public/robots.txt.
  */
 import { queryCollection } from '@nuxt/content/server'
-import { projectRoute } from '../../app/utils/projects'
 
 const BASE = 'https://ccm-labs.ca'
 
@@ -43,8 +42,6 @@ export default defineEventHandler(async (event) => {
     .where('draft', '=', false)
     .order('date', 'DESC')
     .all()
-  // Project pages live at the site root: content/projects/refs.md → /refs.
-  const projects = await queryCollection(event, 'projects').all()
 
   const newest = posts.length ? toIso(posts[0]!.date) : undefined
 
@@ -65,12 +62,6 @@ export default defineEventHandler(async (event) => {
       loc: `${BASE}${p.path}`,
       lastmod: toIso(p.date),
       changefreq: 'yearly',
-      priority: '0.6',
-    })),
-    ...projects.map((p): SitemapEntry => ({
-      loc: `${BASE}${projectRoute(p.path)}`,
-      lastmod: toIso(p.date),
-      changefreq: 'monthly',
       priority: '0.6',
     })),
   ]

@@ -39,6 +39,20 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# _refs moved to its own landing page (2026-10-18; Netlify project ccm-refs,
+# ccmdesign/refs site/). The old /refs page (PR 37) forwards there.
+[[redirects]]
+  from = "/refs"
+  to = "https://refs.ccm-labs.ca/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/refs/"
+  to = "https://refs.ccm-labs.ca/"
+  status = 301
+  force = true
+
 # No SPA catch-all redirect: this is a pre-rendered multi-page static site, so a
 # `/* -> /index.html 200` rule would mask real 404s. Netlify serves the emitted
 # /404.html for unknown paths by default. Add context-specific build overrides
