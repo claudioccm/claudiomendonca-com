@@ -144,7 +144,7 @@
         "title": "_refs",
         "tag": "DESIGN REFERENCES",
         "description": "Keeps design references on boards your coding agent can read.",
-        "url": "/refs",
+        "url": "https://refs.ccm-labs.ca",
         "image": "",
         "alt": "_refs — a local library for design references"
       },

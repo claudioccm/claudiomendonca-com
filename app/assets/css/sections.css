@@ -338,7 +338,6 @@
   transition: transform 0.3s ease;
 }
 .experiment-row:hover .experiment-row__arrow { transform: translate(4px, -4px); }
-.experiment-row:hover .experiment-row__arrow--in { transform: translateX(4px); }
 
 @media (max-width: 600px) {
   /* Stack each title and description on narrow screens. */
@@ -1637,28 +1636,3 @@
 
 /* The CTA banner section that follows brings its own top padding. */
 .prompt-page { padding-bottom: 0; }
-
-/* ---------- Project page (/refs) ----------
-   Reuses the prompt page's article layout and Copy block. */
-.project-page { padding-bottom: 0; }
-.project-page__about > :last-child { margin-bottom: 0; }
-.project-page__about code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  color: var(--paper);
-}
-.project-page__repo {
-  margin: 0;
-  font-size: var(--text-caption);
-}
-.project-page__repo a {
-  color: var(--dim);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 200ms ease;
-}
-.project-page__repo a:hover { color: var(--paper); }
-.project-page__repo a:focus-visible {
-  outline: 2px solid var(--paper);
-  outline-offset: 3px;
-}

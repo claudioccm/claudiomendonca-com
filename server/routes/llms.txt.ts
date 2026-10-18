@@ -51,8 +51,7 @@ export default defineEventHandler(async (event) => {
     '',
     '## Work',
     '',
-    // Site paths (e.g. /refs) get the base so every link is absolute.
-    ...work.map(e => `- [${e.title}](${e.url.startsWith('/') ? `${BASE}${e.url}` : e.url}): ${e.description ?? e.tag}`),
+    ...work.map(e => `- [${e.title}](${e.url}): ${e.description ?? e.tag}`),
     '',
     '## Small business services',
     '',

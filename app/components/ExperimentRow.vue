@@ -1,5 +1,4 @@
-<!-- Linked tool row. External links open in a new tab (↗); a site path such as /refs
-     is an in-site link (→). Accessible names are preserved. -->
+<!-- Linked tool row. External-link semantics and accessible names are preserved. -->
 <script setup lang="ts">
 import { computed } from 'vue'
 
@@ -15,25 +14,10 @@ interface Props {
 const props = defineProps<Props>()
 
 const accessibleName = computed(() => props.ariaLabel ?? props.title)
-const isInternal = computed(() => props.href.startsWith('/'))
 </script>
 
 <template>
-  <NuxtLink
-    v-if="isInternal"
-    class="experiment-row"
-    :to="href"
-    :aria-label="accessibleName"
-    data-reveal
-  >
-    <span class="experiment-row__title">{{ title }}</span>
-    <span class="experiment-row__desc">
-      {{ description }}
-      <span class="experiment-row__arrow experiment-row__arrow--in" aria-hidden="true">→</span>
-    </span>
-  </NuxtLink>
   <a
-    v-else
     class="experiment-row"
     :href="href"
     target="_blank"

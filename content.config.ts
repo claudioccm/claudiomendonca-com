@@ -16,9 +16,6 @@
  *                 (/prompts). One file per prompt; the filename is the slug
  *                 (/prompts/<slug>). The Markdown body is optional extra notes.
  *                 The prompt text itself is copied, never rendered.
- *   - `projects` — type 'page', `content/projects/**`. Open-source tools with
- *                 their own page (/refs). The Markdown body is the description;
- *                 the agent install prompt is copied, never rendered.
  *
  * Datetime convention: the `writing.date` field uses the shared
  * `datetimeOffset` helper (offset-tolerant ISO-8601) so both `Z`-suffixed UTC
@@ -249,36 +246,6 @@ const prompts = defineCollection({
   }),
 })
 
-const projects = defineCollection({
-  type: 'page',
-  source: 'projects/**',
-  schema: z.object({
-    title: z.string().min(1),
-    // <title> / OG title, before " — CCM Labs". Falls back to the title.
-    seoTitle: z.string().optional(),
-    // One line under the title.
-    tagline: z.string().min(1),
-    // Meta / OG description.
-    description: z.string().min(1),
-    repo: z.string().url(),
-    licence: z.string().optional(),
-    // "Give this to your agent": the install prompt, copied to the clipboard
-    // and never rendered (same PromptBlock as /prompts).
-    agentPrompt: z.object({
-      label: z.string().min(1),
-      note: z.string().optional(),
-      buttonLabel: z.string().min(1),
-      text: z.string().min(1),
-    }),
-    // Closing CTA to /consulting.
-    cta: z.object({
-      heading: z.string().min(1),
-      body: z.string().min(1),
-    }),
-    date: datetimeOffset(),
-  }),
-})
-
 export default defineContentConfig({
-  collections: { site, writing, prompts, projects },
+  collections: { site, writing, prompts },
 })

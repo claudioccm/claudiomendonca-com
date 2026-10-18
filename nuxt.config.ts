@@ -45,8 +45,6 @@ export default defineNuxtConfig({
         // Prompt gallery index; crawlLinks finds each /prompts/<slug> from it.
         // Drafts are never linked, so they never prerender.
         '/prompts',
-        // Project pages (content/projects/*): linked from the home Work list.
-        '/refs',
         // SEO/GEO endpoints — hand-rolled Nitro routes (server/routes/*) that
         // query @nuxt/content at prerender time and emit static files Netlify
         // serves directly. Listed explicitly since nothing links to them.
