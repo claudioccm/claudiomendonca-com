@@ -140,5 +140,5 @@ steps:
   - "Cancel the ones you marked, following the steps it gives you. Nothing gets cancelled without your yes."
 check: You're giving an AI company your card statement. Cover the card number and your address first if you'd rather not share them.
 date: 2026-10-20T12:00:00Z
-draft: true
+draft: false
 ---
