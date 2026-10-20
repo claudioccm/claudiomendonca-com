@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    circle { stroke: none; }
+    @media (prefers-color-scheme: dark) {
+      circle { stroke: #fff; stroke-opacity: .5; stroke-width: 2; }
+    }
+  </style>
+  <circle cx="32" cy="32" r="31"/>
+  <path fill="#fff" d="M28.50,17.00 35.50,17.00 35.50,47.00 28.50,47.00zM43.24,21.47 46.74,27.53 20.76,42.53 17.26,36.47zM46.74,36.47 43.24,42.53 17.26,27.53 20.76,21.47z"/>
+</svg>
