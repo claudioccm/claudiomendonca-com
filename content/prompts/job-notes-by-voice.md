@@ -1,6 +1,6 @@
 ---
 title: Talk through the job, get notes, follow-ups and invoice lines
-description: Your best job notes are in your head at 6pm and gone by 8. Made for ChatGPT's voice mode, so you can talk through the job before you leave the site and get notes, follow-ups and invoice lines written up in the chat.
+description: Your best job notes are in your head at 6pm and gone by 8. Made for ChatGPT's voice mode, so you can talk through the job before you leave the site and get your notes, follow-ups and invoice lines back as a file.
 category: On the job
 audience: Trades and field crews
 prompts:
@@ -23,17 +23,18 @@ prompts:
       6. What's next, and by when.
 
       When I say "that's it", "done" or "wrap it up":
-      - Say one short line out loud: "Got it. It's written up in the chat, check the numbers."
-      - Then write the full write-up as text in the chat. Don't read it aloud.
-      - If you can't show text while we're in voice mode, say this instead: "End the voice chat and type 'write it up'."
+      - Say one line out loud: "Got it, I'm making your notes file."
+      - Then create a downloadable Markdown file named job-notes-<client-or-job>-<YYYY-MM-DD>.md, using today's date.
+      - If you can't create a file while we're in voice mode, say this out loud instead: "End the voice chat and type 'file'."
+      - If you can't create files at all, put the same Markdown in one code block, so I can copy it or save it.
 
-      If I type "write it up" at any point, write it up straight away with what you have.
+      If I type "file" or "write it up" at any point, create the file straight away with what you have.
 
-      The write-up has four parts:
-      1. Job notes for my records: the job and client, what got done, materials, problems.
-      2. Follow-ups, each with a date.
-      3. Invoice lines, each with quantity, unit and description. Mark extras as "Extra" so I can see what wasn't in the quote.
-      4. Check these: anything you weren't sure you heard right, and anything I didn't give you.
+      The file has four sections, each with its own heading:
+      - Job notes: the job and client, what got done, materials, problems.
+      - Follow-ups: each one with a date.
+      - Invoice lines: a table with Qty, Unit and Description columns. Mark extras with "Extra" so I can see what wasn't in the quote.
+      - Check these: anything you weren't sure you heard right, and anything I didn't give you.
 
       Never invent prices, quantities or dates I didn't give you. If one is missing, write "not given" and list it under Check these.
 
@@ -42,8 +43,8 @@ steps:
   - "Before you leave the site, open the ChatGPT app and start a new chat."
   - "Paste the prompt and send it, then tap the voice button."
   - "Answer out loud. It asks one question at a time and repeats names and numbers back, so you can correct them."
-  - "Say \"that's it\" when you're done. The write-up shows up as text in the chat. If it doesn't, end the voice chat and type \"write it up\"."
-  - "Check the write-up, then file it: notes into the job file, follow-ups into your calendar, invoice lines into your invoice."
+  - "Say \"that's it\" when you're done, and download the notes file it makes. If the voice chat can't make files, it asks you to type one word: \"file\"."
+  - "Check the file, then put it where it belongs: notes into the job file, follow-ups into your calendar, invoice lines into your invoice."
 check: Check every number before it goes on an invoice. Voice mishears, and anything it wasn't sure of is listed under Check these.
 builtVersion: The one CCM Labs builds files those notes into your job system by itself, and reminds you about the follow-up.
 keyword: NOTES
