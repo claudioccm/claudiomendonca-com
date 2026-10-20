@@ -19,5 +19,5 @@ builtVersion: The one CCM Labs builds drafts replies inside your inbox, with eac
 keyword: VOICE
 sourcePost: https://www.instagram.com/ccmlabs/p/DeSfGKEErl8/
 date: 2026-10-09T21:34:00Z
-draft: false
+draft: true
 ---

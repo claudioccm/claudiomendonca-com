@@ -18,7 +18,7 @@ builtVersion: The one I build at CCM Labs knows who's due for a check-in and dra
 keyword: FOLLOWUP
 sourcePost: https://www.instagram.com/ccmlabs/p/DeSmY57DzeX/
 date: 2026-10-09T22:38:00Z
-draft: false
+draft: true
 ---
 
 **One note for Canada:** anti-spam rules (CASL) generally cover people who bought from you in the last two years or asked for a quote in the last six months, and every message needs your business name, your contact details and a way to opt out. That's why the list in step 1 stops where it does. Check the rules for your own case.
