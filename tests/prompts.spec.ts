@@ -19,6 +19,10 @@ describe('splitPlaceholders', () => {
     ])
   })
 
+  it('ignores brackets with no letters or digits, like a literal [...]', () => {
+    expect(splitPlaceholders('"items": [...] for [7] days').filter(s => s.placeholder).map(s => s.text)).toEqual(['[7]'])
+  })
+
   it('does not join brackets across lines', () => {
     const segments = splitPlaceholders('valid for [30\ndays]')
     expect(segments.every(s => !s.placeholder)).toBe(true)
