@@ -144,6 +144,15 @@ export default defineNuxtConfig({
         { name: 'twitter:image', content: 'https://ccm-labs.ca/og-small-business.png' },
       ],
 
+      // Favicons. SVG first: browsers that support it pick it (crisp at any
+      // size, adds a ring in dark mode); sizes="any" on the .ico stops Chrome
+      // from preferring it over the SVG; iOS uses the 180px touch icon.
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
+
       // Google Analytics 4 (gtag.js) — property G-N2W2CXJ5JE.
       // Site-wide; rendered into every prerendered page's <head> by `nuxt generate`.
       script: [
