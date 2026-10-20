@@ -84,7 +84,7 @@ steps:
 check: Check every number and the scope before it goes out. A plain-words email with the wrong price is worse than jargon.
 builtVersion: The one CCM Labs builds writes the explanation straight from your job record, so it goes out with the quote without retyping anything.
 date: 2026-10-16T12:00:00Z
-draft: true
+draft: false
 ---
 
 **What you get depends on where you run it:**
