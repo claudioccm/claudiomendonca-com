@@ -81,5 +81,5 @@ steps:
 check: It only writes drafts, so nothing goes out until you send it. Check the job and the dates first. A follow-up about the wrong job undoes the good the quote did.
 builtVersion: The one CCM Labs builds watches your sent quotes and drafts the nudge when one goes quiet, ready for you to approve.
 date: 2026-10-16T12:00:00Z
-draft: true
+draft: false
 ---
