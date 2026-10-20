@@ -50,5 +50,5 @@ builtVersion: The one CCM Labs builds files those notes into your job system by 
 keyword: NOTES
 sourcePost: https://www.instagram.com/ccmlabs/p/DeSg8DJkgFs/
 date: 2026-10-09T21:50:00Z
-draft: true
+draft: false
 ---
