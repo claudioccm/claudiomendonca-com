@@ -91,5 +91,5 @@ draft: false
 
 - **Gmail or Outlook connected:** the email is saved as a draft in your inbox, as a reply to the customer if you've written to them before. Nothing gets sent.
 - **No email connected:** you get the address, subject and message, ready to copy.
-- **In your Quotes Project:** you also get the quote as a PDF, priced from your own price list. No Quotes Project yet? [Set one up first](/prompts/quote-assistant).
+- **In your Quotes Project:** you also get the quote as a PDF, priced from your own price list. No Quotes Project yet? The quotes assistant prompt sets one up, and it's coming to the gallery soon.
 - **In a plain chat:** you get the email, without the quote.
