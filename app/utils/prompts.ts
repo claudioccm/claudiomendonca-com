@@ -8,9 +8,10 @@ export interface PromptSegment {
 
 // Split prompt text into plain runs and `[placeholder]` runs. The page never
 // renders the text; it only checks for placeholders. Segments rejoin losslessly.
+// A placeholder needs a letter or digit, so a literal `[...]` in a prompt is not one.
 export function splitPlaceholders(text: string): PromptSegment[] {
   const segments: PromptSegment[] = []
-  const pattern = /\[[^[\]\n]+\]/g
+  const pattern = /\[[^[\]\n]*\w[^[\]\n]*\]/g
   let last = 0
   for (const match of text.matchAll(pattern)) {
     const start = match.index ?? 0

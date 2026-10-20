@@ -21,5 +21,5 @@ builtVersion: The one CCM Labs builds is connected to your live prices and clien
 keyword: QUOTE
 sourcePost: https://www.instagram.com/ccmlabs/p/DeSdyUDEsqz/
 date: 2026-10-09T21:23:00Z
-draft: false
+draft: true
 ---

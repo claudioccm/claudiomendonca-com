@@ -20,5 +20,5 @@ builtVersion: The one CCM Labs builds drafts a reply the day a review lands, rea
 keyword: REVIEWS
 sourcePost: https://www.instagram.com/ccmlabs/p/DeSmmosD3ox/
 date: 2026-10-09T22:40:00Z
-draft: false
+draft: true
 ---
