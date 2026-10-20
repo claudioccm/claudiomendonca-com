@@ -193,7 +193,7 @@ onBeforeUnmount(() => {
   <header id="top" class="nav" :class="{ 'is-scrolled': isScrolled }">
     <div class="shell nav-inner">
       <NuxtLink to="/" class="wordmark" aria-label="CCM Labs — home" aria-current-value="false">
-        <span class="ast" aria-hidden="true">✱</span>
+        <span class="ast" aria-hidden="true"><BrandAsterisk /></span>
         <span>CCM Labs</span>
       </NuxtLink>
 
