@@ -79,5 +79,5 @@ steps:
 check: It only writes drafts, so nothing goes out until you send it. You know if there's a reason they're late, and the AI doesn't.
 builtVersion: The one CCM Labs builds checks your invoices against your bank and drafts the reminder when one goes overdue, ready for you to approve.
 date: 2026-10-16T12:00:00Z
-draft: true
+draft: false
 ---
