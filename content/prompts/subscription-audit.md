@@ -1,6 +1,6 @@
 ---
 title: Find the subscriptions you forgot you're paying for
-description: Upload a credit card statement (PDF, CSV or photo) and the AI finds your recurring subscriptions, then builds a small page where you mark each one Keep, Cancel or Review. Review looks up charges you don't recognize; Cancel gets you step-by-step instructions, or browser help on plans that have it. It works on the free plans of Claude, ChatGPT and Gemini.
+description: Upload a card statement and mark each subscription Keep, Cancel or Review. Works on the free plans of Claude, ChatGPT and Gemini.
 category: Admin
 audience: Anyone with a business or personal card
 prompts:
