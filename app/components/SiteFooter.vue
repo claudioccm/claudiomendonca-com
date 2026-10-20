@@ -19,7 +19,7 @@ const contactHref = computed(() =>
         <!-- Brand column -->
         <div class="footer-brand">
           <NuxtLink to="/" class="wordmark" aria-current-value="false">
-            <span class="ast" aria-hidden="true">✱</span>
+            <span class="ast" aria-hidden="true"><BrandAsterisk /></span>
             <span>CCM Labs</span>
           </NuxtLink>
           <p class="t-body ash tagline">
@@ -61,7 +61,7 @@ const contactHref = computed(() =>
 
       <div class="footer-meta">
         <div>© 2026 CCM Labs. All rights reserved.</div>
-        <div class="glyph" aria-hidden="true">✱</div>
+        <div class="glyph" aria-hidden="true"><BrandAsterisk /></div>
       </div>
     </div>
   </footer>

@@ -1,0 +1,30 @@
+<script setup lang="ts">
+// The site's asterisk mark: the "*" (U+002A) outline from Instrument Serif
+// Regular (SIL OFL 1.1), drawn as SVG so it renders the same in every browser
+// (the old ✱ text glyph is not in Instrument Serif and fell back to a system
+// font). Same path as public/brand/asterisk-instrument-serif.svg. Sized and
+// coloured by the parent: size follows font-size, fill follows color.
+</script>
+
+<template>
+  <svg
+    class="brand-asterisk"
+    viewBox="0 0 301.57 334"
+    fill="currentColor"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path d="M150.8 334Q131.8 334 121.8 322Q111.8 310 111.8 295Q111.8 279 118.3 265.5Q124.8 252 132.3 234.5Q139.8 217 142.8 192Q143.8 186 140.3 184.5Q136.8 183 131.8 187Q101.8 212 90.3 233Q78.8 254 58.8 265Q45.8 272 30.8 269.5Q15.8 267 5.8 251Q-3.2 234 1.8 219Q6.8 204 19.8 197Q33.8 189 49.3 188Q64.8 187 83.3 185Q101.8 183 124.8 173Q130.8 171 130.8 167Q130.8 163 124.8 161Q101.8 150 83.3 148.5Q64.8 147 49.3 146Q33.8 145 19.8 137Q6.8 129 1.8 114Q-3.2 99 5.8 83Q15.8 67 30.8 64Q45.8 61 58.8 69Q72.8 77 81.8 89.5Q90.8 102 101.8 117Q112.8 132 132.8 148Q137.8 152 140.8 150Q143.8 148 142.8 142Q139.8 116 132.3 99Q124.8 82 118.3 68Q111.8 54 111.8 39Q111.8 24 121.8 12Q131.8 0 150.8 0Q169.8 0 179.8 12Q189.8 24 189.8 39Q189.8 54 183.3 68Q176.8 82 169.3 99Q161.8 116 158.8 142Q157.8 148 161.3 150Q164.8 152 168.8 148Q189.8 132 200.3 117Q210.8 102 219.8 89.5Q228.8 77 242.8 69Q255.8 61 270.8 64Q285.8 67 295.8 83Q304.8 99 299.8 114Q294.8 129 281.8 137Q267.8 145 252.3 146Q236.8 147 218.3 148.5Q199.8 150 176.8 161Q170.8 163 170.8 167Q170.8 171 176.8 173Q199.8 183 218.3 185Q236.8 187 252.3 188Q267.8 189 281.8 197Q294.8 204 299.8 219Q304.8 234 295.8 251Q285.8 267 270.8 269.5Q255.8 272 242.8 265Q223.8 254 211.8 233Q199.8 212 169.8 187Q165.8 183 161.8 184.5Q157.8 186 158.8 192Q161.8 217 169.3 234.5Q176.8 252 183.3 265.5Q189.8 279 189.8 295Q189.8 310 179.8 322Q169.8 334 150.8 334Z" />
+  </svg>
+</template>
+
+<style scoped>
+.brand-asterisk {
+  display: block;
+  /* 0.69em tall = the ink height of the ✱ it replaces, so the nav, footer
+     wordmark and footer glyph keep their size; width follows the path ratio. */
+  height: 0.69em;
+  width: 0.623em;
+  flex: none;
+}
+</style>
