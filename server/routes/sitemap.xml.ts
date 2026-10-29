@@ -42,6 +42,12 @@ export default defineEventHandler(async (event) => {
     .where('draft', '=', false)
     .order('date', 'DESC')
     .all()
+  // Skills live under /prompts too (2026-10-29).
+  const skills = await queryCollection(event, 'skills')
+    .where('draft', '=', false)
+    .order('date', 'DESC')
+    .all()
+  const gallery = [...prompts, ...skills].sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
 
   const newest = posts.length ? toIso(posts[0]!.date) : undefined
 
@@ -55,10 +61,10 @@ export default defineEventHandler(async (event) => {
       changefreq: 'yearly',
       priority: '0.6',
     })),
-    ...(prompts.length
-      ? [{ loc: `${BASE}/prompts`, lastmod: toIso(prompts[0]!.date), changefreq: 'weekly', priority: '0.7' }]
+    ...(gallery.length
+      ? [{ loc: `${BASE}/prompts`, lastmod: toIso(gallery[0]!.date), changefreq: 'weekly', priority: '0.7' }]
       : []),
-    ...prompts.map((p): SitemapEntry => ({
+    ...gallery.map((p): SitemapEntry => ({
       loc: `${BASE}${p.path}`,
       lastmod: toIso(p.date),
       changefreq: 'yearly',

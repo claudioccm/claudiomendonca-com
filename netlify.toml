@@ -53,6 +53,16 @@
   status = 301
   force = true
 
+# Skill files (modules/skill-downloads, 2026-10-29). Serve SKILL.md as plain
+# text so "Read the file first" shows it in the browser; the page's download
+# links carry a `download` attribute, so they still save it.
+# The .zip keeps Netlify's default application/zip.
+[[headers]]
+  for = "/skills/:name/SKILL.md"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
 # No SPA catch-all redirect: this is a pre-rendered multi-page static site, so a
 # `/* -> /index.html 200` rule would mask real 404s. Netlify serves the emitted
 # /404.html for unknown paths by default. Add context-specific build overrides
