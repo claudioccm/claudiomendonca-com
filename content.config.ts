@@ -16,6 +16,11 @@
  *                 (/prompts). One file per prompt; the filename is the slug
  *                 (/prompts/<slug>). The Markdown body is optional extra notes.
  *                 The prompt text itself is copied, never rendered.
+ *   - `skills`  — type 'page', `content/skills/*.md`, listed in the same
+ *                 gallery and served under /prompts/<slug> (2026-10-29). One
+ *                 file per downloadable Agent Skill; the skill itself lives in
+ *                 skills/<slug>/ at the repo root and is zipped at build time
+ *                 by modules/skill-downloads.
  *
  * Datetime convention: the `writing.date` field uses the shared
  * `datetimeOffset` helper (offset-tolerant ISO-8601) so both `Z`-suffixed UTC
@@ -200,13 +205,13 @@ const PROMPT_CATEGORIES = ['Quotes & sales', 'Customer messages', 'On the job', 
 // every document in the public /__nuxt_content/<collection>/sql_dump.txt, so a
 // filtered draft would still be downloadable. `nuxt dev` and Netlify previews
 // keep them for review (see app/utils/promptDrafts.ts).
-function draftPromptFiles(): string[] {
+function draftFiles(dir: 'prompts' | 'skills'): string[] {
   if (includePromptDrafts(process.env)) return []
   try {
-    return readdirSync('content/prompts')
+    return readdirSync(`content/${dir}`)
       .filter(f => f.endsWith('.md'))
-      .filter(f => /^draft:\s*true\s*$/m.test(readFileSync(`content/prompts/${f}`, 'utf8')))
-      .map(f => `prompts/${f}`)
+      .filter(f => /^draft:\s*true\s*$/m.test(readFileSync(`content/${dir}/${f}`, 'utf8')))
+      .map(f => `${dir}/${f}`)
   }
   catch {
     return []
@@ -215,7 +220,7 @@ function draftPromptFiles(): string[] {
 
 const prompts = defineCollection({
   type: 'page',
-  source: { include: 'prompts/**', exclude: draftPromptFiles() },
+  source: { include: 'prompts/**', exclude: draftFiles('prompts') },
   schema: z.object({
     title: z.string().min(1),
     // One line: what the prompt does. Used on the card, the page dek and meta.
@@ -246,6 +251,29 @@ const prompts = defineCollection({
   }),
 })
 
+// Downloadable Agent Skills, listed with the prompts (2026-10-29). The prefix
+// puts them at /prompts/<slug>; a slug must not clash with a prompt's.
+const skills = defineCollection({
+  type: 'page',
+  source: { include: 'skills/*.md', prefix: '/prompts', exclude: draftFiles('skills') },
+  schema: z.object({
+    title: z.string().min(1),
+    // One line: what the skill does. Used on the card, the page dek and meta.
+    description: z.string().min(1),
+    audience: z.string().min(1),
+    // Phrases that switch the skill on, shown in the install steps.
+    triggers: z.array(z.string()).min(1),
+    // "How to use it" steps, once it is installed.
+    steps: z.array(z.string()).default([]),
+    check: z.string().optional(),
+    builtVersion: z.string().optional(),
+    keyword: z.string().optional(),
+    sourcePost: z.string().optional(),
+    date: datetimeOffset(),
+    draft: z.boolean().default(false),
+  }),
+})
+
 export default defineContentConfig({
-  collections: { site, writing, prompts },
+  collections: { site, writing, prompts, skills },
 })

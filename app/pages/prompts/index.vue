@@ -11,11 +11,26 @@ const { data: prompts } = await useAsyncData('prompts-index', () => {
   return showDrafts ? query.all() : query.where('draft', '=', false).all()
 })
 
-// Chips follow the categories present in the listed prompts, like /writing.
+// Skills share the grid (2026-10-29), newest first among the prompts, under
+// their own "Skills" chip.
+const { data: skills } = await useAsyncData('skills-index', () => {
+  const query = queryCollection('skills').order('date', 'DESC')
+  return showDrafts ? query.all() : query.where('draft', '=', false).all()
+})
+
+const SKILLS_CHIP = 'Skills'
+
+// Each item is filed under one chip: its category, or "Skills".
+const items = computed(() => [
+  ...(prompts.value ?? []).map(p => ({ ...p, group: p.category as string, kind: 'prompt' as const })),
+  ...(skills.value ?? []).map(s => ({ ...s, category: 'Skill', group: SKILLS_CHIP, kind: 'skill' as const })),
+].sort((a, b) => Date.parse(b.date) - Date.parse(a.date)))
+
+// Chips follow the groups present in the listed items, like /writing.
 const chips = computed<{ label: string, category: string | null }[]>(() => {
   const present: string[] = []
-  for (const p of prompts.value ?? []) {
-    if (!present.includes(p.category)) present.push(p.category)
+  for (const item of items.value) {
+    if (!present.includes(item.group)) present.push(item.group)
   }
   return [{ label: 'All', category: null }, ...present.map(c => ({ label: c, category: c }))]
 })
@@ -24,8 +39,8 @@ const activeCategory = ref<string | null>(null) // null = All
 
 const visible = computed(() =>
   activeCategory.value === null
-    ? prompts.value ?? []
-    : (prompts.value ?? []).filter(p => p.category === activeCategory.value),
+    ? items.value
+    : items.value.filter(item => item.group === activeCategory.value),
 )
 
 const canonical = 'https://ccm-labs.ca/prompts'
@@ -51,7 +66,8 @@ useSeoMeta({
         <h1 class="writing-header__title" data-reveal>Prompts.</h1>
         <p class="writing-header__dek" data-reveal>
           Copy-paste prompts for the work that keeps coming back: quotes, reviews, job notes,
-          follow-ups. Free, no sign-up. Swap the brackets for your own details. AI drafts. You sign.
+          follow-ups. Free, no sign-up. Swap the brackets for your own details. Skills are files you
+          install once, so your AI works the same way every time. AI drafts. You sign.
         </p>
 
         <ul class="filter-chips mono" data-reveal aria-label="Filter prompts by category">
@@ -82,6 +98,7 @@ useSeoMeta({
                 :audience="prompt.audience"
                 :description="prompt.description"
                 :draft="prompt.draft"
+                :kind="prompt.kind"
               />
             </li>
           </ul>

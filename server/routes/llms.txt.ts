@@ -38,6 +38,10 @@ export default defineEventHandler(async (event) => {
     .where('draft', '=', false)
     .order('date', 'DESC')
     .all()
+  const skills = await queryCollection(event, 'skills')
+    .where('draft', '=', false)
+    .order('date', 'DESC')
+    .all()
 
   const identity = site?.identity
   const work = site?.work.items ?? []
@@ -69,6 +73,7 @@ export default defineEventHandler(async (event) => {
     '',
     `- [Prompt gallery](${BASE}/prompts): Copy-paste AI prompts for small businesses. Free, no sign-up.`,
     ...prompts.map(p => `- [${p.title}](${BASE}${p.path}): ${p.description}`),
+    ...skills.map(s => `- [${s.title}](${BASE}${s.path}) (skill, download: ${BASE}/skills/${s.path.split('/').pop()}.zip): ${s.description}`),
     '',
     '## Contact',
     '',
